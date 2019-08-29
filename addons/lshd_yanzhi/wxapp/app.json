@@ -1,0 +1,23 @@
+{
+    "pages": [
+        "lshd_yanzhi/pages/index/index",
+        "lshd_yanzhi/pages/lovers/lovers",
+        "lshd_yanzhi/pages/show/show",
+        "lshd_yanzhi/pages/facemerge/facemerge",
+        "lshd_yanzhi/pages/profile/profile",
+        "lshd_yanzhi/pages/yanzhifen/yanzhifen",
+        "lshd_yanzhi/pages/share/share",
+        "lshd_yanzhi/pages/load/load",
+        "lshd_yanzhi/pages/topath/topath",
+        "lshd_yanzhi/pages/headimg/headimg",
+        "lshd_yanzhi/pages/login/login",
+        "lshd_yanzhi/pages/starface/starface"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+    }
+}

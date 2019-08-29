@@ -1,0 +1,14 @@
+<view class='container'>
+  <view class='WxMasonryView'>
+    <block wx:for="{{diyList}}" wx:for-item="item">
+    <view class="WxMasonry">
+      <view data-id="{{item.id}}" data-page_value="{{item.page_value}}" bindtap='detailchange'>
+            <image class="WxMasonryImage"  mode="aspectFill" bindload="WxMasonryImageLoad" wx:if="{{item.page_value.background.url}}" src="{{item.page_value.background.url}}" />
+            <image class='WxMasonryImage' mode="aspectFill" bindload="WxMasonryImageLoad" style='background:#fd2c6b;' wx:else src=''></image>
+        <view class="list-box-title" wx:if="{{item.name}}">{{item.name}}</view>
+        <view class="list-box-title" wx:else>妆度</view>
+      </view>
+    </view>
+  </block>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+<view class='container'>
+  <view class='date bgfff'>
+    <view class='date_title'>
+      日期范围
+    </view>
+    <view class="date_item {{currentTab==index ? 'date_active' : 'date_default'}}" wx:for="{{dateList}}" data-index='{{index}}' bindtap='navbarTap'>
+      {{item}}
+    </view>
+    <view class='dateline'>
+      <text catchtap='showDatepicker1' hidden='{{dateflag1}}'>选择时间</text>
+      <text catchtap='showDatepicker1' data-date1='{{date1}}' wx:if="{{!datePickerIsShow1}}">{{date1}}</text>
+      <text style='color:#888; font-size:10px;'>到</text>
+      <text catchtap='showDatepicker2' hidden='{{dateflag2}}'>选择时间</text>
+      <text catchtap='showDatepicker2' data-date2='{{date2}}' wx:if="{{!datePickerIsShow2}}">{{date2}}</text>
+    </view>
+  </view>
+  <view class='line' style="width:100%;height:12px;background:#fd2d6b;margin-top:-8px;"></view>
+  <view class='goods_content bgfff'>
+    <view class='circular' style='text-align:center;margin-left:80px;width:196px;height:196px;background:#fd2d6b;border-radius:196px;position:relative;'>
+      <view class='white_circular' style='text-align:center;margin-left:80px;width:160px;height:160px;background:#fff;border-radius:180px;position:absolute;left:-31%;top:9%;'>
+        <view class='amount'>
+          <view class='number' style='font-size:24px;'>
+            {{goods_analysis.sale_goods_num}}
+          </view>
+          <view class='n_unit'>
+            在售商品（件）
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='deal_amount'>
+      <view style='font-size:40px;'>{{goods_analysis.total_pay_price}}</view>
+      <view>今日成交金额（元）</view>
+    </view>
+    <view class='sale_goods'>
+      <text style='float:left;margin-left:12px;'>今天商品总销量（件）</text>
+      <text style='float:right;margin-right:20px;'>{{goods_analysis.sale_goods_num}}</text>
+    </view>
+  </view>
+  <view class='goods_box bgfff' style='width:100%;height:52px;padding-top:14px; margin-top:10px;'>
+    <view style='width:250px;height:32px;border-radius: 5px;border: 1px solid #fd2d6b;margin-left:58px;'>
+      <view class="goodtitle_item {{currentgoodstab==index ? 'goods_active' : 'goods_default'}}" wx:for="{{goodstitleList}}" data-index='{{index}}' bindtap='goodsbarTap'>
+        {{item}}
+      </view>
+    </view>
+  </view>
+</view>
+<date-picker id="date-picker1" value="{{datePickerValue1}}" isShow="{{datePickerIsShow1}}" bindsureclick="datePickerOnSureClick1" bindcancelclick="datePickerOnCancelClick" />
+<date-picker id="date-picker2" value="{{datePickerValue2}}" isShow="{{datePickerIsShow2}}" bindsureclick="datePickerOnSureClick2" bindcancelclick="datePickerOnCancelClick" />

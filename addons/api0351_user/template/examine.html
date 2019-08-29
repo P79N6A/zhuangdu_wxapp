@@ -1,0 +1,96 @@
+{template 'common/header'}
+
+<style type="text/css">
+.newDing{ width:100%; display:flex; height:70px; border:1px #EEE solid; margin-bottom:10px; overflow:hidden}
+.we7-padding-bottom .pull-left{ flex:1; height:70px; border-right:1px #EEE solid; padding-top:10px; background:#FAFAFA}
+.we7-padding-bottom .pull-right{ flex:1; height:70px;  padding-top:10px;}
+.newDing text{flex:1; display:block; text-align:center; color:#FF6E00; font-weight:bold; font-size:18px;}
+.newDing strong{flex:1; display:block; text-align:center; color:#666; font-weight:400}
+</style>
+
+
+<!--div class="alert we7-page-alert" style="color:#C50003">
+    <p><i class="wi wi-info-sign"></i>【小程序路径获取】点击用户名片的UID即可复制对应的小程序路径，方便运营者外链跳转对应的名片。</p>
+</div-->
+    
+    
+<div class="clearfix">
+
+ <div class="clearfix" style="padding:0 30px;">
+    <ul class="we7-page-tab">
+        <li><a href="./index.php?c=site&a=entry&action=news&do=Cardr&m=api0351_user">最新入驻</a></li>
+        <li class="active"><a href="./index.php?c=site&a=entry&action=examine&do=Cardr&m=api0351_user">待审用户</a></li>
+        <li><a href="./index.php?c=site&a=entry&action=today&do=Cardr&m=api0351_user">尚未入驻</a></li>
+    </ul>
+    
+</div>
+    
+
+	<table class="table we7-table table-hover">
+		<thead class="navbar-inner">
+		<tr>
+        	<th class="text-center" >UID</th>
+			<th class="text-center" >姓名</th>
+            <th class="text-center" >电话</th>
+			<th class="text-center" >状态</th>
+            <th class="text-center">创建时间</th>
+            <th class="text-center">到期时间</th>
+			<th class="text-right" >管理操作</th>
+		</tr>
+		</thead>
+   
+   
+        {loop $cardr $index $item}
+        <tbody>
+            <tr>
+            	<td class="text-center">{$item['id']}</td>
+                <td class="text-center">
+                {if $item['nickName'] == ''}
+                	<font color="#999">游客</font>
+                {else}
+                	{$item['nickName']}
+                {/if}
+                </td>
+                <td class="text-center">
+                {if $item['mobile'] == ''}
+                	<font color="#999">-</font>
+                {else}
+                	{$item['mobile']}
+                {/if}
+                </td>
+               <td class="text-center" style="color:#999">
+                    {if $item['display'] == 0}
+                        <font color="#CC0000">隐私</font>
+                    {else}
+                        公开
+                    {/if}
+                
+                </td>
+                                <td class="text-center" style="color:#666">
+                   {php echo date('m/d H:i:s',$item['uptime']);}
+                </td>
+                <td class="text-center" style="color:#666">
+                    {if date('Y/m/d H:i:s',$item['overtime']) == '1970/01/01 08:00:00'}
+                        <font color="#999">-</font>
+                    {else}
+                        {php echo date('Y/m/d H:i:s',$item['overtime']);}
+                    {/if}
+                </td>
+
+                <td>
+                <div class="link-group">
+                    <a href="{php echo $this->createWebUrl('Cardr', array('action' => 'edit','id' => $item['id']));}">查改</a>
+                   <a href="{php echo $this->createWebUrl('Cardr', array('action' => 'verify','id' => $item['id'],'examine' => 1));}" style="color:#FF0004">审核</a>
+                    <a href="{php echo $this->createWebUrl('Cardr', array('action' => 'del','id' => $item['id']));}" class="del">删除</a>
+                </div>
+                </td>
+            </tr>
+        </tbody>
+        {/loop}
+	</table>
+    {$pager}
+
+   
+</div>
+
+{template 'common/footer'}

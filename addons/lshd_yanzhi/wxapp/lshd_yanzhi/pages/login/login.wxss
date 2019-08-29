@@ -1,0 +1,62 @@
+page {
+    background-color: #fff;
+    text-align: center;
+}
+
+.logo {
+    width: 150rpx;
+    height: 150rpx;
+    display: block;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 180rpx;
+    border-radius: 10rpx;
+}
+
+.title {
+    color: #333;
+    font-size: 30rpx;
+    margin-top: 60rpx;
+}
+
+.info {
+    color: #666;
+    font-size: 26rpx;
+    margin-top: 20rpx;
+}
+
+button {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    border-radius: 0;
+    line-height: 30rpx;
+    background: none;
+}
+
+button::after {
+    display: none;
+}
+
+.getuser {
+    padding: 27rpx 0;
+    width: 540rpx;
+    border-radius: 10rpx;
+    font-size: 36rpx;
+    color: #fff;
+    border: 1px solid #30a04d;
+    margin-top: 200rpx;
+}
+
+.close {
+    width: 80rpx;
+    height: 80rpx;
+    display: block;
+    margin: 0 auto;
+    margin-top: 100rpx;
+}
+
+.bg-green {
+    background: linear-gradient(to right,#64ca7b,#30a04d);
+    color: #fff;
+}

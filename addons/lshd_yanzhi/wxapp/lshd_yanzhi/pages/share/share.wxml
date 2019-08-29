@@ -1,0 +1,57 @@
+<view class="container">
+    <view class="page">
+        <image class="backgroundImage" src="https://s1.ax1x.com/2018/06/15/CjoiNT.png"></image>
+        <view class="facecontainer">
+            <image class="face" src="{{datainfo.userimg}}" style="width:{{width}};height:{{width}}"></image>
+        </view>
+        <image class="tag" src="{{datainfo.beautyimg}}"></image>
+        <view class="fen">
+            <view class="yanzhifen">{{datainfo.beauty}}</view>
+        </view>
+        <image class="tiezhi" src="../../images/tiezhi.png"></image>
+    </view>
+</view>
+<view class="column center center2 space-b" style="position:absolute;left:5%;top:700rpx;width:90%;height:110rpx;z-index:99">
+    <view class="row space-b center2 field-background" style="transform:scale(1.0)">
+        <view class="center2 field-column-left">
+            <view class="field-title">用户：</view>
+            <view class="field-context">{{datainfo.nickname}}</view>
+        </view>
+        <view class="field-midline"></view>
+        <view class="center2 field-column-right">
+            <view class="field-title">年龄：</view>
+            <view class="field-context">{{datainfo.age}}</view>
+        </view>
+    </view>
+    <view class="row space-b center2 field-background" style="transform:scale(1.0)">
+        <view class="center2 field-column-left">
+            <view class="field-title">表情：</view>
+            <view class="field-context">{{datainfo.expression}}</view>
+        </view>
+        <view class="field-midline"></view>
+        <view class="center2 field-column-right">
+            <view class="field-title">性别：</view>
+            <view class="field-context">{{datainfo.sex}}</view>
+        </view>
+    </view>
+</view>
+<view class="footer">
+    <view class="footer-text">已经有 <text class="userNum">469557</text> 人在此测试过颜值</view>
+    <view class="footer-text">利用先进的人脸识别技术进行颜值年龄检测</view>
+    <view wx:if="{{isuser}}">
+        <form bindsubmit="chooimage" class="takephoto" reportSubmit="true">
+            <button formType="submit" hoverClass="none">
+                <view class="take_photo">立即测试我的</view>
+            </button>
+        </form>
+        <view bindtap="toIndex" class="toIndex">首页</view>
+    </view>
+    <view wx:else>
+        <form class="takephoto">
+            <button bindgetuserinfo="getUserInfo" formType="submit" hoverClass="none" openType="getUserInfo">
+                <view class="take_photo">立即测试颜值</view>
+            </button>
+        </form>
+        <view bindtap="toIndex" class="toIndex">首页</view>
+    </view>
+</view>

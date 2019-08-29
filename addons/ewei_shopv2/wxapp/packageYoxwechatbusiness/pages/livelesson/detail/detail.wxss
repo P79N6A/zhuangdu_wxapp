@@ -1,0 +1,88 @@
+.image{
+  width: 100%;
+  height: 260px;
+}
+.baseimg{
+  width: 100%;
+  height: 100%;
+}
+.bgfff{
+  background: #fff;
+}
+.content{
+  width: 100%;
+  height: 140px;
+  margin-bottom:26rpx;
+  padding-top:34rpx;
+  padding-left:34rpx;
+}
+.content .title{
+  font-size: 48rpx;
+}
+.content .time{
+  font-size: 29rpx;
+  color: #a2a2a2;
+  margin-top:24rpx;
+  margin-bottom:10rpx;
+}
+.content .hot{
+  font-size: 29rpx;
+  color: #a2a2a2;
+}
+.free{
+  font-size: 32rpx;
+  height: #11c886;
+  float:right;
+  margin-right:78rpx;
+  color:#11c886;
+}
+.descript{
+  width: 100%;
+  height: 88px;
+}
+.descript .descript-title{
+  color: #a2a2a2;
+  font-size: 
+  33rpx;
+  padding-top:20rpx;
+}
+.descript .descript-title image{
+  width: 22px;
+  height: 22px;
+  margin-left:26rpx;
+}
+.descript .descripttext{
+  font-size: 38rpx;
+  margin-left:32rpx;
+  margin-top:15rpx;
+}
+.comeinBtn{
+  width: 330px;
+  height: 40px;
+  background: #11c886;
+  border-radius: 10rpx;
+  position: absolute;
+  left:44rpx;
+  bottom:11rpx;
+  font-size: 34rpx;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
+.comeinBtn image{
+  width: 18px;
+  height: 18px;
+}
+.sequre{
+  margin-bottom:5rpx;
+}
+.play{
+  position: absolute;
+  left:264rpx;
+  top:34rpx;
+  width:17rpx !important;
+  height:17rpx !important;
+}
+.comeinBtn text{
+  margin-left:18rpx;
+} 

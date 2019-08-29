@@ -1,0 +1,62 @@
+<import src="./index_template/index_template.wxml" />
+<import src="./class_template/class_template.wxml" />
+<template name="tab_template">
+  <!-- <view class="container"> -->
+  <!-- <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+      <view class="tab-item {{currentTab==0?'active':''}}" data-currenttab="0" bindtap="swichNav">推荐</view>
+      <view class="tab-item {{currentTab==1?'active':''}}" data-currenttab="1" bindtap="swichNav">彩妆</view>
+      <view class="tab-item {{currentTab==2?'active':''}}" data-currenttab="2" bindtap="swichNav">护肤</view>
+      <view class="tab-item {{currentTab==3?'active':''}}" data-currenttab="3" bindtap="swichNav">美容</view>
+      <view class="tab-item {{currentTab==4?'active':''}}" data-currenttab="4" bindtap="swichNav">招商</view>
+      <view class="tab-item {{currentTab==5?'active':''}}" data-currenttab="5" bindtap="swichNav">更多</view>
+    </scroll-view> -->
+  <scroll-view scroll-x="true" class="tab-h bgfff" scroll-left="{{}}" scroll-with-animation="{{true}}">
+    <view data-id='{{classList[0].id}}' class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="swichNav1">{{classList[0].name}}</view>
+    <view data-id='{{classList[1].id}}' class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="swichNav1">{{classList[1].name}}</view>
+    <view data-id='{{classList[2].id}}' class="tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="swichNav1">{{classList[2].name}}</view>
+    <view data-id='{{classList[3].id}}' class="tab-item {{currentTab==3?'active':''}}" data-current="3" bindtap="swichNav1">{{classList[3].name}}</view>
+    <view data-id='{{classList[4].id}}' class="tab-item {{currentTab==4?'active':''}}" data-current="4" bindtap="swichNav1">{{classList[4].name}}</view>
+    <view data-id='{{classList[5].id}}' class="tab-item {{currentTab==5?'active':''}}" data-current="5" bindtap="swichNav1">{{classList[5].name}}</view>
+    <view data-id='{{classList[6].id}}' class="tab-item {{currentTab==6?'active':''}}" data-current="6" bindtap="swichNav">{{classList[6].name}}</view>
+    <view data-id='{{classList[7].id}}' class="tab-item {{currentTab==7?'active':''}}" data-current="7" bindtap="swichNav">{{classList[7].name}}</view>
+  </scroll-view>
+  <swiper class="tab-content1" current="{{currentTab}}" duration="300" bindchange="switchnavTab" style="height:{{winHeight}}rpx">
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="index_Template" data="{{...item,catearticle,currentTab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community1,community2,community3}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item class="" style="margin-top:10px;">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <template is="class_template" data="{{tabList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+  <!-- </view> -->
+</template>
+<!-- <template is="tab_template" data="{{catearticle,currentTab,currenttab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community,...item,item}}" /> -->

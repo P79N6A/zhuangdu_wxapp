@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.5kym.cn" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[吸粉神器人脸识别测颜值年龄性别]]></name>
+		<identifie><![CDATA[ruike_face]]></identifie>
+		<version><![CDATA[2.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[上传您的照片测测您的颜值，让我猜猜您的年龄性别吧]]></ability>
+		<description><![CDATA[上传您的照片测测您的颜值，让我猜猜您的年龄性别吧]]></description>
+		<author><![CDATA[悟空源码社区]]></author>
+		<url><![CDATA[http://www.5kym.cn]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="link" />
+			<message type="click" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+		<supports>
+		</supports>
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="功能封面" do="face" state="" direct="false" />
+		</cover>
+		<rule>
+			<entry title="规则" do="rules" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[
+]]></install>
+	<uninstall><![CDATA[
+]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

@@ -1,0 +1,186 @@
+/* pages/topage/Tosns/wanba/wanba.wxss */
+page{
+  background: #fff;
+}
+.tab-h{
+    height: 80rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #fff; 
+    font-size: 16px; 
+    white-space: nowrap;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    z-index: 99;
+}
+.tab-item{
+  margin:0 60rpx;
+  display: inline-block;
+}
+.tab-item.active{
+  color: #2e2e2e;
+  position: relative;
+}
+.tab-item.active:after{ 
+  content: "";
+  display: block;
+  height: 8rpx;
+  width: 80rpx;
+  background: #74c6c0;
+  position: absolute; 
+  bottom: 0;
+  left: 0rpx;
+  border-radius: 16rpx;
+}
+.tab-content{
+  margin-top: 80rpx;
+}
+.scoll-h{
+  height: 100%;
+}
+.icons{
+  overflow:70px;
+  float:left;
+  font-size:#8a8a8a;
+  /* margin-top:176rpx; */
+  /* margin-bottom:-18rpx; */
+  margin-left:185px;
+}
+.icons .star-icon{
+ margin-right:169rpx;
+ margin-left:108rpx;
+ padding-bottom:14rpx;
+}
+.icons image{
+  margin-left:52rpx;
+  float:left;
+  width:20px;
+  height:20px;
+}
+.icons text{
+  float: left;
+  margin-top:2px;
+  margin-left:4px;
+}
+.baseimg{
+  width: 100%;
+  height: 100%;
+  border-radius:50%;
+}
+.img{
+  min-height: 20px;
+  float: left;
+  height:0px;
+}
+.avatar{
+  width:112rpx;
+  height:112rpx;
+  position:absolute;
+  border:2px solid #fff;
+  margin-top:-84rpx;
+  margin-left:18rpx;
+}
+.nickname{
+  width:400rpx;
+  text-align:left;
+  position:absolute;
+  color:#6e6e6e;
+  margin-top:-68rpx;
+  margin-left:156rpx;
+  font-size:12pt;
+  font-weight:600;
+}
+.time{
+  margin-top:-20rpx;
+  width:310rpx;
+  height:30rpx;
+  font-size:-68rpx;
+  color:#ccc;
+  margin-left:168rpx;
+  margin-bottom:20rpx;
+}
+
+.main .title{
+  margin:20px 80px;     
+}
+/* .lie{
+
+} */
+.play-content{
+  display: flex;
+  flex-direction: column;
+  border-bottom:1px solid #f0f0f0;
+  padding-bottom:20rpx;
+  position: relative;
+  margin-top:55px;
+}
+.commit-icon{
+  display: block;
+  width: 40px;
+  height: 20px;
+}
+.main-img{
+  width:160px;
+  min-height:122px;
+  margin-left:72px;
+}
+.wxParse-inline{
+  float: left;
+}
+.wxParse-p{
+  float: left;
+  margin-left: 22rpx;
+  margin-right: 10rpx;
+}
+.WxEmojiView {
+  float: left;
+  display:inline-block;
+}
+.wxParse-span{
+  text-decoration: none;
+}
+.clickAll{
+  font-size:25rpx;
+  color:#47a2da;
+  width:90px;
+  margin-top:6rpx;
+  margin-left:80px;
+}
+.content{
+  padding-left: 20rpx;
+  margin-top: -87rpx;
+  /* display: -webkit-box;关键属性 */
+  font-size:28rpx;
+  color:#cfcfd0;
+  line-height: 40rpx;
+  /* word-break: break-all; */
+  /* -webkit-box-orient: vertical; */
+  -webkit-line-clamp:6;
+  /* overflow: hidden; */
+  /* text-overflow:ellipsis; */
+}
+.hide{
+  height: 0;
+}
+.show{
+  height: 200px;
+}
+/* 发布按钮 */
+.primaryBtn{
+  width: 58px;
+  height: 58px;
+  border-radius: 29px;
+  background: #0290be;
+  position: fixed;
+  left: 280px;
+  top: 458px; 
+}
+.primaryBtn image{
+ width:32px;
+ height:32px;
+ margin-left:14px;
+ margin-top:12px;
+}

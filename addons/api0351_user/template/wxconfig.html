@@ -1,0 +1,71 @@
+{template 'common/header'}
+<div class="panel-success">
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+          
+
+            
+    <div class="alert we7-page-alert" style="color:#C50003">
+        <p><i class="wi wi-info-sign"></i>【注】在系统原基础上可以自定义增加一个菜单</p>
+    </div>            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">开启菜单自定义</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[menu]" style="width:150px;">
+						<option value="0" {if $setConfig[16][value] == 0} selected="selected" {/if}>关闭定义</option>
+						<option value="1" {if $setConfig[16][value] == 1} selected="selected" {/if}>开启定义</option>
+					</select>
+					<span class="help-block">当前开关为开启状态后，以下设置生效。</span>
+				</div>
+			</div>
+
+            
+            
+                    <div class="form-group">
+            <label class="col-sm-2 control-label">默认图标</label>
+            <div class="col-sm-9 col-lg-9 col-xs-12">
+                 {php echo tpl_form_field_image('data[iconPath]',$setConfig[17][value]);}
+                 <span class="help-block">iconPath：默认时的图标，建议大小为128*128PX,格式为PNG透明背景图</span>
+			</div>
+           
+        </div>		
+            
+            
+                    <div class="form-group">
+            <label class="col-sm-2 control-label">选中图标</label>
+ 
+                <div class="col-sm-9 col-lg-9 col-xs-12">
+                     {php echo tpl_form_field_image('data[selectedIconPath]',$setConfig[18][value]);}
+                     <span class="help-block">selectedIconPath：选中时的图标，建议大小为128*128PX,格式为PNG透明背景图</span>
+                </div>
+
+        </div>	
+        
+        
+                            <div class="form-group">
+            <label class="col-sm-2 control-label">菜单名称</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[text]" class="form-control" value="{$setConfig[19][value]}" placeholder="">
+                <span class="help-block">text：直接输入菜单的名称，建议两个中文字符即可。</span>
+            </div>
+        </div>	
+        
+        
+                                    <div class="form-group">
+            <label class="col-sm-2 control-label">跳转路径</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[pagePath]" class="form-control" value="{$setConfig[20][value]}" placeholder="">
+                <span class="help-block">pagePath：如 /api0351_user/pages/user/user</span>
+            </div>
+        </div>				
+            
+    
+
+			<div class="form-group" style="text-align:center; width:100%;">
+				<input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+	</form>
+</div>
+
+{template 'common/footer'}

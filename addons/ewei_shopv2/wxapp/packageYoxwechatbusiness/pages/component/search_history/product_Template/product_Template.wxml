@@ -1,0 +1,24 @@
+<template name="product_Template">
+  <view style='background:#fff; height:100%;'>
+    <view class='historysearch'>
+      <view class="historysearch_title">
+        历史搜索
+      </view>
+      <view class='historysearch_content'>
+        <block wx:for="{{historysearchList}}">
+          <text bindtap='toindex' data-name='{{item.name}}'>{{item.name}}</text>
+        </block>
+      </view>
+    </view>
+    <view class='hotsearch'>
+      <view class="historysearch_title">
+        大家都在搜
+      </view>
+      <view class='historysearch_content'>
+        <block wx:for="{{hotsearchList}}">
+          <text catchtap='searchValuechange' data-searchvalue='{{item.keyword}}'>{{item.keyword}}</text>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>

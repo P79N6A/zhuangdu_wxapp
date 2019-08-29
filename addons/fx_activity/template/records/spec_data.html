@@ -1,0 +1,46 @@
+<div class="modal fade bs-example-modal-lg{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        	<form class="table-responsive form-inline bv-form" method="post" action="" id="form-credit" novalidate="novalidate">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">用户信息</h4>
+            </div>
+            <div class="modal-body">
+            {if !empty($specdata)}
+                <table class="table table-cron table-hover table-bordered">
+                    <tbody>
+                    {loop $specdata $k $data}
+                    {php $spec = model_activity::getSingleActivitySpec($data['specid']);}
+                    {if !empty($spec)}
+                    <tr>
+                        <th width="150">{$spec['title']}</th>
+                        <td>
+                        {if $spec['displaytype']==5 && $data['data']!=''}
+                        <img src="{php echo tomedia($data['data']);}" height="100">
+                        {elseif $spec['displaytype']==6 && $data['data']!=''}
+                            {php $pics = explode(',',$data['data']);}
+                            {loop $pics $v}
+                            <img src="{php echo tomedia($v);}" height="100" style="margin:0 5px 5px 0;">                            
+                            {/loop}
+                        {elseif $spec['displaytype']==7}
+                        {php echo str_replace(',','-',$data['data'])}
+                        {else}
+                        {php echo str_replace(',',' ',$data['data'])}
+                        {/if}</td>
+                    </tr>
+                    {/if}
+                    {/loop}
+                    </tbody>
+                    </table>
+            {else}
+            	暂无信息
+            {/if}
+            </div>
+            <div class="modal-footer" style="padding: 5px 15px;">				
+				<a class="btn btn-danger js-cancel" aria-hidden="true" data-dismiss="modal">关闭</a>					
+			</div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+@import "/utils/wxParse/wxParse.wxss";
+.wxParse>.wxParse-p:nth-child(1){
+  margin-left:132px;
+}

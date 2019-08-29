@@ -1,0 +1,36 @@
+{template 'common/header'}
+<table class="table we7-table table-hover site-list ng-scope" id="system-info" ng-controller="systemInfoCtrl">
+		<tbody><tr>
+			<th colspan="2" class="text-left">信息查看</th>
+		</tr>
+		<tr>
+			<td class="text-left">姓名</td>
+			<td class="text-left">{$ed_ac['username']}</td>
+		</tr>
+        		<tr>
+			<td class="text-left">身份证</td>
+			<td class="text-left">{$ed_ac['userid']}</td>
+		</tr>
+        
+        
+        {loop $img_ac $index $item}
+           
+            <tr>
+                <td class="text-left">
+                {if $item['imgid'] == 1}
+                	身份证正面
+                {/if}
+                {if $item['imgid'] == 2}
+                	身份证反面
+                {/if}
+                </td>
+                <td class="text-left"><img width="40%" src="{$item['imgUrl']}" /></td>
+            </tr>
+            
+        {/loop}
+        
+       
+		
+	</tbody></table>
+
+{template 'common/footer'}

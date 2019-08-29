@@ -1,0 +1,245 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.1",
+	"appid": "wxd73b0879fffcddde",
+	"projectname": "zdu.igdlrj.com_ewei_shopv2",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 28,
+			"list": [
+				{
+					"id": -1,
+					"name": "朋友圈",
+					"pathName": "packageYoxfriendscircle/pages/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品分类",
+					"pathName": "pages/shop/caregory/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "素材九宫格",
+					"pathName": "pages/custom/index",
+					"query": "pageid=7"
+				},
+				{
+					"id": -1,
+					"name": "Hi，妆度",
+					"pathName": "pages/custom/index",
+					"query": "pageid=5"
+				},
+				{
+					"id": -1,
+					"name": "授权",
+					"pathName": "pages/member/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "秒杀",
+					"pathName": "seckill/pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "会员资料",
+					"pathName": "packageYoxwechatbusiness/pages/personal_means/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/goods/detail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的邀请",
+					"pathName": "packageYoxwechatbusiness/pages/wechatbusiness_invite/wechatbusiness_invite",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "代理",
+					"pathName": "packageYoxwechatbusiness/pages/wechatbusiness_agent/wechatbusiness_agent",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "海报/视频",
+					"pathName": "packageYoxarticlevideo/pages/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "diy",
+					"pathName": "packageYoxdiy/pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "朋友圈",
+					"pathName": "packageYoxfriendscircle/pages/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "升级商品",
+					"pathName": "packageYoxwechatbusiness/pages/upgrade_goods/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "海报详情",
+					"pathName": "packageYoxarticlevideo/pages/detail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "邀请二维码",
+					"pathName": "packageYoxwechatbusiness/pages/wechatbusiness_invite/invite_qrcode/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "邀请规则",
+					"pathName": "packageYoxwechatbusiness/pages/invite_rule/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "填写信息",
+					"pathName": "packageYoxwechatbusiness/pages/user_info/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "文章",
+					"pathName": "packageYoxarticle/pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "邀请用户",
+					"pathName": "packageYoxwechatbusiness/pages/wechatbusiness_invite/invite_user/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 20,
+					"name": "邀请成功",
+					"pathName": "packageYoxwechatbusiness/pages/invited_success/invited_success",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的证书",
+					"pathName": "packageYoxwechatbusiness/pages/certificate/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "编辑证书",
+					"pathName": "packageYoxwechatbusiness/pages/certificate/edit/edit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "银行卡",
+					"pathName": "packageYoxwechatbusiness/pages/bank/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "diy",
+					"pathName": "pages/diy/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 25,
+					"name": "我的升级",
+					"pathName": "packageYoxwechatbusiness/pages/my_upgrade/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "客户管理",
+					"pathName": "packageYoxwechatbusiness/pages/wechatbusinessuser/management/customer/customer",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我要升级",
+					"pathName": "packageYoxwechatbusiness/pages/my_upgrade/upgrade_detail/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 28,
+					"name": "diy6",
+					"pathName": "packageYoxdiy/pages/3/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

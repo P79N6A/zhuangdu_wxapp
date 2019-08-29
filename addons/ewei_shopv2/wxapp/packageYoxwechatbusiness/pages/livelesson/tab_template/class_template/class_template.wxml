@@ -1,0 +1,26 @@
+<template name="class_template">
+  <block wx:for="{{tabList}}">
+    <view class='item-class' data-thumb='{{item.thumb}}' data-update_time='{{item.update_time}}' data-id='{{item.id}}' data-name='{{item.name}}' bindtap='jumpDetail' data-descript='{{item.descript}}'>
+      <view class='avatar'>
+        <image wx:if="{{item.thumb}}" src="https://zdu.igdlrj.com/attachment/{{item.thumb}}"></image>
+        <image wx:else src='https://i01picsos.sogoucdn.com/7a3b0d7611c6d804'></image>
+      </view>
+      <view class='title'>
+        <text wx:if="{{item.name}}">{{item.name}}</text>
+        <text wx:else>妆度</text>
+      </view>
+      <view class='name'>
+        <image src="./images/l-name.png"></image>
+        <text wx:if="{{item.descript}}">{{item.descript}}</text>
+        <text wx:else>妆度</text>
+      </view>
+      <view class="bottom">
+        <text style='margin-right:64rpx;'>{{item.is_hot}}人气</text>
+        <text>{{item.update_time}}</text>
+      </view>
+      <view class='bottom-right-free'>
+        <text>免费</text>
+      </view>
+    </view>
+  </block>
+</template>

@@ -1,0 +1,932 @@
+{template '_header'}
+<style>
+    .fui-page, .fui-page-group {
+        background-color: #f2f5f7;
+    }
+    .header {
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+        font-size: 16px;
+        border-bottom: 1px solid #ddd;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: #212121;
+        width: 100%;
+        z-index: 1;
+        background-color: #fff;
+        font-weight: 600;
+    }
+    .content {
+        position: absolute;
+        top: 44px;
+		top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+	.btn-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 44px;
+        height: 44px;
+        background-color: transparent;
+        border: 0;
+        border-radius: 0;
+        -webkit-border-radius: 0;
+    }
+    .btn-back:after {
+        width: 8px;
+        height: 8px;
+        border-left: 2px solid #ddd;
+        border-bottom: 2px solid #ddd;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+        content: '';
+        -webkit-transform: rotate(45deg);
+    }
+    .external {
+        display: none!important;
+    }
+    .posts {
+        list-style: none;
+    }
+    .posts > li {
+        background-color: #fff;
+		border-bottom: 1px solid #e1e1e0;
+    }
+    .posts a {
+        display: block;
+	}
+	.posts .post {
+        padding: 0 15px 15px 15px;
+    }
+    .posts .head {
+        height: 66px;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .posts .head > div {
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+    }
+    .posts .headimg {
+        width: 36px;
+        height: 36px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 100%;
+        -webkit-border-radius: 100%;
+        background-color: #f2f5f7;
+        margin-right: 10px;
+    }
+    .posts .nickname {
+        font-size: 14px;
+        color: #212121;
+        font-weight: 600;
+    }
+    .posts .muted {
+        font-size: 10px;
+        color: #9a9a9a;
+    }
+    .posts .body {
+        font-size: 14px;
+        color: #666;
+    }
+    .posts .video {
+        height: 240px;
+        margin-top: 15px;
+    }
+    .posts video {
+        height: 100%;
+    }
+	.panel {
+		position: relative;
+		padding-bottom: 40px;
+		background-color: #fff;
+		margin-bottom: 5px;
+	}
+	.banner img {
+		width: 100%;
+		vertical-align: top;
+	}
+	.logo {
+		position: absolute;
+		left: 15px;
+		bottom: 20px;
+		background-color: #fff;
+		width: 64px;
+		height: 64px;
+		box-sizing: content-box;
+		box-sizing: content-box;
+		border-top: 2px solid #fff;
+		border-left: 2px solid #fff;
+		border-right: 2px solid #fff;
+		border-top-left-radius: 2px;
+		-webkit-border-top-left-radius: 2px;
+		border-top-right-radius: 2px;
+		-webkit-border-top-right-radius: 2px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+	}
+	.informations {
+		background-color: #fff;
+		padding: 0 15px 0 0;
+		height: 64px;
+		position: relative;
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+	}
+	.informations .legend {
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #212121;
+		font-weight: bold;
+		font-size: 18px;
+		width: 64px;
+		height: 64px;
+		text-align: center;
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 20px;
+	}
+	.informations > ul {
+		padding-left: 64px;
+		list-style: none;
+		font-size: 14px;
+        color: #666;
+	}
+	.posts .buttons {
+		list-style: none;
+		display: flex;
+		display: -webkit-flex;
+		border-top: 1px solid #f2f5f7;
+	}
+	.posts .buttons li {
+		flex: 1;
+	}
+	.posts .buttons .button {
+		height: 42px;
+		background-color: transparent;
+		border: 0;
+		border-radius: 0;
+		-webkit-border-radius: 0;
+		font-size: 14px;
+		color: #666;
+		width: 100%;
+		display: block;
+		text-align: center;
+		position: relative;
+		line-height: 42px;
+	}
+	.posts .buttons li:first-child .button:after {
+		position: absolute;
+		top: 11px;
+		right: 0;
+		height: 20px;
+		width: 1px;
+		background-color: #f2f5f7;
+		content: '';
+	}
+	.posts .buttons .img {
+		height: 20px;
+		width: 20px;
+		display: inline-block;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		-webkit-mask-size: cover;
+		background-color: #fff;
+		vertical-align: middle;
+	}
+	.posts .button[data-is-like="1"] .img {
+		background-color: #7081a5;
+	}
+</style>
+<!--<div class="header">
+    <a href="javascript:history.back();" class="btn-back"></a>
+    官方资讯
+</div>-->
+<div class="content">
+	<div class="panel">
+		<div class="banner"></div>
+		<div class="logo"></div>
+	</div>
+	<a href="/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle">
+		<div class="informations">
+			<div class="legend">官方<br />资讯</div>
+			<ul>
+			
+			</ul>
+		</div>
+	</a>
+	<ul class="tab-bar">
+		<li>
+			<a href="/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.information&uid=0"<?php if (isset($_GET['uid'])) { ?> class="active"<?php } ?>>
+				<span>官方</span>
+			</a>
+		</li>
+		<li>
+			<a href="/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.information"<?php if (!isset($_GET['uid'])) { ?> class="active"<?php } ?>>
+				<span>用户说</span>
+			</a>
+		</li>
+	</ul>
+    <ul class="posts">
+        
+    </ul>
+</div>
+<style>
+	.content {
+		bottom: 2.5rem;
+	}
+	.diymenu {
+	    height: 2.5rem;
+	    width: 100%;
+	    position: absolute;
+	    z-index: 1;
+	    left: 0;
+	    bottom: 0;
+	    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	}
+
+	.diymenu .item {
+	    height: 2.5rem;
+	    width: 25%;
+	    display: block;
+	    background: #fff;
+	    float: left;
+	    position: relative;
+	    cursor: pointer;
+	}
+
+	.diymenu .item.item-col-1 {
+	    width: 100%;
+	}
+
+	.diymenu .item.item-col-2 {
+	    width: 50%;
+	}
+
+	.diymenu .item.item-col-3 {
+	    width: 33.33%;
+	}
+
+	.diymenu .item.item-col-4 {
+	    width: 25%;
+	}
+
+	.diymenu .item.item-col-5 {
+	    width: 20%;
+	}
+
+	.diymenu .item .child {
+	    display: block;
+	    height: auto;
+	    min-width: 90px;
+	    max-width: 130px;
+	    background: #eee;
+	    position: absolute;
+	    bottom: 60px;
+	    left: 50%;
+	    margin-left: -45px;
+	    z-index: 996;
+	    border-radius: 3px;
+	    border: 1px solid #ccc;
+
+	    -moz-transition-duration: 0.4s;
+	    -webkit-transition-duration: 0.4s;
+	    transition-duration: 0.4s;
+	    -webkit-transform: translate3d(0, 150%, 0);
+	    transform: translate3d(0, 150%, 0);
+	}
+
+	.diymenu .item .child.in {
+	    -moz-transition-duration: 0.4s;
+	    -webkit-transition-duration: 0.4s;
+	    transition-duration: 0.4s;
+	    -webkit-transform: translate3d(0, 0, 0);
+	    transform: translate3d(0, 0, 0);
+	}
+
+	.diymenu .item .child a {
+	    clear: both;
+	    display: block;
+	    padding: 8px;
+	    font-size: 13px;
+	    position: relative;
+	    color: #666;
+	    text-align: center;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	}
+
+	.diymenu .item .child a:after {
+	    content: '';
+	    position: absolute;
+	    left: 10px;
+	    right: 10px;
+	    top: 0;
+	    height: 0;
+	    border-top: 1px solid #ccc;
+	}
+
+	.diymenu .item .child a:first-child:after {
+	    border: none;
+	}
+
+	.diymenu .item .child .arrow {
+	    width: 18px;
+	    height: 18px;
+	    color: #ccc;
+	    position: absolute;
+	    bottom: -10px;
+	    left: 50%;
+	    margin-left: -9px;
+	}
+
+	.diymenu .item .child .arrow:after,
+	.diymenu .item .child .arrow:before {
+	    position: absolute;
+	    bottom: 3px;
+	    left: 3px;
+	    content: "";
+	    height: 12px;
+	    width: 12px;
+	    background: #000;
+	    transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    -webkit-transform: rotate(45deg);
+	    z-index: 997;
+	}
+
+	.diymenu .item .child .arrow:after {
+	    bottom: 4.5px;
+	    background: #ccc;
+	    z-index: 998;
+	}
+
+	.diymenu .item .inner {
+	    height: 100%;
+	    width: 100%;
+	    background: #fff;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: 997;
+	    text-align: center;
+	    color: #fff;
+	    padding: 0;
+	}
+
+	.diymenu .item .inner.left .icon {
+	    line-height: 1.5rem;
+	    margin-right: 0.1rem;
+	}
+
+	.diymenu .item .inner.left {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+
+	.diymenu .item .inner.left .text.left {
+	    margin-top: 0;
+	}
+
+	.diymenu .item .inner:before {
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 0;
+	    width: 100%;
+	    border-top: 1px solid rgba(0, 0, 0, 0);
+	}
+
+	.diymenu .item .inner:after {
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 100%;
+	    width: 0;
+	    border-left: 1px solid rgba(0, 0, 0, 0);
+	}
+
+	.diymenu .item:first-child .inner:after {
+	    border-left: 0;
+	}
+
+	.diymenu .item .inner .icon {
+	    display: block;
+	    font-size: 1rem;
+	    height: 1.5rem;
+	    line-height: 1.7rem;
+	    color: #f90;
+	}
+
+	.diymenu .item .inner .text {
+	    display: block;
+	    font-size: 0.55rem;
+	    color: #999;
+	    overflow: hidden;
+	    margin: 0 2px;
+	}
+
+	.diymenu .item .inner .icon.left,
+	.diymenu .item .inner .text.left {
+	    display: inline-block;
+	}
+
+	.diymenu .item .inner .text.left {
+	    margin-top: 10px;
+	    font-size: 14px;
+	}
+
+	.diymenu .item .inner .icon.left {
+	    font-size: 18px;
+	    /*vertical-align: super;*/
+	}
+
+	.diymenu .item .inner.image {
+	    padding: 1px 0 2px 0;
+	}
+
+	.diymenu .item .inner.image img {
+	    display: inline-block;
+	    height: 100%;
+	    max-width: 100%;
+	}
+
+	.diymenu .item .inner .badge {
+	    background: red none repeat scroll 0 0;
+	    border-radius: 0.5rem;
+	    color: white;
+	    font-size: 0.6rem;
+	    height: 0.8rem;
+	    left: 50%;
+	    line-height: 0.8rem;
+	    margin-left: 0.1rem;
+	    min-width: 0.8rem;
+	    padding: 0 0.2rem;
+	    position: absolute;
+	    top: 0.1rem;
+	    vertical-align: top;
+	    z-index: 100;
+	}
+    .diymenu .item .inner {background: #ffffff;}
+    .diymenu .item .inner:before,
+    .diymenu .item .inner:after {border-color: #ffffff;}
+    .diymenu .item .inner .text {color: #666666;}
+    .diymenu .item .inner .icon {color: #999999 !important;}
+    .diymenu .item.on .inner {background: #ffffff;}
+    .diymenu .item.on .inner .text {color: #666666;}
+    .diymenu .item.on .inner .icon {color: #999999!important;}
+    .diymenu .item .child {border-color: #eeeeee; background-color: #f4f4f4;}
+    .diymenu .item .child a {color: #666666;}
+    .diymenu .item .child a:after {border-color: #eeeeee; color: #666666;}
+    .diymenu .item .child .arrow:before {background: #eeeeee;}
+    .diymenu .item .child .arrow:after {background: #f4f4f4;}
+    .diymenu .item .inner .badge {background: ;}
+    .diymenu{box-shadow:none;border-top:1px solid #ededed;}
+</style>
+<div class="diymenu" style="position: fixed;">
+	<div class="item item-col-5 on" onclick="location.href = './index.php?i=2&c=entry&m=ewei_shopv2&do=mobile'">
+		<div class="inner  top">
+        	<span class="icon icon-home top"></span>
+            <span class="text top">U商城</span>
+        </div>
+    </div>
+	<div class="item item-col-5 on" onclick="location.href = './index.php?i=2&c=entry&m=ewei_shopv2&do=mobile'">
+		<div class="inner  top">
+        	<span class="icon icon-list top"></span>
+            <span class="text top">达人</span>
+        </div>
+    </div>
+	<div class="item item-col-5 " onclick="location.href = 'http://yj.igdlrj.com/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.find'">
+		<div class="inner  top">
+        	<span class="icon icon-group top"></span>
+            <span class="text top">发现</span>
+        </div>
+    </div>
+	<div class="item item-col-5 " onclick="location.href = 'http://yj.igdlrj.com/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle'">
+		<div class="inner  top">
+        	<span class="icon icon-cart top"></span>
+            <span class="text top">精选</span>
+        </div>
+    </div>
+	<div class="item item-col-5 " onclick="location.href = './index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member'">
+		<div class="inner  top">
+        	<span class="icon icon-person2 top"></span>
+            <span class="text top">我的</span>
+        </div>
+    </div>
+</div>
+<script src="{php echo EWEI_SHOPV2_LOCAL}static/js/underscore.js"></script>
+<style>
+	.controls {
+		position: relative;
+		height: 32px;
+	}
+	.btn-show-controls {
+		width: 32px;
+		height: 32px;
+		background-color: transparent;
+		position: absolute;
+		top: 0;
+		right: 15px;
+		border: 0;
+		border-radius: 0;
+		-webkit-border-radius: 0;
+	}
+	.btn-show-controls > div {
+		background-color: #97aad0;
+		width: 16px;
+		height: 14px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		border: 0;
+		border-radius: 2px;
+		-webkit-border-radius: 2px;
+	}
+	.btn-show-controls > div:before, .btn-show-controls > div:after {
+		width: 3px;
+		height: 3px;
+		background-color: #fff;
+		border-radius: 1px;
+		-webkit-border-radius: 1px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		content: '';
+		margin: auto;
+	}
+	.btn-show-controls > div:before {
+		right: 3px;
+	}
+	.btn-show-controls > div:after {
+		left: 3px;
+	}
+	.btn-show-controls > div > div {
+		width: 6px;
+		height: 6px;
+		position: absolute;
+		left: -3px;
+		-webkit-transform: rotate(45deg);
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		background-color: #97aad0;
+	}
+	.button-panel {
+		display: none;
+		background-color: #4c5154;
+		border: 1px solid #2c3436;
+		position: absolute;
+		top: -3px;
+		right: 38px;
+		border-radius: 6px;
+		-webkit-border-radius: 6px;
+		overflow: hidden;
+	}
+	.buttons {
+		border: 0!important;
+	}
+	.posts .buttons li:first-child .button:after {
+		background-color: #2c3436;
+		top: 9px;
+	}
+	.posts .buttons .button {
+		width: 90px;
+		height: 38px;
+		line-height: 38px;
+		color: #fff;
+	}
+	.posts .buttons .button:active {
+		background-color: #363d40;
+	}
+	.posts .buttons .img {
+		color: #fff;
+	}
+	.tab-bar {
+		list-style: none;
+		display: flex;
+		display: -webkit-flex;
+		background-color: #fff;
+		margin-top: 6px;
+		border-bottom: 1px solid #e1e1e0;
+	}
+	.tab-bar li {
+		flex: 1;
+	}
+	.tab-bar a {
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+		justify-content: center;
+		height: 44px;
+		color: #212121;
+		position: relative;
+	}
+	.tab-bar span {
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+		height: 100%;
+		position: relative;
+	}
+	.tab-bar a.active span:after {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 2px;
+		background-color: #f00;
+		width: 100%;
+		content: '';
+	}
+	.tab-bar li:nth-child(1) a:after {
+		height: 20px;
+		width: 1px;
+		background-color: #e1e1e0;
+		position: absolute;
+		top: 12px;
+		right: 0;
+		content: '';
+	}
+	.thumbs {
+		list-style: none;
+		display: flex;
+		display: -webkit-flex;
+		justify-content: space-between;
+	}
+	.thumbs li {
+		flex-basis: 30%;
+	}
+	.thumbs .img {
+		padding-bottom: 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+	}
+	.post img {
+	    max-height: 200px;
+		width: auto;
+		vertical-align: top;
+	}
+	.post .image {
+		margin-top: 15px;
+	}
+</style>
+<script type="text/x-template" id="post">
+    <li>
+        <a href="#<%=id %>">
+            <div class="post">
+                <div class="head">
+                    <div>
+                        <div class="headimg" style="background-image: url(/attachment/<%=avatar %>);"></div>
+                        <div class="nickname"><%=nickname %></div>
+                    </div>
+                    <div class="muted"><%=date_format('m-d H:i', add_time) %></div>
+                </div>
+                <div class="body">
+                    <div><%=description %></div>
+                    <% if (videos) { %>
+                    <div class="video">
+                        <video src="/attachment/<%=videos %>"></video>
+                    </div>
+                    <% } %>
+					<% if (thumbs) { %>
+						<% if (thumbs.length == 1) { %>
+						<div class="image" data-href="/attachment/<%=thumbs[0] %>">
+						    <img src="/attachment/<%=thumbs[0] %>" alt="" />
+						</div>
+						<% } else { %>
+						<ul class="thumbs">
+							<% for (var i in thumbs) { %>
+							<li>
+								<div class="image" data-href="/attachment/<%=thumbs[i] %>">
+									<div class="img" style="background-image: url(/attachment/<%=thumbs[i] %>);"></div>
+								</div>
+							</li>
+							<% } %>
+						</ul>
+						<% } %>
+					<% } %>
+                </div>
+            </div>
+        </a>
+		<div class="controls">
+			<button type="button" class="btn-show-controls">
+				<div>
+					<div></div>
+				</div>
+			</button>
+			<div class="button-panel">
+				<ul class="buttons">
+					<li>
+						<button type="button" data-id="<%=id %>" class="button btn-like" data-is-like="<%=attitude.is_like %>">
+							<div class="img" style="-webkit-mask-image: url({php echo EWEI_SHOPV2_LOCAL}static/images/dianzan.png);"></div> <span><%=attitude.like %></span>
+						</button>
+					</li>
+					<li>
+						<a href="/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.edit&id=<%=id %>" class="button">
+							<div class="img" style="-webkit-mask-image: url({php echo EWEI_SHOPV2_LOCAL}static/images/pinglun.png);"></div> <span><%=comment.number %></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </li>
+</script>
+<script>
+	$(function() {
+		$(document).on("click", ".btn-show-controls", function() {
+			$(this).closest(".controls").find(".button-panel").show();
+		});
+		$(document).on("click", ".image", function() {
+			location.href = $(this).attr("data-href");
+		});
+		$(document).on("touchstart", function(e) {
+			if ($(e.target).closest(".button-panel").length == 0 && $(e.target).closest(".btn-show-controls").length == 0) {
+				$(".button-panel").hide();
+			}
+		});
+	});
+</script>
+<script type="text/x-template" id="information">
+	<li><%=description %></li>
+</script>
+<script>
+    var str_pad = function(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    };
+    var date_format = function(format, timestamp) {
+        var str = '';
+        var len = format.length;
+        var date = new Date(timestamp * 1000);
+        for (var i = 0; i < len; i++) {
+            var c = format.charAt(i);
+            switch (c) {
+                case 'Y': str += date.getFullYear(); break;
+                case 'm': str += str_pad(date.getMonth() + 1, 2); break;
+                case 'd': str += str_pad(date.getDate(), 2); break;
+                case 'H': str += str_pad(date.getHours(), 2); break;
+                case 'i': str += str_pad(date.getMinutes(), 2); break;
+                case 's': str += str_pad(date.getSeconds(), 2); break;
+                default: str += c; break;
+            }
+        }
+        return str;
+    };
+    $(function() {
+        var inAction = false;
+        var page = 1;
+        var size = 10;
+        var template = _.template($("#post").html());
+        var getPosts = function(refresh) {
+            if (inAction) {
+                return;
+            }
+            inAction = true;
+            if (refresh) {
+                $(".posts").html("");
+                page = 1;
+            }
+            $.ajax({
+                url: '/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle',
+                type: 'get',
+                data: {
+					<?php if (isset($_GET['uid'])) { ?>uid: <?php echo $_GET['uid']; ?>,<?php } ?>
+                    page: page++,
+                    size: size
+                },
+                dataType: 'json',
+                success: function(response) {
+                    inAction = false;
+                    if (response.status == 1) {
+                        var data = response.data.list;
+                        for (var i in data) {
+                            $(".posts").append(template(data[i]));
+                        }
+						var el = $("<img />");
+						el.attr("src", "/attachment/" + response.data.img);
+						$(".banner").html(el);
+						$(".logo").css("background-image", "url(/attachment/" + response.data.logo + ")");
+                    }
+                    else {
+                        
+                    }
+                }
+            });    
+        };
+        getPosts();
+        $(".content").on("scroll", function() {
+            if (this.scrollTop + this.clientHeight >= this.scrollHeight) {
+                getPosts();
+            }
+        });
+    });
+	$(function() {
+        var template = _.template($("#information").html());
+        $.ajax({
+        	url: '/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle',
+            type: 'get',
+            data: {
+            	page: 1,
+                psize: 2
+            },
+            dataType: 'json',
+            success: function(response) {
+            	if (response.status == 1) {
+            		var data = response.data.list;
+                    for (var i in data) {
+                    	$(".informations ul").append(template(data[i]));
+                    }
+                }
+				else {
+					
+				}
+			}
+        });
+    });
+	$(function() {
+		var inAction = false;
+		$(document).on("click", ".btn-like", function() {
+			if (inAction) {
+				return;
+			}
+			inAction = true;
+			var id = $(this).attr("data-id");
+			var is_like = parseInt($(this).attr("data-is-like"));
+			if (is_like == 0) {
+				$.ajax({
+		        	url: '/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.attitude.edit',
+		            type: 'get',
+		            data: {
+		            	type: 'article',
+						target_id: id,
+						attitude: 'like'
+		            },
+		            dataType: 'json',
+					context: this,
+		            success: function(response) {
+						inAction = false;
+		            	if (response.status == 1) {
+						    $(this).attr("data-is-like", 1);
+		            		$(this).find("span").html(1 + parseInt($(this).find("span").html()));
+		                }
+						else {
+							alert(response.status);
+						}
+					}
+		        });
+			}
+			else {
+				$.ajax({
+		        	url: '/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=yoxfriendscircle.attitude.delete',
+		            type: 'get',
+		            data: {
+		            	type: 'article',
+						target_id: id
+		            },
+		            dataType: 'json',
+					context: this,
+		            success: function(response) {
+						inAction = false;
+		            	if (response.status == 1) {
+						    $(this).attr("data-is-like", 0);
+		            		$(this).find("span").html(parseInt($(this).find("span").html()) - 1);
+		                }
+						else {
+							alert(response.status);
+						}
+					}
+		        });
+			}
+		});
+	});
+</script>
+{template '_footer'}

@@ -1,0 +1,13 @@
+.chooseimg{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+}
+input{
+  border: 1px solid #ccc;
+}
+button{
+  width: 200px;
+  height: 100px;
+  background: #000;
+}

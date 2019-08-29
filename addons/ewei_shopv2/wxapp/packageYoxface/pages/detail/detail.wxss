@@ -1,0 +1,66 @@
+.result{
+  width:363px;
+  height:454px;
+  background:#fff;
+  border:1px solid #ccc;
+  margin-top:52px;
+  margin-left:5px;
+}
+.result .bigtitle{
+  font-size:20px;
+  margin-left:120px;
+  margin-top:10px;
+}
+.result .main_suggest{
+  width:174px;
+  height:54px;
+  color:#fff;
+  border:1px solid #ccc;
+  border-radius:200px;
+  background:#fd2c6b;
+  margin-left:92px;
+  margin-top:30px;
+  margin-bottom: 10px;
+  line-height:54px;
+  text-align:center;
+  font-size:22px;
+}
+.result .good_list{
+  width: 168px;
+  border: 1px solid #ccc;
+  float: left;
+  margin-right: 4px;
+}
+.result .good_list .good_list_item{
+  width: 168px;
+  height: 100px;
+  border-bottom: 1px solid #ccc;
+  line-height: 100px;
+}
+.result .good_list .good_list_item .title{
+  font-size: 14px;
+  float: left;
+}
+.result .good_list .good_list_item .markprice{
+  float: left;
+}
+.result .package_list{
+  width:168px;
+  border: 1px solid #ccc;
+  float: right;
+}
+.result .package_list .package_list_item{
+  width: 168px;
+  height: 100px;
+  line-height: 100px;
+  border-bottom: 1px solid #ccc;
+  /* margin-left:6px; */
+}
+.result .package_list .package_list_item .title{
+  font-size: 14px;
+  float: left;
+}
+.result .package_list .package_list_item .price{
+  float: right;
+  /* margin-right:10px; */
+}

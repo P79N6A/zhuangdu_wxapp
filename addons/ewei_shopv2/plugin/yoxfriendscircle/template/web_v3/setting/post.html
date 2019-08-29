@@ -1,0 +1,106 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">朋友圈</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>朋友圈设置</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">请选择配置项目</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="name" readonly="readonly">
+                <option value="">请选择..</option>
+                {if empty($_GPC['name']) || ( $result['data']['name']=='banner' || $_GPC['name']=='banner')  }<option selected value="banner">朋友圈顶图</option>{/if}
+				<!--{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'  }<option selected value="UPGRADE">升级设置</option>{/if}-->
+                </select>
+            </div>
+        </div>
+		{if empty($_GPC['name']) || ($result['data']['name']=='banner' || $_GPC['name']=='banner')}
+        <div class="form-group banner" style="height:200px;{if empty($_GPC['name']) || ( $result['data']['name']=='banner' || $_GPC['name']=='banner')  }display:block;{else}display:none{/if}" >
+            <label class="col-lg control-label">选择图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_multi_image('value', $result['data']['value'])}
+            </div>
+        </div>
+		{/if}
+		{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'}
+		<!--<div class="form-group UPGRADE" style="height:200px;{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'  }display:block;{else}display:none{/if}" >
+            <label class="col-lg control-label">升级设置</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="value[setting][type]">
+				<option {if $result['data']['value']['setting']['type']==''}selected{/if} value="UPGRADE_BY_PACKAGE">请选择升级方式(不选默认根据购买套餐升级!)..</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_INVITED'}selected{/if} value="UPGRADE_BY_INVITED">通过"邀请人数达标"升级</option>
+				</select>
+            </div>
+			<div class="col-sm-9 col-xs-12 upgrade_by_invited_data" style="{if $result['data']['value']['setting']['type']=='UPGRADE_BY_INVITED'||$result['data']['value']['setting']['type']=='UPGRADE_BY_PACKAGE_INVITED' }display:none;{else}display:none{/if}">
+			<input type="text" name="value[setting][level_1_number]" class="form-control" value="{$result['data']['value']['setting']['level_1_number']}" placeholder="升级到等级1需要邀请多少人" />人升到1等级
+			</div>
+        </div>-->
+		{/if}
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                {ifp 'result.edit'}
+                <input type="submit" value="提交" class="btn btn-primary" />
+                {/if}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $("select[name='name']").on("change").click(function () {
+            var name = $(this).val();
+			console.log(name);
+            if(name=='banner'){
+                $(".banner").css("display","block")
+				$(".UPGRADE").css("display","none")
+            }else if(name=='UPGRADE'){
+                $(".UPGRADE").css("display","block")
+				$(".banner").css("display","none")
+			}else{
+            	$(".banner").css("display","none")
+				$(".UPGRADE").css("display","none")
+            }
+        });
+        $("select[name='value[setting][type]']").on("change").click(function () {
+        	var setting_type=$(this).val();
+        	console.log(setting_type);
+			//通过购买套餐升级
+        	if(setting_type=='UPGRADE_BY_PACKAGE'){
+               // $(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过邀请升级
+        	if(setting_type=='UPGRADE_BY_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","block")
+            }
+			//通过邀请和购买套餐升级
+			if(setting_type=='UPGRADE_BY_PACKAGE_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","block")
+			}
+			//通过购买达到系统指定金额升
+			if(setting_type=='UPGRADE_BY_PAY_PRICE'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过购买会员指定的商品达到系统指定金额升级
+			if(setting_type=='UPGRADE_BY_PAYPRICE_WITH_GOODS'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过购买"会员指定的商品"达到"系统指定金额"且"邀请人数达标"升级
+			if(setting_type=='UPGRADE_BY_PAYPRICE_WITH_GOODS_WITH_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+        });
+});
+</script>
+{template '_footer'}

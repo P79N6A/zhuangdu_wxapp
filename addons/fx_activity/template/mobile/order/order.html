@@ -1,0 +1,197 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-card.mui-one {box-shadow:none;}
+.mui-card-footer.contact a{width:50%;text-align:center; position:relative;color:#828282!important}
+.mui-card-footer.contact a:after{content: ""; position:absolute;right:0;left:auto;top:50%;width:1px;background:#E0E0E0;height:100%;-webkit-transform: translateY(-50%) scaleX(0.5); transform: translateY(-50%) scaleX(0.5);}
+.mui-card-footer.contact a:last-child:after{width:0px;}
+.mui-card.mui-one .mui-card-header img:first-child {width: 18px!important;height: 18px!important}
+.mui-card.mui-one .mui-card-header.mui-card-media .mui-media-body {font-weight:normal;margin-left: 25px;min-height: 22px;height: 22px;overflow: hidden}
+.mui-card-footer .mui-btn-yellow{color:#5d2f18;}
+</style>
+<script type="text/javascript" charset="utf-8">
+    wx.ready(function(){  //微信读取
+        var srcList = [];
+        $.each($('.mui-content img'),function(i,item){  //$('.info_detail .container img') 容器中的图片
+            if(item.src) {
+                srcList.push(item.src);
+                $(item).click(function(e){
+                    // 通过这个API就能直接调起微信客户端的图片播放组件了
+                    wx.previewImage({
+                        current: this.src,
+                        urls: srcList
+                    });
+                });
+            }
+        });
+    });
+</script>
+<div class="mui-content">
+{if $type == 'u'}
+	<ul class="mui-table-view mui-afterbefore-no" style="margin-top:0;">
+        <li class="mui-table-view-cell mui-media js-popover" data-popover="member_form">
+            <a class="mui-navigate-right js-setting">
+                <p style="padding-left:6px;margin-right:35px;font-size:14px;color:#6e6e6e">报名信息</p>
+                <span class="mui-badge mui-badge-inverted">点击查看</span>
+            </a>
+        </li>
+    </ul>
+    <div class="mui-card mui-one mui-card-line">
+        <div class="mui-card-header mui-card-media mui-after-no">
+            <img src="{$merchant['logo']}">
+            <div class="mui-media-body">
+            	<p class="mui-small" style="line-height:1.9!important;">{$merchant['name']}</p>
+            </div>
+        </div>
+        <div class="mui-card-content" style="background:#f8f8f8">
+        	<a href="{php echo app_url('activity/detail/display',array('activityid'=>$activity['id']))}">
+            <div class="mui-card-content-inner">
+            	<img src="{php echo tomedia($activity['thumb'])}" width="30%" height="55" class="mui-pull-left" style="margin-right:0.5rem">
+            	<p style="font-size:14px;">{$activity['title']}</p>
+                <p style="font-size:14px;margin-bottom:0;" class="mui-small mui-text-gray">时间：{php echo date('y年m月d日 H:i',strtotime($activity['starttime']))} 开始</p>
+                <p style="font-size:14px;margin-bottom:0;" class="mui-small mui-text-gray">规格：{if empty($records['optionname'])}暂无{else}{$records['optionname']}{/if}</p>
+            </div>
+            </a>
+        </div>
+        <div class="mui-card-footer mui-before-no">
+        	<div class="mui-text-gray">
+            	<p style="margin-bottom:0;"><span style="color:#99a5b5;">共{$records['buynum']}张票</span></p>
+            </div>
+            <div style="width:60%;text-align:right">
+            {if in_array($records['status'], array('1','2','3'))}
+            <a class="mui-btn mui-btn-yellow" href="{php echo app_url('records/qrcode/display',array('id'=>$id))}">查看电子票</a>
+            {/if}
+            {if $records['payprice'] && $activity['switch']['refund']}
+            <a class="mui-btn js-refund{if $records['status']==6 || $records['status']==7} no mui-btn-outlined{else} mui-btn-danger{/if}" data-rid="{$id}">{if $records['status']==6}待退款{elseif $records['status']==7}已退款{else}退款{/if}</a>
+            {/if}
+            </div>
+        </div>
+    </div>
+    <div class="mui-card mui-one">
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+            	<p style="font-size:14px;margin-bottom:0">总票价<span class="mui-rmb mui-text-gray mui-pull-right">{php echo sprintf("%.2f", $records['aprice']*$records['buynum'])}</span></p>
+                <p style="font-size:14px;margin-bottom:0">优惠金额<span class="mui-rmb mui-pull-right">{if $records['marketing']['market_price']}{$records['marketing']['market_price']}{else}0{/if}</span></p>
+                <p style="font-size:14px;margin-bottom:0">订单实付金额<span class="mui-rmb mui-text-orange mui-pull-right">{if $records['payprice']}{$records['payprice']}{else}0{/if}</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="mui-card mui-one">
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+            	<p style="font-size:14px;margin-bottom:0;">报名状态：<span class="mui-text-gray">{if $records['status']==0}<font class="mui-text-rmb">待支付{if $records['paytype']=='delivery'}（线下支付）{/if}</font>
+                {elseif $records['status']==1 || $records['status']==2}待参与
+                {elseif $records['status']==3}已参与
+                {elseif $records['status']==5}已取消
+                {elseif $records['status']==6}待退款
+                {elseif $records['status']==7}已退款{/if}
+                </span></p>
+            	<p style="font-size:14px;margin-bottom:0">订单编号：<span class="mui-text-gray">{$records['orderno']}</span></p>
+                <p style="font-size:14px;margin-bottom:0">交易编号：<span class="mui-text-gray ">{if empty($records['transid'])}暂无{else}{$records['transid']}{/if}</span></p>
+                <p style="font-size:14px;margin-bottom:0">创建时间：<span class="mui-text-gray">{php echo date('Y-m-d H:i', strtotime($records['jointime']))}</span></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+		$('.js-refund').on('tap',function(e){
+			var _this = this;
+			if ($(this).hasClass('no')){
+				util.alert('不可重复申请', ' ', function() {});
+				return false;
+			}
+			util.confirm('确认申请退款么？', ' ', function(e) {
+				if (e.index == 1) {
+					$.post("{php echo app_url('order/order/refund')}", {rid:$(_this).data("rid")}, function(data){
+						if (!data.errno){
+							util.tips('操作完成，相关人员会为您处理！');
+							$(_this).text('待退款');
+							$(_this).removeClass('mui-btn-danger').addClass('no').addClass('mui-btn-outlined');
+						}else{
+							util.tips('操作完成失败！');
+						}
+					},"json");
+				}
+			});
+		});
+	</script>
+{else}
+    <div class="mui-card mui-one">
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <p style="font-size:14px">所选票种：<span class="mui-text-gray">{if !empty($records['optionname'])}{$records['optionname']}{else}暂无{/if}</span></p>
+                <p style="font-size:14px">购票数量：<span class="mui-text-gray">{$records['buynum']} 张</span></p>
+                <p style="font-size:14px">票价总额：<span class="mui-text-gray mui-rmb">{if $records['aprice']}{php echo $records['aprice'] * $records['buynum']}{else}0.00{/if}</span></p>
+                <p style="font-size:14px">实付金额：<span class="mui-text-yellow mui-rmb">{if $records['payprice']}{$records['payprice']}{else}0.00{/if}</span></p>
+                <p style="font-size:14px;margin-bottom:0;">报名状态：<span class="mui-text-gray">{if $records['status']==0}<font class="mui-text-rmb">待支付{if $records['paytype']=='delivery'}（线下支付）{/if}</font>
+                {elseif $records['status']==1 || $records['status']==2}待参与
+                {elseif $records['status']==3}已参与
+                {elseif $records['status']==5}已取消
+                {elseif $records['status']==6}待退款
+                {elseif $records['status']==7}已退款{/if}
+                </span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mui-card mui-one mui-card-line">
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+            	<p style="font-size:14px;margin-bottom:0;">姓名：<span class="mui-text-gray">{$records['realname']}</span></p>
+                <p style="font-size:14px;margin-bottom:0;">手机：<span class="mui-text-gray">{$records['mobile']}</span></p>
+            	{loop $forms[0] $form}
+                {if $form['fieldstype']!=''}
+                	<p style="font-size:14px;margin-bottom:0;">{$form['title']}：<span class="mui-text-gray">
+                	{if $form['fieldstype']=='gender'}
+                    	{php echo $formdata_common['gender']==0 ? '保密' :( $formdata_common['gender']==1?'男':'女')}
+                    {elseif $form['fieldstype']=='age'}
+                        {$formdata_common['age']} 岁
+                    {elseif $form['fieldstype']=='birthyear'}
+                         {php echo $formdata_common['birthyear'].'年'.$formdata_common['birthmonth'].'月'.$formdata_common['birthday'].'日'}
+                    {elseif $form['fieldstype']=='resideprovince'}
+                        {$formdata_common['resideprovince']}{$formdata_common['residecity']}{$formdata_common['residedist']}
+                    {else}
+                        {$formdata_common[$form['fieldstype']]}
+                    {/if}
+                    </span></p>
+                {else}
+                    {php $formdata = model_records::getSingleFormData($id, $form['id']);}
+                    <p style="font-size:14px;margin-bottom:0;">{$form['title']}：
+                    {if $form['displaytype']==5 && $formdata['data']!=''}
+                        <img src="{php echo tomedia($formdata['data']);}" height="100" style="display:-webkit-box">
+                    {elseif $form['displaytype']==6 && $formdata['data']!=''}
+                    	<br>
+                        {php $pics = explode(',', $formdata['data']);}
+                        {loop $pics $v}
+                        <img src="{php echo tomedia($v);}" height="30%" width="100" style="margin:0 5px 5px 0;display:inline-block">
+                        {/loop}
+                    {elseif $form['displaytype']==7}
+                    	<span class="mui-text-gray">{php echo str_replace(',', '-', $formdata['data'])}</span>
+                    {else}
+                    	<span class="mui-text-gray">{php echo str_replace(',', ' ', $formdata['data'])}</span>
+                    {/if}</p>
+                {/if}
+                {/loop}
+                
+            </div>
+        </div>
+        <div class="mui-card-footer contact">
+        	<a href="tel:{$records['mobile']}">打电话</a>
+        	<a href="sms:{$records['mobile']}">发短信</a>
+        </div>
+    </div>
+    
+    <div class="mui-card mui-one">
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+            	<p style="font-size:14px">订单编号：<span class="mui-text-gray">{$records['orderno']}</span></p>
+                <p style="font-size:14px">交易编号：<span class="mui-text-gray ">{if empty($records['transid'])}暂无{else}{$records['transid']}{/if}</span></p>
+                <p style="font-size:14px;margin-bottom:0">创建时间：<span class="mui-text-gray">{php echo date('Y-m-d H:i', strtotime($records['jointime']))}</span></p>
+            </div>
+        </div>
+    </div>
+{/if}
+</div>
+{if $type == 'u'}
+{template 'member/setting'}
+{/if}
+</body>
+</html>

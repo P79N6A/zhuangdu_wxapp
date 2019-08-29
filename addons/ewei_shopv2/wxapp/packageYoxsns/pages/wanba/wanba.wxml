@@ -1,0 +1,85 @@
+<import src="/utils/wxParse/wxParse.wxml" />
+<import src="../../../pages/tabBar_template/tabBar.wxml" />
+<view>
+  <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+    <view class="tab-item {{currentnavTab==0?'active':''}}" data-current="0" bindtap="swichNav1">推荐</view>
+    <view class="tab-item {{currentnavTab==1?'active':''}}" data-current="1" bindtap="swichNav1">关注</view>
+    <view class="tab-item {{currentnavTab==2?'active':''}}" data-current="2" bindtap="swichNav1">广场</view>
+    <view class="tab-item {{currentnavTab==3?'active':''}}" data-current="3" bindtap="swichNav1">美妆</view>
+  </scroll-view>
+  <view class='lie'></view>
+  <swiper class="tab-content" current="{{currentnavTab}}" duration="300" bindchange="switchnavTab" style="height:{{winHeight}}rpx">
+    <swiper-item wx:for="{{[0,1,2,3]}}">
+      <scroll-view scroll-y="true" class="scoll-h">
+        <block wx:for="{{wanbaList}}" wx:for-index="listindex" wx:key="id">
+          <view class='play-content' data-id="{{item.id}}">
+            <!-- 头像 -->
+            <view class='avatar'>
+              <image class='baseimg' wx:if="{{item.avatar}}" src="{{item.avatar}}"></image>
+            </view>
+            <!-- 昵称 -->
+            <view class='nickname' wx:if="{{item.nickname}}">
+              <text>{{item.nickname}}</text>
+            </view>
+            <view class='time' wx:if="{{item.createtime}}">
+              <text>{{item.createtime}}</text>
+            </view>
+            <view class='main' style='min-height:100px; margin-left:16rpx;'>
+              <view class='title' wx:if="{{item.title}}">
+                <text>{{item.title}}</text>
+              </view>
+              <view class="clickAll" catchtap='showAll' data-id='{{item.id}}' data-content='{{item.content}}' data-index='{{index}}'>
+                <text>内容展开</text>
+              </view>
+              <view style='padding: 20rpx; height:78px; background-color: #fff; margin-left: 112rpx;' wx:if="{{item.images!=''}}">
+                  <block wx:for="{{item.images}}" wx:for-item="types">
+                    <view class='img'>
+                      <image style='width: 150rpx; height: 150rpx; margin: 10rpx;' src="{{types}}"></image>
+                    </view>
+                  </block>
+                </view>
+              <!-- <block wx:for="{{noteTemArray}}">
+                <view class="content"  hidden='{{index==listindex?false:true}}'>
+                  <!-- hidden='{{index==listindex?false:true}}'-->
+                  <!-- <template is="wxParse" data="{{wxParseData:item}}" />
+                </view>
+              </block> -->
+            </view>
+            <view class='icons'>
+              <!-- 标记图标 -->
+              <!-- <view data-index='{{item.id}}'>
+                <view wx:if="{{}}">
+                  <image class='star-icon' src="./images/dark.png" catchtap='onDackTap' data-id='{{item.id}}' data-index='{{index}}'></image>
+                </view>
+                <view wx:else>
+                  <image class='star-icon' src='./images/darkactive.png' catchtap='onDackTap' data-id='{{item.id}}' data-index='{{index}}'></image>
+                </view>
+              </view> -->
+              <view data-index='{{item.id}}'>
+                <view class='loveHeart-icon' wx:if="{{item.checked==0}}">
+                  <!-- 点赞过 -->
+                  <image catchtap='onCollectionTap' src="./images/loveheartActive.png" data-id='{{item.id}}' data-index='{{index}}'></image>
+                  <text>{{item.goodcount}}</text>
+                </view>
+                <view class='loveHeart-icon' wx:else>
+                  <!-- 未点赞 -->
+                  <image src='./images/loveheart.png' catchtap='onCollectionTap' data-id='{{item.id}}' data-index='{{index}}'></image>
+                  <text>{{item.goodcount}}</text>
+                </view>
+              </view>
+              <image class='commit-icon' data-id='{{item.id}}' src="./images/commit.png" catchtap='bindCommit'></image>
+              <text>{{item.isbest}}</text>
+              <image class='changeSend-icon' data-id='{{item.id}}' src="./images/changeSend.png" catchtap='bindChangesend'></image>
+              <text>{{item.postcount}}</text>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>
+<!-- 发布按钮 -->
+<view class='primaryBtn' bindtap='toprimary'>
+  <image src='./images/commentwhite.png'></image>
+</view>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

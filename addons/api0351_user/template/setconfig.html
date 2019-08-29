@@ -1,0 +1,148 @@
+{template 'common/header'}
+<div class="panel-success">
+
+ <div class="clearfix" style="padding:0 30px;">
+    <ul class="we7-page-tab">
+        <li class="active"><a href="./index.php?c=site&a=entry&action=news&do=Setconfig&m=api0351_user">基础设置</a></li>
+        <li><a href="./index.php?c=site&a=entry&action=wxtemp&do=Setconfig&m=api0351_user">模板消息</a></li>
+    </ul>
+    
+</div>
+
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+          
+          
+          <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">名片主题开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[styte]" style="width:150px;">
+						<option value="1" {if $setConfig[9][value] == 1} selected="selected" {/if}>关闭主题</option>
+						<option value="2" {if $setConfig[9][value] == 2} selected="selected" {/if}>开启主题</option>
+					</select>
+					<span class="help-block">建议在提审微信小程序的时候选择关闭(通过后开启)</span>
+				</div>
+			</div>
+            
+            
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">私信功能开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[message]" style="width:150px;">
+						<option value="1" {if $setConfig[0][value] == 1} selected="selected" {/if}>关闭私信</option>
+						<option value="2" {if $setConfig[0][value] == 2} selected="selected" {/if}>开启私信</option>
+					</select>
+					<span class="help-block">建议在提审微信小程序的时候选择关闭(通过后开启)</span>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">关于图片信息</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[pic]" style="width:150px;">
+						<option value="1" {if $setConfig[7][value] == 1} selected="selected" {/if}>关闭图片显示</option>
+						<option value="2" {if $setConfig[7][value] == 2} selected="selected" {/if}>开启图片显示</option>
+					</select>
+					<span class="help-block">关闭后个人介绍信息内将不显示图片内容(建议提交小程序审核时关闭)</span>
+				</div>
+			</div>
+            
+            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">产品服务开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[server]" style="width:150px;">
+						<option value="1" {if $setConfig[8][value] == 1} selected="selected" {/if}>关闭产品服务</option>
+						<option value="2" {if $setConfig[8][value] == 2} selected="selected" {/if}>开启产品服务</option>
+					</select>
+					<span class="help-block">关闭后，将不显示产品服务功能(建议提审小程序时关闭当前功能)</span>
+				</div>
+			</div>
+            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">圈子群组开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[qnStatr]" style="width:150px;">
+						<option value="1" {if $setConfig[1][value] == 1} selected="selected" {/if}>关闭群组服务</option>
+						<option value="2" {if $setConfig[1][value] == 2} selected="selected" {/if}>开启群组服务</option>
+					</select>
+					<span class="help-block">关闭后，将不显示圈子群组服务功能(建议提审小程序时关闭当前功能)</span>
+				</div>
+			</div>
+            
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">人脉分类更多图标</label>
+            <div class="col-sm-9">
+                {php echo tpl_form_field_image('data[eos]',$setConfig[2][value]);}
+                <span class="help-block">为空的时候则显示默认为图标</span>
+            </div>
+        </div>
+            
+            
+            
+           <div class="form-group">
+                <label class="col-sm-2 control-label">APP ID</label>
+                <div class="col-sm-9">
+                    <input type="text" name="data[accesskey]" class="form-control" value="{$setConfig[3][value]}" placeholder="">
+                    <span class="help-block">【小程序行为分析统计】申请地址：https://mta.qq.com/ (设置自己的小程序信息生成对应的APPID填写)</span>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+		<label class="col-sm-2 control-label">EVENT ID</label>
+		<div class="col-sm-9">
+			<input type="text" name="data[secretkey]" class="form-control encrypt" value="{$setConfig[4][value]}" placeholder="">
+			<span class="help-block">【小程序行为分析统计】申请地址：https://mta.qq.com/ (设置自己的小程序信息生成对应的EVENTID填写)</span>
+		</div>
+	</div>
+    
+    <div class="form-group" id="qiniubucket">
+		<label class="col-sm-2 control-label">SECRET KEY</label>
+		<div class="col-sm-9">
+			<input type="text" name="data[bucket]" class="form-control" value="{$setConfig[5][value]}" placeholder="">
+			<span class="help-block">【小程序行为分析统计】申请地址：https://mta.qq.com/ (设置自己的小程序信息生成对应的SECRETKEY填写)</span>
+		</div>
+	</div>
+    
+    
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">开启实名认证</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[Smauth]" style="width:150px;">
+						<option value="1" {if $setConfig[30][value] == 1} selected="selected" {/if}>开启功能</option>
+						<option value="2" {if $setConfig[30][value] == 2} selected="selected" {/if}>关闭功能</option>
+					</select>
+					<span class="help-block">当功能开启后，在个人中心会显示对应的功能</span>
+				</div>
+			</div>
+            
+            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">访客雷达功能</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[viSitor]" style="width:150px;">
+						<option value="1" {if $setConfig[31][value] == 1} selected="selected" {/if}>开启功能</option>
+						<option value="2" {if $setConfig[31][value] == 2} selected="selected" {/if}>关闭功能</option>
+					</select>
+					<span class="help-block">当功能开启后，在个人中心会显示对应的功能</span>
+				</div>
+			</div>
+            
+            
+         <div class="form-group">
+            <label class="col-sm-2 control-label">视频默认封面</label>
+            <div class="col-sm-9">
+                {php echo tpl_form_field_image('data[videoImg]',$setConfig[32][value]);}
+                <span class="help-block">【100%*184px】上传后个人名片视频封面将全部统一显示为当前设置，为空则不显示</span>
+            </div>
+        </div>
+
+			<div class="form-group" style="text-align:center; width:100%;">
+				<input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+	</form>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,6 @@
+<view>
+    <image class="logo" src="../../images/wechat.svg"></image>
+    <view class="title">小程序</view>
+    <view class="info">● 获取你的公开信息(昵称，头像等)</view>
+    <button bindgetuserinfo="getUserInfo" class="getuser bg-green" openType="getUserInfo">点击登录</button>
+</view>

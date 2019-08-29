@@ -1,0 +1,28 @@
+<import src="./attention_Template/attention_Template.wxml" />
+<import src="./spuare_Template/spuare_Template.wxml" />
+<import src="./topic_Template/topic_Template.wxml" />
+<import src="/utils/wxParse/wxParse.wxml" />
+<view class='container'>
+  <view class="top-tab">
+    <view class="top-tab-item {{currentTopItem==idx ? 'active' : ''}}" wx:for="{{topTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchTab2">
+      {{item}}
+    </view>
+  </view>
+  <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight}}rpx">
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="attention_Template" data="{{isfollow,attentiongroup2List,sliderList,...item,attentiongroup2List2,attentiongroup2List3,group3List}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="spuare_Template" data="{{wanbaList,...item,id}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="topic_Template" data="{{topicList,item,...item,wxParseData,noteTemArray}}" />
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,26 @@
+<import src="./factory_Template/factory_Template.wxml" />
+<import src="./brand_Template/brand_Template.wxml" />
+<import src="./join_Template/join_Template.wxml" />
+<!-- <import src="./index_template/index_template.wxml" /> -->
+<view class="top-tab">
+  <view class="top-tab-item {{currentTopItem==idx ? 'active' : ''}}" wx:for="{{topTabItems}}" data-id='{{item.id}}' wx:for-index="idx" data-idx="{{idx}}" bindtap="switchnavTab">
+    {{item.title}}
+  </view>
+</view>
+<swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" data-id='{{item.id}}' duration="300" style="height:{{winHeight}}rpx">
+  <swiper-item>
+    <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+      <template is="factory_Template" data="{{...item,tab,tabTxt,pushList,groupList,group4List,sliderList,item,navTopItem,navTabItems,winHeight,group5commendList,group5commendList2,gc_list,placeList,flag,showflag,cate_list}}" />
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+      <template is="brand_Template" data="{{...item,tab,tabTxt,pushList,groupList,group4List,sliderList,item,navTopItem,navTabItems,winHeight,group5commendList,group5commendList2,pp_list,placeList,flag,showflag}}" />
+    </scroll-view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+      <template is="join_Template" data="{{...item,tab,tabTxt,pushList,groupList,group4List,sliderList,item,navTopItem,navTabItems,winHeight,group5commendList,group5commendList2,jm_list,placeListflag,showflag}}" />
+    </scroll-view>
+  </swiper-item>
+</swiper>

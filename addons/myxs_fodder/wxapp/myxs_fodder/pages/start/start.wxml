@@ -1,0 +1,10 @@
+<view class="startShow">
+    <image src="{{jingruimg}}" style="height:100%;;width: 100%">
+        <button bindtap="index" class="jinClick {{startName}}" wx:if="{{HttpBl}}">
+      {{tst}}
+    </button>
+    </image>
+</view>
+<view class="footerText" wx:if="{{HttpBl}}">
+  {{Banquan}}
+</view>

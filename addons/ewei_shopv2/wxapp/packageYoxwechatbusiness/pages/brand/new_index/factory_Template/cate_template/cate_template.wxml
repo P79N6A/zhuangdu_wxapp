@@ -1,0 +1,22 @@
+<template name="cate_template">
+  <view class='cate_list'>
+    <block wx:for="{{cate_list}}">
+      <view class="commend_list_cell" data-image='{{item.thumbs}}' data-title='{{item.name}}' data-place='{{item.place}}' data-use='{{item.use}}' data-price='{{item.price_range}}' bindtap='todetail' data-id='{{item.id}}'>
+        <view class="commend_list_cell_left">
+          <view class='image'>
+            <image wx:if="{{item.thumbs}}" src='https://zdu.igdlrj.com/attachment/{{item.thumbs[0]}}'></image>
+            <image wx:else style='background:#fd2c6b;'></image>
+          </view>
+        </view>
+        <view class='main'>
+          <view class='title'>
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+        <view class='commend_list_cell_right'>
+          <text>￥ {{item.price_range}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

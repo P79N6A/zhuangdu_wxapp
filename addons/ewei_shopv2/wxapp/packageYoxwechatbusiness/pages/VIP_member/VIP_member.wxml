@@ -1,0 +1,268 @@
+<view class='container'>
+  <!-- 课程会员 -->
+  <view class='classmember'>
+    <view class='classmember_up'>
+      <view class='classmember_up_title'>
+        <image src='../../image/member/imperial.jpg'></image>
+        <text>课程会员</text>
+      </view>
+      <view class='classmember_up_rule'>
+        <text>规则</text>
+      </view>
+    </view>
+    <view class='classmember_down'>
+      <view class='font14'>
+        口碑大课免费学
+      </view>
+      <view class='font12'>
+        一张通往终身成长大学的门票
+      </view>
+      <view class='opci'>
+        KECHENGVIP
+      </view>
+    </view>
+  </view>
+  <!-- 会员权益 -->
+  <view class='member_power'>
+    <view class='member_power_title item_title'>
+      <view class='rightup'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;margin-left:10px;'></view>
+      </view>
+      <text>会员权益</text>
+      <view class='rightdown'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;'></view>
+      </view>
+    </view>
+    <view class='member_power_futitle item_futitle'>
+      课程随便听，福利经常领
+    </view>
+    <view class='member_power_content'>
+      <block wx:for="{{member_powerList}}">
+        <view class='member_power_cell'>
+          <view class='image'>
+            <image src='{{item.imgurl}}'></image>
+          </view>
+          <view class='title'>
+            <text>{{item.title}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 大师免费学 -->
+  <view class='freestudy'>
+    <view class='freestudy_title item_title'>
+      <view class='rightup'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;margin-left:10px;'></view>
+      </view>
+      <text>大师免费学</text>
+      <view class='rightdown' style='margin-right:30px;'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;'></view>
+      </view>
+    </view>
+    <view class='freestudy_futitle item_futitle'>
+      口碑大课50选2，永久免费回听
+    </view>
+    <view class='freestudy_content'>
+      <swiper class='freestudy_swiper' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperChange" previous-margin="85rpx" next-margin="85rpx" current='{{swiperCurrent}}' bindtouchend='slideEnd'
+        skip-hidden-item-layout="true">
+        <block wx:for="{{freestudyList}}" wx:key="this" wx:for-index="idx">
+          <swiper-item>
+            <view class='freestudy_cell'>
+              <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+              <image wx:else style='background:#fd2d6b;'></image>
+              <view class='content'>
+                <view class='content_name'>
+                  {{item.content}}
+                </view>
+                <view class='content_explain'>
+                  {{item.explain}}
+                </view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class='checkall'>
+      查看全部>
+    </view>
+  </view>
+  <!-- 会员免费听 -->
+  <view class='freelisten'>
+    <view class='freelisten_title item_title' style='margin-top:20px;'>
+      <view class='rightup'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;margin-left:10px;'></view>
+      </view>
+      <text>会员免费听</text>
+      <view class='rightdown' style='margin-right:30px;'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;'></view>
+      </view>
+    </view>
+    <view class='freelisten_futitle item_futitle'>
+      甄选优质内容会员免费畅听
+    </view>
+    <view class='freelisten_content'>
+      <block wx:for="{{freelistenList}}">
+        <view class='freelisten_cell'>
+          <view class='image'>
+            <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+            <image wx:else style='background:#fd2d6b;'></image>
+          </view>
+          <view class='title'>
+            {{item.title}}
+          </view>
+          <view class='price'>
+            <text style='margin-right:4px;'>￥{{item.price}}</text>|
+            <text style='color:#fd2d6b;'>{{item.free}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view style='width:310px;clear:both;margin-top:382px;font-size:16px;margin-bottom:18px;'>
+      <view class='checkall' style='margin-left:52px;float:left;margin-right:118px;'>
+        查看全部>
+      </view>
+      <view class='change'>
+        换一批∞
+      </view>
+    </view>
+  </view>
+  <!-- 购课8折 -->
+  <view class='boughtclass'>
+    <view class='boughtclass_title item_title' style='margin-top:20px;'>
+      <view class='rightup'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;margin-left:10px;'></view>
+      </view>
+      <text>购课8折</text>
+      <view class='rightdown'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;'></view>
+      </view>
+    </view>
+    <view class='boughtclass_futitle item_futitle'>
+      2000+门精品课程享受8折福利
+    </view>
+    <view class='boughtclass_content'>
+      <view>
+        <scroll-view class='scroll1' sroll-x="true" style='white-space:nowrap;'>
+          <block wx:for="{{boughtclassList1}}">
+              <view class='boughtclass_cell'>
+                <view class='image'>
+                  <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+                  <image wx:else style="background:#c4c3c3;"></image>
+                </view>
+                <view class='boughtclass_down'>
+                  <view class='original'>
+                    原价：￥199
+                  </view>
+                  <view class='member'>
+                    会员价：￥99
+                  </view>
+                </view>
+              </view>
+          </block>
+        </scroll-view>
+      </view>
+      <view>
+        <scroll-view class='scroll2' sroll-x="true" style='white-space:nowrap;'>
+          <block wx:for="{{boughtclassList2}}">
+            <view class='boughtclass_cell'>
+              <view class='image'>
+                <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+                <image wx:else style="background:#c4c3c3;"></image>
+              </view>
+              <view class='boughtclass_down'>
+                <view class='original'>
+                  原价：￥199
+                </view>
+                <view class='member'>
+                  会员价：￥99
+                </view>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+      <view>
+        <scroll-view class='scroll3' sroll-x="true" style='white-space:nowrap;'>
+          <block wx:for="{{boughtclassList3}}">
+            <view class='boughtclass_cell'>
+              <view class='image'>
+                <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+                <image wx:else style="background:#c4c3c3;"></image>
+              </view>
+              <view class='boughtclass_down'>
+                <view class='original'>
+                  原价：￥199
+                </view>
+                <view class='member'>
+                  会员价：￥99
+                </view>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <!-- 每月500元专属劵 -->
+  <view class='exclusive_coupon' style='margin-bottom:18px;'>
+    <view class='exclusive_title item_title' style='width:285px;margin-left:74px;'>
+      <view class='rightup'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;margin-left:10px;'></view>
+      </view>
+      <text>每月500元专属券</text>
+      <view class='rightdown'>
+        <view class='' style='width:20px;height:3px;background:#fd2d6b;'></view>
+        <view class='' style='width:10px;height:3px;background:#fd2d6b;margin-top:8px;'></view>
+      </view>
+    </view>
+    <view class='exclusive_futitle item_futitle' style='margin-left:126px;'>
+      领取会员专享优惠券再打8折
+    </view>
+    <view class='exclusive_content'>
+      <block wx:for="{{couponList}}">
+        <view class='coupon_cell'>
+          <view class='coupon_cell_left'>
+            <view class='image'>
+              <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+              <image wx:else style='background:#fd2d6b;'></image>
+              <view style='position:absolute;width: 94px;height: 18px;left:0;bottom:0;background:#e9e6e6;line-height:18px;text-align:center;'>
+                <text style='font-size:10px;'>{{item.learn}}学习</text>
+              </view>
+            </view>
+            <view class='content'>
+              <view class='content_text'>
+                {{item.content}}
+              </view>
+              <view class='price'>
+                ￥
+                <text>{{item.price}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='coupon_cell_right'>
+            <view class='coupon_price'>
+              ￥
+              <text style='font-size:26px;'>{{item.coupon_price}}</text>
+            </view>
+            <view class='use'>
+              领取使用
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- button -->
+  <button style='width:306px;background:#fd2d6b;color:#fff;font-size:16px;'>￥99/年 立即开通</button>
+</view>

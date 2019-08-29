@@ -1,0 +1,34 @@
+@import "index_template/index_template.wxss";
+@import "../../../.././packageYoxsns/pages/sns/main_template/main_template.wxss";
+.tab-h{
+    height: 80rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #fff; 
+    font-size: 13px; 
+    white-space: nowrap;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+}
+.tab-item{
+  margin:0 54rpx;
+  display: inline-block;
+}
+.tab-item.active{
+  color: #fd2c6b;
+  position: relative;
+}
+.tab-item.active:after{ 
+  content: "";
+  display: block;
+  height: 4rpx;
+  width: 120rpx;
+  background: #fd2c6b;
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  border-radius: 16rpx;
+}

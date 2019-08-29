@@ -1,0 +1,163 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<?php
+$wx = $_W['account']['jssdkconfig'];
+$wx['url'] ='http://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ;
+$config = $this->module['config'];
+$modname = 'life_haibao';
+?> 
+<script>
+	var more_url = "{$config['more_url']}";
+	var qr_url = "{php echo tomedia($config['share_qr']);}";
+    var appIdstr = "{$wx['appId']}";
+    var timestampstr = "{$wx['timestamp']}";
+    var nonceStrstr = "{$wx['nonceStr']}";
+    var signaturestr = "{$wx['signature']}";
+wx.config({
+	debug: false,
+	appId: appIdstr,
+	timestamp: timestampstr,
+	nonceStr: nonceStrstr,
+	signature: signaturestr,
+	jsApiList: [
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'hideMenuItems',
+		'showMenuItems',
+		'hideAllNonBaseMenuItem',
+		'showAllNonBaseMenuItem',
+		'translateVoice',
+		'startRecord',
+		'stopRecord',
+		'onRecordEnd',
+		'playVoice',
+		'pauseVoice',
+		'stopVoice',
+		'uploadVoice',
+		'downloadVoice',
+		'chooseImage',
+		'previewImage',
+		'uploadImage',
+		'downloadImage',
+		'getNetworkType',
+		'openLocation',
+		'getLocation',
+		'hideOptionMenu',
+		'showOptionMenu',
+		'closeWindow',
+		'scanQRCode',
+		'chooseWXPay',
+		'openProductSpecificView',
+		'addCard',
+		'chooseCard',
+		'openCard'
+	]
+});
+wx.ready(function () {
+//要分享的数据
+  var shareData = {
+    title:"{$config['share_title']}",
+    desc: "{$config['share_des']}",
+    link:"{$wx['url']}" ,
+    imgUrl:"{php echo tomedia($config['share_pic']);}",
+    type:'', // 分享类型,music、video或link，不填默认为link 分享给朋友
+    dataUrl:'', // 如果type是music或video，则要提供数据链接，默认为空 分享给朋友
+  };
+
+//分享给朋友
+wx.onMenuShareAppMessage({
+      title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      type: shareData.type,
+    dataUrl: shareData.dataUrl,
+      trigger: function (res) {//菜单
+        
+      },
+      success: function (res) {//成功
+        
+      },
+      cancel: function (res) {//取消
+        
+      },
+      fail: function (res) {//失败
+        alert(JSON.stringify(res));
+      },
+      complete:function(res){//完成
+      
+      },
+    });	
+
+//分享到朋友圈
+    wx.onMenuShareTimeline({
+      title: shareData.title+shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+        
+      },
+      success: function (res) {
+  
+      },
+      cancel: function (res) {
+       
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      },
+      complete:function(res){//完成
+      	 //alert('完成');
+      },
+    });	
+
+//分享到QQ
+    wx.onMenuShareQQ({
+      title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      
+      },
+      complete: function (res) {
+      
+      },
+      success: function (res) {
+        
+      },
+      cancel: function (res) {
+        
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });	
+    
+//分享到腾讯微博
+    wx.onMenuShareWeibo({
+      title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+       
+      },
+      complete: function (res) {
+        
+      },
+      success: function (res) {
+       
+      },
+      cancel: function (res) {
+      
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+});
+</script>

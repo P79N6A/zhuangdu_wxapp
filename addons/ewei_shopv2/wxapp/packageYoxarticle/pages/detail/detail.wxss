@@ -1,0 +1,19 @@
+@import "/utils/wxParse/wxParse.wxss";
+.title{
+  font-size: 22px;
+  margin-bottom:10px;
+  margin-left: 10px;
+}
+.date{
+  font-size: 18px;
+  color: #8c8c8c;
+  margin-bottom:10px;
+  margin-left: 10px;
+}
+.date .mp{
+  font-size: 18px;
+  color: #6093c5;
+}
+.content{
+  padding: 0px 10px;
+}

@@ -1,0 +1,6 @@
+<view class="canvas-box">
+    <canvas canvasId="mycanvas" style="width: 375px;height: 540px;border:0px;border-style: none;"></canvas>
+</view>
+<view>
+    <button bindtap="baocun">保存</button>
+</view>

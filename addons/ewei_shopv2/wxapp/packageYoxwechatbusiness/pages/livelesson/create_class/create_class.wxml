@@ -1,0 +1,57 @@
+<view class='container'>
+  <view class='chose_title'>
+    选择您的身份
+  </view>
+  <view class='chose_list'>
+    <view class='chose_cell' wx:for="{{chose_list}}">
+      <view class='image'>
+        <image src='{{item.imgUrl}}'></image>
+      </view>
+      <view class='title'>
+        {{item.title}}
+      </view>
+      <view class="choose {{chooseflag==item.idx ?'active':''}}" catchtap='choose' data-idx="{{item.idx}}">
+        <text>√</text>
+      </view>
+    </view>
+  </view>
+  <view class='cate' bindtap='tocate'>
+    <view class='cate_text'>
+      选择直播间分类
+    </view>
+    <view class='cate_icon'>
+      >
+    </view>
+  </view>
+  <view class='attent'>
+    <view class="attent_attention {{textchooseflag1?'active':''}}">
+      <view class='up'>
+        <view class="image {{textchooseflag1?'active':''}}" catchtap='textchoose1'>√</view>
+        <view class='attent_text'>
+          关注讲师学院
+        </view>
+      </view>
+      <view class='attent_detail'>
+        讲师学院为妆度官方直播间，官方会定期给直播间运营者提供 功能使用和运营技巧培训。关注才可以及时收到培训通知。
+      </view>
+    </view>
+    <view class="attent_description {{textchooseflag2?'active':''}}">
+      <view class='up'>
+        <view class="image {{textchooseflag2?'active':''}}" catchtap='textchoose2'>√</view>
+        <view class='attent_text'>
+          订阅功能更新
+        </view>
+      </view>
+      <view class='attent_detail'>
+        妆度讲师学院会为直播间运营者第一时间提供功能更新升级提醒， 确保能了解到最新的使用体验。
+      </view>
+    </view>
+    <view class="attent_take {{textchooseflag3?'active':''}}">
+      <view class="image {{textchooseflag3?'active':''}}" catchtap='textchoose3'>√</view>
+      <view class='attent_detaill'>
+        勾选表示您同意
+        <text style='text-decoration:underline;color:#000;' catchtap='tocertificate'>《妆度平台讲师协议》</text>
+      </view>
+    </view>
+  </view>
+</view>

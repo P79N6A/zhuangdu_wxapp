@@ -1,0 +1,71 @@
+.swiper-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+.swiper-wrapper {
+  position: relative;
+  width: 400%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.51, 0.92, 0.24, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.51, 0.92, 0.24, 1);
+  transition: transform 0.3s cubic-bezier(0.51, 0.92, 0.24, 1);
+  transition: transform 0.3s cubic-bezier(0.51, 0.92, 0.24, 1), -webkit-transform 0.3s cubic-bezier(0.51, 0.92, 0.24, 1);
+  will-change: transform;
+}
+.swiper-container[data-pos="0"] .swiper-wrapper {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+.swiper-container[data-pos="1"] .swiper-wrapper {
+  -webkit-transform: translateX(-25%);
+          transform: translateX(-25%);
+}
+.swiper-slide {
+  float: left;
+  width: 25%;
+  height: 100%;
+}
+.swiper-dots {
+  font-size: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  bottom: 0.5em;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.swiper-dot, .swiper-indicator {
+  display: block;
+  margin: 0 0.5em;
+  width: 1em;
+  height: 1em;
+  background: rgba(130, 176, 188, 0.5);
+  border-radius: 100px;
+}
+.swiper-indicator {
+  position: absolute;
+  background: blue;
+  width: auto;
+}
+.swiper-indicator--left {
+  -webkit-transition: left 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.15), right 0.3s 0.1s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  transition: left 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.15), right 0.3s 0.1s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+.swiper-indicator--right {
+  -webkit-transition: left 0.3s 0.1s cubic-bezier(0.51, 0.92, 0.24, 1.15), right 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  transition: left 0.3s 0.1s cubic-bezier(0.51, 0.92, 0.24, 1.15), right 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+.swiper-container[data-pos="0"] .swiper-indicator {
+  left: 0.5em;
+  right: 6em;
+}
+.swiper-container[data-pos="1"] .swiper-indicator {
+  left: 2.5em;
+  right: 4em;
+}

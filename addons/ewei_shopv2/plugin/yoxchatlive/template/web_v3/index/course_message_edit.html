@@ -1,0 +1,99 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商课程</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>课程编辑</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">课程</label>
+            <div class="col-sm-9 col-xs-12">
+            	<select name="course_id">
+            	<option value="0">请选择课程...</option>
+            	{loop $result['data']['course_list'] $info}
+                <option {if $result['data']['course_id']==$info['id']}selected{/if} value="{$info['id']}">{$info['name']}({$info['id']})</option>
+                {/loop}
+                </select>
+            </div>
+        </div>
+        <!-- 语音voice/视频video/文字image/链接link -->
+		<!-- <div class="form-group">
+            <label class="col-lg control-label">消息类型</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="type">
+                <option value="mix">混合(文字||图片||语音||视频||链接)</option>
+                <option value="text">文字</option>
+                <option value="image">图片</option>
+                <option value="voice">语音</option>
+                <option value="video">视频</option>
+                <option value="link">链接</option>
+                </select>
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">文字消息</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="message" class="form-control" value="{$result['data']['message']}" placeholder="文字" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_multi_image('image',$result['data']['image']);}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">语音</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_multi_audio('voice',$result['data']['voice']);}
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-lg control-label">视频</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_video('video',$result['data']['video']);}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">链接</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="link" class="form-control" value="{$result['data']['link']}" placeholder="链接" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">前台定时发送时间</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo _tpl_form_field_date('show_time',$result['data']['show_time_format'],true);}
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

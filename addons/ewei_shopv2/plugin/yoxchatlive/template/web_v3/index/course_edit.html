@@ -1,0 +1,59 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商课程</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>课程编辑</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="名称" />
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">描述</label>
+            <div class="col-sm-9 col-xs-12">
+                <!--套餐包含商品<input type="text" name="package_setting[goods][0][goods_id]" class="form-control" value="{$result['data']['package_setting']['goods'][0]['goods_id']}" placeholder="商品id" />
+                套餐价格<input type="text" name="package_setting[price]" class="form-control" value="{$result['data']['package_setting']['price']}" placeholder="成为此等级的套餐价格" />
+                套餐<input type="text" name="package_setting[package][id]" class="form-control" value="{$result['data']['package_setting']['package']['id']}" placeholder="成为此等级的套餐" />-->
+                <input type="text" name="descript" class="form-control" value="{$result['data']['descript']}" placeholder="描述" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">缩略图</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('thumb', $result['data']['thumb'])}
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

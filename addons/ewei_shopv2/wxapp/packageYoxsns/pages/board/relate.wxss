@@ -1,0 +1,105 @@
+page{
+	height: 100%;
+	background-color: #efeff4;
+}
+.searchBox{
+  background:#fff;
+  width:100%;
+  height:31px;
+  padding-top:16rpx;
+}
+.search{
+    width: 230px;
+    height: 24px;
+    border: 1px solid #989898;
+    border-radius: 20rpx;  
+    box-sizing: border-box;
+    margin-left:100rpx;
+    /* margin-top:16rpx; */
+    line-height:22px;
+    position: relative;
+}
+.search image{
+    display: block;
+    width:14px;
+    height:14px;
+    margin-left:125rpx;
+    margin-top:8rpx;
+}
+.search input{
+    margin-left: 60rpx;  
+    height: 60rpx;  
+    border-radius: 5px;
+    position: absolute;
+    left: 106rpx;
+    top: 0;
+    line-height: 60rpx;
+}
+.place-holder {
+    font-size: 12px;
+}
+.tab-h{
+    height: 80rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #fff; 
+    font-size: 16px; 
+    white-space: nowrap;
+    position: fixed;
+    top: 30px; 
+    left: 0; 
+    z-index: 99;
+}
+.tab-item{
+  margin:0 40rpx;
+  display: inline-block;
+}
+.tab-item.active{
+  color: #fa2c69;
+  position: relative;
+}
+.tab-content{
+  margin-top: 80rpx;
+}
+.scoll-h{
+  height: 100%;
+}
+.community-content{
+  width: 290px;
+  height: 104px;
+  border-radius: 10px;
+  background: #fff;
+  margin-left:38rpx;
+  margin-bottom:20rpx;
+}
+.community-content image{
+  display: block;
+  width:80px;
+  height: 80px;
+  border-radius:6px;
+  float: left;
+  margin-left:40rpx;
+  margin-top:25rpx; 
+}
+.community-text{
+  float:right;
+  width:114px;
+  margin-right:148rpx;
+  margin-top:30rpx;
+}
+.community-title{
+  font-size: 18px;
+  font-weight: bold;
+}
+.content-or-join{
+  font-size: 12px;
+  font-weight: bold;
+}
+.time{
+  color:#ccc;
+  font-size:10px;
+  margin-top:25rpx;
+  display:block;
+}

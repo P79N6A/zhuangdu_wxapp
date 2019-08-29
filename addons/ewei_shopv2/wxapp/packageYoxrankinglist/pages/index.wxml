@@ -1,0 +1,49 @@
+<import src="./hotsearch_Template/hotsearch_Template.wxml" />
+<import src="./topic_Template/topic_Template.wxml" />
+<import src="./samecity_Template/samecity_Template.wxml" />
+<import src="./goodfriend_Template/goodfriend_Template.wxml" />
+<import src="../../pages/tabBar_template/tabBar.wxml" />
+<view class='container'>
+  <view class='titleBox'>
+    <view class='title'>
+      <text>排行榜</text>
+    </view>
+    <view class='searchBox' wx:if="{{flag}}" bindtap='changesearchBox'>
+      <image class='large' src='./images/search.png'></image>
+      <text>{{searchvalue}}</text>
+    </view>
+    <view class='searchBox' style='  width: 260px;' wx:if="{{topicflag}}">
+      <image class='large' src='./images/search.png' style='margin-left:20px;'></image>
+      <input class='searchinput' bindinput='searchvalue' placeholder='大家正在搜：XXXXX' placeholder-style='font-size:12px;padding:0 10px;'></input>
+      <button bindtap='searchIt'>搜索</button>
+    </view>
+  </view>
+  <view class="top-tab">
+    <view class="top-tab-item {{currentTopItem==idx ? 'active' : ''}}" wx:for="{{topTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchTab">
+      {{item}}
+    </view>
+  </view>
+  <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight}}rpx">
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="hotsearch_Template" data="{{...item,hotsearchList}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="topic_Template" data="{{...item,topicList}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="samecity_Template" data="{{...item,samecityList}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="goodfriend_Template" data="{{...item,goodfriendList}}" />
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

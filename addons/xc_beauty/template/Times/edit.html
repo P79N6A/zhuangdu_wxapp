@@ -1,0 +1,199 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<style>
+    .clockpicker{
+        width: 20%;
+        float: left;
+    }
+    .input-group .form-control.member{
+        width: 20%;
+        float: left;
+    }
+    #model{
+        display: none;
+    }
+</style>
+<div id="model">
+    <div class="input-group cube">
+        {php echo tpl_form_field_clock('start');}
+        {php echo tpl_form_field_clock('end');}
+        <input type="text" name="shop_member" class="form-control member" autocomplete="off" value="" placeholder="到店预约人数">
+        <input type="text" name="home_member" class="form-control member" autocomplete="off" value="" placeholder="上门预约人数">
+        <input type="text" name="p_time" class="form-control member" autocomplete="off" value="" placeholder="提前预约时间">
+        <span class="input-group-btn" onclick="cube.add(this)">
+            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+        </span>
+        <span class="input-group-btn" onclick="cube.del(this)">
+            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+        </span>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            预约时间>编辑
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form id="sign-form" class="form-horizontal" role="form" method="post" action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">星期</label>
+                <div class="col-sm-8">
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week1" value="1" {if $list['week']==1}checked{/if}>周一
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week2" value="2" {if $list['week']==2}checked{/if}>周二
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week3" value="3" {if $list['week']==3}checked{/if}>周三
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week4" value="4" {if $list['week']==4}checked{/if}>周四
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week5" value="5" {if $list['week']==5}checked{/if}>周五
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week6" value="6" {if $list['week']==6}checked{/if}>周六
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="week" id="week7" value="7" {if $list['week']==7}checked{/if}>周日
+                    </label>
+                    <input type="hidden" name="id" value="{$list['id']}">
+                    <input type="hidden" name="content">
+                </div>
+            </div>
+            <div class="form-group times">
+                <label class="col-sm-2 control-label">时间段</label>
+                <div class="col-sm-8" style="overflow: hidden;">
+                    {if $list['content']}
+                    {loop $list[content] $index $item}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$item['start']);}
+                        {php echo tpl_form_field_clock('end',$item['end']);}
+                        <input type="text" name="shop_member" class="form-control member" autocomplete="off" value="{$item['shop_member']}" placeholder="到店预约人数">
+                        <input type="text" name="home_member" class="form-control member" autocomplete="off" value="{$item['home_member']}" placeholder="上门预约人数">
+                        <input type="text" name="p_time" class="form-control member" autocomplete="off" value="{$item['p_time']}" placeholder="提前预约时间">
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/loop}
+                    {else}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <input type="text" name="shop_member" class="form-control member" autocomplete="off" value="" placeholder="到店预约人数">
+                        <input type="text" name="home_member" class="form-control member" autocomplete="off" value="" placeholder="上门预约人数">
+                        <input type="text" name="p_time" class="form-control member" autocomplete="off" value="" placeholder="提前预约时间">
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    <span class="help-block">预约人数不填则不限制（到店预约指单技师预约人数）</span>
+                    <span class="help-block">提前预约时间（单位：小时）不填则不提前</span>
+                </div>
+            </div>
+            <script>
+                var cube={
+                    add:function(objc){
+                        $(objc).parent().after($("#model").html());
+                    },
+                    del:function(objc){
+                        if($(objc).parent().siblings('.cube').length>0){
+                            $(objc).parent().remove();
+                        }
+                    }
+                }
+            </script>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-8">
+                    {if $list['status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" name="submit" class="btn btn-default" value="提交">
+                    <a class="btn btn-default" href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'])}">返回</a>
+                    <input id="res" name="res" type="reset" style="display:none;"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js"],function(){
+        $(function(){
+            $("input[name='submit']").click(function(){
+                getjson();
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            if($("input[name='id']").val()==""){
+                                $("input[name='res']").click();
+                                $("body").find(".img-responsive.img-thumbnail").attr("src","");
+                            }
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        })
+
+
+        /**
+         * 收集数据
+         */
+        function getjson(){
+            var content=[];
+            $(".times").find(".cube").each(function(){
+                var start=$(this).find("input[name='start']").val();
+                var end=$(this).find("input[name='end']").val();
+                var shop_member=$(this).find("input[name='shop_member']").val();
+                var home_member=$(this).find("input[name='home_member']").val();
+                var p_time=$(this).find("input[name='p_time']").val();
+                if(start!="" && end!=""){
+                    var data={};
+                    data.start=start;
+                    data.end=end;
+                    if(shop_member!=""){
+                        data.shop_member=shop_member;
+                    }
+                    if(home_member!=""){
+                        data.home_member=home_member;
+                    }
+                    if(p_time!=""){
+                        data.p_time=p_time;
+                    }
+                    content.push(data);
+                }
+            });
+            if(content.length>0){
+                $("input[name='content']").val(JSON.stringify(content));
+            }
+        }
+    })
+</script>
+{template 'common/footer'}

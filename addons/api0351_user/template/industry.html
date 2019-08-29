@@ -1,0 +1,55 @@
+{template 'common/header'}
+<div class="clearfix">
+
+    <div class="alert we7-page-alert">
+		<p style="color:#CC0000"><i class="wi wi-info-sign"></i>【提示】分类排序要按照1~N逐步增加的数值进行排序设置，否则相关联的信息选择会出现错误（如手动添加名片、小程序相关设置）</p>
+	</div>
+    
+	<div class="we7-padding-bottom clearfix">
+				<div class="pull-right">
+			<a href="{php echo $this->createWebUrl('Industry', array('action' => 'add'));}" class="btn btn-primary we7-padding-horizontal">添加分类</a>
+		</div>
+			</div>
+            
+
+    
+	<table class="table we7-table table-hover">
+		<thead class="navbar-inner">
+		<tr>
+        	<th class="text-center">分类ID</th>
+			<th class="text-center">分类名称</th>
+            <th class="text-center">分类排序</th>
+            <th class="text-center">分类状态</th>
+			<th class="text-right">管理操作</th>
+		</tr>
+		</thead>
+        {loop $clas $index $item}
+        <tbody>
+            <tr>
+            	<td class="text-center">{$item['id']}</td>
+                <td class="text-center">{$item['csname']}</td>
+                <td class="text-center">{$item['sort']}</td>
+                <td class="text-center">
+               	{if $item['recomme'] == 0}
+                   <font color="#C8C8C8">未推荐</font>
+                {else}
+                   <font color="#CC0000">已推荐</font>
+                {/if} 
+                </td>
+                <td>
+                <div class="link-group">
+                {if $item['recomme'] == 0}
+                    <a href="{php echo $this->createWebUrl('Industry', array('action' => 'recm','id' => $item['id'],'recomme' => 1));}">推荐</a>
+                {else}
+                	<a href="{php echo $this->createWebUrl('Industry', array('action' => 'recm','id' => $item['id'],'recomme' => 0));}" style="color:#CC0000">取消</a>
+                {/if}    
+                    <a href="{php echo $this->createWebUrl('Industry', array('action' => 'edit','id' => $item['id']));}">编辑</a>
+                </div>
+                </td>
+            </tr>
+        </tbody>
+        {/loop}
+	</table>
+    {$pager}
+</div>
+{template 'common/footer'}

@@ -1,0 +1,114 @@
+<div id="member" class="mui-popover mui-popover-left">
+    <div class="mui-popover-header">个人资料<a href="#member" class="mui-pull-right mui-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell avatar">
+                        <a id="head" class="mui-navigate-right">头像
+                            <span class="mui-pull-right">
+                                <img class="head-img mui-action-preview" width="40" height="40" src="{$member['avatar']}">
+                            </span>
+                        </a>
+                        <div class="upload-btn js-avatar-avatar" style="position:absolute;"></div>
+                    </li>
+                    <script>
+                        util.img($('.js-avatar-avatar'), function(url){
+                            $('.avatar img').attr('src', url.url);
+                            $.post('./index.php?i={$_W["uniacid"]}&c=mc&a=profile&do=avatar&', {'avatar' : url.attachment}, function(data) {
+                                data = $.parseJSON(data);
+                                if (data.type == 'success') {
+                                    $('.mui-media-object img').attr('src', url.url);
+                                    util.toast(data.message);
+                                } else {
+                                    util.toast('更新失败');
+                                }
+                            })
+                        }, {
+                            crop : true,
+                            pxSize : 320,
+                            aspectRatio:1/1
+                        });
+                    </script>
+                    <li class="mui-table-view-cell" data-type="nickname">
+                        <a>会员<span class="mui-badge mui-badge-inverted">{$_W['member']['groupname']}</span></a>
+                    </li>
+                    <li class="mui-table-view-cell js-change" data-type="nickname">
+                        <a>昵称<span class="mui-badge mui-badge-inverted">{$member['nickname']}</span></a>
+                    </li>
+                    <li class="mui-table-view-cell js-change" data-type="realname">
+                        <a>姓名<span class="mui-badge mui-badge-inverted">{$member['realname']}</span></a>
+                    </li>
+                    <li class="mui-table-view-cell js-change" data-type="gender">
+                        <a>性别<span class="mui-badge mui-badge-inverted">{$member['gender']}</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a href="{php echo app_url('member/bond/mobile',array('setting'=>1))}">手机号<span class="mui-badge mui-badge-inverted{if empty($member['mobile'])} mui-text-primary{/if}">{if empty($member['mobile'])}待绑定{else}{$member['mobile']}{/if}</span></a>
+                    </li>
+                    <li class="mui-table-view-cell js-change" data-type="qq">
+                        <a>QQ号<span class="mui-badge mui-badge-inverted{if empty($member['qq'])} mui-text-primary{/if}">{if empty($member['qq'])}待绑定{else}{$member['qq']}{/if}</span></a>
+                    </li>
+                    <li class="mui-table-view-cell" style="display:none">
+                        <a>邮箱地址<span class="mui-badge mui-badge-inverted">{$member['email']}</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".js-change").on('tap',function(e) {
+        e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+        var $this = $(this);
+        var placeholder = '', params = '', value = '', type = $(this).data("type");
+        switch(type){
+            case 'nickname':placeholder = '请输入新的昵称';break;
+            case 'realname':placeholder = '请输入真实姓名';break;
+            case 'qq'      :placeholder = '请输入您的QQ';break;
+            default:break;
+        }	
+        if (type!='gender'){
+            mui.prompt('资料修改', placeholder,' ', function(e) {
+                if (e.index == 1) {
+                    value = e.value;
+                    if ($.trim(value)==''){
+                        util.tips('更改信息不能为空');
+                        return false;
+                    }
+                    switch(type){
+                        case 'nickname':params = {'nickname' : value, type : type};break;
+                        case 'realname':params = {'realname' : value, type : type};break;
+                        case 'qq'      :params = {'qq' : value, type : type};break;
+                        default:break;
+                    }
+                    //console.log(params);
+                    $.post("{php echo app_url('member/home/mc');}", params, function(data) {
+                        data = $.parseJSON(data);
+                        if (data.type == 'success') {
+                            util.toast(data.message);
+                            $this.find('span').removeClass('mui-text-primary').text(value);
+                        } else {
+                            util.toast(data.message);
+                        }
+                    })
+                }
+            });
+        }else{
+            var options = {data: [{"text":"\u4fdd\u5bc6","value":0},{"text":"\u7537","value":1},{"text":"\u5973","value":2}]};
+            var $this = $(this);
+            util.poppicker(options, function(items){
+                $.post("{php echo app_url('member/home/mc');}", {'gender' : items[0].value, type : type}, function(data) {
+                    data = $.parseJSON(data);
+                    if (data.type == 'success') {
+                        util.toast(data.message);
+                        $this.find('span').removeClass('mui-text-primary').text(items[0].value==1?'男':(items[0].value==2?'女':'保密'));
+                    } else {
+                        util.toast(data.message);
+                    }
+                })
+            });
+        }
+    });
+</script>

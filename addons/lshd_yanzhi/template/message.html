@@ -1,0 +1,363 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li {if $op=='index' }class="active" {/if}>
+        <a href="{php echo $this->createWebUrl('message', array('op'=>'index'));}">模板管理</a>
+    </li>
+    <li {if $op=='save' }class="active" {/if}>
+        <a href="{php echo $this->createWebUrl('message', array('op'=>'save'));}">新增模板</a>
+    </li>
+    {if $op == 'update'}
+    <li class="active">
+        <a href="{php echo $this->createWebUrl('message', array('op'=>'update', 'id'=>intval($_GPC['id'])));}">编辑模板
+        </a>
+    </li>
+    {/if}
+    <a class="btn btn-primary" style="float: right;" href="{php echo $this->createWebUrl('sendmsg');}">查看已群发</a>
+</ul>
+<div class="main">
+    {if $op == 'save'}
+    <form action="" method="post" class="form-horizontal form" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-heading">新增模板</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 标题
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="title" value="" placeholder="该标题仅提供识别，与模板消息内容无关" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 模板ID
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="mid" value="" />
+                        <div class="help-block">调用模板消息接口时需提供模板ID。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 详细内容
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <textarea class="form-control" name="content" rows="8"></textarea>
+                        <br/>
+                        <div class="help-block">模板消息的详细内容，可从微信模板消息获得。</div>
+                        <a id="J_resolve" class="btn btn-info" title="解析模板内容" href="javascript:;">解析模板内容</a>
+                    </div>
+                </div>
+                <div id="J_KeyValue" class="form-group" style="display:none;">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 键值对
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <div id="J_keyValue_Content"></div>
+                        <div class="help-block">模板消息在供第三方插件使用时默认值可不填写，颜色可不填写会有统一的默认颜色。</div>
+                        <div class="help-block">插入图标方法：复制图标到输入框即可  <a href="{php echo MODULE_URL}template/emoji.html" style="color: #87CEEB;">图标获取地址</a> 复制wecat的图标粘贴到输入框，文字可现实多行</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关键词放大</label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="emphasis" value="" />
+                        <div class="help-block">需要放大的关键词   格式：keyword1.DATA  或者 keyword2.DATA  或者 keyword3.DATA   只能有一个</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">跳转链接</label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="url" value="" />
+                        <div class="help-block">该链接不是必填项,链接过长的时候可以使用短链接转换下。<p style="color: red;">
+                            路径说明->本小程序首页：lshd_yanzhi/pages/index/index</p>
+                            <p style="color: red;">跳转网页：lshd_yanzhi/pages/load/load?url=加网页链接</p>
+                            <p style="color: red;">跳转其他小程序：lshd_yanzhi/pages/topath/topath?url=加小程序appid</p>
+                            <p style="color: red;">跳转其他小程序路径：lshd_yanzhi/pages/topath/topath?url=加小程序appid 加上 || 加上 小程序路径</p></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
+                        <button class="btn btn-primary" name="submit" type="submit" value="1">保存</button>
+                        <input name="token" type="hidden" value="{$_W['token']}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    require(["jquery", "util"], function($, util) {
+        var i = 0;
+        var main = $("#J_keyValue_Content");
+        function addline(key) {
+            var html = '<div class="form-inline" style="margin-bottom:5px;"><input class="form-control" readonly="" name="key[' + i + ']" value="' + key + '" placeholder="键"/> : <input class="form-control" name="value[' + i + ']" placeholder="默认值"/>  : <input class="form-control" name="color[' + i + ']" placeholder="颜色"/></div>';
+            main.html(main.html() + html);
+            i += 1;
+        }
+        $(function() {
+            //解析
+            $("#J_resolve").on("click", function() {
+                var content = $("[name=content]").val();
+                if (content == "" || content == undefined) {
+                    util.message("该详细内容无法解析！", "", "error");
+                    return false;
+                }
+                main.html("");
+                i = 0;
+                //开始解析
+                var reg = /\{\{.*?\.(DATA)\}\}/gi;
+                var array = [];
+                var temp;
+                while (array = reg.exec(content)) {
+                    temp = array[0].replace(" ", "").replace("{{", "").replace(".DATA}}", "");
+                    addline(temp);
+                }
+                //选取颜色
+                $("input[name^=color]").each(function() {
+                    var ele = this;
+                    util.colorpicker(ele, function(color) {
+                        $(ele).val(color.toString());
+                    });
+                });
+                //显示
+                $("#J_KeyValue").show();
+            });
+        });
+    });
+    </script>
+    {elseif $op == 'update'}
+    <form action="" method="post" class="form-horizontal form" id="form1">
+        <div class="panel panel-default">
+            <div class="panel-heading">编辑模板</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 标题
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="title" value="{$tplmsg['title']}" placeholder="该标题仅提供识别，与模板消息内容无关" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 模板ID
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="mid" value="{$tplmsg['mid']}" />
+                        <div class="help-block">调用模板消息接口时需提供模板ID。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 详细内容
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <textarea class="form-control" name="content" rows="8">{$tplmsg['content']}</textarea>
+                        <br/>
+                        <div class="help-block">模板消息的详细内容，可从微信模板消息获得。</div>
+                        <a id="J_resolve" class="btn btn-info" title="解析模板内容" href="javascript:;">解析模板内容</a>
+                    </div>
+                </div>
+                <div id="J_KeyValue" class="form-group" {if count($tplmsg[ 'data']) <=0}style="display:none;" {/if}>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">
+                        <span class="text-danger">*</span> 键值对
+                    </label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <div id="J_keyValue_Content">
+                            {php $i=0;} {loop $tplmsg['data'] $key $item}
+                            <div class="form-inline" style="margin-bottom:5px;">
+                                <input class="form-control" readonly="" name="key[{$i}]" value="{$key}" placeholder="键" /> :
+                                 <!-- <textarea clos="50" rows="5" name="value[{$i}]" placeholder="默认值" value="{$item['value']}">{$item['value']}</textarea> -->
+                                <input class="form-control" name="value[{$i}]" placeholder="默认值" value="{$item['value']}" /> :
+                                <input class="form-control" name="color[{$i}]" placeholder="颜色" value="{$item['color']}" />
+                            </div>
+                            {php $i+=1;} {/loop}
+                        </div>
+                        <div class="help-block">模板消息在供第三方插件使用时默认值可不填写，颜色可不填写会有统一的默认颜色。</div>
+                        <div class="help-block">插入图标方法：复制图标到输入框即可  <a href="{php echo MODULE_URL}template/emoji.html" style="color: #87CEEB;">图标获取地址</a> 复制wecat的图标粘贴到输入框，文字可现实多行</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关键词放大</label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="emphasis" value="{$tplmsg['emphasis']}" />
+                        <div class="help-block">需要放大的关键词   格式：keyword1.DATA  或者 keyword2.DATA  或者 keyword3.DATA   只能有一个</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">跳转链接</label>
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input class="form-control" type="text" name="url" value="{$tplmsg['url']}" />
+                        <div class="help-block">该链接不是必填项,链接过长的时候可以使用短链接转换下。<p style="color: red;">
+                            路径说明->本小程序首页：lshd_yanzhi/pages/index/index</p>
+                            <p style="color: red;">跳转网页：lshd_yanzhi/pages/load/load?url=加网页链接</p>
+                            <p style="color: red;">跳转其他小程序：lshd_yanzhi/pages/topath/topath?url=加小程序appid</p>
+                            <p style="color: red;">跳转其他小程序路径：lshd_yanzhi/pages/topath/topath?url=加小程序appid 加上 || 加上 小程序路径</p></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
+                        <button class="btn btn-primary" name="submit" type="submit" value="1">确定编辑</button>
+                        <input name="id" type="hidden" value="{$tplmsg['id']}" />
+                        <input name="token" type="hidden" value="{$_W['token']}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    require(["jquery", "util"], function($, util) {
+        var i = 0;
+        var main = $("#J_keyValue_Content");
+
+        function addline(key) {
+            var html = '<div class="form-inline" style="margin-bottom:5px;"><input class="form-control" readonly="" name="key[' + i + ']" value="' + key + '" placeholder="键"/> : <input class="form-control" name="value[' + i + ']" placeholder="默认值"/>  : <input class="form-control" name="color[' + i + ']" placeholder="颜色"/></div>';
+            main.html(main.html() + html);
+            i += 1;
+        }
+        $(function() {
+            //解析
+            $("#J_resolve").on("click", function() {
+                var content = $("[name=content]").val();
+                if (content == "" || content == undefined) {
+                    util.message("该详细内容无法解析！", "", "error");
+                    return false;
+                }
+                main.html("");
+                i = 0;
+                //开始解析
+                var reg = /\{\{.*?\.(DATA)\}\}/gi;
+                var array = [];
+                var temp;
+                while (array = reg.exec(content)) {
+                    temp = array[0].replace(" ", "").replace("{{", "").replace(".DATA}}", "");
+                    addline(temp);
+                }
+                //选取颜色
+                $("input[name^=color]").each(function() {
+                    var ele = this;
+                    util.colorpicker(ele, function(color) {
+                        $(ele).val(color.toString());
+                    });
+                });
+                //显示
+                $("#J_KeyValue").show();
+            });
+            //选取颜色
+            $("input[name^=color]").each(function() {
+                var ele = this;
+                util.colorpicker(ele, function(color) {
+                    $(ele).val(color.toString());
+                });
+            });
+        });
+    });
+    </script>
+    {elseif $op == 'test'}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <input type="hidden" id="ids" value="{php echo $ids}">
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户openID</span>
+                        <input type="text" id="openid" class="form-control encrypt" placeholder="用户openID" />
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">用户formID</span>
+                        <input type="text" id="formid" class="form-control encrypt" placeholder="用户formID" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-info" id="sendtest" href="javascript:;">提交测试</a>
+                </div>
+            </div>
+            <p>&nbsp;</p>
+            <div>
+                <label class="control-label">状态：</label>
+                <label id="zhuangtai" class="control-label">未发送！</label>
+                <p>
+                    <label id="zhuangtaima" class="control-label"></label>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $("#sendtest").on("click", function() {
+        $("#zhuangtai").html("发送中！");
+        $.post("{php echo $this->createWebUrl('sendtest');}",{ 'id':{php echo $ids},'openid':$("#openid").val(),'formid':$("#formid").val()}, function(data) {
+            var jsondata = $.parseJSON(data);
+            var codes=jsondata.errcode;
+            if(codes==0){
+                $("#zhuangtai").html("发送成功！");
+            } else {
+                $("#zhuangtai").html("发送失败！请检查参数，或重新进入小程序获取新formid，一次formid只能使用一次！");
+                $("#zhuangtaima").html("错误："+jsondata.errmsg);
+            }
+        });
+    });
+    </script>
+    {else}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-hover table-responsive">
+                <thead class="navbar-inner">
+                    <tr>
+                        <th class="text-left">标题</th>
+                        <th class="text-left">模板ID</th>
+                        <th class="text-right" width="200px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $list $key $item}
+                    <tr class="text-center">
+                        <td class="text-left">{$item['title']}</td>
+                        <td class="text-left">{$item['mid']}</td>
+                        <td class="text-right">
+                            <a href="{php echo $this->createWebUrl('message', array('op'=>'test', 'id'=>$item['id']));}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="测试"> <i class="fa fa-eject"></i>
+                            </a>
+                            <a href="{php echo $this->createWebUrl('sendmsg', array('op'=>'save', 'id'=>$item['id']));}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="群发"> <i class="fa fa-send"></i>
+                            </a>
+                            <a href="{php echo $this->createWebUrl('message', array('op'=>'update', 'id'=>$item['id']));}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"> <i class="fa fa-edit"></i>
+                            </a>
+                            <a onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;" href="{php echo $this->createWebUrl('message', array('op'=>'del', 'id'=>$item['id']));}" class="btn btn-default btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {/loop} {if empty($list)}
+                    <tr>
+                        <td colspan="4">未创建模板消息</td>
+                    </tr>
+                    {/if}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+    {/if}
+</div>
+<script type="text/javascript">
+require(['jquery', 'util'], function($, util) {
+    $("#form1").on("submit", function() {
+        var _ = $(this);
+        if (_.find("[name=title]").val() == '') {
+            util.message('温馨提示：请填写标题！', '', 'error');
+            return false;
+        }
+        if (_.find("[name=mid]").val() == '') {
+            util.message('温馨提示：请填写模板ID！', '', 'error');
+            return false;
+        }
+    });
+    //
+    $('.btn').hover(function() {
+        $(this).tooltip('show');
+    }, function() {
+        $(this).tooltip('hide');
+    });
+});
+</script>
+{template 'common/footer'}

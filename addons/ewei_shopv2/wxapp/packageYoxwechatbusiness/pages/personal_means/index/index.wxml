@@ -1,0 +1,270 @@
+<!-- <import src="./register/register.wxml" /> -->
+<view class='container'>
+  <view class='base_up'>
+    <view class='avatar'>
+      <image src='{{myinfo.avatar}}' style='background:#000;'></image>
+    </view>
+    <view class='username'>
+      <text>{{user_input}}</text>
+    </view>
+    <view class='code'>
+      <text>会员编号:</text>
+      <text>{{myinfo.invitationcode}}</text>
+    </view>
+  </view>
+  <view style='margin-left:58px;'>
+    <view class="nav {{currentnavTab==index?'nav_active':'nav_default'}}" style='margin-left:76px;' data-index='{{index}}' wx:for="{{navList}}" bindtap='navbarTap'>
+      <text>{{item}}</text>
+    </view>
+  </view>
+  <view class='base_down'>
+    <!-- 基本资料 -->
+    <view class='base_edit bgfff' wx:if="{{baseflag}}">
+      <!-- 昵称 -->
+      <view class='basename base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>昵称</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{userflag}}' class='user' catchtap='show'>{{user_input}} ></text>
+          <input wx:if="{{userflag}}" class='user_input' bindinput='userinput' bindblur='userblur'></input>
+        </view>
+      </view>
+      <!-- 姓名 -->
+      <view class='name base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>姓名</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{nameflag}}' class='user' catchtap='show2'>{{name_input}} ></text>
+          <input wx:if="{{nameflag}}" class='user_input' bindinput='nameinput' bindblur='nameblur'></input>
+        </view>
+      </view>
+      <!-- 联系电话 -->
+      <view class='commit_phone base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>联系电话</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{phoneflag}}' class='user' catchtap='show3'>{{phone_input}} 更改 ></text>
+          <input wx:if="{{phoneflag}}" class='user_input' bindinput='phoneinput' bindblur='phoneblur'></input>
+        </view>
+      </view>
+      <!-- 微信号码 -->
+      <view class='weixin base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>微信号码</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{weixinflag}}' class='user' catchtap='show4'>{{weixin_input}} 更改 ></text>
+          <input wx:if="{{weixinflag}}" class='user_input' bindinput='weixininput' bindblur='weixinblur'></input>
+        </view>
+      </view>
+      <!-- QQ号码 -->
+      <view class='qq base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>QQ号码</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{qqflag}}' class='user' catchtap='show5'>{{qq_input}} 更改 ></text>
+          <input wx:if="{{qqflag}}" class='user_input' bindinput='qqinput' bindblur='qqblur'></input>
+        </view>
+      </view>
+      <!-- 身份证号 -->
+      <view class='status base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>身份证号</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{cardflag}}' class='user' catchtap='show6'>{{card_input}} ></text>
+          <input wx:if="{{cardflag}}" class='user_input' bindinput='cardinput' bindblur='cardblur'></input>
+        </view>
+      </view>
+      <!-- 微信号 -->
+<!--       <view class='weixin_number base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>微信号</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{weixin2flag}}' class='user' catchtap='show7'> {{weixin2_input}}解绑 ></text>
+          <input wx:if="{{weixin2flag}}" class='user_input' bindinput='weixin2input' bindblur='cardblur'></input>
+        </view>
+      </view> -->
+      <!-- 银行卡 -->
+      <view class='bank_card base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>银行卡</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text class='user'></text>
+          <text class='user' catchtap='tobank'>解绑 ></text>
+        </view>
+      </view>
+      <!-- 选择地区 -->
+      <view class='area base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>收货地区</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text catchtap='chooseAddress' class='user' style=''>{{province == ''?'点我选择地区':province + '-' + city + '-' + area}}</text>
+        </view>
+      </view>
+      <!-- 收货地址 -->
+      <view class='address base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>收货地址</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{addressflag}}' class='user' catchtap='show8' style='margin-right:0px;'>{{address_input}} ></text>
+          <input wx:if="{{addressflag}}" class='user_input' bindinput='addressinput' bindblur='addressblur'></input>
+        </view>
+      </view>
+      <!-- 登录密码 -->
+      <view class='load_password base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>登录密码</text>
+          <text class='star'>*</text>
+        </view>
+        <view class='floright'>
+          <text hidden='{{pwdflag}}' class='user' catchtap='show9'>{{pwd_input}} 更改 ></text>
+          <input wx:if="{{pwdflag}}" class='user_input' bindinput='pwdinput' bindblur='pwdblur'></input>
+        </view>
+      </view>
+      <!-- 身份证 -->
+      <view class='post_card bgfff base_edit_item' style='height:279px; border-bottom:1px solid #f3f3f3;'>
+        <view class='front' style='height:70px;line-height:100px;margin-bottom:22px;'>
+          <view class='floleft' style='height:6px;'>
+            <text class='title' style='font-size:11px;'>手持身份证正面</text>
+            <text class='star' style='font-size:11px;'>*</text>
+          </view>
+          <view class="img-box floright">
+            <view class="img" wx:for="{{imgs1}}" wx:for-item="item" wx:key="*this">
+              <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg1"></image>
+              <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg1">删除</view>
+            </view>
+            <view class="upload-img-btn floleft" bindtap="chooseImg1" wx:if="{{imgs1.length<1}}">
+              <image src='./image/camera.png'></image>
+              <text>添加照片</text>
+            </view>
+
+          </view>
+        </view>
+        <view class='behind' style='height:70px;line-height:100px;'>
+          <view class='floleft' style=''>
+            <text class='title' style='font-size:11px;'>手持身份证反面</text>
+            <text class='star' style='font-size:11px;'>*</text>
+          </view>
+          <view class="img-box floright" style='margin-left:0px;'>
+            <view class="img" wx:for="{{imgs2}}" wx:for-item="item" wx:key="*this">
+              <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg2"></image>
+              <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg2">删除</view>
+            </view>
+            <view class="upload-img-btn floleft" bindtap="chooseImg2" wx:if="{{imgs2.length<1}}">
+              <image src='./image/camera.png'></image>
+              <text>添加照片</text>
+            </view>
+
+          </view>
+        </view>
+        <view class='post_card_tips'>
+          <view class='' style='diplay:inline-block; width:6px;height:6px;border-radius:6px;background:#fd3d6b;float:left;'></view>
+          <text>请上传清晰的手持身份证还原价正、反照片，系统将自动识别证件信息。图片仅限jpeg、jpg、png格式且大小不超过1M</text>
+        </view>
+      </view>
+      <button class='contract_button'>点击签署您的电子合约</button>
+    </view>
+    <!-- 默认资料 -->
+    <view class='default_means bgfff' wx:if="{{defaultflag}}">
+      <!-- 端口数量 -->
+      <view class='number base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>端口数量</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>未知 ></text>
+        </view>
+      </view>
+      <!-- 会员类型 -->
+      <view class='type base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>会员类型</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>省代 ></text>
+        </view>
+      </view>
+      <!-- 当前金额 -->
+      <view class='coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>当前金额</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>99元</text>
+        </view>
+      </view>
+      <!-- 累积金额 -->
+      <view class='collect_coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>累积金额</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>99999999元</text>
+        </view>
+      </view>
+      <!-- 当前积分 -->
+      <view class='collect_coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>当前积分</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>999</text>
+        </view>
+      </view>
+      <!-- 累积积分 -->
+      <view class='collect_coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>累积积分</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>9999999</text>
+        </view>
+      </view>
+      <!-- 关联上级 -->
+      <view class='collect_coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>关联上级</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>周晶</text>
+          <text class='user'>></text>
+        </view>
+      </view>
+      <!-- 业务人员 -->
+      <view class='collect_coins base_edit_item'>
+        <view class='floleft'>
+          <text class='title'>业务人员</text>
+        </view>
+        <view class='floright'>
+          <text class='user'>小妆</text>
+          <text class='user'>></text>
+        </view>
+      </view>
+    </view>
+    <button class='save_means' bindtap='saveTap'>
+      保存资料
+    </button>
+  </view>
+</view>
+<nyz_area_picker show="{{show}}" bind:sureSelectArea="sureSelectAreaListener">
+</nyz_area_picker>
+<!-- <template is="register_template" data="" /> -->

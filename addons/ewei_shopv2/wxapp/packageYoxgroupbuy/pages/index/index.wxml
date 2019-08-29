@@ -1,0 +1,66 @@
+<view class='container'>
+  <view class="customSwiper">
+    <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+      <block wx:for="{{sliderList}}">
+        <swiper-item>
+          <image style='width:100%;height:100%;' src="{{item.imageSource}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="tab">
+      <block wx:for="{{sliderList}}" wx:key="key">
+        <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+        <view wx:else class="tab-item"></view>
+      </block>
+    </view>
+  </view>
+  <view class='big_coupon'>
+    <view class='big_coupon_left'>
+      <view class='title'>
+        590团购大礼包
+      </view>
+      <view class='futitle'>
+        数十种商品任意搭配 | 超值礼包速来选购
+      </view>
+    </view>
+    <view class='big_coupon_right'>
+      <view style='width:64px;height:16px;font-size:12px;line-height:16px;text-align:center;color:#fd2d6b;background:#fff;border-radius:10px;margin-left:16px;margin-top:36px;'>
+        立即选购
+      </view>
+    </view>
+  </view>
+  <view class='coupon_list'>
+    <block wx:for="{{coupon_list}}">
+      <view class='coupon_cell'>
+        <view class='image'>
+          <image src='{{item.imgUrl}}'></image>
+          <view class='top'>
+            TOP
+            <text>{{item.id}}</text>
+          </view>
+        </view>
+        <view class='content'>
+          <view class='title'>
+            {{item.title}}
+          </view>
+          <view class='descript'>
+            {{item.descript}}
+          </view>
+          <view class='price'>
+            <view class='one_price'>
+              ￥
+              <text>{{item.one_price}}</text>/盒
+            </view>
+            <view class='kg'>
+              <text>{{item.kg}}</text>*2/盒
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 客服 -->
+  <view class='services' bindtap='toservices'>
+      <image src='./image/service.png'></image>
+  </view>
+</view>

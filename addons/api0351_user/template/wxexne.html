@@ -1,0 +1,99 @@
+{template 'common/header'}
+<div class="panel-success">
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+          
+
+            
+    <div class="alert we7-page-alert" style="color:#C50003">
+        <p><i class="wi wi-info-sign"></i>【注】避审一时，避不了一世！建议大家还是尽快申请相关资质。</p>
+    </div>            
+            <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">微信避审功能</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[dStart]" style="width:150px;">
+						<option value="0" {if $setConfig[27][value] == 0} selected="selected" {/if}>开启</option>
+						<option value="1" {if $setConfig[27][value] == 1} selected="selected" {/if}>关闭</option>
+					</select>
+					<span class="help-block">当开关为开启状态是，名片功能将全部被关闭。</span>
+				</div>
+			</div>
+            
+            
+            
+                    
+       <div class="form-group">
+            <label class="col-sm-2 control-label">店铺LOGO</label>
+            <div class="col-sm-9 col-lg-9 col-xs-12">
+                 {php echo tpl_form_field_image('data[dlogo]',$setConfig[21][value]);}
+                 <span class="help-block">店铺LOGO图标，建议大小为128*128PX</span>
+			</div>
+        </div>		
+            
+            
+            
+                                        <div class="form-group">
+            <label class="col-sm-2 control-label">店铺名称</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[dname]" class="form-control" value="{$setConfig[22][value]}" placeholder="">
+                <span class="help-block">给您的店铺起个名字吧</span>
+            </div>
+        </div>	
+
+        
+        
+                            <div class="form-group">
+            <label class="col-sm-2 control-label">门店地址</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[daddress]" class="form-control" value="{$setConfig[23][value]}" placeholder="">
+                <span class="help-block">输入您店铺的所在详细地址</span>
+            </div>
+        </div>	
+        
+        
+       <div class="form-group">
+            <label class="col-sm-2 control-label">门店电话</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[dmobile]" class="form-control" value="{$setConfig[24][value]}" placeholder="">
+                <span class="help-block">这里输入您的门店联系电话</span>
+            </div>
+        </div>		
+        
+        
+               <div class="form-group">
+            <label class="col-sm-2 control-label">营业时间</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[dtime]" class="form-control" value="{$setConfig[25][value]}" placeholder="">
+                <span class="help-block">输入您的店铺营业时间如：8:00 - 18:30</span>
+            </div>
+        </div>		
+        
+        
+       <div class="form-group">
+            <label class="col-sm-2 control-label">门店照片</label>
+            <div class="col-sm-9 col-lg-9 col-xs-12">
+                 {php echo tpl_form_field_image('data[dphoto]',$setConfig[26][value]);}
+                 <span class="help-block">门店形象照，建议大小为300*300PX</span>
+			</div>
+        </div>
+        
+        
+        
+               <div class="form-group">
+            <label class="col-sm-2 control-label">店铺介绍</label>
+            <div class="col-sm-9 col-lg-9 col-xs-12">
+                <textarea name="data[dcontent]" class="form-control">{$setConfig[28][value]}</textarea>
+                 <span class="help-block">这里输入店铺的简单介绍</span>
+			</div>
+        </div>						
+            
+    
+
+			<div class="form-group" style="text-align:center; width:100%;">
+				<input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+	</form>
+</div>
+
+{template 'common/footer'}

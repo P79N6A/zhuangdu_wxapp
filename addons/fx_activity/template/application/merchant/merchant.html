@@ -1,0 +1,535 @@
+{fx_template 'common/header'}
+<link href="{FX_URL}web/resource/css/util.min.css" rel="stylesheet">
+<script type="text/javascript" src="{FX_URL}web/resource/js/util.min.js?v=20170912"></script>
+<style type="text/css">
+.input-group .input-group-addon{ border-left:0; border-right:0}
+.input-group .input-group-addon:first-child{border-left: 1px solid #e7e7eb;}
+.input-group .input-group-addon:last-child{border-right: 1px solid #e7e7eb;}
+.input-group .input-group-btn .btn-danger{border-color: #c9302c;}
+.multi-img-details .multi-item{height:auto;}
+#openids.multi-img-details .multi-item{text-align:center; max-width:100px;}
+#openids.multi-img-details .multi-item img{ max-width:90px; max-height:90px;}
+#openids.multi-img-details .multi-item .title{ overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+</style> 
+{if $_GPC['op']=='display' || $_GPC['op']==''}
+<ul class="nav nav-tabs">
+	<li{if $status==0} class="active"{/if}>
+        <a href="{php echo web_url('application/merchant/display',array('status'=>0,'keyword'=>$keyword))}">全部信息 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[0]}</span></a>
+    </li>
+	<li{if $status==1} class="active"{/if}>
+        <a href="{php echo web_url('application/merchant/display',array('status'=>1,'keyword'=>$keyword))}">未认证 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[1]}</span></a>
+    </li>
+    <li{if $status==2} class="active"{/if}>
+        <a href="{php echo web_url('application/merchant/display',array('status'=>2,'keyword'=>$keyword))}">已认证 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[2]}</span></a>
+    </li>
+	<li{if $status==3} class="active"{/if}>
+        <a href="{php echo web_url('application/merchant/display',array('status'=>3,'keyword'=>$keyword))}">待审核 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[3]}</span></a>
+    </li>
+    <li{if $status==4} class="active"{/if}>
+        <a href="{php echo web_url('application/merchant/display',array('status'=>4,'keyword'=>$keyword))}">已驳回 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[4]}</span></a>
+    </li>
+</ul>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form action="" method="get" class="form-horizontal" role="form" id="form1">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="{MODULE_NAME}" />
+            <input type="hidden" name="do" value="application" />
+            <input type="hidden" name="ac" value="merchant" />
+            <input type="hidden" name="op" value="{$op}"/>
+            <div class="form-group">
+                <div class="col-md-12">
+					<div class="input-group">
+						<input type="text" name="keyword" class="form-control" value="{$_GPC['keyword']}"  placeholder="可搜索 ID/商户名称/联系人姓名/联系人电话"/>
+						<span class="input-group-addon" id="search">搜索</span>
+					</div>
+				</div>
+			</div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+	$("#search").click(function(){
+		$('#form1')[0].submit();
+	})
+</script>
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-hover" style="min-width: 300px;">
+            <thead class="navbar-inner">
+                <tr>
+                    <th>主办方</th>
+                    <th style="width:100px;">总金额</th>
+                    <th style="width:100px;">可结算</th>
+                    <th style="width:100px;">线下付</th>
+                    <th style="width:60px;">佣金比</th>
+                    <th style="width:500px;" class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {loop $merchants $key $merchant}
+                <tr>
+                    <td>{$merchant['name']}</td>
+                    <td>{if $merchant['amount']}{$merchant['amount']}{else}0.00{/if}元</td>
+                    <td>{if $merchant['no_money']}{$merchant['no_money']}{else}0.00{/if}元</td>
+                    <td>{if $merchant['delivery']}{$merchant['delivery']}{else}0.00{/if}元</td>
+                    <td>{if !empty($merchant['percent'])}{$merchant['percent']}%{else}0.00%{/if}</td>
+                    <td style="text-align: center;">
+                    <a class="js-mcert-status-{$merchant['id']}" href="javascript:;" data-id="{$merchant['id']}" data-toggle="modal" data-target="#modal-mcert" data-whatever="@getbootstrap">
+                    {if empty($merchant['mcert'])}
+                        <font color="red">认证[暂无]</font>
+                    {elseif $merchant['mcert']['status']==0}
+                        <font color="orange">认证[待审]</font>
+                    {elseif $merchant['mcert']['status']==2}
+                        <font color="#c97c04">认证[驳回]</font>
+                    {else}
+                        {if TIMESTAMP > $merchant['mcert']['endtime']}<font color="#9b0101">认证[到期]</font>{else}<font color="green">认证[通过]</font>{/if}
+                    {/if}
+                    </a> - 
+                    <a class="" href="{php echo web_url('application/merchant/edit', array('id'=>$merchant['id']));}">编辑</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/permissions', array('id'=>$merchant['id']))}">权限</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/account', array( 'id'=>$merchant['id']));}">结算</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/record', array( 'id'=>$merchant['id']));}">结算记录</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/data_record', array( 'id'=>$merchant['id']));}">金额变更日志</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/delete',array('id'=>$merchant['id']));}" onclick="return confirm('此操作不可恢复，确认删除？');return false;">删除</a> - 
+                    <a class="" href="{php echo web_url('application/merchant/updateData', array( 'id'=>$merchant['id']));}">更新数据</a>
+                    </td>
+                </tr>
+                {/loop}
+                {if empty($merchants)}
+                <tr>
+                    <td colspan="8">
+                        尚未添加主办方
+                    </td>
+                </tr>
+                {/if}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-right">
+{$pager}
+</div>
+<div class="modal fade" id="modal-mcert" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        	<form class="form-horizontal form" method="post" action="" id="form-mcert" novalidate="novalidate">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">认证信息</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer" style="padding: 5px 15px;">
+            	<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</a>		
+				<a class="btn btn-primary js-mcert-post" data-id="" data-price="" data-dismiss="modal" aria-hidden="true">确定</a>		
+			</div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function get_mcert(mid) {
+	$("#modal-mcert .modal-body").html("加载中....")
+	$.get("{php echo web_url('application/merchant/mcert')}", {mid: mid}, function(data){
+		$("#modal-mcert .modal-body").html(data);
+	});
+}
+$('#modal-mcert').on('show.bs.modal', function (event) {
+	var button = $(event.relatedTarget);
+	var mid = button.data('id');
+	var modal = $(this)
+	//modal.find('.modal-body #aid').val(recipient)
+	get_mcert(mid);
+});
+$('.js-mcert-post').click(function() {
+	var status = $('#form-mcert').find("input[name='status']:checked").val(), mid = $('#form-mcert').find("input[name='mid']").val();
+	if (!$('#form-mcert').find("input[name='status']:checked").length){
+		util.tips('请选择审核状态', 1000);
+		return false;
+	}
+	$.post("{php echo web_url('application/merchant/mcert')}", $('#form-mcert').serialize(), function(data){
+		console.log(data);
+		if (!data.errno){
+			util.tips('操作成功');
+			if (status==1){
+				$('.js-mcert-status-'+mid).html('<font color="green">认证[通过]</font>');
+			}else{
+				$('.js-mcert-status-'+mid).html('<font color="#c97c04">认证[驳回]</font>');
+			}
+		}else{
+			util.tips('操作失败');
+		}
+		$('#modal-mcert').modal('hide');
+	},"json");
+});
+</script>
+{elseif $op=='edit' || $op='setting'}
+<div class="main" style=" margin:0px;">
+	<form action="" method="post" class="form-horizontal form" id="form">
+		<div class="panel panel-default">
+			<div class="panel-heading">商铺信息</div>
+			<div class="panel-body">
+            	{if !MERCHANTID}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">是否分配后台权限</label>
+					<div class="col-xs-12 col-sm-8">
+						<label class="radio radio-inline">
+							<input type="radio" name="merchant[open]" value="1" {if intval($merchant['open']) !=2}checked="checked"{/if} onclick="$('#level').show();"> 是
+						</label>
+						<label class="radio radio-inline">
+							<input type="radio" name="merchant[open]" value="2" {if intval($merchant['open']) ==2}checked="checked"{/if} onclick="$('#level').hide();"> 否
+						</label>
+					</div>
+				</div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">绑定会员</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type='hidden' id='uid' name='merchant[uid]' value="{$merchant['uid']}" />
+                        <div class='input-group'>
+                            <input type="text" name="membername" maxlength="30" value="{if !empty($member)}{$member['nickname']}{/if}" id="member" class="form-control" readonly placeholder="不绑定默认属于系统主办方" />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus1').modal();">选择用户</button>
+                            </div>
+                        </div>
+                        <div id="modal-module-menus1"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close one" type="button">×</button><h3>选择用户</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd1" placeholder="请输入粉丝昵称/uid/openid" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="get_members('uid','1');">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus1" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="c1">关闭</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+				<div id="level" {if $merchant['open']==2}style="display: none;"{/if}> 
+				<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">用户名</label>
+					<div class="col-xs-12 col-sm-8">
+						{if !empty($merchant) && !empty($merchant['uname'])}
+						<span class="uneditable-input form-control">{$merchant['uname']}</span>
+						{else}
+						<input type="text" name="merchant[uname]" class="form-control" value="{$merchant['uname']}" placeholder="设置后不可修改"/>
+						{/if}
+						
+					</div>
+				</div>
+				{if !empty($merchant)}
+				<!--<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">原密码</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="password" name="opwd" class="form-control" value="" />
+					</div>
+				</div>-->
+				<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">新密码</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="password" name="npwd" class="form-control" value="" />
+					</div>
+				</div>
+				<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">再次输入</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="password" name="tpwd" class="form-control" value="" />
+					</div>
+				</div>
+				{else}
+				<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">密码</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="password" name="merchant[password]" class="form-control" value="{$merchant['password']}" />
+					</div>
+				</div>
+				<div class="form-group" >
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">再次输入</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="password" name="tpwd" class="form-control" value="" />
+					</div>
+				</div>
+				{/if}
+				</div>
+                {if !MERCHANTID}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">佣金百分比</label>
+					<div class="col-xs-12 col-sm-8">
+						<div class="input-group">
+							<input type="text" name="merchant[percent]" class="form-control" value="{$merchant['percent']}" />
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+				</div>
+                {/if}
+                <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">虚拟关注量</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[followno]" class="form-control" value="{$merchant['followno']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">主办方名称</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="merchant[name]" class="form-control" value="{$merchant['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">主办方头像</label>
+					<div class="col-xs-12 col-sm-8">
+						{php echo tpl_form_field_image('merchant[logo]', $merchant['logo']);}
+						<span class="help-block">图片建议为200*200</span>
+					</div>
+				</div>
+                <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">主页封面</label>
+					<div class="col-xs-12 col-sm-8">
+						{php echo tpl_form_field_image('merchant[thumb]', $merchant['thumb']);}
+						<span class="help-block">图片建议为900*900</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">客服二维码</label>
+					<div class="col-xs-12 col-sm-8">
+						{php echo tpl_form_field_image('merchant[kefuimg]', $merchant['kefuimg']);}
+						<span class="help-block">图片建议为640*870</span>
+					</div>
+				</div>
+				<div class="form-group" style="display:none">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">上传商品数量上限</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[goodsnum]" class="form-control" value="{$merchant['goodsnum']}">
+					</div>
+				</div>
+				<div class="form-group" style="display:none;">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">虚拟销量</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[falsenum]" class="form-control" value="{$merchant['falsenum']}">
+					</div>
+				</div>
+				<div class="form-group" style="display:none">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">实际销量</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[salenum]" class="form-control" value="{$merchant['salenum']}" readonly="readonly">
+					</div>
+				</div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">场地名称</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="text" name="merchant[storename]" class="form-control" value="{$merchant['storename']}" placeholder="例如：xx大厦">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">位置坐标</label>
+                    <div class="col-xs-12 col-sm-8">
+                    {php echo tpl_form_field_position('merchant',array('lng'=>$merchant['lng'],'lat'=>$merchant['lat'],'adinfo'=>$merchant['adinfo']))}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">详情地址</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="text" name="merchant[address]" class="form-control" value="{$merchant['address']}" placeholder="详细地址" id="address"/>
+                    </div>
+                </div>
+
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择提现到微信号</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type='hidden' id='openid' name='openid' value="{$merchant['openid']}" />
+                        <div class='input-group'>
+                            <input type="text" name="saler" maxlength="30" value="{if !empty($saler)}{$saler['nickname']}{/if}" id="saler" class="form-control" readonly />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus2').modal();">选择提现到微信号</button>
+                            </div>
+                        </div>
+                        {if !empty($saler)}
+                        <span class='help-block'><img style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src="{$saler['avatar']}" id="avatar" /></span>
+                        {/if}
+                        <div id="modal-module-menus2"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close two" type="button">×</button><h3>选择提现到微信号</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd2" placeholder="请输入粉丝昵称/uid/openid" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="get_members('saler','2');">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus2" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="c2">关闭</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择通知管理员</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class='input-group'>
+                            <input type="text" name="messagesaler" maxlength="30" value="" class="form-control" readonly placeholder="可指定多个管理员" />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus3').modal();">选择通知管理员</button>
+                                <button class="btn btn-danger" type="button" onclick="reset_admin();">重置</button>
+                            </div>
+                        </div>
+                        <div class="input-group multi-img-details" id="openids">
+                            {loop $messagesaler $openid}
+                            {php $member = getMember($openid)}
+                            <div class="multi-item">
+                            <img src="{$member['avatar']}" onerror="this.src='{$_W['siteroot']}web/resource/images/nopic.jpg'; this.title='图片未找到.'" class="img-responsive img-thumbnail">
+                            <input type="hidden" name="openids[]" value="{$openid}">
+                            <em class="close" title="删除管理员" onclick="deleteMultiImage(this)">×</em>
+                            <p class="help-block title">{$member['nickname']}</p>
+                            </div>
+                            {/loop}
+                        </div>
+                        <div id="modal-module-menus3"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择通知管理员</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd3" placeholder="请输入粉丝昵称/uid/openid" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="get_members('messagesaler','3');">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus3" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true" id="c3">关闭</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">联系人</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[linkman_name]" class="form-control" value="{$merchant['linkman_name']}" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">联系电话</label>
+					<div class="col-xs-12 col-sm-8">
+							<input type="text" name="merchant[linkman_mobile]" class="form-control" value="{$merchant['linkman_mobile']}" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">主办方详情</label>
+					<div class="col-xs-12 col-sm-8">
+						<textarea style="height:200px;" name="merchant[detail]" class="form-control richtext" cols="60">{$merchant['detail']}</textarea>
+					</div>
+				</div>
+				
+				{if !empty($id)}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">添加日期</label>
+					<div class="col-xs-12 col-sm-8">
+						<p class="form-control-static">{php echo date('Y-m-d', $merchant['createtime']);}</p>
+					</div>
+				</div>
+				{/if}
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input type="hidden" name="id" value="{$merchant['id']}" />
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+{elseif $_GPC['op']=='detail'}
+
+{/if}
+<script type="text/javascript">
+	function get_members(s,k) {
+		if( $.trim($('#search-kwd'+k).val())==''){
+			util.tips('请输入关键词');
+			$('#search-kwd'+k).focus();
+			return;
+		}
+		$("#module-menus"+k).html("正在搜索....")
+		$.get("{php echo web_url('application/merchant/search')}", {
+			keyword: $.trim($('#search-kwd'+k).val()),t:s
+		}, function(dat){
+			$('#module-menus'+k).html(dat);
+		});
+	}
+	function select_member(o,type) {
+		//console.log(o);
+		if(type =='uid'){
+			$("#uid").val(o.uid);
+			$("#member").val(o.nickname);
+			$(".one").click();
+		}else if (type =='saler'){
+			$("#openid").val(o.openid);
+			$("#saler").val(o.nickname);
+			$("#avatar").attr('src', o.avatar);
+			$(".two").click();
+		}else{
+			var hh = '', istrue = true;
+			$("input[name='openids[]']").each(function(){
+				if ($(this).val()==o.openid){
+					util.tips('管理员不能重复');
+					istrue = false;
+					return false;
+				}
+			});
+			if (!istrue) return false;
+			hh += '<div class="multi-item"><img src="'+o.avatar+'" onerror="this.src=\''+"{$_W['siteroot']}"+'web/resource/images/nopic.jpg\'; this.title=\'图片未找到.\'" class="img-responsive img-thumbnail">'
+			+'	<input type="hidden" name="openids[]" value="'+o.openid+'">'
+			+'	<em class="close" title="删除管理员" onclick="deleteMultiImage(this)">×</em>'
+			+'	<p class="help-block title">'+o.nickname+'</p>'
+			+'</div>';
+			$("#openids").append(hh);
+			$(".three").click();
+		}
+	}
+	function reset_admin(){
+		$("#openids").html('');
+	}
+	function deleteMultiImage(obj){
+		$(obj).parents(".multi-item").remove();
+	}
+	$(document).on('click', '.data-item-delete', function () {
+        $(this).closest('.data-item').remove();
+    });
+    
+    var kw = 1;
+	function addType() {
+    $(".btn-add-type").button("loading");
+    $.ajax({
+        url: "{php echo web_url('application/merchant/tag')}&kw="+kw,
+        cache: false
+    }).done(function (html) {
+        $(".btn-add-type").button("reset");
+        $("#datas").append(html);
+    });
+    kw++;
+}
+	
+	$(function(){
+		$('.statys').each(function(){
+			if ($(this).prev().children().is(':checked')) {
+				$(this).val(1);	
+			}else{
+				$(this).val(2);	
+			}
+		});
+	});
+</script>
+{fx_template 'common/footer'}

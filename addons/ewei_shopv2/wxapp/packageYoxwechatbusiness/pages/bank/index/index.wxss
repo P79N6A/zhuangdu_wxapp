@@ -1,0 +1,8 @@
+.tips{
+  width: 200px;
+  height: 100px;
+  font-size: 20px;
+  color: #888;
+  margin-left: 116px;
+  margin-top: 230px;
+}

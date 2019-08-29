@@ -1,0 +1,24 @@
+<template name="register_template">
+  <view class='register_box bgfff'>
+    <view class='title'>
+      <text>新会员注册</text>
+      <text style='font-size: 18px;position:absolute;right:16px;top:-22px;'>X</text>
+    </view>
+    <view class='register_content'>
+      <view class='register_content_phone'>
+        <input class='phone_input' placeholder='请输入手机号' placeholder-style='register_content_input'></input>
+      </view>
+      <view class='register_content_gain'>
+        <input class='check' placeholder='输入验证码'></input>
+        <button>获取</button>
+      </view>
+      <view class='register_content_policy'>
+        <view style='width:10px;display:inline-block;height:10px;border-radius:10px;border:1px solid #fd2d6b;margin-right:6px;'></view>
+        <text>我已阅读并同意用户协议和隐私政策</text>
+      </view>
+      <button class='register_button'>
+        注册
+      </button>
+    </view>
+  </view>
+</template>

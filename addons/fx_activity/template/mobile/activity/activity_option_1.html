@@ -1,0 +1,261 @@
+<style type="text/css">
+.mui-media-object {width: 110px;height: 75px;}
+.mui-media-object span{ width:106px; height:75px; display:block;background-size:auto 100%!important;  }
+.mui-popup-backdrop{z-index: 999!important;}
+#selector{ background:#f7f7f7; height:100%;}
+#selector>.mui-card-header{position: relative;padding: 10px;min-height: 95px;border:none;}
+#selector>.mui-card-header img{width: 110px;height: 110px;padding: 2px;border-radius: 5px; background-color:#FFF;}
+#selector>.mui-card-header .mui-media-body{display: inline-block;position: absolute;width: 60%;overflow: hidden; padding-left:5px;}
+#selector>.mui-card-header .mui-media-body span{ display:block; font-size:13px;}
+#selector>.mui-card-header .mui-media-body .mui-big{ color:#ff5a0f; line-height:1; font-size:100%!important;}
+#selector>.mui-card-header .mui-media-body #option_msg{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height: 1.3;}
+#selector .mui-popover-content{height: 80%;}
+#selector .mui-scroll-wrapper{ margin:0;padding-bottom:80px;}
+#selector .mui-table-view:after{ height:1px;}
+#selector .mui-table-view{border-radius: 0; text-align:left;color: #333;}
+#selector .mui-table-view-radio li{ width:100%;display: inline-block;border-radius: 8px; padding:1px; background-color:#eaeaea; margin:0 0 5px 0;}
+#selector .mui-table-view-radio li:after{ height:0;}
+#selector .mui-table-view-radio li .mui-card{ margin:0; border:none;}
+#selector .mui-table-view-radio li .mui-card-content-inner:first-child{text-align:center;height:30px; position:relative;overflow:hidden;-webkit-transition: height 0.2s ease-in-out;transition: height 0.2s ease-in-out;}
+#selector .mui-table-view-radio li .mui-card-content-inner:last-child{ height:0px;overflow:hidden;-webkit-transition: height 0.2s ease-in-out;transition: height 0.2s ease-in-out;}
+#selector .mui-table-view-radio li.mui-selected{ background-color:#ff5000;}
+#selector .mui-table-view-radio li.mui-selected .mui-card-content-inner:first-child{ height:0px; margin:0px;-webkit-transition: height 0.2s ease-in-out;transition: height 0.2s ease-in-out;}
+#selector .mui-table-view-radio li.mui-selected .mui-card-content-inner:last-child{height: 100px;-webkit-transition: height 0.5s ease-in-out;transition: height 0.5s ease-in-out;}
+#selector .mui-table-view-radio li .mui-card-header,#selector .mui-table-view-radio li .mui-card-footer{ text-align:center; background-color:#fff;}
+#selector .mui-table-view-radio li .mui-card-footer{ border:none}
+#selector ol.mui-table-view .mui-table-view-cell{ padding: 10px 25px;}
+#selector ol.mui-table-view .mui-table-view-cell span{ text-align:center; width:25%;}
+#selector ol.mui-table-view .mui-table-view-cell span:last-child{ text-align:center; width:40%;}
+#selector ol.mui-table-view .mui-table-view-cell .mui-numbox{padding: 0 20px; height:27px;}
+#selector ol.mui-table-view .mui-table-view-cell .mui-numbox .mui-btn{ width:30px;}
+#selector #icon-close{ color:#5f646e;position: absolute; top:5px; right:5px;font-weight: bold; z-index:#999;}
+#selector .mui-bar-footer{ padding:0;box-shadow: rgb(0, 0, 0) 0px 5px 10px;}
+#selector .mui-bar-footer span{ width:50%;padding: .4rem .5rem;line-height: 1.7;}
+#selector .mui-bar-footer .mui-btn{ border-radius:0;top:0px;padding: .4rem .5rem; width:45%; font-size:.8rem}
+</style>
+<div id="selector" class="mui-popover mui-popover-bottom mui-popover-action">
+    <div class="mui-card-header">
+        <div class="mui-media-object mui-pull-left"><span style="background:url({php echo tomedia($activity['thumb'])}) no-repeat center"></span></div>
+        <div class="mui-media-body">
+        	<span class="mui-ellipsis-2 mui-text-title" style="margin-bottom:5px;">{$activity['title']}</span>
+            <span id="quota" class="mui-text-gray">{if $activity['quota']>0}剩余名额{php echo $activity['quota']>$joinnum?$activity['quota']-$joinnum:'名额已满';}人{else}名额不限{/if}</span>
+            <span id="option_msg" class="mui-text-gray">请选择：{loop $specs $spec}
+{$spec['title']} {/loop}</span>
+            <input type="hidden" id="forquota" value="{php echo $activity['quota']>$joinnum?$activity['quota']-$joinnum:0;}" />
+            <input type="hidden" id="optquota" value="{$activity['quota']}" />
+        </div>
+        <a href="#selector" id="icon-close" class="mui-pull-right"><span class="mui-icon mui-icon-close"></span></a>
+    </div>
+    <div class="mui-popover-content">
+    	<div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!-- 可选择菜单 -->
+            {loop $specs $spec}
+            <input type='hidden' name="optionid[]" class='optionid optionid_{$spec['id']}' value="" title="{$spec['title']}">
+            <p style="margin: 8px; display:none">{$spec['title']}</p>
+            <ul class="mui-table-view mui-after-no mui-table-view-radio" specid='{$spec['id']}'>
+            {loop $spec['items'] $o}
+                <li class="mui-table-view-cell mui-badge js-selector-check" specid='{$spec['id']}' oid="{$o['id']}" select="false">
+                <div class="mui-card">
+                    <div class="mui-card-header">{$o['title']}</div>
+                    <div class="mui-card-content">
+                    	{php $oo = pdo_get('fx_spec_option', array('specs' => $o['id']))}
+                        <div class="mui-card-content-inner">
+                        	<div class="mui-content-padded" style="margin-bottom:0;"><h4><span class="mui-rmb">{$oo['aprice']}</span></h4></div>
+                        </div>
+                        <div class="mui-card-content-inner">
+                            <ol class="mui-table-view">
+                                <dd class="mui-table-view-cell">
+                                <span class="mui-pull-left">单价</span>
+                                <span class="mui-pull-right">数量</span>
+                                </dd>
+                                <dd class="mui-table-view-cell">
+                                	<span class="mui-pull-left"><h4>{$oo['aprice']}</h4></span>
+                                    {if $activity['team']}
+                                    <span class="mui-numbox mui-pull-right">
+                                    <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                                    <input name="num" class="mui-input-numbox js-teamnum" type="number" value="1" pattern="[0-9]*">
+                                    <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                                    </span>
+                                    {/if}
+                                </dd>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="mui-card-footer mui-text-gray">截止报名时间：{php echo date('Y年 m月d日 H:i',strtotime($activity['joinetime']))}</div>
+                </div>
+                </li>
+            {/loop}
+            </ul>
+            {/loop}
+        </div>
+        </div>
+    </div>
+    <div class="mui-bar mui-bar-footer">
+    	<span class="mui-pull-left mui-text-gray mui-big" id="option_aprice">
+        {php echo $activity['aprice']>0?'总金额：<font class="mui-rmb mui-text-rmb">'.$activity['aprice'].'</font>':'免费';}
+        </span>
+    	<input type="hidden" id="optionid" name="optionid" value=""/>
+        <input type="hidden" id="teamnum" name="teamnum" value="1"/>
+        <input type="hidden" id="payaprice" name="payaprice" value=""/>
+        <button type="button" class="mui-btn mui-btn-orange mui-pull-right" onclick="joinaction()">下一步</button>
+    </div>
+</div>
+<script>
+mui('.mui-scroll-wrapper').scroll();
+//触发规格选择器
+$(".js-selector").on("tap",function(e) {
+	mui('#selector').popover('toggle');
+});
+var options = {php echo json_encode($options)};
+var specs = {php echo json_encode($specs)};
+var aprice ="{$activity['aprice']}",teamquota=parseInt("{$activity['teamquota']}"),globalquota=parseInt("{$activity['globalquota']}"),quota=parseInt("{$activity['quota']}"),joinnum=parseInt("{$joinnum}");
+var selected = [];
+function option_selected() {
+	var ret = {
+		no: [],
+		is: [],
+		all: []
+	};
+	$(".optionid").each(function () {
+		ret.all.push($(this).val());
+		//console.log($(this).val());
+		if ($(this).val() == '') {
+			ret.no.push($(this).attr("title"));
+			//ret.no = $(this).attr("title");
+		}else{
+			ret.is.push($(this).attr("title"));
+			
+		}
+	})
+	if (typeof(ret.no[0])=='undefined'){
+		ret.no[0]='';
+	}
+	return ret;
+}
+$(function(){
+	//输入名额控制
+	$(".js-teamnum").change(function(e) {
+		e.stopPropagation();
+		var forquota=parseInt($("#forquota").val()),optquota=parseInt($("#optquota").val());
+		if ($(this).val()<=0){
+			$(this).val(1);
+		}
+		//判断名额
+		if(forquota==0 && (optquota>0 || globalquota>0)){
+			$(this).val(0);
+			$("#teamnum").val(0);
+			util.alert('当前类别名额已满', ' ');
+			return false;
+		}else if($(this).val() > forquota && (optquota>0 || globalquota>0)){
+			$(this).val(forquota);
+			$("#teamnum").val(forquota);
+			util.alert('已超出名额范围', ' ', function() {$(this).val(1);});
+			return false;
+		}
+		if ($(this).val() > teamquota && teamquota > 0){
+			$(this).val(teamquota);
+			$("#teamnum").val(teamquota);
+			util.alert('您最多只可填写 '+teamquota+' 个名额', ' ', function() {
+				$(".js-teamnum").val(teamquota);
+				//payprice = (optaprice*$(".js-teamnum").val()).toFixed(2);
+				//$('.js-pay-price').val(payprice);
+				//$('.js-aprice-text').text(payprice);
+			});
+		}else{
+			var payaprice;
+			$("#teamnum").val($(this).val());
+			console.log($(this).val()*$("#payaprice").val());
+			if ($("#payaprice").val()>0)
+			$("#option_aprice").find('.mui-rmb').html(($(this).val()*$("#payaprice").val()).toFixed(2));
+			//payprice = (optaprice*$(this).val()).toFixed(2);
+			//$('.js-pay-price').val(payprice);
+			//$('.js-aprice-text').text(payprice);
+		}
+	});
+	//选项控制
+	$(".js-selector-check").on("tap",function() {
+		if ($(this).hasClass('mui-selected'))
+		return false;
+		var specid = $(this).attr("specid");
+		var oid = $(this).attr("oid");
+		$(".optionid_" + specid).val(oid);
+		
+		if ($(this).attr("select")=='true'){//选中后取消
+		}else{//选中
+			var optionid = '', optquota = 0, optused = 0, optaprice = 0, opttitle = '', option_msg = '';
+			var ret = option_selected();
+			var len = options.length;
+			if (ret.no[0] == '') {//判断是否全选中
+				for (var i = 0; i < len; i++) {
+					var o = options[i];
+					var ids = ret.all.sort();
+					var specs = o.specs.split('_').sort();
+					option_msg += ret.is[i]+' ';
+					if (specs.toString() == ids.toString()) {
+						optionid = o.id;
+						optquota = parseInt(o.quota);
+						optused = parseInt(o.usednum)+parseInt(o.falsenum);
+						optaprice = o.aprice;
+						opttitle = o.title;
+						break;
+					}
+				}
+				$("#optionid").val(optionid);
+				$("#quotaval").val(optquota);
+				$("#option_msg").html('已选：'+opttitle);
+				if (optaprice>0){
+					$("#option_aprice").html('总金额：<font class="mui-rmb mui-text-rmb">'+optaprice+'</font>');
+					$("#payaprice").val(optaprice);
+				}else{
+					$("#option_aprice").html('免费');
+					$("#option_aprice").removeClass('mui-rmb');
+				}
+				if(optquota>0){
+					num = optquota > optused ? optquota-optused:0;
+					$("#quota").html("剩余名额"+num+"人");
+					$("#forquota").val(num);
+					$("#optquota").val(optquota);
+					if (num<=0) util.alert('当前类别名额已满', ' ');
+				}else if(globalquota>0){
+					num = globalquota > optused ? globalquota-optused:0;
+					$("#quota").html("剩余名额"+num+"人");
+					$("#forquota").val(num);
+					$("#optquota").val(optquota);
+					if (num<=0) util.alert('当前类别名额已满', ' ');
+				}else{
+					$("#quota").html("名额不限");
+					$("#forquota").val(0);
+					$("#optquota").val(0);
+				}
+				
+			}else{
+				for (var i = 0; i < ret.no.length; i++) {
+					option_msg += ret.no[i]+' ';
+				}
+				$("#option_msg").html('请选择：'+option_msg);	
+			}
+		}
+		
+	});
+});
+
+function joinaction() {
+	var ret = option_selected();
+	if (ret.no[0] != '') {
+		util.alert('请选择 '+ret.no[0]+' !', ' ', function() {});
+		return;
+	}
+	
+	var inputnum = $("#teamnum").val();
+	var optquota = "quota";
+	//var teamnum = teamquota;
+	inputnum = parseInt(inputnum);
+	optquota = parseInt(quota);
+	//teamnum = parseInt(teamnum);
+	var optquota = $("#optquota").val();
+		optquota = parseInt(optquota);
+	var groupnum = $("#buytype").val();
+	location.href = "{php echo app_url('home/join/display',array('activityid'=>$activityid))}" + "&optionid=" + $("#optionid").val() + "&teamnum=" + inputnum;
+}
+</script>

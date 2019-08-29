@@ -1,0 +1,36 @@
+<view class='container'>
+  <block wx:for="{{cateList}}">
+    <view class='protect_skin categorty'>
+      <view class='title'>
+        {{item.name}}
+      </view>
+      <view class='item_cell' wx:for="{{item.children}}" wx:for-item="types">
+        {{types.name}}
+      </view>
+    </view>
+    <!-- <view class='cosmetics categorty'>
+      <view class='title'>
+        彩妆
+      </view>
+      <view class='item_cell' wx:for="{{cosmetics}}">
+        {{item}}
+      </view>
+    </view>
+    <view class='sun_cream categorty'>
+      <view class='title'>
+        防晒
+      </view>
+      <view class='item_cell' wx:for="{{sun_cream}}">
+        {{item}}
+      </view>
+    </view>
+    <view class='component categorty'>
+      <view class='title'>
+        成分讲解
+      </view>
+      <view class='item_cell' wx:for="{{component}}">
+        {{item}}
+      </view>
+    </view> -->
+  </block>
+</view>

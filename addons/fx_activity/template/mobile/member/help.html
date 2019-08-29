@@ -1,0 +1,143 @@
+<style type="text/css">
+.mui-popover .mui-popover-content{ height:94.5%; line-height:1.8;}
+.mui-help-content .mui-popover{ width:100%;height:100%;top: 0;left: 0;}
+.mui-help-content .mui-popover-header:after{content:'';position:absolute;left:0;bottom:0;right:auto;top:auto;height:1px;width:100%;background-color:#d0d0d0;display:block;z-index:15;-webkit-transform:scaleY(.5);transform:scaleY(.5);}
+.mui-help-content .mui-table-view.mui-table-view-radio li{ font-size: 13px;min-width:21.58%; max-width:48%;display: inline-block;border-radius: 3px!important; padding:12px 8px 10px 8px; background:rgba(50,50,50,0.1); margin:0 1.88% 10px 0; color:#666; text-align:center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.mui-help-content .mui-table-view.mui-table-view-radio li:after{ height:0;}
+.mui-help-content .mui-table-view.mui-table-view-radio li.mui-selected{ color:#FFF;background-color:#ff5000;}
+.btn.mui-btn{padding:2px 5px;}
+</style>
+<div class="mui-help-content">
+{if $op == "income"}
+    <div id="income" class="mui-popover mui-popover-left">
+        <div class="mui-popover-header">收入说明<a href="#income" class="mui-pull-right mui-popover-close js-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+        <div class="mui-popover-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                <div class="mui-content-padded">
+                    <p><b>一、提现</b><br>
+                    1.&nbsp;首次提现，需要绑定微信；<br>
+                    2.&nbsp;活动结束并确认后，请在《{$_W['_config']['sname']}》的个人管理中心内申请提现；<br>
+                    3.&nbsp;经{$_W['_config']['sname']}官方核实活动真实举办，立即转账至你指定的账户中；<br>
+                    4.&nbsp;每笔提现金额最低{$merchant['minimum']}元，一次最多只能提现{$merchant['maximum']}元；<br>
+                    5.&nbsp;提现申请每周一统一处理，一般1~3个工作日内完成审核并打款。<br>
+                    </p>
+                    <p><b>二、可提现</b><br>
+                    可提现金额是指收费活动完成后，核销并确认完成的金额，进入可提现金额。<br></p>
+                    <p><b>三、已提现</b><br>
+                    已提现金额包含经{$_W['_config']['sname']}核实并打款成功的提现金额总和，以及提现申请已提交正在提现中的金额总和。<br></p>
+                    <p><b>四、待确认</b><br>
+                    待确认收入是指参与者报名收费活动后，尚未核销确认的交易金额，当核销确认完成后，明细变为可结算收入，交易金额进入余额，并可进行提现。<br></p>
+                    <p><b>五、明细</b><br>
+                    主办方可提现金额和总账变更明细，包含参与者支付成功、提现、退款的记录日志。<br></p>
+                    <p><b>六、费用说明</b><br>
+                    {if $merchant['percent'] > 0}
+                    1.&nbsp;通过发布活动带来的付费报名订单，主办方只需承担微信、支付宝、银行机构等“支付通道商”收取的<span class="mui-text-orange">{$merchant['percent']}%</span>的交易费率，此交易费率会随以上机构调整而变化。<br>
+                    {else}
+                    1.&nbsp;主办方提现时，{$_W['_config']['sname']}不会加收其它任何手续费，提现操作的相关交易费率由{$_W['_config']['sname']}为主办方补贴承担。<br>
+                    {/if}
+                    <br></p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{elseif $op == "help"}
+    <div id="username" class="mui-popover mui-popover-left">
+        <div class="mui-popover-header">账户管理<a href="#username" class="mui-pull-right mui-popover-close js-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+        <div class="mui-popover-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                <div class="mui-content-padded">
+                    <p class="mui-text-yellow"><b>Q、如何注册登录？</b></p>
+                    <p>平台登录账号包括手机、微信，其中微信访问为自动登录，手机号作为主办电脑端登录账号</p>
+                    <p>1.&nbsp;移动端登录：当您微信访问时平台时，平台会自动登录；<br>
+                    2.&nbsp;电脑端登录：<button class="btn mui-btn mui-btn-green" data-clipboard-action="copy" data-clipboard-text="{php echo FX_URL . 'web/merch.php';}">点击复制PC管理入口</button> 发送到电脑，并粘贴到浏览器中打开；（登录账号为您绑定的手号，初始密码6个8）
+                    </p>
+                    <p class="mui-text-yellow"><b>Q、如何修改密码？</b></p>
+                    <p>1.&nbsp;移动端：暂时不支持修改密码；<br>
+                    2.&nbsp;电脑端：登录后台后，在主界面中就可修改</p>
+                    <p class="mui-text-yellow"><b>Q、电脑端登录访问授限？</b></p>
+                    <p>电脑端登录授限，请联系→帮助中心→电话客服</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="fabu" class="mui-popover mui-popover-left">
+        <div class="mui-popover-header">活动发布说明<a href="#fabu" class="mui-pull-right mui-popover-close js-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+        <div class="mui-popover-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                <div class="mui-content-padded">
+                    <p class="mui-text-primary"><b>Q、如何在{$_W['_config']['sname']}发布活动?</b><br></p>
+                    <p>
+                    1.&nbsp;移动端发布：关注官方微信→进入报名平台→点击下方导航栏中的“+”号，选择发布活动即可；<br>
+                    2.&nbsp;电脑端发布：<button class="btn mui-btn mui-btn-green" data-clipboard-action="copy" data-clipboard-text="{php echo FX_URL . 'web/merch.php';}">点击复制PC管理入口</button> 发送到电脑，并粘贴到浏览器中打开，登录账户即可发布活；（登录账号请在帮助中心账户管理中查看）
+                    </p>
+                    <p class="mui-text-primary"><b>Q、报名信息填写项，是否支持自定义?</b><br></p>
+                    <p>可以自行添加、修改（此功能目前不支持手机端设置，如需要请登录电脑端进行设置）</p>
+                    <p class="mui-text-primary"><b>Q、可否设置多种类型价格?</b><br></p>
+                    <p>可以自行设置、修改（此功能目前不支持手机端设置，如需要请登录电脑端进行设置）</p>
+                    <br></p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="kefu" class="mui-popover mui-popover-left">
+        <div class="mui-popover-header">电话客服<a href="#kefu" class="mui-pull-right mui-popover-close js-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+        <div class="mui-popover-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                <div class="mui-content-padded">
+                    <p>
+                    客服微信：{$_W['_config']['kefuwixin']}<br>
+                    客服电话：{loop $kefutel $v}<a class="mui-text-primary" href="tel:{$v}">{$v}</a>{if end($kefutel)!=$v}，{/if}{/loop}<br>
+                    如有任何问题，欢迎反馈您的宝贵建议。</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="message" class="mui-popover mui-popover-left">
+        <div class="mui-popover-header">在线留言<a href="#message" class="mui-pull-right mui-popover-close js-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+        <div class="mui-popover-content">
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                <div class="mui-content-padded">
+                    <p>客服电话：1852257885<br>
+                    如有任何问题，欢迎反馈您的宝贵建议。
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+</div>
+<script>
+require(['{FX_BASE}components/clipboard/clipboard.min'], function (ClipboardJS){
+	var clipboard = new ClipboardJS('.btn');
+	clipboard.on('success', function(e) {
+		//console.info('Action:', e.action);
+		//console.info('Text:', e.text);
+		//console.info('Trigger:', e.trigger);
+		util.tips('复制成功');
+		e.clearSelection();
+	});
+	
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		util.tips('复制失败');
+	});
+});
+mui('.mui-popover .mui-scroll-wrapper').scroll();
+$(".js-popover").on("tap",function(e) {
+	var popover = "#"+$(this).data("popover");
+	mui(popover).popover('toggle');
+});
+</script>

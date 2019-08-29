@@ -1,0 +1,44 @@
+<import src="../../usertab_template/usertab_template.wxml" />
+<view class='container'>
+  <view class='background' style='background:#fd2d6b;width:100%;height:252px;float:left;'></view>
+  <view class='nav bgfff' style='float:left;'>
+    <block wx:for="{{navList}}">
+      <navigator url='{{item.pagePath}}'>
+        <view class='nav_cell'>
+          <view class='image'>
+            <image wx:if="{{item.imgurl}}" src='{{item.imgurl}}'></image>
+            <image wx:else style='background:#fd2d6b;'></image>
+            <text wx:if="{{item.text}}">{{item.text}}</text>
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+  <!-- <view class='count bgfff'>
+      <view class='count_time'>
+        <text>2019.04</text>
+      </view>
+      <view class='count_content'>
+        <block wx:for="{{countList}}">
+          <view class='count_cell'>
+            <view class='title' wx:if="{{item.title}}">
+              <text>{{item.title}}</text>
+            </view>
+            <view class='counted' wx:if="{{item.counted}}">
+              <text>{{item.counted}}</text>
+            </view>
+            <view class='count_down'>
+              <view class='compare'>
+                <text>相比于上个月</text>
+              </view>
+              <view class='number'>
+                <image src='./image/up.png'></image>
+                <text>{{}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view> -->
+</view>
+<template is="usertab_template" data="{{tablist,item,...item,currentTab}}" />

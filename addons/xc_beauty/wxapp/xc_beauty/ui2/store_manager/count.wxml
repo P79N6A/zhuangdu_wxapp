@@ -1,0 +1,12 @@
+<view class="page">
+    <view class="list">
+        <view class="title">
+            <view></view>
+            <view>收入</view>
+        </view>
+        <view class="item" wx:for="{{list}}" wx:for-index="idx" wx:key="idx">
+            <view>{{item.plan_date}}</view>
+            <view>+{{item.amount}}</view>
+        </view>
+    </view>
+</view>

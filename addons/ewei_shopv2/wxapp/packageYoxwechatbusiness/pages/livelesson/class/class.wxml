@@ -1,0 +1,147 @@
+<view class='container' style='position:relative;'>
+  <view class='tab'>
+    <view class='tab_item'>
+      消息
+      <text>{{length}}</text>
+    </view>
+  </view>
+  <block wx:for="{{classes}}">
+    <!-- <view class='time' data-id='{{item.id}}'>
+      <text>本次直播已于 {{item.update_time}}开始</text>
+    </view> -->
+    <view class='content'>
+      <view class='teacher'>
+        <view class="avatar">
+          <view wx:if="{{item.avatar}}">
+            <image src="{{item.avatar}}"></image>
+          </view>
+          <view wx:else>
+            <image src="https://zdu.igdlrj.com/{{course_teacher.avatar}}"></image>
+          </view>
+        </view>
+        <view class="nickname">
+          <text class='name'>{{course_teacher.nickname}}</text>
+          <text>讲师</text>
+        </view>
+        <view class='times'>
+          {{item.show_time_format}}
+        </view>
+      </view>
+      <view class='allmessage'>
+        <view class='message'>
+          <text>{{item.message}}</text>
+        </view>
+        <!-- 音频 -->
+        <view wx:if="{{item.voice}}">
+          <view class='audio' wx:if="{{id==item.id && isplay==false}}" bindtap='audioPlay' data-id='{{item.id}}' data-voice='{{item.voice}}'>
+            <image class='ico' src='https://xcx.quan5fen.com/Public/xcx-hitui/image/imgs-jyh/yuyin-ico.png' />
+          </view>
+          <view class='audio' wx:if="{{isplay==true}}" bindtap='audioStop' data-id='{{item.id}}' data-voice='{{item.voice}}'>
+            <image class='ico' src='https://xcx.quan5fen.com/Public/xcx-hitui/image/imgs-jyh/yuyin-gif.gif' />
+          </view>
+        </view>
+        <!-- 图片 -->
+        <view style='padding: 20rpx; height:78px; background-color: #fff;' wx:if="{{item.image}}">
+          <block wx:for="{{item.image}}" wx:for-item="types">
+            <view class='img'>
+              <image catchtap='previewImg' data-imglist='{{item.image}}' data-id='{{item.id}}' data-types='{{types}}' data-index="{{index}}" class='baseimg' style='width: 150rpx; height: 150rpx; margin: 10rpx;' src="{{types}}"></image>
+            </view>
+          </block>
+        </view>
+        <!-- 文件 -->
+        <view wx:if="{{item.file}}">
+          <view class='txt'>
+          </view>
+          <view class='ppt'>
+          </view>
+          <view class='word'>
+          </view>
+          <view class='pdf'>
+          </view>
+        </view>
+      </view>
+      <!-- 转发、点赞、评论 -->
+      <view class='down'>
+        <view class='transmit' bindtap='totransmit' data-image='{{item.image}}' data-message='{{item.message}}'>
+          <image src='./images/transmit.png'></image>
+        </view>
+        <view class='down_right'>
+          <view class="love" catchtap='lovetap' data-id='{{item.id}}' data-islike='{{item.attitude.is_like}}'>
+            <image class="image" wx:if="{{item.attitude.is_like==1}}" src='./images/love_active.png'></image>
+            <image class="image" wx:else src='./images/love.png'></image>
+          </view>
+          <view style='float:left;margin-left:-42px;margin-top:2px;'>
+            <text>{{item.attitude.is_like}}</text>
+          </view>
+          <view class='commit' catchtap='committap' data-id='{{item.id}}'>
+            <image src='./images/commit.png'></image>
+            <text></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 听众视角 -->
+  <view class='listen'>
+    <view class='listen_commit' bindtap='following' data-isfollow='{{item.attitude.is_follow}}'>
+      <text style='margin-right:10px;'>{{statusflag?'':'+'}}</text>
+      <text>{{statusflag?'取消关注':'关注'}}</text>
+    </view>
+    <view class='listen_person' bindtap='topersonal'>
+      <image src='./images/person.png'></image>
+      <text>私信</text>
+    </view>
+  </view>
+  <!-- 讲师视角 -->
+  <!-- <view class='teacher'>
+    <view class='talk' bindtap='toadd'>
+      <image src='./images/talk.png'></image>
+    </view>
+    <view class='commit2' bindtap='toadd'>
+      <image src='./images/commit2.png'></image>
+    </view>
+    <view class='add' bindtap='toupload'>
+      <image src='./images/add.png'></image>
+    </view>
+  </view> -->
+  <!-- 评论窗口 -->
+  <view class="commitBox {{commitflag?'show':'hide'}}" animation="{{animationData}}" style='position:absolute;left:0;bottom:0;background:#fff;'>
+    <view class='title'>
+      <view class='title_text'>
+        全部评论(
+        <text>{{commit_length}}</text>)
+      </view>
+      <view class='close' catchtap='close'>
+        <image src='./images/close.png'></image>
+      </view>
+    </view>
+    <view class='commit_list'>
+      <block wx:for="{{commit_list}}">
+        <view class='commit_cell'>
+          <view class='avatar'>
+            <image src='{{item.avatar}}'></image>
+          </view>
+          <view class='commit_right'>
+            <view class='name'>
+              {{item.nickname}}
+              <text>{{item.add_time_format}}</text>
+            </view>
+            <view class='like'>
+              <text></text>
+              <image src='./images/like.png'></image>
+            </view>
+            <view class='content'>
+              {{item.comment}}
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='talk'>
+      <input class='talk_input' placeholder='说点什么吧' bindinput='talk_value'></input>
+      <view class='send' catchtap='send'>
+        发送
+      </view>
+    </view>
+  </view>
+</view>

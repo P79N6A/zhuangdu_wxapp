@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="customSwiper">
+    <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+      <block wx:for="{{sliderList}}">
+        <swiper-item>
+          <image style='width:100%;height:100%;' src="{{item.imageSource}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="tab">
+      <block wx:for="{{sliderList}}" wx:key="key">
+        <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+        <view wx:else class="tab-item"></view>
+      </block>
+    </view>
+  </view>
+  <view class='navbar'>
+    <scroll-view class='left-navbar' scroll-y="true">
+      <view class="nav_left_items {{curNav == 0? 'active' : ''}}" data-level='0' bindtap="left" data-index="0">无等级
+      </view>
+      <view wx:for="{{levelList}}" class="nav_left_items {{curNav == index+1? 'active' : ''}}" data-level='{{item.level}}' bindtap="left" data-id="{{item.id}}" data-index="{{index+1}}">{{item.name}}
+      </view>
+    </scroll-view>
+    <scroll-view class='right-navbar' scroll-y="true" scroll-top="{{scrollTop}}">
+      <view class="goods-list">
+        <view wx:for='{{userList}}' class="goods" bindtap="ToSearchResult" data-level='{{item.level}}' data-avatar='{{item.avatar}}' data-nickname='{{item.nickname}}' data-id="{{item.id}}" data-uid='{{item.uid}}'>
+          <image class="img" wx:if='{{item.avatar}}' src="{{item.avatar}}"></image>
+          <text wx:if='{{item.nickname}}'>{{item.nickname}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

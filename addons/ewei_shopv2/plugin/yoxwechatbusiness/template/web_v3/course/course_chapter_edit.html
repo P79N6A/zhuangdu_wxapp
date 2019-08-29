@@ -1,0 +1,61 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商课程>章节>章节编辑</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>课程章节编辑</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">章节名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="名称" />
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">所属课程</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="pid">
+				<option value="0">请选择..</option>
+				{loop $result['data']['course_list'] $course_info}
+				<option {if $course_info['id']==$result['data']['course_id']||$course_info['id']==$_GPC['course_id']}selected{/if} value="{$course_info['id']}">{$course_info['name']}</option>
+				{/loop}
+				</select>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image2('thumb',$result['data']['thumb'])}
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

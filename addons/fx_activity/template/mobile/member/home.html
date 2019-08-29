@@ -1,0 +1,106 @@
+{template 'common/header'}
+<style>
+.mui-card.mui-one{box-shadow:none}
+.mui-media-body span{ font-size:18px;line-height:1.8;}
+.mui-media-body p{ color:#666666;}
+.mui-table-view .mui-media-object{width: 65px;max-width: 65px;height: 65px;line-height: 65px;}
+.mui-table-view li img{border-radius:10%; margin-right:10px;vertical-align: middle;}
+.mui-table-view-cell{ padding: 11px 12px;}
+.mui-table-view-cell .mui-ext-icon p{ font-size:15px; margin-top:1.5px;}
+.mui-card-link.mui-text-gray p{color:#828282!important}
+.mui-card-media .mui-table-view:after{ height:1px!important;}
+
+.mui-table-view.mui-grid-view{ background-color:none;}
+.mui-table-view.mui-grid-view .mui-table-view-cell{ border:none;background-color:#fff;padding: 8px 15px; position:relative;margin-right:0px;}
+.mui-table-view.mui-grid-view .mui-table-view-cell:after{content: ""; position:absolute; right:0; left:auto; top:50%;border-right:0.5px solid #e0e0e0; height:60%;-webkit-transform: translateY(-50%) scaleX(0.5); transform: translateY(-50%) scaleX(0.5);}
+.mui-table-view.mui-grid-view .mui-table-view-cell>a:not(.mui-btn){ margin: -11px -14px;}
+.mui-table-view.mui-grid-view .mui-table-view-cell:last-child:after{ border:none;}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{color:#777777; font-size:80%;margin-top:6px;}
+.mui-table-view.mui-grid-view span.mui-ext-icon{ position:relative; width:30px; height:25px; margin:0 auto;display:inline-block;}
+.mui-table-view.mui-grid-view span.mui-ext-icon:before{ left:50%;transform: translate(-50%,-50%);-webkit-transform: translate(-50%,-50%);font-size:18px;}
+.mui-table-view.mui-grid-view span.mui-ext-icon.mui-icon-qianbao:before{font-size:18px;}
+.mui-table-view.mui-grid-view .mui-badge{ position:absolute;}
+</style>
+    {template 'common/nav'}
+    <div class="mui-content">
+    	<ul class="mui-table-view" style="margin-top: 0;">
+            <li class="mui-table-view-cell mui-media">
+                <a class="mui-navigate-right js-popover" data-popover='member'>
+                    <img class="mui-media-object mui-pull-left" src="{$member['avatar']}">
+                    <div class="mui-media-body">
+                        <span>{$member['nickname']}</span>
+                        <p class="mui-ellipsis">手机号：{php echo !empty($member['mobile'])?$member['mobile']:'待绑定'}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="mui-table-view mui-grid-view mui-afterbefore-no mui-text-gray" style="margin:0; padding:0;">
+            <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+                <a href="{php echo app_url('member/favorite')}" class="mui-text-gray">
+                <span class="mui-ext-icon mui-icon-favorite"></span>
+                <div class="mui-media-body">收藏</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+                <a href="{php echo app_url('member/profile/list')}"><span class="mui-ext-icon mui-icon-fensi"></span>
+                <div class="mui-media-body">关注</div></a>
+            </li>
+        </ul>
+        <div class="mui-card mui-one">
+            <div class="mui-card-header mui-card-media" style="padding:0;">
+                <ul class="mui-table-view">
+                 	<li class="mui-table-view-cell">
+                        <a class="mui-navigate-right" href="{php echo app_url('records/records/list')}">
+                        <p>我的报名</p>
+                        <span class="mui-badge mui-badge-inverted">全部记录</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mui-card-footer mui-small" style="text-align:center">
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>1))}"><p>{$total1}</p>待付款</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>2))}"><p>{php echo $total2+$total3}</p>待参与</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>3))}"><p>{$total4}</p>已完成</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>4))}"><p>{$total5}</p>已取消</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>5))}"><p>{$total7}</p>已退款</a>
+            </div>
+        </div>
+        
+        <ul class="mui-table-view mui-afterbefore-no" style="margin-bottom:20px;">
+        	{if $_W['plugin']['card']['config']['card_enable']}
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{php echo $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&do=cardfans&m=fx_activity_plugin_babycard';}">
+                <span class="mui-ext-icon mui-icon-mingxi mui-text-yellow"><p class="mui-pl20">&nbsp;{$yearcard['name']}</p></span>
+                <span class="mui-badge mui-badge-inverted">{if !$yearcard['buy']}升级您的尊贵权益{else}<font class="mui-text-yellow">已开通</font>{/if}</span></a>
+            </li>
+            {/if}
+            {if $_W['_config']['credit2']==1}
+            {php $credit2link = empty($_W['_config']['credit2link'])?$_W['siteroot']."app/index.php?i=".$_W['uniacid']."&c=mc&a=bond&do=credits&credittype=credit2&type=record&period=1":$_W['_config']['credit2link'];}
+            {if empty($_W['member']['mobile'])}{php $credit2link="javascript:util.toast('请先绑定手机','','error');";}{/if}
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{$credit2link}">
+                <span class="mui-ext-icon mui-icon-myue mui-text-currency"><p class="mui-pl20">&nbsp;我的钱包</p></span>
+                <span class="mui-badge mui-badge-inverted mui-rmb">{if $credits['credit2']==''}0.00{else}{$credits['credit2']}{/if}</span></a>
+            </li>
+            {/if}
+            {if $_W['_config']['creditstatus']==1}
+            {php $credit1link = empty($_W['_config']['credit1link'])?$_W['siteroot']."app/index.php?i=".$_W['uniacid']."&c=mc&a=bond&do=credits&credittype=credit1&type=record&period=1":$_W['_config']['credit1link']}
+            {if empty($_W['member']['mobile'])}{php $credit1link="javascript:util.toast('请先绑定手机','','error');";}{/if}
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{$credit1link}">
+                <span class="mui-ext-icon mui-icon-mjifen mui-text-primary"><p class="mui-pl20">&nbsp;会员积分</p></span>
+                <span class="mui-badge mui-badge-inverted">{if $credits['credit1']==''}0.00{else}{$credits['credit1']}{/if} 积分</span></a>
+            </li>
+            {/if}
+        </ul>
+        {if $_W['_config']['merch'] && ($_W['_config']['merch_entry'] || $_W['_config']['merch_entry']=='' || MERCHANTID || ADMIN)}
+        <div class="mui-content-padded">
+        	<a class="mui-btn mui-btn-orange mui-btn-block" href="{php echo app_url('member/merch/display')}" style="border-radius:100px;">
+            {if ADMIN}平台管理入口{elseif MERCHANTID}主办方入口{else}成为主办方{/if}
+            </a>
+        </div>
+        {/if}
+        {template 'footer'}
+    </div>
+    {template 'member/setting'}
+</body>
+</html>

@@ -1,0 +1,169 @@
+.product{
+  width:100%;
+  height:114px;
+  margin-bottom:10px;
+  padding:18px 20px;
+}
+.product .thumb{
+  width: 120px;
+  height: 120px;
+  float: left;
+}
+.product .produt_text{
+  width: 200px;
+  float: left;
+  margin-left:18px;
+  margin-top:20px;
+}
+.product .produt_text .title{
+  font-size: 30rpx;
+  color: #2c2c2c;
+  margin-bottom:14px;
+}
+.componentBtn{
+  width: 128px;
+  height: 28px;
+  border: 2px solid #fd4d82;
+  font-size: 28rpx;
+  color: #fd4d82;
+  border-radius: 64px;
+  margin-left:16px;
+  text-align:center;
+  line-height:28px;
+}
+.bgfff{
+  background: #fff;
+}
+.baseimg{
+  width: 100%;
+  height: 100%;
+}
+.comment{
+  width: 100%;
+  height: auto;
+  color: #2c2c2c;
+}
+.titleBox{
+  height:16px;
+  border-bottom:1px solid #f3f3f3;
+  font-size:30rpx;
+  padding:14px 26px;
+}
+.comment-cell{
+  min-height:200px;
+}
+.comment-cell .avatar{
+  float: left;
+  margin-left:20px;
+  margin-top:16px;
+}
+.comment-cell .avatar image{
+  width: 42px;
+  height: 42px;
+  border-radius: 21px;
+}
+.comment-cell .name{
+  font-size: 32rpx;
+}
+.comment-cell .comment-key{
+  font-size: 24rpx;
+  color:#969696;
+  margin:6px 0;
+}
+.comment-cell .content{
+  width: 270px;
+  font-size: 28rpx;
+}
+.comment-cell .time{
+  font-size:22rpx;
+  color: #c4c4c4;
+  float: right;
+  margin-bottom:12px;
+}
+.comment-fixed{
+  width: 100%;
+  height: 58px;
+  background:#f3f3f3;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-left:12px;
+}
+.comment-fixed .comment-input{
+  width:80%;
+  height:40px;
+  background:#fff;
+  border-radius:20px;
+  font-size:28rpx;
+  margin-top:4px;
+  color:#707070;
+}
+.comment-fixed .comment-input image{
+  width:32px;
+  height:32px;
+  margin-left:16px;
+  margin-top:4px;
+  float:left;
+}
+.comment-fixed .comment-input text{
+  display:block;
+  float:left;
+  margin:9px 10px;
+}
+
+.section{
+  width: 100%;
+  /* height: 52px; */
+  background: #f7f7f7;
+  border-top:1px solid #c3c4bf;
+  border-bottom: 1px solid #c3c4bf;
+  position:fixed;
+  left:0;
+  bottom:48%;
+  z-index:99;
+  padding:2px 0;
+}
+.section textarea{
+  width:74%;
+  min-height:32px;
+  background:#fff;
+  border-radius:5px;
+  /*   margin-top:8px; */
+  float:left;
+  margin-left:14px;
+}
+.section .commitBtn{
+  float:right;
+  width:46px;
+  height:32px;
+  /* border:1px solid #e0e0e0; */
+  color:#e3e3e3;
+  line-height:32px;
+  text-align:center;
+  border-radius:5px;
+  /* margin-top:10px; */
+  margin-right:5px;
+  /* margin-top:2px; */
+}
+.active{
+  background: #05c160;
+  color: #fff !important;
+  /* font-weight: bold; */
+}
+.discuss-textarea{
+  padding-left: 10px;
+  padding-top: 5px;
+}
+/* .bottom{
+  bottom:48px;
+} */
+.textareaBox{
+  padding:2px 0;
+  /* margin-bottom: 20px; */
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+} 

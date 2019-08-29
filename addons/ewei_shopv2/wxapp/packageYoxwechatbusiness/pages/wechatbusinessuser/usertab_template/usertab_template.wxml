@@ -1,0 +1,13 @@
+<template name="usertab_template">
+  <view class='tab'>
+    <view class="tab_cell" wx:for="{{tablist}}" wx:for-item="item" bindtap="swichNav">
+      <navigator url='{{item.pagePath}}'>
+        <view class='image'>
+          <image class="iconPath {{currentTab==index?'icon_active':'icon_default'}}" data-current="{{index}}" wx:for-index="index"  src='{{currentTab==index?item.imgurl_active:item.imgurl}}' style="background-color: white;"></image>
+          <!-- <image wx:else style='background:#727272;'></image> -->
+        </view>
+        <text class="tab-text {{currentTab==index?'text_active':'text_default'}}" wx:for-index="index" data-current="{{index}}" wx:if="{{item.text}}">{{item.text}}</text>
+      </navigator>
+    </view>
+  </view>
+</template>

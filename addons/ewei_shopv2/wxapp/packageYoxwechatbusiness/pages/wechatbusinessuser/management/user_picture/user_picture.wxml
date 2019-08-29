@@ -1,0 +1,47 @@
+<view class='container'>
+  <view class='date bgfff'>
+    <view class='date_title'>
+      日期范围
+    </view>
+    <view class="date_item {{currentTab==index ? 'date_active' : 'date_default'}}" wx:for="{{dateList}}" data-index='{{index}}' bindtap='navbarTap'>
+      {{item}}
+    </view>
+    <view class='dateline'>
+      <text catchtap='showDatepicker1' hidden='{{dateflag1}}'>选择时间</text>
+      <text catchtap='showDatepicker1' data-date1='{{date1}}' wx:if="{{!datePickerIsShow1}}">{{date1}}</text>
+      <text style='color:#888; font-size:10px;'>到</text>
+      <text catchtap='showDatepicker2' hidden='{{dateflag2}}'>选择时间</text>
+      <text catchtap='showDatepicker2' data-date2='{{date2}}' wx:if="{{!datePickerIsShow2}}">{{date2}}</text>
+    </view>
+  </view>
+  <view class='line' style="width:100%;height:12px;background:#fd2d6b;margin-top:-8px;"></view>
+  <view class='user_box bgfff' style='width:100%;height:52px;padding-top:14px;'>
+    <view style='width:250px;height:32px;border-radius: 5px;border: 1px solid #fd2d6b;margin-left:58px;'>
+      <view class="user_item {{currentusertab==index ? 'user_active' : 'user_default'}}" wx:for="{{userList}}" data-index='{{index}}' bindtap='userbarTap'>
+        {{item}}
+      </view>
+    </view>
+  </view>
+  <view class='user_content'>
+    <!-- 年龄性别 -->
+    <view class='user_content_item bgfff'>
+      <text style='content: "";display: block;height: 22px;width: 4px;background: #fd2d6b;position: absolute; top:174px;left:10px;'></text>
+      <view class='user_title'>
+        年龄性别
+      </view>
+      <view class='user_content_main'>
+      </view>
+    </view>
+    <!-- 省份城市 -->
+    <view class='user_content_item bgfff'>
+      <text style='content: "";display: block;height: 22px;width: 4px;background: #fd2d6b;position: absolute; top: 696px;left: 10px;'></text>
+      <view class='user_title'>
+        省份城市
+      </view>
+      <view class='user_content_main'>
+      </view>
+    </view>
+  </view>
+</view>
+<date-picker id="date-picker1" value="{{datePickerValue1}}" isShow="{{datePickerIsShow1}}" bindsureclick="datePickerOnSureClick1" bindcancelclick="datePickerOnCancelClick" />
+<date-picker id="date-picker2" value="{{datePickerValue2}}" isShow="{{datePickerIsShow2}}" bindsureclick="datePickerOnSureClick2" bindcancelclick="datePickerOnCancelClick" />

@@ -1,0 +1,61 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-content{margin:auto;background:no-repeat url({php echo tomedia('addons/fx_activity/app/resource/images/tpl/sigin/01.jpg')});background-size:100% 100%;-moz-background-size:100% 100%;}
+.avatar p{color:#8c8ee5!important}
+.avatar .mui-img-circle{margin-top:0.4rem;width:10%;}
+.content-inner{margin-top:36%; padding:0 0.5rem;}
+.content-inner .p2{margin-top:20%;}
+</style>
+<div class="mui-content">
+	<div class="avatar mui-text-center">
+		<img src="{$merchant['logo']}" class="mui-img-circle">
+        <p>{$merchant['name']}</p>
+    </div>
+	<div class="content-inner mui-text-center">
+    	<p style="color:#fff"><h>{$activity['title']}</h></p>
+        <p style="color:#fff;" class="p2">{php echo date('Y-m-d H:i',strtotime($activity['starttime']))}</p>
+        <p style="color:#8b85c1">微信扫描下方二维码进行签到</p>
+    	<p><img width="50%" src="{php echo tomedia($qrcode)}"></p>
+    </div>
+</div>
+<script>
+window.addEventListener('resize', function(){//监测窗口大小的变化事件  
+	loadStyle();
+});
+function loadStyle(){
+	var winWidth = window.innerWidth,
+	winHeight = window.innerHeight,
+	contWidth = $('.mui-content').width(),
+	contHeight = $('.mui-content').height();
+	
+	newWidth = (contHeight/1.8).toFixed(0);
+	
+	if (winWidth - newWidth > 50){
+		$(".mui-content").css('width', newWidth+'px');
+		if (contHeight > 640){
+			$(".content-inner").css('margin-top', '46%');
+			$(".content-inner .p2").css('margin-top', '25%');
+		}else{
+			$(".content-inner").css('margin-top', '36%');
+			$(".content-inner .p2").css('margin-top', '20%');
+		}
+		if (contHeight <= 360){
+			$(".content-inner p").css('font-size', '50%');
+			$(".avatar p").css('font-size', '50%');
+		}
+	}else{
+		$(".mui-content").css('width', '100%');
+		if (winWidth - newWidth <20){
+			$(".content-inner").css('margin-top', '40%');
+			$(".content-inner .p2").css('margin-top', '22%');
+		}
+		$(".content-inner p").css('font-size', 'inherit');
+		$(".avatar p").css('font-size', 'inherit');
+	}
+	//alert(contHeight);
+	//alert((winHeight/winWidth).toFixed(2));
+}
+loadStyle();
+</script>
+</body>
+</html>

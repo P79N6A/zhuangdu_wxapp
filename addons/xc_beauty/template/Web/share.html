@@ -1,0 +1,170 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<style>
+    .type1,.type2,.type3,.type4{
+        display: none;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {$xtitle}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'web','version_id'=>$_GPC['version_id'])}">网站配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sort','version_id'=>$_GPC['version_id'])}">首页排版</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'map','version_id'=>$_GPC['version_id'])}">地图配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'theme','version_id'=>$_GPC['version_id'])}">主题配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sms','version_id'=>$_GPC['version_id'])}">短信配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'print','version_id'=>$_GPC['version_id'])}">打印配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'card','version_id'=>$_GPC['version_id'])}">会员卡配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'refund','version_id'=>$_GPC['version_id'])}">退款配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'rotate','version_id'=>$_GPC['version_id'])}">抽奖配置</a></li>
+            <li role="presentation" class="active"><a>分销配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'ad','version_id'=>$_GPC['version_id'])}">公告配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'group','version_id'=>$_GPC['version_id'])}">退款地址</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'online','version_id'=>$_GPC['version_id'])}">客服配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'audit','version_id'=>$_GPC['version_id'])}">过审配置</a></li>
+        </ul>
+        <form class="form-horizontal" role="form" method="post" action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'saverefund','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="name" id="name" value="{$list['name']}">
+                    <input type="hidden" name="id" value="{$list['id']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-8">
+                    {if $list['content']['status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">消费金额</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="amount" id="amount" value="{$list['content']['amount']}" placeholder="">
+                    <span class="help-block">消费金额达到后分销功能开启，不填不限制</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">分销等级</label>
+                <div class="col-sm-8">
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="level" id="level1" value="1" {if $list['content']['level']==1}checked{/if}>一级
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="level" id="level2" value="2" {if $list['content']['level']==2}checked{/if}>二级
+                    </label>
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="level" id="level3" value="3" {if $list['content']['level']==3}checked{/if}>三级
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">分销方法</label>
+                <div class="col-sm-8">
+                    <label class="radio inline" style="width: 140px;">
+                        <input type="radio" class="ui-radio" name="type" id="type1" value="1" {if $list['content']['type']==1}checked{/if}>按订单金额的百分比
+                    </label>
+                    <label class="radio inline" style="width: 140px;">
+                        <input type="radio" class="ui-radio" name="type" id="type2" value="2" {if $list['content']['type']==2}checked{/if}>每单固定金额
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">一级分销</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="level_one" id="level_one" value="{$list['content']['level_one']}" placeholder="选择 按订单金额的百分比 单位（%） 选择 每单固定金额 单位（元）">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">二级分销</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="level_two" id="level_two" value="{$list['content']['level_two']}" placeholder="选择 按订单金额的百分比 单位（%） 选择 每单固定金额 单位（元）">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">三级分销</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="level_three" id="level_three" value="{$list['content']['level_three']}" placeholder="选择 按订单金额的百分比 单位（%） 选择 每单固定金额 单位（元）">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">分享背景图片</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('back',$list['content']['back']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">分享文字</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="share_text" id="share_text" value="{$list['content']['share_text']}">
+                    <span class="help-block">不超过16个字</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">分享昵称颜色</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_color('share_nick_color',$list['content']['share_nick_color']);}
+                    <span class="help-block">默认黑色</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">分享文字颜色</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_color('share_text_color',$list['content']['share_text_color']);}
+                    <span class="help-block">默认灰色</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">起提金额</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="withdraw_amount" id="withdraw_amount" value="{$list['content']['withdraw_amount']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户须知</label>
+                <div class="col-sm-8">
+                    <textarea rows="10" class="form-control" name="rules">{$list['content']['rules']}</textarea>
+                    <span class="help-block">全局配置和局部配置都存在时，优先局部配置</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" name="submit" class="btn btn-default" value="提交">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js"],function(){
+        $(function(){
+            $("input[name='submit']").click(function(){
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'saveshare','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        })
+    })
+</script>
+{template 'common/footer'}

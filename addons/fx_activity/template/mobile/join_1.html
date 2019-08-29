@@ -1,0 +1,867 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-bar a{color: #ff9900;}
+.mui-btn-primary{background-color: #ff9900;}
+.mui-btn-primary:enabled:active{background-color: #ec7230!important;}
+.mui-textarea{ height:auto!important; width:100%;}
+.area {margin: 20px auto 0px auto;}
+.mui-input-group:first-child {margin-top: 20px;}
+.mui-rmb i{ font-style:normal; }
+.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {width: 65%;}
+.mui-del{color:#999}
+footer .mui-input-row label{line-height:2!important; padding:11px 0; text-align:right; float:right;}
+footer .mui-input-row span{line-height:1.7; padding:11px 10px 11px 0;}
+footer .mui-input-row .mui-btn{top: 0; font-size:16px;line-height:1.6!important;border-radius:0; width:35%}
+.mui-input-row #get_code{width:auto; border-radius: 0;line-height: 1.7;}
+.mui-help-top .mui-table-view-cell{padding: 9px 12px;}
+.mui-help-top .mui-icon-help:before{ color:#fe5001; font-size:18px;}
+.mui-help-top .mui-small{ font-size:90%!important;}
+.mui-help-top .mui-help-info:before{position: absolute;content: ""; height:99%!important;left:0;top:0;width:3px; background-color:#fe5001;}
+.mui-input-row.mui-help .mui-help-info{padding-right:30px;}
+[data-type=date] .mui-dtpicker-title h5, [data-type=date] .mui-picker{width: 20%!important;}
+.mui-dtpicker-title h5,.mui-picker{ display:inline-block!important;}
+</style>
+<form action="" method="post" onSubmit="return check(this)" style="position: initial">
+<footer class="mui-bar mui-bar-footer"{if $price>0} style="padding:0;"{/if}>
+    {if $price>0}
+    <div class="mui-input-row">
+    <input type="submit" class="mui-btn mui-btn-orange" name="submit" value="提交报名" />
+    <span class="mui-pull-right mui-text-rmb"><font class="mui-rmb mui-small"></font> <font class="mui-big js-pay-totaled">{$pay_price}</font> </span>
+    <label>合计：</label>
+    </div>
+    {else}
+    <input type="submit" class="mui-btn mui-btn-orange mui-btn-block" name="submit" value="提交报名" />
+    {/if}
+    <input type="hidden" name="submit" value="提交报名"/>
+    <input type="hidden" name="activityid" value="{$activityid}" />
+    <input type="hidden" name="optionid" value="{$optionid}" />
+    <input type="hidden" name="op" value="join"/>
+    <input type="hidden" name="token" value="{$_W['token']}" />
+</footer>
+<div class="mui-content">
+    <ul class="mui-table-view mui-help-top" style="margin-top:0;">
+        <li class="mui-table-view-cell mui-help-info">
+            <span class="mui-navigate-left mui-icon-help mui-text-orange mui-small"> &nbsp;&nbsp;&nbsp;&nbsp; 提醒：凡是"必填"，或者"必选"的为必填选项</span>
+        </li>
+    </ul>
+	<div class="mui-content-padded">
+        <p>基本信息</p>
+    </div>
+	<div class="mui-input-group">
+        {if $sysform['realname']['show']!='0'}
+        <div class="mui-input-row">
+            <label>{$sysform['realname']['title']}</label>
+            <input type="text" name="member[realname]" id="realname" placeholder="{$sysform['realname']['title']} (必填)" value="{$profile['realname']}">
+        </div>
+        {/if}
+        {if $sysform['mobile']['show']!='0'}
+        <div class="mui-input-row mui-help">
+            <label>{$sysform['mobile']['title']}</label>
+            <input type="number" name="member[mobile]" id="mobile" placeholder="{$sysform['mobile']['title']} (必填)" pattern="[0-9]*" value="{$profile['mobile']}"{if !empty($profile['mobile']) && $_W['_config']['smsswitch']} onfocus="this.blur()"{/if}/>
+            {if !empty($profile['mobile']) && $_W['_config']['smsswitch']}
+            <div class="mui-help-info mui-navigate-right mui-text-right js-check-mobile"><span class="mui-badge mui-badge-inverted">点此变更</span></div>
+            {/if}
+        </div>
+        {/if}
+        {if $_W['_config']['smsswitch']}
+        <div class="mui-input-row mui-help{php echo $profile['mobile']?'':' active';}"{if !empty($profile['mobile'])} style="display:none"{/if}>
+            <label>验证码</label>
+            <input type="number" name="smscode" id="smscode" placeholder="验证码 (必填)" pattern="[0-9]*">
+            <div class="mui-help-info mui-text-right" style="padding-right:18px;"><a href="javascript:;" id="get_code">获取验证码</a></div>
+        </div>
+        {/if}
+        {if !empty($sysform)}
+            {php $sys_form = array_slice($sysform, 2);}
+            {loop $sys_form $k $v}
+            {php $placeholder = $v['need'] ? $v['title'] . ' (必填)':$v['title'];}
+                {if $k=='gender' && ($v['show']==='' || $v['show'])}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                {php echo tpl_app_fans_form('gender', $profile['gender'], $placeholder);}
+                </div>
+                {elseif $k=='age'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="number" name="member[{$k}]" value="{$profile['age']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+                </div>
+                {elseif $k=='birthyear' && ($v['show']==='' || $v['show'])}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                {php echo tpl_app_fans_form('birth', array('year' => $profile['birthyear'], 'month' => $profile['birthmonth'], 'day' => $profile['birthday']), $placeholder);}
+                </div>
+                {elseif $k=='idcard'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="text" name="member[{$k}]" value="{$profile['idcard']}" placeholder="请填写{$placeholder}">
+                </div>
+                {elseif $k=='education'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                {php echo tpl_app_fans_form('education',$profile['education'],$placeholder);}
+                </div>
+                {elseif $k=='company'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="text" name="member[{$k}]" value="{$profile['company']}" placeholder="请填写{$placeholder}">
+                </div>
+                {elseif $k=='position'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="text" name="member[{$k}]" value="{$profile['position']}" placeholder="请填写{$placeholder}">
+                </div>
+                {elseif $k=='occupation'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="text" name="member[{$k}]" value="{$profile['occupation']}" placeholder="请填写{$placeholder}">
+                </div>
+                {elseif $k=='email'}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                <input type="text" name="member[{$k}]" value="{$profile['email']}" placeholder="请填写{$placeholder}">
+                </div>
+                {elseif $k=='resideprovince' && ($v['show']==='' || $v['show'])}
+                <div class="mui-input-row">
+                <label>{$v['title']}</label>
+                {php echo tpl_app_fans_form('reside', array('province' => $profile['resideprovince'], 'city' => $profile['residecity'], 'district' => $profile['residedist']), $placeholder);}
+                </div>
+                {/if}
+            {/loop}
+        {/if}
+        {php $key = 0;}
+        {loop $activityForm[0] $k $form}
+        {if !empty($form['fieldstype'])}
+        	{if $form['essential']==1}<input name="essential" type="hidden" value="" title="{$form['title']}" data-type="{$form['fieldstype']}"/>{/if}
+        	{php $placeholder = $form['essential']==1 ? $form['title'] . ' (必填)':$form['title'];}
+        	<div class="mui-input-row{if $form['essential']==1} js-check-fields{/if}" data-title="{$form['title']}" data-type="{$form['fieldstype']}">
+            {if $form['fieldstype']=='age'}
+            	<label>{$form['title']}</label>
+                <input type="number" name="member[{$form[fieldstype]}]" value="{$profile['age']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='studentid'}
+                <label>{$form['title']}</label>
+                <input type="number" name="member[studentid]" value="{$profile['studentid']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='zipcode'}
+                <label>{$form['title']}</label>
+                <input type="number" name="member[zipcode]" value="{$profile['zipcode']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='qq'}
+                <label>{$form['title']}</label>
+                <input type="number" name="member[qq]" value="{$profile['qq']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='weight'}
+            	{php $placeholder = $form['essential']==1 ? $form['title'] . '：单位kg' . ' (必填)':$form['title'];}
+                <label>{$form['title']}</label>
+                <input type="number" name="member[weight]" value="{$profile['weight']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='height'}
+            	{php $placeholder = $form['essential']==1 ? $form['title'] . '：单位cm' . ' (必填)':$form['title'];}
+                <label>{$form['title']}</label>
+                <input type="number" name="member[height]" value="{$profile['height']}" placeholder="请填写{$placeholder}" pattern="[0-9]*">
+            {elseif $form['fieldstype']=='gender'}	
+                <label>{$form['title']}</label>
+            	{php echo tpl_app_fans_form('gender', $profile['gender'], $placeholder);}
+            {elseif $form['fieldstype']=='birthyear'}
+            	<label>{$form['title']}</label>
+            	{php echo tpl_app_fans_form('birth', array('year' => $profile['birthyear'], 'month' => $profile['birthmonth'], 'day' => $profile['birthday']), $placeholder);}
+            {elseif $form['fieldstype']=='resideprovince'}
+            	<label>{$form['title']}</label>
+            	{php echo tpl_app_fans_form('reside', array('province' => $profile['resideprovince'], 'city' => $profile['residecity'], 'district' => $profile['residedist']), $placeholder);}
+            {elseif $form['fieldstype']=='education'}
+                <label>{$form['title']}</label>
+                {php echo tpl_app_fans_form('education', $profile['education'], $placeholder);}
+            {elseif $form['fieldstype']=='constellation'}
+                <label>{$form['title']}</label>
+                {php echo tpl_app_fans_form('constellation', $profile['constellation'], $placeholder);}
+            {elseif $form['fieldstype']=='zodiac'}
+                <label>{$form['title']}</label>
+                {php echo tpl_app_fans_form('zodiac', $profile['zodiac'], $placeholder);}
+            {elseif $form['fieldstype']=='bloodtype'}
+                <label>{$form['title']}</label>
+                {php echo tpl_app_fans_form('bloodtype', $profile['bloodtype'], $placeholder);}
+            {else}
+                <label>{$form['title']}</label>
+                {php echo tpl_app_fans_form('member['.$form['fieldstype'].']', $profile[$form['fieldstype']], $placeholder);}
+            {/if}
+            </div>
+        {else}
+            <input name="form_id[]" type="hidden" class="form-control form_id" value="{$form['id']}"/>
+            {if $form['essential']==1}
+            <input name="essential" type="hidden" value="{$key}" title="{$form['title']}" data-type="{$form['displaytype']}"/>
+            {/if}
+            {if $form['displaytype']==0}
+                <h5 class="mui-desc-title mui-pl15">请选择{$form['title']}{if $form['essential']==1} <span class="mui-text-error">(必选)</span>{/if}</h5>
+                {loop $form['items'] $formitem}
+                <div class="mui-input-row mui-radio">
+                    <label>{$formitem['title']}</label>
+                    <input name="form_item_val_{$key}" type="radio" value="{$formitem['title']}">
+                </div>
+                {/loop}
+                <p></p>
+            {elseif $form['displaytype']==1}
+                <h5 class="mui-desc-title mui-pl15">请选择{$form['title']}(可多选){if $form['essential']==1} <span class="mui-text-error">*</span>{/if}</h5>
+                {loop $form['items'] $formitem}
+                <div class="mui-input-row mui-checkbox">
+                    <label>{$formitem['title']}</label>
+                    <input name="form_item_val_{$key}[]" value="{$formitem['title']}" type="checkbox">
+                </div>
+                {/loop}
+                <p></p>
+            {elseif $form['displaytype']==2}
+                <div class="mui-input-row">
+                <label>{$form['title']}</label>
+                <input class="form_item_val_{$k}" name="form_item_val_{$key}" type="text" value="" readonly placeholder="请选择{$form['title']}{if $form['essential']==1} (必选){/if}">
+<script type="text/javascript">
+$(".form_item_val_{$k}").on("tap", function(){
+	var options = {data: [
+	{loop $form['items'] $formitem}
+	{"text":"{$formitem['title']}","value":"{$formitem['title']}"},
+	{/loop}
+	]};
+	var $this = $(this);
+	util.poppicker(options, function(items){
+		$this.val(items[0].value);
+	});
+});
+</script>
+                </div>
+            {elseif $form['displaytype']==3}
+                <div class="mui-input-row">
+                    <label>{$form['title']}</label>
+                    <input name="form_item_val_{$key}" value="" type="text"  placeholder="请输入{$form['title']}{if $form['essential']==1} (必填){/if}">
+                </div>
+            {elseif $form['displaytype']==4}
+                <div class="mui-input-row">
+                    <label>{$form['title']}</label>
+                    <input name="form_item_val_{$key}" value="" type="number"  placeholder="请输入{$form['title']}{if $form['essential']==1} (必填){/if}" pattern="[0-9]*">
+                </div>
+            {elseif $form['displaytype']==5}
+                <p></p>
+                <div class="mui-input-cell">
+                    <div class="mui-table-view-chevron">
+                        <div class="mui-image-uploader">
+                            <div class="mui-image-preview js-image-preview{$key}">
+                            	<div class="file-item js-thumb" style="display:none;">
+                                <img src="{FX_URL}app/resource/images/nopic.jpg" data-id="" data-preview-src="" data-preview-group="__IMG_UPLOAD_pic"/>
+                                <input type="hidden" value="" id="pic{$key}" name="form_item_val_{$key}" />
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="mui-upload-btn js-image-pic{$key} mui-inline"></a>
+                        </div>
+                        <script>
+                            var obj{$key}=".js-image-pic{$key}";
+                            util.img(obj{$key}, function(url){
+                                $(obj{$key}).parent().find('.js-image-preview{$key}').find('#pic{$key}').val(url.attachment);
+                                $(obj{$key}).parent().find('.js-image-preview{$key}').find('img').attr("src",url.url);
+                                $(obj{$key}).parent().find('.js-image-preview{$key}').find('img').attr("data-id",url.id);
+                                $(obj{$key}).parent().find('.js-image-preview{$key}').find('img').attr("data-preview-src",url.url);
+								$(obj{$key}).parent().find('.js-image-preview{$key}').find('.js-thumb').show();
+								$("input[name='token']"). val(url.token);
+                            }, {
+                                crop : true,
+                                multiple : false,
+                                preview : '__IMG_UPLOAD_pic',
+								pxSize : 640,
+								aspectRatio:1/1
+                            });
+							setTimeout(function(){
+							   $(obj{$key}).append('<div class="btn-intro" style="position:absolute;color:#d7d7d7;top:54px;line-height: 1.2; left:0; right:0;">上传{$form['title']}<br>(最多1张{if $form['essential']==1 }*{/if})</div>')
+							},1000);
+                        </script>
+                    </div>
+                </div>
+                <p></p>
+            {elseif $form['displaytype']==6}
+                <p></p>
+                <div class="mui-input-cell">
+                    <div class="mui-table-view-chevron">
+                        <div class="mui-image-uploader">
+                            <div class="mui-image-preview js-image-nopic mui-pull-left" style="display:none">
+                                <img src="{FX_URL}app/resource/images/nopic.jpg"/>
+                            </div>
+                            <div class="mui-image-preview js-image-preview{$key}"></div>
+                            <a href="javascript:;" class="mui-upload-btn js-image-pic{$key} mui-inline"></a>
+                        </div>
+                        <script>
+                            var obj{$key}=".js-image-pic{$key}";
+                            util.img(obj{$key}, function(url){
+                                $(obj{$key}).parent().find('.js-image-preview{$key}').append('<div class="file-item js-thumb"><input type="hidden" value="'+url.attachment+'" name="form_item_val_{$key}[]" /><img src="'+url.url+'" data-id="'+url.id+'" data-preview-src="" data-preview-group="__IMG_UPLOAD_image" /></div>');
+                                $(".js-image-nopic").hide();
+								$("input[name='token']"). val(url.token);
+                            }, {
+                                crop : true,
+                                multiple : true,
+                                preview : '__IMG_UPLOAD_pic',
+								pxSize : 640,
+								aspectRatio:1/1
+                            });
+							setTimeout(function(){
+							   $(obj{$key}).append('<div class="btn-intro" style="position:absolute;color:#d7d7d7;top:54px;line-height: 1.2; left:0; right:0;">上传{$form['title']}<br>(最多8张{if $form['essential']==1 }*{/if})</div>')
+							},1000);
+                        </script>
+                    </div>
+                </div>
+                <p></p>
+            {elseif $form['displaytype']==7}
+                <div class="mui-input-row js-calendar-{$key}">
+                    <label>{$form['title']}</label>
+                    <input class="mui-calendar-picker{$key}" type="text" placeholder="请选择{$form['title']}{if $form['essential']==1} (必选){/if}" value="" readonly>
+                    <input type="hidden" value="" name="form_item_val_{$key}">
+                    <script type="text/javascript">
+                        $(document).on("tap", ".mui-calendar-picker{$key}", function(){
+                            var $this = $(this);
+                            util.datepicker({type: "date", beginYear: 2000, endYear: 2050}, function(rs){
+                                $this.val(rs.value + ' ' + rs.h.value + ':' + rs.i.value)
+                                .next().val(rs.value + ' ' + rs.h.value + ':' + rs.i.value)
+                            });
+                        });
+                    </script>
+                </div>
+            {elseif $form['displaytype']==8}
+                <div class="mui-input-row">
+                    <label>{$form['title']}{if $form['essential']==1}<span class="mui-text-error">*</span>{/if}</label>
+                    {php echo tpl_app_form_field_district('form_item_val_'.$key, array('province' => '','city' => '','district' => ''));}
+                </div>
+            {/if}
+            {php $key++;}
+        {/if}
+        {/loop}
+        <ul class="mui-table-view">
+        {if $activity['team']}
+            <li class="mui-table-view-cell mui-pl15">
+            	<span style="line-height:2.5;">数量</span>
+                <span class="mui-numbox mui-pull-right">
+                <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                <input name="teamnum" class="mui-input-numbox js-pay-team" type="number" value="{$teamnum}" pattern="[0-9]*">
+                <button class="mui-btn mui-btn-numbox-plus" type="button">+</button></span>
+             </li>
+        {/if}
+        
+        {if $price >0}
+        	<input type="hidden" name="price" value="{$pay_price}" class="js-pay-price"/>
+            <input type="hidden" name="aprice" value="{$price}" />
+        	{if $_W['plugin']['card']['config']['card_enable'] && $yearcard['buy'] && $activity['atype']==2 && !$activity['prize']['cardper']['enable'] && $price >0}
+                <li class="mui-table-view-cell mui-pl15">单价<span class="mui-pull-right mui-del"><font class="mui-small mui-rmb"></font> <font class="mui-big">{$price}</font></span></li>
+                <li class="mui-table-view-cell mui-pl15">{$yearcard['name']}专享价<span class="mui-pull-right"><font class="mui-small mui-rmb"></font> <font class="mui-big">{$activity['marketprice']}</font></span></li>
+            {else}
+            	<li class="mui-table-view-cell mui-pl15">单价<span class="mui-pull-right"><font class="mui-small mui-rmb"></font> <font class="mui-big">{$price}</font></span></li>
+            {/if}
+            {if $pay_price >0}
+                {if $afterMarketing['m1']}
+                    <li class="mui-table-view-cell mui-pl15">
+                        <a class="mui-navigate-right js-marketing js-popover" href="#" data-popover='marketing'>活动优惠<span class="mui-badge mui-badge-inverted">满{$afterMarketing['max']}名：可享 {$afterMarketing['p']} 折</span></a>
+                    </li>
+                {elseif $afterMarketing['m2']}
+                    <li class="mui-table-view-cell mui-pl15">
+                        <a class="mui-navigate-right js-marketing js-popover" href="#" data-popover='marketing'>活动优惠<span class="mui-badge mui-badge-inverted">满{$afterMarketing['max']}名：立减 {$afterMarketing['p']} 元</span></a>
+                    </li>
+                {elseif $afterMarketing['m3']}
+                    <li class="mui-table-view-cell mui-pl15">
+                        <a class="mui-navigate-right js-marketing js-popover" href="#" data-popover='marketing'>活动优惠<span class="mui-badge mui-badge-inverted">VIP {$_W['member']['groupname']} 专享：{if $afterMarketing['orderMarket']['vip']['type']==1}{$afterMarketing['p']} 折{else}立减 {$afterMarketing['p']} 元{/if}</span></a>
+                    </li>
+                {else}
+                    <li class="mui-table-view-cell mui-pl15" style="display:none">
+                        <a class="mui-navigate-right js-marketing js-popover" href="#" data-popover='marketing'>活动优惠<span class="mui-badge mui-badge-inverted"></span></a>
+                    </li>
+                {/if}
+                <li class="mui-table-view-cell mui-pl15">小计<span class="mui-pull-right mui-text-rmb"><font class="mui-small mui-rmb"></font> <font class="mui-big js-pay-total">{php echo sprintf("%.2f", $pay_price + $afterMarketing['cardReduce'])}</font></span></li>
+            {/if}
+        {/if}
+        {if $_W['plugin']['card']['config']['card_enable'] && $yearcard['buy'] && $activity['atype']==2 && $price >0}
+        	{if $activity['prize']['cardper']['enable']}
+        	<li class="mui-table-view-cell mui-pl15">
+                <a href="#">{$yearcard['name']}专享优惠<span class="mui-badge mui-badge-inverted js-card-reduce">- {$afterMarketing['cardReduce']} 元</span></a>
+            </li>
+            {/if}
+        {/if}
+        {if $afterMarketing['m4']}
+            <li class="mui-table-view-cell mui-pl15">
+                <span style="display: inline-block;padding-right:60px;" class="mui-small">积分抵扣（当前积分{$_W['member']['credit1']}，<span class="js-deduct">可消耗{$afterMarketing['orderMarket']['deduct'][0]}积分抵扣 ￥{$afterMarketing['orderMarket']['deduct'][1]}</span>，最高抵扣 ￥{$afterMarketing['deductMoney']}）</span>
+                <div class="mui-switch mui-switch-blue mui-switch-mini">
+                    <div class="mui-switch-handle"></div>
+                    <input type="hidden" name="dc" value=""  class="js-dc"/>
+                </div>
+            </li>
+        {/if}
+        {if $_W['_config']['joinmsg']}
+        	<li class="mui-table-view-cell">
+                <textarea id="textarea" class="mui-input-clear" name="msg" placeholder="给主办方留言" style="padding:3px;"></textarea>
+            </li>
+        {/if}
+        </ul>
+        <p>&nbsp;</p>
+        {if $_W['_config']['agreement']}
+        <div class="mui-content-padded">
+            <div class="mui-checkbox mui-agreement">
+                <input name="agreement" value="1" type="checkbox"><label class="js-popover" data-popover='agreement'>已阅读并同意《<a>用户报名协议</a>》</label>
+            </div>
+        </div>
+        <p>&nbsp;</p>
+        {/if}
+    </div>
+</div>
+</form>
+{template 'activity/popover'}
+<script type="text/javascript">
+mui('.mui-scroll-wrapper').scroll();
+$(function(){
+	$('input[type=text]').each(function(key){
+		if ($(this).attr("readonly")) $(this).attr('onfocus','this.blur()');
+	});
+	var oldMoble = "{$profile['mobile']}";
+	$('.js-check-mobile').on("tap",function(e) {
+		if (!$('#smscode').parent().hasClass('active')){
+			$('#smscode').parent().show().addClass('active');
+			$('#mobile').removeAttr('onfocus');
+			$(this).find('span').text('取消变更');
+		}else{
+			$('#smscode').parent().hide().removeClass('active');
+			$('#mobile').attr('onfocus','this.blur()').val(oldMoble).blur();
+			$(this).find('span').text('点此变更');
+		}
+	});
+	{if $afterMarketing['m4']==1}
+	//开关
+	$('.mui-switch').on('tap',function(e){
+		var teamnum = $('.js-pay-team').val();
+		if ($(this).hasClass("mui-active")){
+			$(this).find('input').val('yes');
+			getPrice(teamnum, 'yes');
+		}else{
+			$(this).find('input').val('');
+			getPrice(teamnum, '');
+		}
+		//console.log("你启动了开关");
+	});
+	{/if}
+	//报名人数控制
+	var payprice, aprice ={$price},teamquota=parseInt({$activity['teamquota']}),quota=parseInt({$quota}),joinnum=parseInt({$joinnum});
+	var forquota = quota?quota-joinnum:0;
+	$("input.js-pay-team").bind('input propertychange, change', function(e) {
+		e.stopPropagation();
+		$this = $(this);
+		if ($(this).val()==0){
+			$(this).val(1);
+		}
+		//判断名额
+		if($(this).val() > forquota && quota > 0){
+			$(this).val(forquota);
+			util.alert('已超出剩余数量范围', ' ', function() {
+				$(".js-pay-team").val(forquota);
+			});
+		}
+		//团名额限制
+		if ($(this).val() > teamquota && teamquota > 0){
+			$(".js-pay-team").val(teamquota);
+			util.alert('已达该票输入最大值', ' ', function() {
+				$('.js-pay-price').val(payprice);
+			});
+		}
+		//读取价格
+		if(aprice>0){
+			var teamnum = $(this).val(),dc = $('.js-dc').val();
+			getPrice(teamnum, dc);
+		}
+	});
+
+	{if $_W['_config']['smsswitch']}
+	var issend=true;//短信初始控制开关
+	if($.getCookie("captcha")){  
+		var count = $.getCookie("captcha");  
+		var btn = $('#get_code');  
+		btn.html(count+"秒后可重发");
+		issend=false;
+		var resend = setInterval(function(){  
+			count--;  
+			if (count > 0){  
+				btn.html(count+"秒后可重发");
+				$.setCookie("captcha", count);
+			}else {  
+				clearInterval(resend);  
+				btn.html("获取验证码");
+				issend=true;
+				$.delCookie("captcha");
+			}  
+		}, 1000);  
+	}
+	$("#get_code").on("tap",function() {
+		if(issend){ 
+			//验证电话号码手机号码 
+			var phoneObj = document.getElementById('mobile');
+			if (phoneObj.value != ""){  
+				var phoneVal=phoneObj.value;  
+				var p1 = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;  
+				var me = false;  
+				if (p1.test(phoneVal)) me=true;  
+				if (!me){  
+					phoneObj.value='';
+					util.alert('请输入正确的手机号码', ' ', function() {
+						phoneObj.focus(); 
+					}); 
+					return false;  
+				}else{ 
+					issend=false; 
+					var btn = $(this);  
+					var count = 60;  
+					var resend = setInterval(function(){  
+						count--;  
+						if (count > 0){  
+							btn.html(count+"秒后可重发");  
+							$.setCookie("captcha", count);
+						}else {  
+							clearInterval(resend);  
+							issend=true;
+							btn.html("获取验证码");
+							$.delCookie("captcha");
+						}  
+					}, 1000);
+					$.ajax({
+						type: 'POST',
+						url: "{php echo app_url('api/sendsms/code')}&mobile="+phoneVal,
+						dataType: 'json',
+						success: function(data){
+							console.log(data);
+							if(data.hasOwnProperty("result") || data.Code=='OK'){
+								util.toast('发送成功');
+							}else{
+								var err_msg = data.hasOwnProperty("Message") ? data.Message : data.sub_msg;
+								util.alert(err_msg, ' ', function() {return false;});
+							}
+						},
+						error:function(){
+							util.alert('服务器错误, 请联系官方人员', ' ', function() {return false;});
+						}
+					});
+				} 
+			}else{ 
+				util.toast('手机不能为空',"","error");
+				return false; 
+			} 
+		} 
+	});
+	{/if}
+});
+function check(form) {
+	var patt = new RegExp(/\s+/g);
+	var checksubmit = false,value='';
+{if $sysform['realname']['show']!='0'}
+	if ($.trim(form['member[realname]'].value) == '') {
+		util.alert('请输入姓名', ' ', function() {
+			$(form['member[realname]']).focus();
+		});
+		return false;
+	}
+{/if}
+{if $sysform['mobile']['show']!='0'}
+	if (!form['member[mobile]'].value) {
+		util.alert('请输入手机号', ' ', function() {
+			$(form['member[mobile]']).focus();
+		});
+		return false;
+	}else{
+		 var mobile = $('#mobile').val();
+		 var pattern = /^1[345678]\d{9}$/; 
+		  
+		 if (!pattern.test(mobile)) {
+				 util.alert('手机号不合法', ' ', function() {
+					$(form['member[mobile]']).focus();
+				 });
+				return false;
+		 }
+	}
+{/if}
+{if !empty($sysform)}
+	{loop $sys_form $k $v}
+		{if $k=='gender' && ($v['show']=='' || $v['show']) && $v['need']}
+		if (!form['{$k}'].value) {
+			util.alert("请选择{$v['title']}", ' ', function() {
+				$(".mui-gender-picker").trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='age' && $v['need']}
+		if (!form['member[{$k}]'].value) {
+			util.alert("请输入{$v['title']}", ' ', function() {
+				$(form['member[{$k}]']).trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='birthyear' && ($v['show']=='' || $v['show']) && $v['need']}
+		if (form['birth[year]'].value=='0') {
+			util.alert("选择{$v['title']}", ' ', function() {
+				$("input[name='birth']").trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='idcard' && $v['need']}
+		var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+		if (!pattern.test($(form['member[{$k}]']).val())){
+			util.alert("{$v['title']}不合法", ' ', function() {
+				$(form['member[{$k}]']).focus();
+			});
+			checksubmit = false;
+			return false;
+		}
+		{elseif $k=='education' && $v['need']}
+		if (!form['{$k}'].value) {
+			util.alert("请选择{$v['title']}", ' ', function() {
+				$(".mui-education-picker").trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='company' && $v['need']}
+		if (!form['member[{$k}]'].value) {
+			util.alert("请输入{$v['title']}", ' ', function() {
+				$(form['member[{$k}]']).trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='position' && $v['need']}
+		if (!form['member[{$k}]'].value) {
+			util.alert("请输入{$v['title']}", ' ', function() {
+				$(form['member[{$k}]']).trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='occupation' && $v['need']}
+		if (!form['member[{$k}]'].value) {
+			util.alert("请输入{$v['title']}", ' ', function() {
+				$(form['member[{$k}]']).trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='email' && $v['need']}
+		if (!form['member[{$k}]'].value) {
+			util.alert("请输入{$v['title']}", ' ', function() {
+				$(form['member[{$k}]']).trigger('tap');
+			});
+			return false;
+		}
+		{elseif $k=='resideprovince' && ($v['show']=='' || $v['show']) && $v['need']}
+		if (!form['reside[province]'].value) {
+			util.alert("请选择{$v['title']}", ' ', function() {
+				$(".mui-district-picker-reside").trigger('tap');
+			});
+			return false;
+		}
+		{/if}
+	{/loop}
+{/if}
+
+{if $_W['_config']['smsswitch']}
+	var check_tel = $('#smscode').parent().hasClass('active');
+	if (check_tel){
+		if (!form['smscode'].value) {
+			util.alert('请输入验证码', ' ', function() {
+				$("input[name='smscode']").focus();
+			});
+			return false;
+		}else{
+			var smscode = $('#smscode').val();		  
+			if ($.getCookie("sms_code")!=smscode) {
+				util.alert('验证码不正确', ' ', function() {
+					$("input[name='smscode']").focus();
+				});
+				return false;
+			}else if(form['member[mobile]'].value!=$.getCookie("sms_mobile")){
+				util.alert('当前手机号与验证码不符', ' ', function() {
+					$(form['member[mobile]']).focus();
+				});
+				return false;
+			}
+		}
+	}
+{/if}
+
+	if($(form['essential']).length){
+		$(form['essential']).each(function(){
+			var inputkey = $(this).val();
+			var formtype = $(this).data('type');
+			var inputName = 'form_item_val_'+$(this).val();
+			if (inputkey!=''){
+				if ($(form[inputName+'[]']).length || formtype=='6'){
+					inputName = inputName+'[]';
+					if ($(form[inputName]).attr("type")=='checkbox' && $('input:checkbox[name="'+inputName+'"]:checked').length == 0) {
+						util.alert($(this).attr("title")+'为必选项', ' ', function() {
+							$(form[inputName]).focus();
+						});
+						checksubmit = false;
+						return false;
+					}else if(formtype=='6' && !$(form[inputName]).length){
+						util.alert($(this).attr("title")+'不能为空', ' ', function() {});
+						checksubmit = false;
+						return false;
+					}
+				}else if($(form[inputName+'[province]']).length){
+					if (!form[inputName+'[province]'].value) {
+						util.alert($(this).attr("title")+'为必选项', ' ', function() {
+							$('.mui-district-picker-'+inputName).trigger('tap');
+						});
+						checksubmit = false;
+						return false;
+					}
+				}else{
+					if ($.trim(form[inputName].value)=="" && $(form[inputName]).attr("type")!='radio' && !$(form[inputName]).next().val()) {
+						var msg = $(form[inputName]).siblings('.mui-calendar-picker'+inputkey).length?'为必选项':'不能为空';
+						util.alert($(this).attr("title")+msg, ' ', function() {
+							if (formtype=='3' || formtype=='4'){
+								$(form[inputName]).focus();
+							}
+							$(form[inputName]).siblings('.mui-calendar-picker'+inputkey).trigger('tap')
+							$(form[inputName]).trigger('tap');
+						});
+						checksubmit = false;
+						return false;
+					}else if($(form[inputName]).attr("type")=='radio' && $('input:radio[name="'+inputName+'"]:checked').length == 0){
+						util.alert($(this).attr("title")+'为必选项', ' ', function() {
+							$(form[inputName]).focus();
+							$(form[inputName]).trigger('tap');
+						});
+						checksubmit = false;
+						return false;
+					}
+				}
+			}else{
+				inputName = "member["+formtype+"]";
+				var typeStr = "education,birthyear,resideprovince,constellation,zodiac,bloodtype";
+				if (typeStr.indexOf(formtype)>-1){
+						if (formtype=='birthyear' && $(form['birth']).val()==""){
+							util.alert($(this).attr("title")+'为必选项', ' ', function() {
+								$(form['birth']).trigger('tap');
+							});
+							checksubmit = false;
+							return false;
+						}else if(formtype=='resideprovince' && $('.mui-district-picker-reside').val()==""){
+							util.alert($(this).attr("title")+'为必选项', ' ', function() {
+								$('.mui-district-picker-reside').trigger('tap');
+							});
+							checksubmit = false;
+							return false;
+						}else if ($(form[formtype]).val()==""){
+							util.alert($(this).attr("title")+'为必选项', ' ', function() {
+								$(form[formtype]).siblings('.mui-'+formtype+'-picker').trigger('tap');
+							});
+							checksubmit = false;
+							return false;
+						}					
+				}else if($.trim($(form[inputName]).val())=="" && $(form[inputName]).length){
+					util.alert($(this).attr("title")+'不能为空', ' ', function() {
+						$(form[inputName]).focus();
+					});
+					checksubmit = false;
+					return false;
+				}else{
+					var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+					if (formtype == 'idcard' && !pattern.test($(form[inputName]).val())){
+						util.alert($(this).attr("title")+'不合法', ' ', function() {
+							$(form[inputName]).focus();
+						});
+						checksubmit = false;
+						return false;
+					}
+				}
+			}
+			checksubmit = true;
+		});
+	}else{
+		checksubmit = true;
+	}
+	//if (form['gender'].value=='') {
+	//	util.alert('请选择您的性别', ' ', function() {
+	//		$(".js-user-options").trigger('tap');
+	//	});
+	//	return false;
+	//}
+	if (checksubmit){
+		{if $_W['_config']['agreement']}
+		if ($('input:checkbox[name="agreement"]:checked').length == 0) {
+			util.alert('请阅读并同意报名协议', ' ', function() {
+				$("input[name='agreement']").focus();
+			});
+			return false;
+		}
+		{/if}
+		util.loading();
+		$.ajax({
+			type: 'POST',
+			url: "{php echo app_url('home/join/validquota',array('activityid'=>$activityid,'optionid'=>$optionid))}&teamnum="+form['teamnum'].value,
+			dataType: 'json',
+			async:false, 
+			success: function(data){
+				setTimeout(function() {
+					util.loading().close();
+				},500);
+				if(!data.errno){
+					checksubmit = true;
+				}else{
+					checksubmit=false;
+					setTimeout(function() {
+						util.alert(data.message, ' ', function() {return false;});
+					},450);
+				}
+			},
+			error:function(){
+				setTimeout(function() {
+					util.loading().close();
+				},500);
+				checksubmit=false;
+				setTimeout(function() {
+					util.alert('服务器加载错误, 请联系主办方', ' ', function() {return false;});
+				},450);
+			}
+		});
+	}
+	return checksubmit;
+}
+//价格计算
+function getPrice(teamnum, dc){
+	util.loading();
+	$.post("{php echo app_url('home/join/getprice',array('activityid'=>$activityid,'optionid'=>$optionid))}", {teamnum:teamnum,dc:dc}, function(data){
+		util.loading().close();
+		console.log(data);
+		if(!data.errno){
+			if (data.params.m1 || data.params.m2 || data.params.m3){
+				$('.js-marketing').parent().show();
+				if (data.params.m3){
+					if (data.params.orderMarket.vip.type==1){
+						$('.js-marketing').find('span').html("VIP {$_W['member']['groupname']} 专享："+data.params.p+' 折');
+					}else{
+						$('.js-marketing').find('span').html("VIP {$_W['member']['groupname']} 立减："+data.params.p+' 元');
+					}
+				}else{
+					var maxmeet=0, obj_ = new Object();
+					$("#marketing .mui-input-row").each(function(key){
+						$(this).find('input').attr('disabled',"true");
+						$(this).find('input').removeAttr("checked");
+						$(this).addClass('mui-disabled');
+						if ($this.val() >= $(this).data("meet")){
+							if ($(this).data("meet") > maxmeet) obj_ = this;
+							maxmeet = $(this).data("meet")>maxmeet ? $(this).data("meet"):maxmeet;						
+						}else{maxmeet=0}
+					});
+					$(obj_).find('input').prop("checked",'true');
+					$(obj_).removeClass('mui-disabled');
+					if (data.params.m1)
+						$('.js-marketing').find('span').html('满'+data.params.max+'名：可享 '+data.params.p+' 折');
+					if (data.params.m2)
+						$('.js-marketing').find('span').html('满'+data.params.max+'名：立减 '+data.params.p+' 元')
+				}
+				
+			}else{
+				$('.js-marketing').parent().hide();
+			}
+
+			var pay_total = data.params.pay_price;
+			if (dc){
+				pay_total = (parseFloat(data.params.pay_price) + parseFloat(data.params.orderMarket.deduct[1])).toFixed(2);
+				$('.js-deduct').text('可消耗'+data.params.orderMarket.deduct[0]+'积分抵扣 ￥'+data.params.orderMarket.deduct[1]);
+			}
+			pay_total = data.params.cardReduce ? parseFloat(pay_total) + parseFloat(data.params.cardReduce) : parseFloat(pay_total);
+			$('.js-pay-total').text(pay_total.toFixed(2));
+			$('.js-card-reduce').text('- '+data.params.cardReduce+' 元');
+			$('.js-pay-totaled').text(parseFloat(data.params.pay_price).toFixed(2));
+			$('.js-pay-price').val(parseFloat(data.params.pay_price).toFixed(2));
+			$("input[name='token']"). val(data.params.token);
+		}else{
+			
+		}
+	},"json");
+}
+</script>
+</body>
+</html>

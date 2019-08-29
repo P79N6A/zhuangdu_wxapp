@@ -1,0 +1,8 @@
+{php define('IN_MESSAGE', true)}
+{if defined('IN_GW')}
+{fx_template 'common/header-gw'}
+{fx_template 'common/footer-gw'}
+{else}
+{fx_template 'common/header'}
+{fx_template 'common/footer'}
+{/if}

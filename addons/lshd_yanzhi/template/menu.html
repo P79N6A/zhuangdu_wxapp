@@ -1,0 +1,217 @@
+{template 'common/header'}
+<script src="{THEME_URL}js/jquery-migrate-1.2.1.min.js"></script>
+<script src="{THEME_URL}js/simple.switch.js"></script>
+<link href="{THEME_URL}css/simple.switch.three.css" rel="stylesheet">
+<div class="main">
+    <div class="col-lg-12">
+        <div class="panel panel-danger">
+            <div class="main">
+                <ul class="nav nav-tabs">
+                    <li {if $_GPC[ 'op']=='' }class="active" {/if}>
+                        <a href="{php echo $this->createWebUrl('menu')}">菜单列表</a>
+                    </li>
+                    <li {if $_GPC[ 'op']=='add' }class="active" {/if}>
+                        <a href="{php echo $this->createWebUrl('menu', array('op' => 'add'))}">添加</a>
+                    </li>
+                    <li {if $_GPC[ 'op']=='edit' }class="active" {/if}>
+                        <a href="javascript:void(0);">编辑</a>
+                    </li>
+                    <li {if $_GPC[ 'op']=='chush' }class="active" {/if}>
+                        <a href="{php echo $this->createWebUrl('menu', array('op' => 'chush'))}">初始化菜单</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                {if $_GPC['op'] == 'chush'}
+                <form action="{php echo $this->createWebUrl('menu', array('op' => 'chucd'))}" method="post">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="submit" value="初始化菜单" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+                {else if $_GPC['op'] == ''}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th style="width: 10%">排序</th>
+                            <th style="width: 10%">菜单名称</th>
+                            <th style="width: 10%">类型</th>
+                            <th style="width: 30%">链接/appid</th>
+                            <th style="width: 15%">图片</th>
+                            <th style="width: 10%">显示</th>
+                            <th style="width: 15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $slides $menu}
+                        <tr>
+                            <td style="width: 10%">{$menu['sort']}</td>
+                            <td style="width: 10%">{$menu['title']}</td>
+                            <td style="width: 10%">{if $menu['types']==1}本地{else if $menu['types']==2}小程序 {else if $menu['types']==3} 网页{else}默认{/if}</td>
+                            <td style="width: 30%">{$menu['inurl']}</td>
+                            <td style="width: 15%"><img src="{media $menu['image']}" style="width:60px;height: 60px;"></td>
+                            <td style="width: 10%">{if $menu['visit']==1}显示{else}不显示{/if}</td>
+                            <td style="width: 15%">
+                                <a href="{php echo $this->createWebUrl('menu',array('op' => 'edit','id' => $menu['id']))}" class="btn btn-xs btn-warning">编辑</a>
+                                <a href="javascript:void(0);" class="btn btn-xs btn-danger" onclick="if (confirm('确定删除？')) { location.href = '{php echo $this->createWebUrl('menu', array('op' => 'delete', 'id' => $menu['id']))}'; }">删除</a>
+                            </td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {/if} {if $_GPC['op'] == 'add'}
+                <form action="{php echo $this->createWebUrl('menu', array('op' => 'create'))}" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label class="col-sm-3  control-label">排序：</label>
+                            <input type="number" class="col-sm-3" name="sort" id="sort" value="1">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-3  control-label">显示：</label>
+                            <input type="checkbox" class="allstorage" onchange="check()" checked>
+                            <input type="hidden" name="visit" id="visit" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">菜单名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="types" value="1">本地
+                            <input type="radio" name="types" value="2">小程序
+                            <input type="radio" name="types" value="3">网页
+                            <div class="help-block">请按照添加的选择小程序或网页链接，否则跳转失败！网页链接需要在微信小程序后台添加业务域名！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/小程序appid</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="inurl" />
+                            <div class="help-block">
+                                <p>如果是网页需要填写完整且需在小程序后台配置域名！如果链接过长，请转换短连接 列如：https://m.baidu.com 小程序跳转：小程序APPID 小程序路径：APPID||路径</p>
+                                <p>本地 人脸融合:    ../facemerge/facemerge?name=getFacemerge&types=0 </p>
+                                <p>本地 大头贴:     ../facemerge/facemerge?name=getFacesticker&types=1</p>
+                                <p>本地 变妆:     ../facemerge/facemerge?name=getfacedecoration&types=2</p>
+                                <p>本地 滤镜:     ../facemerge/facemerge?name=getimgfilter&types=3</p>
+                                <p>本地 情侣相:     ../lovers/lovers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">菜单图片：</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $img['image']);}
+                            <span class="help-block">图片宽高：120x120 px</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="submit" value="提交" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+                <script>
+                $(".allstorage").simpleSwitch({
+                    "theme ": "DefaultMin"
+                });
+
+                function check() {
+                    if ($('.allstorage').is(':checked')) {
+                        $("#visit").val('1');
+                    } else {
+                        $("#visit").val('0');
+                    }
+                }
+                </script>
+                {/if} {if $_GPC['op'] == 'edit'}
+                <form action="{php echo $this->createWebUrl('menu', array('op' => 'update'))}" method="post">
+                    <input type="hidden" name="id" value="{$edit['id']}">
+                    <input type="hidden" name="uniacid" value="{$edit['uniacid']}">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label class="col-sm-3  control-label">排序：</label>
+                            <input type="number" class="col-sm-3" name="sort" id="sort" value="{$edit['sort']}">
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-3  control-label">显示：</label>
+                            <input type="checkbox" class="allstorage" onchange="check()" {if $edit[ 'visit']==1} checked {/if}>
+                            <input type="hidden" name="visit" id="visit" value="{$edit['visit']}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">菜单名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="title" id="title" class="form-control" placeholder="" value="{$edit['title']}">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    {if $edit[ 'types']==0}
+                    <input type="hidden" name="types" value="0" />
+                    <input type="hidden" name="inurl" value="{$edit['inurl']}" /> 
+                    {else}
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="types" value="1" {if $edit[ 'types']==1 }checked{/if}>本地
+                            <input type="radio" name="types" value="2" {if $edit[ 'types']==2 }checked{/if}>小程序
+                            <input type="radio" name="types" value="3" {if $edit[ 'types']==3 }checked{/if}>网页
+                            <div class="help-block">请按照添加的选择小程序或网页链接，否则跳转失败！网页链接需要在微信小程序后台添加业务域名！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/小程序appid</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="inurl" value="{$edit['inurl']}" />
+                            <div class="help-block">
+                                <p>如果是网页需要填写完整且需在小程序后台配置域名！如果链接过长，请转换短连接 列如：https://m.baidu.com 小程序跳转：小程序APPID 小程序路径：APPID||路径</p>
+                                <p>本地 人脸融合:  &nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;">  ../facemerge/facemerge?name=getFacemerge&types=0</strong></p>
+                                <p>本地 大头贴:   &nbsp;&nbsp;&nbsp; <strong style="color: red;">../facemerge/facemerge?name=getFacesticker&types=1</strong></p>
+                                <p>本地 变妆:   &nbsp;&nbsp;&nbsp; <strong style="color: red;">../facemerge/facemerge?name=getfacedecoration&types=2</strong></p>
+                                <p>本地 滤镜:  &nbsp;&nbsp;&nbsp;  <strong style="color: red;">../facemerge/facemerge?name=getimgfilter&types=3</strong></p>
+                                <p>本地 情侣相:  &nbsp;&nbsp;&nbsp;  <strong style="color: red;">../lovers/lovers</strong></p>
+                                <p>注意，本地的要有&nbsp;&nbsp;../ &nbsp;&nbsp;开头</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">菜单图片：</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $edit['image']);}
+                            <span class="help-block">图片宽高：120x120 px</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="submit" value="提交" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+                <script>
+                $(".allstorage").simpleSwitch({
+                    "theme ": "DefaultMin"
+                });
+
+                function check() {
+                    if ($('.allstorage').is(':checked')) {
+                        $("#visit").val('1');
+                    } else {
+                        $("#visit").val('0');
+                    }
+                }
+                </script>
+                {/if}
+                <div>
+                </div>
+            </div>
+        </div>
+        {template 'common/footer'}

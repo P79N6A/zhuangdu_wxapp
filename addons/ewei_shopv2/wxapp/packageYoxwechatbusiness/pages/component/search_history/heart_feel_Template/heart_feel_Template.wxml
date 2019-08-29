@@ -1,0 +1,26 @@
+<template name="heart_feel_Template">
+  <block wx:for="{{heartfeelList}}" wx:for-item="item">
+    <view class='heartfeel_cell' data-id='{{item.id}}' bindtap='onDetail'>
+      <view class='image'>
+        <!-- <block wx:for="{{item.images}}" wx:for-item="imglist"> -->
+          <image style='width:100%; height:100%;' src='{{item.images[0]}}'></image>
+        <!-- </block> -->
+      </view>
+      <view class='title'>
+        <text>{{item.title}}</text>
+      </view>
+      <view class='content'>
+        <text>{{item.content}}</text>
+      </view>
+      <view class='main_down'>
+        <view class='main_down_left'>
+          <image class='main_down_avatar' src='{{item.avatar}}'></image>
+          <text>{{item.nickname}}</text>
+        </view>
+        <view class='main_down_right'>
+          <text>{{item.createtime}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>

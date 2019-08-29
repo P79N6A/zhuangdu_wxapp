@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.5kym.com" versionCode="0.6,1.0">
+	<application setting="false">
+		<name><![CDATA[码上微点餐]]></name>
+		<identifie><![CDATA[weisrc_dish]]></identifie>
+		<version><![CDATA[8.1.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微点餐，悟空源码论坛www.5kym.cn]]></ability>
+		<description><![CDATA[码上点餐|外卖|餐饮,1.本模块支持微信堂点，微信外卖，微信快餐，微信预定，微信排号，套餐推荐
+2.多门店管理（支持每个门店单独管理）悟空源码论坛www.5kym.cn]]></description>
+		<author><![CDATA[悟空源码]]></author>
+		<url><![CDATA[http://www.5kym.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+		<item type="app" />
+		</supports>
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="用户中心入口" do="usercenter" state="" direct="false" />
+			<entry title="我的订单入口" do="orderlist" state="" direct="false" />
+			<entry title="门店列表入口" do="waprestList" state="" direct="false" />
+			<entry title="我邀请的好友入口" do="mymemberlist" state="" direct="false" />
+			<entry title="首页入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="门店管理" do="stores" state="" direct="false" />
+			<entry title="门店类型" do="type" state="" direct="false" />
+			<entry title="区域管理" do="area" state="" direct="false" />
+			<entry title="订单管理" do="allorder" state="" direct="false" />
+			<entry title="广告管理" do="ad" state="" direct="false" />
+			<entry title="账号管理" do="account" state="" direct="false" />
+			<entry title="模版管理" do="template" state="" direct="false" />
+			<entry title="系统设置" do="setting" state="" direct="false" />
+			<entry title="顾客管理" do="allfans" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="门店列表" do="waprestList" state="" direct="false" />
+			<entry title="我的订单" do="orderlist" state="" direct="false" />
+			<entry title="我邀请的好友入口" do="mymemberlist" state="" direct="false" />
+			<entry title="首页入口" do="index" state="" direct="false" />
+		</home>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

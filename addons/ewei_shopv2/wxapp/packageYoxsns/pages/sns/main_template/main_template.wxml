@@ -1,0 +1,17 @@
+<template name="main_template">
+  <view class='community-list' style='margin-bottom:50px;'>
+    <block wx:for="{{community}}">
+      <view class='community-content' bindtap='onDetail' data-id='{{item.id}}' data-content='{{item.content}}'>
+        <image wx:if="{{item.images}}" src="{{item.images}}"></image>
+        <image wx:else src='https://i02picsos.sogoucdn.com/386cdcd87c7a0daf'></image>
+        <view class='community-text'>
+          <view class='community-title'>
+            <text wx:if="{{item.title}}">{{item.title}}</text>
+          </view>
+          <text class='content-or-join' wx:if="{{item.goodcount && item.postcount}}">{{item.goodcount}}篇LIKE | {{item.postcount}}人转发</text>
+          <text class='time' wx:if="{{item.createtime}}">{{item.createtime}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

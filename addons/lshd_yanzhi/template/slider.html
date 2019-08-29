@@ -1,0 +1,128 @@
+{template 'common/header'}
+<div class="main">
+    <div class="col-lg-12">
+        <div class="panel panel-danger">
+            <div class="main">
+                <ul class="nav nav-tabs">
+                    <li {if $_GPC[ 'op']=='' }class="active" {/if}>
+                        <a href="{php echo $this->createWebUrl('slider')}">幻灯片列表</a>
+                    </li>
+                    <li {if $_GPC[ 'op']=='add' }class="active" {/if}>
+                        <a href="{php echo $this->createWebUrl('slider', array('op' => 'add'))}">添加</a>
+                    </li>
+                    <li {if $_GPC[ 'op']=='edit' }class="active" {/if}>
+                        <a href="javascript:void(0);">编辑</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                {if $_GPC['op'] == ''}
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr style="vertical-align:middle; text-align:center;">
+                            <th>幻灯片名称</th>
+                            <th>类型</th>
+                            <th>链接/appid</th>
+                            <th>幻灯片</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $slides $slider}
+                        <tr>
+                            <td>{$slider['remark']}</td>
+                            <td>{if $slider['types']==1}小程序{else}网页{/if}</td>
+                            <td>{$slider['inurl']}</td>
+                            <td><img src="{media $slider['image']}" style="width: 134px;height: 104px;"></td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('slider', array('op' => 'edit', 'id' => $slider['id']))}" class="btn btn-xs btn-warning">编辑</a>
+                                <a href="javascript:void(0);" class="btn btn-xs btn-danger" onclick="if (confirm('确定删除？')) { location.href = '{php echo $this->createWebUrl('slider', array('op' => 'delete', 'id' => $slider['id']))}'; }">删除</a>
+                            </td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {/if} {if $_GPC['op'] == 'add'}
+                <form action="{php echo $this->createWebUrl('slider', array('op' => 'create'))}" method="post">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">幻灯片名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="remark" id="remark" class="form-control" placeholder="不显示在前台">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="types" value="1">小程序
+                            <input type="radio" name="types" value="2">网页
+                            <div class="help-block">请按照添加的选择小程序或网页链接，否则跳转失败！网页链接需要在微信小程序后台添加业务域名！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/小程序appid</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="inurl" />
+                            <div class="help-block">如果是网页需要填写完整且需在小程序后台配置域名！如果链接过长，请转换短连接 列如：https://m.baidu.com 小程序跳转：小程序APPID 小程序路径：APPID||路径</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">幻灯片图片：</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $img['image']);}
+                            <span class="help-block">图片宽高：670x520 px</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="submit" value="提交" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+                {/if} {if $_GPC['op'] == 'edit'}
+                <form action="{php echo $this->createWebUrl('slider', array('op' => 'update'))}" method="post">
+                    <input type="hidden" name="id" value="{$edit['id']}">
+                    <input type="hidden" name="uniacid" value="{$edit['uniacid']}">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">幻灯片名称：</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="remark" id="remark" class="form-control" placeholder="不显示在前台" value="{$edit['remark']}">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="types" value="1" {if $edit[ 'types']==1 }checked{/if}>小程序
+                            <input type="radio" name="types" value="2" {if $edit[ 'types']==2 }checked{/if}>网页
+                            <div class="help-block">请按照添加的选择小程序或网页链接，否则跳转失败！网页链接需要在微信小程序后台添加业务域名！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/小程序appid</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="inurl" value="{$edit['inurl']}" />
+                            <div class="help-block">如果是网页需要填写完整且需在小程序后台配置域名！如果链接过长，请转换短连接 列如：https://m.baidu.com 小程序跳转：小程序APPID 小程序路径：APPID||路径</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">幻灯片图片：</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $edit['image']);}
+                            <span class="help-block">图片宽高：670x520 px</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="submit" value="提交" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+                {/if}
+                <div>
+                </div>
+            </div>
+        </div>
+        {template 'common/footer'}

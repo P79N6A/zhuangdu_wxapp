@@ -1,0 +1,195 @@
+<block wx:if="{{theme.name!='theme3'}}">
+    <import src="../common/common.wxml"></import>
+    <view class="page">
+        <view class="top" style="background:{{theme.color}};">
+            <image class="avatar" src="{{userinfo.avatar}}"></image>
+            <view>{{userinfo.nick}}  <text style="color:#FFCD55;" wx:if="{{userinfo.card_name}}">{{userinfo.card_name}}</text>
+            </view>
+        </view>
+        <view class="assets">
+            <view class="title" style="color:{{theme.color}};">我的资产</view>
+            <view class="content">
+                <navigator class="item" url="../over/over">
+                    <image src="{{theme.icon[3]}}"></image>
+                    <view>余额</view>
+                </navigator>
+                <navigator class="item" url="../card/card">
+                    <image src="{{theme.icon[4]}}"></image>
+                    <view>会员卡</view>
+                </navigator>
+                <navigator class="item" url="../score/score">
+                    <image src="{{theme.icon[5]}}"></image>
+                    <view>积分</view>
+                </navigator>
+                <navigator class="item" url="../coupon/coupon">
+                    <image src="{{theme.icon[6]}}"></image>
+                    <view>优惠券</view>
+                </navigator>
+                <navigator class="item" url="../order/buy">
+                    <image src="{{theme.icon[26]}}"></image>
+                    <view>买单</view>
+                </navigator>
+            </view>
+        </view>
+        <view class="list">
+            <navigator class="item" url="../order/order">
+                <image src="{{theme.icon[7]}}"></image>
+                <view>我的订单</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../order/online">
+                <image src="{{theme.icon[29]}}"></image>
+                <view>我的预约</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../group/order">
+                <image src="{{theme.icon[8]}}"></image>
+                <view>我的拼单</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../prize/prize">
+                <image src="{{theme.icon[30]}}"></image>
+                <view>中奖记录</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../address/address">
+                <image src="{{theme.icon[9]}}"></image>
+                <view>地址管理</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../team/team" wx:if="{{share.content.status==1}}">
+                <image src="{{theme.icon[10]}}"></image>
+                <view>我的团队</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../share/index" wx:if="{{share.content.status==1&&userinfo.share==1}}">
+                <image src="{{theme.icon[11]}}"></image>
+                <view>我要代言</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../over/withdraw?&order_type=1">
+                <image src="{{theme.icon[25]}}"></image>
+                <view>提现明细</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <navigator class="item" url="../../ui2/buy/index">
+                <image src="{{theme.icon[27]}}"></image>
+                <view>买单记录</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </navigator>
+            <view bindtap="to_store" class="item">
+                <image src="{{theme.icon[24]}}"></image>
+                <view>{{userinfo.store?userinfo.store_name:''}}</view>
+                <view style="color:#FFCE56;" wx:if="{{!userinfo.store}}">绑定门店</view>
+                <view catchtap="store_change" wx:if="{{config.store_change==1&&userinfo.store}}">更改</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </view>
+            <view bindtap="to_shop" class="item" wx:if="{{userinfo.shop==1||userinfo.shop==2||userinfo.shop==3}}">
+                <image src="{{theme.icon[24]}}"></image>
+                <view>商家中心</view>
+                <image src="../../resource/arrow.png" style="margin: 0;"></image>
+            </view>
+        </view>
+        <view class="shadow" wx:if="{{shadow}}"></view>
+        <view class="shop_box" wx:if="{{manage}}">
+            <image src="{{userinfo.avatar?userinfo.avatar:'../../resource/error.png'}}" style="border:{{theme.color+' 4rpx solid'}};"></image>
+            <view>欢迎进入管理中心</view>
+            <input bindinput="password" placeholder="请输管理密码" placeholderStyle="color:#ddd" type="password" value="{{password}}"></input>
+            <view bindtap="shop_login" class="shop_btn" data-status="-1" style="background:{{theme.color}};border:{{theme.color+' 2rpx solid'}};">登 陆</view>
+            <view bindtap="shop_login" class="shop_btn" data-status="1" style="background:{{theme.color}};border:{{theme.color+' 2rpx solid'}};">登陆并绑定</view>
+            <icon bindtap="shop_close" class="shop_close" color="black" size="23" type="cancel"></icon>
+        </view>
+        <template is="footer" data="{{footer:footer,footerCurr:footerCurr,theme:theme,config:config}}"></template>
+    </view>
+</block>
+<block wx:if="{{theme.name=='theme3'}}">
+    <import src="../common/common.wxml"></import>
+    <view class="theme3">
+        <view class="top" style="background:#444;">
+            <view class="top_t">
+                <image class="avatar" src="{{userinfo.avatar}}"></image>
+                <view class="nick">{{userinfo.nick}}</view>
+                <view class="item_t">
+                    <navigator class="item_c" url="../over/over">
+                        <view>{{userinfo.money}}</view>
+                        <view>余额</view>
+                    </navigator>
+                    <navigator class="item_c" url="../score/score">
+                        <view>{{userinfo.score}}</view>
+                        <view>积分</view>
+                    </navigator>
+                    <navigator class="item_c" url="../coupon/coupon">
+                        <view>{{list.length}}</view>
+                        <view>优惠券(张)</view>
+                    </navigator>
+                </view>
+                <view class="item_b">
+                    <navigator style="background:#444444;" url="../card/card">
+                        <image src="../../resource/theme3_01.png"></image>
+                        <view>会 员 卡</view>
+                    </navigator>
+                    <navigator style="background:#1a1a1a;" url="../order/buy">
+                        <image src="../../resource/theme3_02.png"></image>
+                        <view>付款买单</view>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+        <view class="top_block"></view>
+        <view class="list">
+            <view class="title">订单</view>
+            <view class="list_content">
+                <navigator class="item" url="../order/order">
+                    <image src="../../resource/theme3_03.png"></image>
+                    <view>我的订单</view>
+                </navigator>
+                <navigator class="item" url="../group/order">
+                    <image src="../../resource/theme3_04.png"></image>
+                    <view>我的拼单</view>
+                </navigator>
+                <navigator class="item" url="../order/online">
+                    <image src="../../resource/theme3_05.png"></image>
+                    <view>我的预约</view>
+                </navigator>
+            </view>
+        </view>
+        <view class="list" wx:if="{{share.content.status==1}}">
+            <view class="title">分销</view>
+            <view class="list_content">
+                <navigator class="item" url="../share/index">
+                    <image src="../../resource/theme3_06.png"></image>
+                    <view>分销中心</view>
+                </navigator>
+                <navigator class="item" url="../over/recharge?&edit=2&order_type=2">
+                    <image src="../../resource/theme3_07.png"></image>
+                    <view>提现申请</view>
+                </navigator>
+                <navigator class="item" url="../share/share">
+                    <image src="../../resource/theme3_08.png"></image>
+                    <view>邀请好友</view>
+                </navigator>
+            </view>
+        </view>
+        <navigator class="line" url="../address/address">
+            <image src="../../resource/theme3_09.png"></image>
+            <view>常用地址</view>
+            <view>></view>
+        </navigator>
+        <view bindtap="to_shop" class="line">
+            <image src="../../resource/theme3_10.png"></image>
+            <view>商家中心</view>
+            <view>></view>
+        </view>
+        <view class="shadow" wx:if="{{shadow}}"></view>
+        <view class="shop_box" wx:if="{{manage}}">
+            <image src="{{userinfo.avatar?userinfo.avatar:'../../resource/error.png'}}" style="border:{{theme.color+' 4rpx solid'}};"></image>
+            <view>欢迎进入管理中心</view>
+            <input bindinput="password" placeholder="请输管理密码" placeholderStyle="color:#ddd" type="password" value="{{password}}"></input>
+            <view bindtap="shop_login" class="shop_btn" data-status="-1" style="background:{{theme.color}};border:{{theme.color+' 2rpx solid'}};">登 陆</view>
+            <view bindtap="shop_login" class="shop_btn" data-status="1" style="background:{{theme.color}};border:{{theme.color+' 2rpx solid'}};">登陆并绑定</view>
+            <icon bindtap="shop_close" class="shop_close" color="black" size="23" type="cancel"></icon>
+        </view>
+        <template is="footer" data="{{footer:footer,footerCurr:footerCurr,theme:theme,config:config}}"></template>
+        <template is="get_userinfo" data="{{shadow:shadow,get_userinfo:get_userinfo}}"></template>
+    </view>
+</block>

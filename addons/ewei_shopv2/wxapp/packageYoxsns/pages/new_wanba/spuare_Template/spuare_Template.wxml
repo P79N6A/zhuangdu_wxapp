@@ -1,0 +1,71 @@
+<template name="spuare_Template">
+  <block wx:for="{{wanbaList}}">
+    <view class='commit_cell bgfff'>
+      <view class='commit_cell_first'>
+        <view class='commit_cell_first_left'>
+          <view class='image'>
+            <image src='{{item.avatar}}'></image>
+          </view>
+          <view class='main'>
+            <view class='nickname'>
+              <text>{{item.nickname}}</text>
+            </view>
+            <view class='time'>
+              <text>{{item.createtime}}</text>
+            </view>
+          </view>
+        </view>
+        <!-- <view class='commit_cell_first_right'>
+          <text>{{item.attention}}</text>
+        </view> -->
+      </view>
+      <view class='commit_cell_second'>
+        <view class='futitle'>
+          {{item.title}}
+        </view>
+        <!-- <view class='content1'>
+          男神来了！！！
+        </view>
+        <view class='content1'>
+          11月26日
+        </view>
+        <view class='content1'>
+          妆度品牌正式官宣
+        </view>
+        <view class='content1'>
+          郭敬明作为品牌创业形象大使
+        </view>
+        <view class='content1'>
+          正式亮相。
+        </view> -->
+        <view class='content1'>
+          {{item.content}}
+        </view>
+      </view>
+      <!-- <view class='commit_cell_third'>
+        <image src='{{item.imgUrl}}' style='background:#fd2c6b;'></image>
+      </view> -->
+      <view style='padding: 20rpx; height:78px; background-color: #fff;' wx:if="{{item.images!=''}}">
+        <block wx:for="{{item.images}}" wx:for-item="types">
+          <view class='img'>
+            <image style='width: 150rpx; height: 150rpx; margin: 10rpx;' src="{{types}}"></image>
+          </view>
+        </block>
+      </view>
+      <view class='commit_cell_forth'>
+        <view class='commit_cell_forth_cell' data-id="{{item.id}}" bindtap='onCollectionTap'>
+          <image src='./images/love.png'></image>
+          <text>{{item.goodcount}}</text>
+        </view>
+        <view class='commit_cell_forth_cell'>
+          <image src='./images/commit.png'></image>
+          <text>{{item.isbest}}</text>
+        </view>
+        <view class='commit_cell_forth_cell'>
+          <image src='./images/share.png'></image>
+          <text>{{item.postcount}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>

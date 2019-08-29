@@ -1,0 +1,46 @@
+<top-nav-bar></top-nav-bar>
+<view class="top">
+    <view class="top-title">测一测你最像哪位明星</view>
+    <view class="top-subtitle">{{text}}</view>
+</view>
+<view class="box-content">
+    <view class="box">
+        <view class="own">
+            <image bindtap="upimg" class="own-img" src="{{photo}}"></image>
+            <text>我的照片</text>
+        </view>
+        <view class="star">
+            <image class="star-img" src="{{starbg}}"></image>
+            <text>{{starname}}</text>
+        </view>
+    </view>
+    <view class="upimg">
+        <image bindtap="upimg" src="../../images/upimg.png"></image>
+        <view class="save-content">
+            <button class="shareBtn" openType="share">
+                <image class="sharebtn" src="../../images/sharebtn.png"></image>
+            </button>
+        </view>
+    </view>
+    <view class="ad-container" wx:if="{{adid}}">
+        <ad unitId="{{adid}}"></ad>
+    </view>
+</view>
+<view class="group">
+    <view class="tab-content">
+        <view class="more">更多好玩</view>
+        <scroll-view class="models" scrollWithAnimation="true" scrollX="true">
+            <form bindsubmit="tomodel" data-inurl="{{item.inurl}}" data-types="{{item.types}}" reportSubmit="true" wx:for="{{menu[0]}}" wx:key="index">
+                <button class="icon-content" formType="submit">
+                    <view class="icon">
+                        <image src="{{item.image}}"></image>
+                        <text>{{item.title}}</text>
+                    </view>
+                </button>
+            </form>
+        </scroll-view>
+    </view>
+</view>
+<view class="onloading" hidden="{{onMatch}}">
+    <image class="" src="../../images/loading.gif"></image>
+</view>

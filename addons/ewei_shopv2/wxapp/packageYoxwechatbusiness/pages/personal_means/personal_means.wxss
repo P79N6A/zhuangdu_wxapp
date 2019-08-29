@@ -1,0 +1,22 @@
+page{
+  background: #fff;
+}
+.head{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 110rpx;
+  border-bottom: 1px solid #eeeeee;
+}
+.edit_customer,.bank_card,.electronic_contract{
+  width: 40%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #fd2d6b;
+  color: #fff;
+  margin-top: 8px;
+}

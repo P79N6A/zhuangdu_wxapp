@@ -1,0 +1,90 @@
+<view class='modify-page'>
+  <!-- 隐藏canvas 保存图片用 -->
+  <canvas canvas-id="tempCanvas" style="width:{{imagewidth}}px; height:{{imageheight}}px; position:absolute;left:-999999px"></canvas>
+  <!-- 主页面 -->
+  <view class="imageView" wx:if="{{page==='mainPage'}}" style="height:{{imgViewHeight}}px">
+    <movable-area style="width:100%;height:600px; position:relative;">
+      <image src="{{isurl?tempImageSrc:detailList.page_value.background.url}}" mode='widthFix' style="width:100%;height:600px; position:relative;" disable-scroll="true"></image>
+      <view class="saveButton" wx:if="{{detailList.page_value.background.url}}" catchtap='saveImgToPhone'>
+        <text class="icon-save"></text>
+      </view>
+      <image src='./reset.png' style='width:32px;height:32px;position:absolute;left:310px;top:18px;opacity:0.7;z-index:5;padding:10rpx;font-size:0;' catchtap='reset'></image>
+      <movable-view wx:for="{{textList}}" wx:for-item="item" x="{{isstart?newTextL:item.x1}}" y="{{isstart?newTextT:item.y1}}" direction="all" style='width:100px;'>
+        <text bindtap='focusInput' bindtouchstart='textMoveStart' bindtouchmove='textMove' bindtouchstart='toTextPage' class='starttext' data-x1='{{item.x1}}' data-y1='{{item.y1}}' data-newTextL='{{newTextL}}' data-newTextT='{{newTextT}}' style='font-size:{{item.fontsize}}; font-style:{{item.fontstyle}}; color:{{item.color}}; font-weight:{{item.fontweight}};'>{{item.text}}</text>
+      </movable-view>
+    </movable-area>
+  </view>
+
+  <!-- 添加文字页面 -->
+  <view class="imageView" wx:if="{{detailList.page_value.background.url!=='' && page==='textPage'}}" style="height:{{imgViewHeight}}px">
+    <movable-area style="width:100%;height:600px; position:relative;">
+      <image id='the-id' src="{{isurl?tempImageSrc:detailList.page_value.background.url}}" mode='widthFix' style="width:100%;height:600px; position:relative;" disable-scroll="true"></image>
+      <movable-view wx:for="{{textList}}" wx:for-item="item" wx:for-index="textListindex" wx:key="index" x="{{item.x1}}" y="{{item.y1}}" direction="all" >
+        <input class='starttext' data-index='{{textListindex}}' data-text='{{item.text}}' bindinput='startinput' bindtap='focusInput' bindtouchstart='textMoveStart' bindtouchmove='starttextMove'  data-x1='{{item.x1}}' data-y1='{{item.y1}}' value='{{item.text}}' placeholder='点击输入文字' placeholder-style='color:#fff;'  style='font-size:{{item.fontsize}}; color:{{item.color}}; font-style:{{isstyle?fontStyle:item.fontstyle}}; font-weight:{{isstyle?fontWeight:item.fontweight}}; width:{{auto_height}}px;'>{{item.text}}</input>
+      </movable-view>
+    </movable-area>
+    <!-- <text wx:if="{{allText.isTextActive}}" data-index='{{index}}' bindtap="{{allText.isTextActive?'focusInput':null}}" bindtouchstart="{{allText.isTextActive?'textMoveStart':null}}" bindtouchmove="{{allText.isTextActive?'textMove':null}}" class="active-text" style="left:{{allText.x1}};top:{{allText.y1}};font-size:{{allText.fontsize}};color:{{allText.color}};font-style:{{allText.fontstyle}};font-weight:{{allText.fontweight}}">{{allText.text}}</text> -->
+    <input focus="{{inputFocus}}" confirm-type="done" bindinput="inputText" style="position:absolute;left:-9999px;"></input>
+  </view>
+
+  <!-- 底部 -->
+  <view class="toolbar-bottom">
+    <view bindtap='toTextPage'>
+      <text class="icon-text"></text>
+      <text class="text">添加文字</text>
+    </view>
+  </view>
+
+  <!-- 添加文字页面-底部 -->
+  <view wx:if="{{page==='textPage'}}">
+    <view wx:if="{{isChooseFontSize}}" class="toolbar-top toolbar-width">
+      <view class="slider-box">
+        <slider bindchange="fontsizeSliderChange" min="8" max="100" value="14" show-value></slider>
+      </view>
+    </view>
+    <view wx:if="{{isChooseFontColor}}" class="toolbar-top">
+      <view class="color-box">
+        <view wx:for="{{allColor}}" class="color-point" data-selected="{{item}}" style="background:{{item}}" bindtap='fontColorChange'></view>
+      </view>
+    </view>
+    <view wx:if="{{isChooseFontPattern}}" class="toolbar-top toolbar-font-style">
+      <view>
+        <text>斜体 : </text>
+        <switch bindchange="fontStyleChange" />
+      </view>
+      <view>
+        <text>加粗 : </text>
+        <switch bindchange="fontWeightChange" />
+      </view>
+    </view>
+    <view class="toolbar-bottom">
+      <view bindtap='textToMainPage'>
+        <text class="icon-back"></text>
+        <text class="text">主菜单</text>
+      </view>
+      <view bindtap="{{isTextEdit?null:'chooseaddText'}}">
+        <text class="icon-add"></text>
+        <text class="text">添加</text>
+      </view>
+      <view bindtap='chooseFontsize'>
+        <text class="icon-size"></text>
+        <text class="text">大小</text>
+      </view>
+      <view bindtap='chooseFontColor'>
+        <text class="icon-color"></text>
+        <text class="text">颜色</text>
+      </view>
+      <view bindtap='chooseFontPattern'>
+        <text class="icon-style"></text>
+        <text class="text">样式</text>
+      </view>
+    </view>
+  </view>
+  <!-- 添加文字时调出的确认条 -->
+  <view class="confirm-bar1" wx:if="{{page==='textPage'}}">
+    <text class="icon-cross" bindtap="cancelAddText"></text>
+  </view>
+  <view class="confirm-bar2" wx:if="{{page==='textPage'}}">
+    <text class="icon-checkmark" bindtap="competeAddText"></text>
+  </view>
+</view>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.5kym.com" versionCode="0.6,0.7,0.8">
+	<application setting="true">
+		<name><![CDATA[微商海报]]></name>
+		<identifie><![CDATA[life_haibao]]></identifie>
+		<version><![CDATA[6.6.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[微商海报]]></ability>
+		<description><![CDATA[微商海报]]></description>
+		<author><![CDATA[悟空源码]]></author>
+		<url><![CDATA[http://www.5kym.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="subscribe" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="海报入口" do="play" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="模板管理" do="template" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[do_install.php]]></install>
+	<uninstall><![CDATA[do_uninstall.php]]></uninstall>
+	<upgrade><![CDATA[do_upgrade.php]]></upgrade>
+</manifest>

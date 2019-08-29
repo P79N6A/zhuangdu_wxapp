@@ -1,0 +1,12 @@
+<view class='container'>
+ <view class='inviteusers'>
+      <view class='user_cell'>
+        <view class='avatar'>
+          <image class='baseimg' src="{{user.avatar}}"></image>
+        </view>
+        <view class='nickname'>
+          <text>{{user.nickname}}</text>
+        </view>
+      </view>
+  </view>
+</view>

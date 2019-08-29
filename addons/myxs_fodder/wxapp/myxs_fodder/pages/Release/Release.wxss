@@ -1,0 +1,59 @@
+page {
+    background-color: #fff;
+}
+
+.tipStyle {
+    color: #ddd;
+    font-size: 14px;
+}
+
+.ReleaseCent {
+    padding-top: 110px;
+}
+
+.TextOn {
+    padding: 10px 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.circleCreateSub {
+    width: 85%;
+    height: 45px;
+    background-color: rgb(26,173,25);
+    margin-top: 25px;
+    color: #fff;
+}
+
+.ReleaseBtnGroup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 65px;
+    background-color: #fff;
+    height: 45px;
+    font-size: 16px;
+    line-height: 45px;
+}
+
+.pdlr10 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.h35 {
+    height: 35px;
+}
+
+.ReleIconSty {
+}
+
+.actf {
+    position: fixed;
+    bottom: 8%;
+    left: 10px;
+    right: 10px;
+}

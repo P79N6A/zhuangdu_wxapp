@@ -1,0 +1,38 @@
+@import "grid/grid.wxss";
+@import "commend/commend.wxss";
+.tab-h{
+    height: 80rpx;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #F7F7F7;
+    font-size: 16px;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.tab-item{
+    margin:0 150rpx;
+    display: inline-block;
+}
+.tab-item.active{
+    color: #fd2d6b;
+    position: relative;
+}
+.tab-item.active:after{
+  content: "";
+  display: block;
+  height: 8rpx;
+  width: 150px;
+  background: #fd2d6b;
+  position: absolute;
+  bottom: 0;
+  left: -140rpx;
+  border-radius: 16rpx;
+}
+.tab-content{
+  margin-top: 80rpx;
+}

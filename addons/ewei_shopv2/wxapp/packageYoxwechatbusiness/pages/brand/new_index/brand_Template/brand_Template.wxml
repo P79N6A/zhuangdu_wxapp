@@ -1,0 +1,169 @@
+<template name="brand_Template">
+  <view class='container'>
+    <view class="customSwiper">
+      <view class='searchBox'>
+        <image src='./images/search.png'></image>
+        <text>搜品牌、工厂、加盟</text>
+      </view>
+      <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+        <block wx:for="{{sliderList}}">
+          <swiper-item>
+            <image src="{{item.imageSource}}" style='background:#fd2c6b;width:100%;height:100%;'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="tab">
+        <block wx:for="{{sliderList}}" wx:key="key">
+          <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+          <view wx:else class="tab-item"></view>
+        </block>
+      </view>
+    </view>
+    <view class='group2'>
+      <block wx:for="{{groupList}}">
+        <view class='group2_cell'>
+          <view class='image'>
+            <image src='{{item.imgUrl}}'></image>
+          </view>
+          <view class='text'>
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="nav-top-tab">
+      <view class="top-tab-item {{navTopItem==idx ? 'active' : ''}}" wx:for="{{navTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchTab">
+        {{item.name}}
+      </view>
+    </view>
+    <swiper class="swiper" current="{{navTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight+2000}}rpx">
+      <swiper-item>
+        <!-- <scroll-view class="scrollView"> -->
+        <!-- 热门品牌 -->
+        <view class='group4'>
+          <view class='group4_title'>
+            <view style='width:16px; height:16px; background:#fd2c6b; float:left;border-radius:16px;margin-left:138px; margin-top:10px;'></view>
+            <text class='title' style='float:right;'>热门品牌</text>
+          </view>
+          <view class='group4_content'>
+            <block wx:for="{{group4List}}">
+              <view class='group4_content_cell'>
+                <image src='{{item.imgUrl}}' style='background:#fd2c6b;'></image>
+                <view class='main'>
+                  <view class='title'>
+                    <text>{{item.title}}</text>
+                  </view>
+                  <view class='explain'>
+                    <text>{{item.explain}}</text>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <!-- 精选品牌 -->
+        <view class="swipe-card-container">
+          <view class="placeholder-0"></view>
+          <view class="placeholder-1"></view>
+          <view class="placeholder-2"></view>
+          <mp-swipe-card bind:click="handleClickCard" push-list="{{pushList}}" bind:swipeout="handleSwipeOut" generic:mp-swipe-card-item="card-item">
+            <!-- <view>{{item.title}}</view> -->
+          </mp-swipe-card>
+        </view>
+        <!-- 品牌库 -->
+        <view class='group5'>
+          <view class='group5_top'>
+            <view class='group5_title'>
+              品牌库
+            </view>
+            <view class='group5_choices'>
+              <text class='all'>全部</text>
+              <view class="flex1{{!tab[index]?' active':''}}" wx:for="{{tabTxt}}" wx:key="type" data-index="{{index}}" bindtap="filterTab">
+                <text>{{item}}</text>
+                <image src="./brand_Template/images/arrow.png"></image>
+              </view>
+            </view>
+          </view>
+          <!--筛选项-->
+          <!-- <view class="tabLayer" hidden="{{tab[0]}}">
+    <text class="{{pinpai_id==0?'active':''}}" data-id="0" data-index="0" data-txt="品牌" bindtap="filter">不限</text>
+    <text class="{{pinpai_id==item.id?'active':''}}" wx:for="{{pinpaiList}}" wx:key="pp" wx:for-item="item" data-id="{{item.id}}" data-index="0" data-txt="{{item.title}}" bindtap="filter">{{item.title}}</text>
+</view>
+<view class="tabLayer" hidden="{{tab[1]}}">
+    <text class="{{jiage_id==0?'active':''}}" data-id="0" data-index="1" data-txt="价格" bindtap="filter">不限</text>
+    <text class="{{jiage_id==1?'active':''}}" data-id="1" data-index="1" data-txt="58-88" bindtap="filter">58-88</text>
+    <text class="{{jiage_id==2?'active':''}}" data-id="2" data-index="1" data-txt="88-108" bindtap="filter">88-108</text>
+    <text class="{{jiage_id==3?'active':''}}" data-id="3" data-index="1" data-txt="108-188" bindtap="filter">108-188</text>
+</view>
+<view class="tabLayer" hidden="{{tab[2]}}">
+    <text class="{{xiaoliang_id==0?'active':''}}" data-id="0" data-index="2" data-txt="销量" bindtap="filter">不限</text>
+    <text class="{{xiaoliang_id==1?'active':''}}" data-id="1" data-index="2" data-txt="从高到低" bindtap="filter">从高到低</text>
+    <text class="{{xiaoliang_id==2?'active':''}}" data-id="2" data-index="2" data-txt="从低到高" bindtap="filter">从低到高</text>
+</view> -->
+          <view class='commend'>
+            <view class='title'>
+              推荐品牌
+            </view>
+            <view class='commend_content'>
+              <block wx:for="{{group5commendList}}">
+                <view class='commend_cell'>
+                  <view class='image'>
+                    <image src='{{item.imgUrl}}' style='background:#fd2c6b;'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.title}}</text>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <!-- 列表 -->
+          <block wx:for="{{pp_list}}">
+            <view class="commend_list_cell" data-image='{{item.thumbs}}' data-title='{{item.name}}' data-place='{{item.place}}' data-use='{{item.use}}' data-price='{{item.price_range}}' bindtap='todetail'>
+              <view class="commend_list_cell_left">
+                <view class='image'>
+                  <image wx:if="{{item.thumbs}}" src='https://zdu.igdlrj.com/attachment/{{item.thumbs[0]}}'></image>
+                  <image wx:else style='background:#fd2c6b;'></image>
+                </view>
+              </view>
+              <view class='main'>
+                <view class='title'>
+                  <text>{{item.name}}</text>
+                </view>
+                <!-- <view class='explain'>
+                  <text>{{item.explain}}</text>
+                </view> -->
+                <!-- <view class='down'>
+                  <view style='width:14px; height:14px; background:#fd2c6b; border-radius:14px; float:left;'></view>
+                  <text class='place'>{{item.place}}</text>
+                  <text class='use'>{{item.use}}</text>
+                </view> -->
+              </view>
+              <view class='commend_list_cell_right'>
+                <text>￥ {{item.price_range}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+        <!-- </scroll-view> -->
+        <!-- <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+          <template is="brand_Template" data="{{...item,sliderList,item}}" />
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        </scroll-view> -->
+      </swiper-item>
+    </swiper>
+    <!-- 产地列表 -->
+    <view class="place {{showflag?'show_place':'hide_place'}}">
+      <block wx:for="{{placeList}}">
+        <text>{{item.origin_place}}</text>
+      </block>
+    </view>
+  </view>
+</template>

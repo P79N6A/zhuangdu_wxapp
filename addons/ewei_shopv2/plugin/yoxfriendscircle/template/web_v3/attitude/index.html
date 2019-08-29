@@ -1,0 +1,129 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">关注管理 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxfriendscircle.attitude">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<!--<div class="col-sm-4">
+			<span class="">
+				 {ifp 'attitude.edit'}
+						 <a class='btn btn-primary btn-sm' href="{php echo webUrl('yoxfriendscircle.attitude/edit')}"><i class="fa fa-plus"></i> 添加</a>
+				 {/if}
+			</span>
+		</div>-->
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='uid' value="{$_GPC['uid']}" placeholder="请输入uid"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- 关注列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			{ifp 'attitude.edit'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.attitude/status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.attitude/status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			{/if}
+			{ifp 'attitude.delete'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle.attitude/delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+			{/if}
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<th style="width:100px;">ID</th>
+				<th style="width:208px;">用户</th>
+				<th style="width:208px;">朋友圈</th>
+				<th style="width:208px;">态度</th>
+				<th style="width:190px;">时间</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+	
+			{loop $result['data']['list'] $attitude}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$attitude['id']}" />
+				</td>
+				<td>{$attitude['id']}</td>
+				<td><img height="50" src="{$attitude['avatar']}">{$attitude['nickname']}</td>
+				<td>{$attitude['article_description']}</td>
+				<td>{if $attitude['attitude'] =='LIKE'}<span class="icon icon-favorite1 alert-danger"></span>{/if}{if $attitude['attitude'] =='FAVORITE'}<span class="icon icon-favorite1 alert-danger"></span>{/if}</td>
+				<td>{$attitude['add_time_format']}</td>
+				<td>
+					<!-- {ifp 'attitude.edit'}
+						<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle.attitude/edit',array('id'=>$attitude['id']))}">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                             <i class="icow icow-bianji2"></i>
+                         </span>
+						</a>
+					{/if}  -->
+					{ifp 'attitude.delete'}
+						<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle.attitude/delete',array('id'=>$attitude['id']))}" data-confirm="确认要删除此点赞?">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class='icow icow-shanchu1'></i>
+                           </span>
+						</a>
+					{/if}
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						{ifp 'attitude.edit'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.attitude/status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.attitude/status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						{/if}
+						{ifp 'attitude.delete'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle.attitude/delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+						{/if}
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂时没有评论!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

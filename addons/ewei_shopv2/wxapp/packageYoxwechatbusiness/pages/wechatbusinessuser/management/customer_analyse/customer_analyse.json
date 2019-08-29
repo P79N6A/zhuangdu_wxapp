@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "date-picker": "../../date-picker/date-picker"
+  },
+  "navigationBarTitleText": "客户分析"
+}

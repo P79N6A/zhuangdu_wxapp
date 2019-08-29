@@ -1,0 +1,22 @@
+<template name="hotsearch_Template">
+  <block wx:for="{{hotsearchList}}" wx:for-item="item">
+    <view class='hotsearch_cell' data-id='{{item.id}}' data-keyword='{{item.keyword}}' bindtap='hot_search'>
+      <view class='hotsearch_cell_left'>
+        <view class='number'>
+            {{item.id}}
+        </view>
+        <view class='title'>
+          <text wx:if="{{item.keyword}}">{{item.keyword}}</text>
+        </view>
+        <!-- <view class='readnumber'>
+          <text>{{item.readnumber}}</text>
+        </view> -->
+      </view>
+      <!-- <view class='hotsearch_cell_right' wx:if="{{item.hot || item.new}}">
+        <text wx:if="{{item.hot}}">{{item.hot}}</text>
+        <text wx:if="{{item.new}}">{{item.new}}</text>
+      </view> -->
+    </view>
+  </block>
+  <view style='width:100%;height:50px;'></view>
+</template>

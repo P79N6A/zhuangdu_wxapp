@@ -1,0 +1,10 @@
+{
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#8400ff",
+    "navigationBarTitleText": "我的颜值得分",
+    "navigationBarTextStyle": "black",
+    "disableScroll": true,
+    "usingComponents": {
+        "top-nav-bar": "/lshd_yanzhi/components/top-nav-bar/top-nav-bar"
+    }
+}

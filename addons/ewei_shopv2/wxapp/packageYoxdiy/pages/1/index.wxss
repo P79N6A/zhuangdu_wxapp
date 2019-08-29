@@ -1,0 +1,44 @@
+page{
+  background-color:white;
+}
+.banner{
+  width:100%;
+}
+.banner image{
+  width:100%;
+  height:850rpx;
+}
+.type{
+  width:60%;
+  margin-left:20%;
+  display:flex;
+  justify-content:space-between;
+}
+
+.box{
+  text-align:center;
+}
+.muban .round{
+  background-color:#17d278;
+}
+.sucai .round{
+  background-color:#fd4689;
+}
+.muban,.sucai{
+  text-align:center;
+}
+.round{
+  border-radius:50%;
+  width:150rpx;
+  height:150rpx;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:20rpx;
+}
+
+.round image{
+  width:80rpx;
+  height:80rpx;
+
+}

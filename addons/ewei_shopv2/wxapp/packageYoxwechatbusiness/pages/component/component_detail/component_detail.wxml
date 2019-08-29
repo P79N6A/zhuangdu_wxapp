@@ -1,0 +1,60 @@
+<view class='container'>
+  <view class='product bgfff'>
+    <view class='thumb' data-id='{{product_id}}'>
+        <image class='baseimg' wx:if="{{thumb!='null'}}" src='https://zdu.igdlrj.com/attachment/{{thumb}}'></image>
+        <image class='baseimg' wx:else src='https://i03picsos.sogoucdn.com/1f766714c3109864'></image>
+    </view>
+    <view class='produt_text'>
+      <view class='title'>
+        <text>{{name}}</text>
+      </view>
+      <view class="componentBtn" bindtap='detailchange'>
+        <text>查看所有成分</text>
+      </view>
+    </view>
+  </view>
+  <view class='comment bgfff'>
+    <view class='titleBox'>
+      <text>评论</text>
+    </view>
+    <view class='comment-main'>
+      <block wx:for="{{commentLists}}">
+        <view class='comment-cell' bindtap='comment_delete' data-id='{{item.id}}' data-comment='{{item.comment}}'>
+          <view class='avatar'>
+            <image src="{{item.avatar}}"></image>
+          </view>
+          <view style='float:right; width: 270px; border-bottom:1px solid #f3f3f3; margin-top:12px; margin-right:16px;'>
+            <view class='name'>
+              <text>{{item.nickname}}</text>
+            </view>
+            <!-- <view class='comment-key'>
+              <text>{{item.key}}</text>
+            </view> -->
+            <view class='content'>
+              <text>{{item.comment}}</text>
+            </view>
+            <view class='time'>
+              <text>{{item.add_time_format}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 评论框 -->
+        <view class="section {{flag?'show':'hide'}}" data-id='{{product_id}}' data-comment='{{item.comment}}'>
+          <form bindsubmit='formsubmit'>
+            <view class='textareaBox'>
+              <textarea bindblur='textarea_bingblur' focus="{{focus}}" bindinput='commentSubmit' placeholder-class="discuss-textarea" auto-height maxlength="-1" show-confirm-bar="{{false}}" cursor-spacing="15" data-id='{{product_id}}' data-comment='{{item.comment}}'></textarea>
+            </view>
+            <button data-comment='{{item.comment}}' data-id='{{product_id}}' class="commitBtn {{btnflag?'active':''}}" form-type='submit' style='padding:0;'>评论</button>
+          </form>
+        </view>
+      <!-- 评论点击 -->
+      <view class='comment-fixed' bindtap='bindshow'>
+        <view class='comment-input'>
+          <image src='./images/comment.png'></image>
+          <text>评一下</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

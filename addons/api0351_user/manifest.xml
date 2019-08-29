@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6,1.0">
+	<application setting="true">
+		<name><![CDATA[共享名片]]></name>
+		<identifie><![CDATA[api0351_user]]></identifie>
+		<version><![CDATA[4.7.14]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[个人名片小程序版，支持名片分享、留言、联系方式设置等操作悟空源码论坛www.5kym.cn]]></ability>
+		<description><![CDATA[支持头像设置、在线浏览足迹，名片分享、联系方式设置，在线留言功能悟空源码论坛www.5kym.cn]]></description>
+		<author><![CDATA[优拓]]></author>
+		<url><![CDATA[https://www.5kym.cn]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports><item type="wxapp" /></supports>
+		<plugin-main name="0" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="信息反馈 " do="feedback" state="" direct="false" />
+			<entry title="支付信息 " do="wxpay" state="" direct="false" />
+			<entry title="名片管理 " do="cardr" state="" direct="false" />
+			<entry title="行业分类 " do="industry" state="" direct="false" />
+			<entry title="定时任务 " do="times" state="" direct="false" />
+			<entry title="相关设置 " do="setconfig" state="" direct="false" />
+			<entry title="打赏管理 " do="reward" state="" direct="false" />
+			<entry title="商品管理 " do="commodity" state="" direct="false" />
+			<entry title="幻灯管理 " do="banner" state="" direct="false" />
+			<entry title="商业快报 " do="news" state="" direct="false" />
+			<entry title="私信管理 " do="private" state="" direct="false" />
+			<entry title="流量广告 " do="adconfig" state="" direct="false" />
+			<entry title="微信审核 " do="wxexne" state="" direct="false" />
+			<entry title="菜单设置 " do="wxconfig" state="" direct="false" />
+			<entry title="认证管理 " do="wxauth" state="" direct="false" />
+		</menu>
+		<page>
+			<entry title="首页 " do="/api0351_user/pages/index/index" state="" direct="false" />
+		</page>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[m_install.php]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_api_user_auth`;
+DROP TABLE IF EXISTS `ims_api_user_auth_list`;
+DROP TABLE IF EXISTS `ims_api_user_banner`;
+DROP TABLE IF EXISTS `ims_api_user_cdr`;
+DROP TABLE IF EXISTS `ims_api_user_class`;
+DROP TABLE IF EXISTS `ims_api_user_collection`;
+DROP TABLE IF EXISTS `ims_api_user_config`;
+DROP TABLE IF EXISTS `ims_api_user_formid`;
+DROP TABLE IF EXISTS `ims_api_user_group`;
+DROP TABLE IF EXISTS `ims_api_user_group_img`;
+DROP TABLE IF EXISTS `ims_api_user_group_news`;
+DROP TABLE IF EXISTS `ims_api_user_gz`;
+DROP TABLE IF EXISTS `ims_api_user_message`;
+DROP TABLE IF EXISTS `ims_api_user_more`;
+DROP TABLE IF EXISTS `ims_api_user_moto`;
+DROP TABLE IF EXISTS `ims_api_user_ms`;
+DROP TABLE IF EXISTS `ims_api_user_news`;
+DROP TABLE IF EXISTS `ims_api_user_opinion`;
+DROP TABLE IF EXISTS `ims_api_user_pay`;
+DROP TABLE IF EXISTS `ims_api_user_reward`;
+DROP TABLE IF EXISTS `ims_api_user_reward_log`;
+DROP TABLE IF EXISTS `ims_api_user_shop`;
+DROP TABLE IF EXISTS `ims_api_user_trade`;
+]]></uninstall>
+	<upgrade><![CDATA[m_upgrade.php]]></upgrade>
+</manifest>

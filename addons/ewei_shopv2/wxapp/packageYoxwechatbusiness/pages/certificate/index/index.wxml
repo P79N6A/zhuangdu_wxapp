@@ -1,0 +1,33 @@
+<view class='container'>
+  <view class='tips' wx:if="{{certificate_list==[] || certificate_list==''}}">
+    当前还没有证书，请上传
+  </view>
+  <view class='certificate_list'>
+    <block wx:for="{{certificate_list}}">
+      <view class='certificate_cell' data-id='{{item.id}}'>
+        <view class='avatar'>
+          <image wx:if="{{item.avatar}}" src='{{item.avatar}}'></image>
+        </view>
+        <view class='nickname' wx:if="{{item.nickname}}">
+          {{item.nickname}}
+        </view>
+        <view class='merchname' wx:if="{{item.merchname}}">
+          {{item.merchname}}
+        </view>
+        <view class='certificate' wx:if="{{item.certificate}}">
+          <block wx:for="{{item.certificate}}" wx:for-item="types">
+            <view class='images'>
+              <image catchtap='previewImg' data-index='{{index}}' class='images-image' wx:if="{{types}}" src='{{types}}'></image>
+              <image catchtap='previewImg' data-index='{{index}}' class='images-image' wx:else style='background-color:#fd2c6b;'></image>
+            </view>
+          </block>
+        </view>
+        <view class='time' wx:if="{{item.add_time}}">
+          {{item.add_time}}
+        </view>
+      </view>
+    </block>
+  </view>
+  <navigator url="../edit/edit" hover-class="none"><button class="add">上传证书</button></navigator>
+
+</view>

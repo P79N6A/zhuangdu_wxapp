@@ -1,0 +1,27 @@
+[2018-11-30 11:32:52 @55890.0]	WARNING	swPort_listen: listen(localhost:9501, 512) failed. Error: Address already in use[98]
+可能存在丢scene情况，fd:1
+可能存在丢scene情况，fd:2
+可能存在丢scene情况，fd:3
+[2018-11-30 13:52:40 @59216.0]	WARNING	swPort_listen: listen(localhost:9501, 512) failed. Error: Address already in use[98]
+可能存在丢scene情况，fd:1
+可能存在丢scene情况，fd:2
+可能存在丢scene情况，fd:4
+可能存在丢scene情况，fd:1
+[2018-11-30 14:29:34 #13868.0]	NOTICE	Server is shutdown now.
+可能存在丢scene情况，fd:3
+可能存在丢scene情况，fd:5
+可能存在丢scene情况，fd:6
+可能存在丢scene情况，fd:4
+可能存在丢scene情况，fd:7
+可能存在丢scene情况，fd:8
+可能存在丢scene情况，fd:9
+可能存在丢scene情况，fd:5
+可能存在丢scene情况，fd:10
+可能存在丢scene情况，fd:6
+可能存在丢scene情况，fd:7
+可能存在丢scene情况，fd:11
+可能存在丢scene情况，fd:8
+可能存在丢scene情况，fd:9
+[2018-11-30 16:36:17 #14167.0]	NOTICE	Server is shutdown now.
+[2018-11-30 16:42:17 @63694.0]	WARNING	swPort_listen: listen(localhost:9501, 512) failed. Error: Address already in use[98]
+[2018-11-30 16:43:44 #14199.0]	NOTICE	Server is shutdown now.

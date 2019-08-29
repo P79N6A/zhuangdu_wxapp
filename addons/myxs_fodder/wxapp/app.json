@@ -1,0 +1,25 @@
+{
+    "pages": [
+        "myxs_fodder/pages/start/start",
+        "myxs_fodder/pages/textInfo/textInfo",
+        "myxs_fodder/pages/Release/Release",
+        "myxs_fodder/pages/MySet/MySet",
+        "myxs_fodder/pages/index/index",
+        "myxs_fodder/pages/My/My",
+        "myxs_fodder/pages/Activation/Activation",
+        "myxs_fodder/pages/MyRelease/MyRelease",
+        "myxs_fodder/pages/copyright/copyright",
+        "myxs_fodder/pages/login/login",
+        "myxs_fodder/pages/MyCollection/MyCollection",
+        "myxs_fodder/pages/MyDownload/MyDownload",
+        "myxs_fodder/pages/Daysign/Daysign"
+    ],
+    "window": {
+        "backgroundColor": "#f9f9f9",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "素材文案",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+    }
+}

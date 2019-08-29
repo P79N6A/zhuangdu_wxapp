@@ -1,0 +1,76 @@
+<view class="werow DiyNav" style="position:absolute">
+    <view class="Navicon wecolumn" style="padding-left:5px;">
+        <view class="wxf1"></view>
+        <i-icon bindtap="fanhui" size="20" style="line-height:4px;" type="fanhui"></i-icon>
+        <view class="wxf1"></view>
+    </view>
+    <view class="wxf1 NavText">个人中心</view>
+    <view class="Navicon"></view>
+</view>
+<view class="Cent">
+    <view class="MemberInfo werow">
+        <view bindtap="MySet" class="ml10">
+            <image class="memberImg" src="{{memberImg}}" style="width:52px;height:52px"></image>
+        </view>
+        <view bindtap="MySet" class="wxf1 wecolumn  ml10" style="height:52px;">
+            <view class="wxf1"></view>
+            <view class="MemberName">{{name}}</view>
+            <view class="MemberId">用户ID：{{memberid}}</view>
+            <view class="wxf1"></view>
+        </view>
+        <view class="mr10">
+            <i-icon bindtap="MySet" size="20" style="line-height:4px;" type="shezhi"></i-icon>
+        </view>
+    </view>
+    <view class="MyD_C werow" style="padding-top:5px;padding-bottom:5px;">
+        <navigator class="wxf1 werow" style="border-right:#f6f6f6 0.2px solid" url="../MyCollection/MyCollection">
+            <view class="wxf1"></view>
+            <view class="wecolumn">
+                <view class="wxf1"></view>
+                <view class="werow " style="line-height:1px;">
+                    <i-icon class="icons" size="24" type="aixin"></i-icon> 我的收藏
+        </view>
+                <view class="wxf1"></view>
+            </view>
+            <view class="wxf1"></view>
+        </navigator>
+        <navigator class="wxf1 werow" style="border-left:#f6f6f6 0.2px solid" url="../MyDownload/MyDownload">
+            <view class="wxf1"></view>
+            <view class="wecolumn">
+                <view class="wxf1"></view>
+                <view class="werow" style="line-height:1px;">
+                    <i-icon class="icons" size="24" type="xiazaiIcon"></i-icon> 我的下载
+        </view>
+                <view class="wxf1"></view>
+            </view>
+            <view class="wxf1"></view>
+        </navigator>
+    </view>
+    <view class="NavButGroupa" wx:if="{{isAdmin!=0}}">
+        <view bindtap="MyRelease" class="btnStyle werow">
+            <view class="wxf1 ml20 fz16">我的发布</view>
+            <icon class="weui-cell__ft_in-access mr20"></icon>
+        </view>
+    </view>
+    <view class="{{isAdmin!=0?'NavButGroup':'NavButGroupa'}}">
+        <view style="position:relative">
+            <button class="btnStyle werow" openType="contact">
+                <view class="wxf1 ml20 fz16">联系客服 </view>
+                <icon class="weui-cell__ft_in-access mr20"></icon>
+            </button>
+        </view>
+    </view>
+    <view class="NavButGroup">
+        <view bindtap="Activation" class="btnStyle werow">
+            <view class="wxf1 ml20 fz16">邀请码验证 </view>
+            <icon class="weui-cell__ft_in-access mr20"></icon>
+        </view>
+    </view>
+</view>
+<view class="actf" style="position: flex" wx:if="{{advshow==1}}">
+    <view bindtap="Closeadvert" class="GGHide">关闭</view>
+    <ad unitId="{{adv}}"></ad>
+</view>
+<view class="footerText">
+ {{banquan}}
+</view>

@@ -1,0 +1,95 @@
+<view class="top-nav-bar" style="height:{{statusBarHeight*2+88}}rpx;width:100vw">
+    <view class="logo-left" style="margin-top:{{statusBarHeight*2}}rpx;">
+        <image mode="aspectFill" src="{{appinfo.image}}"></image>
+    </view>
+    <view class="tabs" style="margin-top:{{statusBarHeight*2}}rpx;">
+        <view class="tabs-item">
+            <text class="tabs-text-current">{{appinfo.name}}</text>
+        </view>
+    </view>
+    <view class="logo-right" style="margin-top:{{statusBarHeight*2}}rpx;"></view>
+</view>
+<view class="top-empty" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;"></view>
+<view class="page" style="background:url({{appinfo.backimg}}) no-repeat fixed center;">
+    <view class="container">
+        <view class="swiper-container">
+            <swiper autoplay="{{autoplay}}" bindchange="swiperChange" class="swiper-box" current="{{swiperCurrent}}" duration="{{duration}}" interval="{{appinfo.indexslider?appinfo.indexslider:5000}}" nextMargin="30rpx" previousMargin="30rpx" style="relative;" vertical="{{vertical}}">
+                <navigator hoverClass="navigator-hover" url="{{item.inurl}}" wx:for="{{slider}}" wx:key="{{index}}">
+                    <swiper-item bindtap="swiperClick" class="bannerswiperitem" data-inurl="{{item.inurl}}" data-types="{{item.types}}" style="margin-right:20rpx;">
+                        <image class="slide-image1" src="{{item.image}}"></image>
+                        <view style="height:60rpx;z-index: 99;background:#fff;position:absolute;bottom:40rpx;left:40rpx;border-radius:30rpx;line-height:60rpx;font-size:35rpx;padding: 0 30rpx;color:#f69;">{{item.remark}}</view>
+                    </swiper-item>
+                </navigator>
+            </swiper>
+        </view>
+    </view>
+    <view class="menu">
+        <swiper autoplay="true" class="section icons" duration="1000" indicatorDots="true" indicatorActiveColor="rgba(0, 0, 0, .3)" indicatorColor="rgba(0, 0, 0, .1)" interval="{{appinfo.indexmenu?appinfo.indexmenu:6000}}">
+            <block wx:if="{{isuser}}">
+                <swiper-item wx:for="{{menus}}" wx:for-item="menu" wx:key="index">
+                    <form bindsubmit="tomodel" data-inurl="{{item.inurl}}" data-types="{{item.types}}" reportSubmit="true" wx:for="{{menus[index]}}" wx:key="indexs">
+                        <button class="icon" formType="submit" hoverClass="none">
+                            <image src="{{item.image}}"></image>
+                            <text>{{item.title}}</text>
+                        </button>
+                    </form>
+                </swiper-item>
+            </block>
+            <block wx:if="{{!isuser}}">
+                <swiper-item wx:for="{{menus}}" wx:for-item="menu" wx:key="index">
+                    <form reportSubmit="true" wx:for="{{menus[index]}}" wx:key="indexs">
+                        <button bindgetuserinfo="getUserInfo" class="icon" data-inurl="{{item.inurl}}" data-types="{{item.types}}" formType="submit" hoverClass="other-button-hover" openType="getUserInfo">
+                            <image src="{{item.image}}"></image>
+                            <text>{{item.title}}</text>
+                        </button>
+                    </form>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="ad-container" wx:if="{{adid}}">
+        <ad unitId="{{adid}}"></ad>
+    </view>
+    <view class="hotTopicTitle">
+        <view class="hotTopicTitle-title">推荐好玩</view>
+    </view>
+    <scroll-view scrollX class="hotTopicContainer">
+        <view class="hotTopicImage" wx:for="{{getmore}}" wx:key="{{index}}">
+            <navigator appId="{{item.appid}}" hoverClass="navigator-hover" openType="navigate" path="{{item.inurl}}" target="miniProgram" version="release">
+                <image src="{{item.image}}"></image>
+            </navigator>
+        </view>
+    </scroll-view>
+    <view class="user">
+        <view class="page__sd">
+            <view class="group" style="margin-bottom: 0;">
+                <view class="head">
+                    <navigator url="../profile/profile">
+                        <button class="tbtn-y" hoverClass="hover" style="border-color: #f66; color: #f66;">个人中心</button>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+        <include src="../public/footer.wxml"></include>
+    </view>
+    <view class="face-content" hidden="{{yanzhimodal}}">
+        <view bindtap="onmusk" class="face-musk"></view>
+        <view class="face-fault">
+            <view class="face-title">
+                <view>
+                    <text>上传正脸照</text>
+                </view>
+                <view>
+                    <text>测试结果会更准哦</text>
+                </view>
+            </view>
+            <view class="img-fault">
+                <image src="../../images/indexyanzhibg.jpg"></image>
+            </view>
+            <view class="btn-box">
+                <image bindtap="choose_photo" class="btn-img" src="../../images/album.png"></image>
+                <image bindtap="take_photo" class="btn-img" src="../../images/camera.png"></image>
+            </view>
+        </view>
+    </view>
+</view>

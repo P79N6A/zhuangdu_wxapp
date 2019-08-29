@@ -1,0 +1,48 @@
+{template 'common/header'}
+<div class="panel-success">
+
+ <div class="clearfix" style="padding:0 30px;">
+    <ul class="we7-page-tab">
+        <li><a href="./index.php?c=site&a=entry&action=news&do=Setconfig&m=api0351_user">基础设置</a></li>
+        <li class="active"><a href="./index.php?c=site&a=entry&action=wxtemp&do=Setconfig&m=api0351_user">模板消息</a></li>
+    </ul>
+    
+</div>
+
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+            
+
+            
+           <div class="form-group">
+                <label class="col-sm-2 control-label">私信消息通知</label>
+                <div class="col-sm-9">
+                    <input type="text" name="data[wxms_a]" class="form-control" value="{$setConfig[33][value]}" placeholder="">
+                    <span class="help-block">在小程序模板库里搜索"未读回信提醒",关键词（发信人、发信时间、备注）</span>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+		<label class="col-sm-2 control-label">访客消息通知</label>
+		<div class="col-sm-9">
+			<input type="text" name="data[wxms_b]" class="form-control encrypt" value="{$setConfig[34][value]}" placeholder="">
+			<span class="help-block">在小程序模板库里搜索"新客户访问提醒",关键词（客户名称、访问时间、温馨提示）</span>
+		</div>
+	</div>
+    
+    <div class="form-group" id="qiniubucket">
+		<label class="col-sm-2 control-label">打赏消息通知</label>
+		<div class="col-sm-9">
+			<input type="text" name="data[wxms_c]" class="form-control" value="{$setConfig[35][value]}" placeholder="">
+			<span class="help-block">在小程序模板库里搜索"打赏成功通知",关键词（打赏金额、打赏时间、备注）</span>
+		</div>
+	</div>
+
+			<div class="form-group" style="text-align:center; width:100%;">
+				<input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+	</form>
+</div>
+{template 'common/footer'}

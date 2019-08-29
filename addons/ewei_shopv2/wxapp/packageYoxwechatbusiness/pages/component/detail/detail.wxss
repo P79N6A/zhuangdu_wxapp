@@ -1,0 +1,81 @@
+/* packageYoxwechatbusiness/pages/component/detail/detail.wxss */
+.table {
+  border: 0px solid darkgray;
+  font-size: 28rpx;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+}
+.td {
+    width:20%;
+    justify-content: center;
+    text-align: center;
+}
+.bg-w{
+  background: #fff;
+}
+.bg-g{
+  background: #fafafa;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  background: #fff;
+  color: #000;
+  display: flex;
+  height: 3rem;
+  align-items: center;
+}
+/* .table-header {
+  display: inline-flex;
+}
+.th {
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  height:90rpx;
+  background:rgba(241, 252, 255, 1);
+  border-right:1rpx solid rgba(218, 217, 217, 1);
+  border-bottom:1rpx solid rgba(218, 217, 217, 1);
+  justify-content:center;
+  align-items:center;
+  overflow-x:auto;
+  font-size:36rpx;
+  color:rgba(74, 74, 74, 1);
+  line-height:18rpx;
+}
+.table-main {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.td {
+  display: flex;
+  flex-direction: column;
+  width: 494rpx;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  border: 1rpx solid rgba(218, 217, 217, 1);
+  border-top: 0;
+  border-left:0; 
+}
+.td text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92rpx;
+  font-size: 30rpx;
+  color: rgba(55, 134, 244, 1);
+  width: 100%;
+  word-break: normal;
+  border-bottom: 1rpx solid rgba(218, 217, 217, 1);
+}
+.td text{
+  font-size: 30rpx;
+} */

@@ -1,0 +1,147 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">热搜管理 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxhotsearch">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<div class="col-sm-4">
+			<span class="">
+				 {ifp 'yoxhotsearch.edit'}
+						 <a class='btn btn-primary btn-sm' href="{php echo webUrl('yoxhotsearch/edit')}"><i class="fa fa-plus"></i> 添加热搜</a>
+				 {/if}
+			</span>
+		</div>
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="请输入关键词"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+
+		</div>
+	</div>
+</form>
+
+<!-- 文章列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			{ifp 'yoxhotsearch.edit'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxhotsearch/status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxhotsearch/status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			{/if}
+			{ifp 'yoxhotsearch.delete'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxhotsearch/delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+			{/if}
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<th style="width:100px;">排序</th>
+				<th>热搜关键字</th>
+				<th>是否热门</th>
+				<th style="width:100px;">状态</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+	
+			{loop $result['data']['list'] $yoxhotsearch}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$yoxhotsearch['id']}" />
+				</td>
+				<td>
+					{ifp 'yoxhotsearch.edit'}
+						<a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('yoxhotsearch/displayorder',array('id'=>$yoxhotsearch['id']))}">{$yoxhotsearch['displayorder']}</a> 
+					{else} 
+						{$yoxhotsearch['displayorder']} 
+					{/if}
+				</td>
+				<td>{$yoxhotsearch['keyword']}</td>
+				<td><span class='label {if $yoxhotsearch['is_hot']==1}label-primary{else}label-default{/if}'>{if $yoxhotsearch['is_hot']==1}热门{else}普通热搜{/if}</span></td>
+				<td>
+					<span class='label {if $yoxhotsearch['status']==1}label-primary{else}label-default{/if}' 
+						{ifp 'yoxhotsearch.page.edit'} 
+							data-toggle="ajaxSwitch" 
+							data-confirm = "确认{if $yoxhotsearch['status']==1}关闭{else}开启{/if}吗？"
+							data-switch-value="{$yoxhotsearch["yoxhotsearch_status"]}" 
+							data-switch-value0="0|关闭|label label-default|{php echo webUrl('yoxhotsearch/status',array('status'=>1,'id'=>$yoxhotsearch['id']))}" 
+							data-switch-value1="1|开启|label label-primary|{php echo webUrl('yoxhotsearch/status',array('status'=>0,'id'=>$yoxhotsearch['id']))}" 
+						{/if}>
+						
+						{if $yoxhotsearch['status']==1}开启{else}关闭{/if}
+					</span>
+	
+				</td>
+				<td>
+					{ifp 'yoxhotsearch.edit'}
+						<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxhotsearch/edit',array('id'=>$yoxhotsearch['id']))}">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                             <i class="icow icow-bianji2"></i>
+                         </span>
+						</a>
+					{/if} 
+					{ifp 'yoxhotsearch.delete'}
+						<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxhotsearch/delete',array('id'=>$yoxhotsearch['id']))}" data-confirm="确认要删除此热搜?">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class='icow icow-shanchu1'></i>
+                           </span>
+						</a>
+					{/if}
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						{ifp 'yoxhotsearch.edit'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxhotsearch/status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxhotsearch/status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						{/if}
+						{ifp 'yoxhotsearch.delete'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxhotsearch/delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+						{/if}
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂时没有任何热搜词!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

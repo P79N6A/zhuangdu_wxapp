@@ -1,0 +1,106 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<style>
+    .ad .input-group>input:nth-child(1){width: 50%;}
+    .ad .input-group>input:nth-child(2){width: 50%;}
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {$xtitle}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'web','version_id'=>$_GPC['version_id'])}">网站配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sort','version_id'=>$_GPC['version_id'])}">首页排版</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'map','version_id'=>$_GPC['version_id'])}">地图配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'theme','version_id'=>$_GPC['version_id'])}">主题配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sms','version_id'=>$_GPC['version_id'])}">短信配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'print','version_id'=>$_GPC['version_id'])}">打印配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'card','version_id'=>$_GPC['version_id'])}">会员卡配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'refund','version_id'=>$_GPC['version_id'])}">退款配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'rotate','version_id'=>$_GPC['version_id'])}">抽奖配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'share','version_id'=>$_GPC['version_id'])}">分销配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'ad','version_id'=>$_GPC['version_id'])}">公告配置</a></li>
+            <li role="presentation" class="active"><a>退款地址</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'online','version_id'=>$_GPC['version_id'])}">客服配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'audit','version_id'=>$_GPC['version_id'])}">过审配置</a></li>
+        </ul>
+        <form class="form-horizontal" role="form" method="post" action="{url 'site/entry/announcement',array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <input id="copy" type="text" style="position: fixed;top: -500px;left: -500px;" value="{$list['group']}"/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">团购退款地址</label>
+                <div class="col-sm-8">
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <span class="input-group-btn" onclick="copy()">
+                            <button class="btn btn-default" type="button">{$list['group']}</button>
+                        </span>
+                    </div>
+                    <span class="help-block">
+                        <p>点击复制地址</p>
+                        <p># 注释</p>
+                        <p>minute hour day month week command 顺序：分 时 日 月 周 中间用空格隔开</p>
+                        <p>*/1 * * * * curl 退款地址链接</p>
+                        <p>每分执行一次</p>
+                        <p>*/2 * * * * curl 退款地址链接</p>
+                        <p>每2分执行一次</p>
+                        <p>0 */1 * * * curl 退款地址链接</p>
+                        <p>每小时执行一次</p>
+                        <p>0 */2 * * * curl 退款地址链接</p>
+                        <p>每2小时执行一次</p>
+                        <p>只适用liunx crontab -e-> 将内容增加到最后->按 esc-> 按 :wq ->回车</p>
+                    </span>
+                </div>
+                <script>
+                    function copy(objc){
+                        $("#copy").select(); //选择对象
+                        document.execCommand("Copy"); //执行浏览器复制命令
+                        swal('复制成功!', '复制成功!', 'success');
+                    }
+                </script>
+            </div>
+        </form>
+    </div>
+</div>
+{template 'common/footer'}
+<script>
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js"],function(){
+        $(function(){
+            $("input[name='submit']").click(function(){
+                getjson();
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savead','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        })
+    })
+    function getjson(){
+        var list=[];
+        $(".ad").find(".input-group").each(function(){
+            var content=$(this).find("input[name='list_content']").val();
+            var link=$(this).find("input[name='list_link']").val();
+            if(content!="" && content!=null){
+                var data={};
+                data.content=content;
+                data.link=link;
+                list.push(data);
+            }
+        });
+        if(list.length>0){
+            $("input[name='list']").val(JSON.stringify(list));
+        }
+    }
+</script>

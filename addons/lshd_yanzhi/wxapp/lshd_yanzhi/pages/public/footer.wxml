@@ -1,0 +1,4 @@
+<view class="footer">
+        由 {{appinfo.banquan}} 提供人工智能技术支持
+
+</view>

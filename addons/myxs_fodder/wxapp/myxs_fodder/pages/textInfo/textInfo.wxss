@@ -1,0 +1,21 @@
+.mr10mt10 {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.TextStyle {
+    padding: 15px;
+    font-size: 14px;
+    color: #000;
+}
+
+.memberStyle {
+    margin-top: 70px;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+.mName {
+    margin-left: 10px;
+    color: #003985;
+}

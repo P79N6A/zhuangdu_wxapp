@@ -1,0 +1,22 @@
+<div class="spec_item_item" id="spec_item_item_{$specitem['id']}">
+    <input type="hidden" class="spec_item_id" name="spec_item_id_{$spec['id']}[]" VALUE="{$specitem['id']}" />
+    <div class="mui-input-row mui-help">
+    	<input name="spec_item_title_{$spec['id']}[]" type="hidden" class="spec_item_title"  VALUE="{$specitem['title']}" placeholder="{$specitem['placeholder']}" />
+        <i class="mui-ext-icon mui-icon-remove" onclick="removeItem(this)" data-type='spec'></i>
+        <i class="mui-ext-icon mui-icon-drag"></i>
+        <span class="mui-label js-spec-edit" data-id="{$spec['id']}" data-itemid="{$specitem['id']}">{php echo empty($specitem['title'])?$specitem['placeholder']:$specitem['title']}</span>
+        <input name="option_gnum_{$specitem['id']}[]"  type="hidden" class="option_gnum_{$specitem['id']}" value="{$specitem['option']['gnum']}" />
+        <input name="option_aprice_{$specitem['id']}[]" type="hidden" class="option_aprice_{$specitem['id']}" value="{$specitem['option']['aprice']}" />
+        <input name="option_marketprice_{$specitem['id']}[]" type="hidden" class="option_marketprice_{$specitem['id']}" value="{$specitem['option']['marketprice']}" />
+		<input name="option_id_{$specitem['id']}[]"  type="hidden" class="option_id_{$specitem['id']}" value="{$specitem['option']['id']}" />
+		<input name="option_ids[]"  type="hidden" class="option_ids_{$specitem['id']}" value="{$specitem['id']}" />
+		<input name="option_title_{$specitem['id']}[]"  type="hidden" class="option_title_{$specitem['id']}" value="{$specitem['title']}"/>
+        <div class="mui-help-info">
+            <div class="mui-checkbox">
+                <span class="mui-badge mui-badge-inverted">显示</span>            
+                <input type="checkbox" {if $specitem['show']==1}checked{/if} value="1" class="js-specshow" />
+                <input type="hidden" class="spec_item_show" name="spec_item_show_{$spec['id']}[]" VALUE="{$specitem['show']}" />
+            </div>
+        </div>
+    </div>
+</div>

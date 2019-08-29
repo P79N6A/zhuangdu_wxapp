@@ -1,0 +1,29 @@
+<view class="brand">
+    <view><image src="../../images/1/banner.png"></image></view>
+    <view><image src="../../images/1/banner.png"></image></view>
+    <view><image src="../../images/1/banner.png"></image></view>
+    <view><image src="../../images/1/banner.png"></image></view>
+</view>
+<view class="list">
+    <view class="item">
+        <image src="../../images/1/banner.png"></image>
+        <text>水母换肤面膜</text>
+        <text> {{goitemstr}} </text>
+    </view>
+        <view class="item">
+        <image src="../../images/1/banner.png"></image>
+        <text>水母换肤面膜</text>
+        <text> {{goitemstr}} </text>
+    </view>
+        <view class="item">
+        <image src="../../images/1/banner.png"></image>
+        <text>水母换肤面膜</text>
+        <text> {{goitemstr}} </text>
+    </view>
+        <view class="item">
+        <image src="../../images/1/banner.png"></image>
+        <text>水母换肤面膜</text>
+        <text> {{goitemstr}} </text>
+    </view>
+</view>
+

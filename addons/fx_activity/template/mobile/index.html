@@ -1,0 +1,256 @@
+{template 'common/header'}
+<style type="text/css">
+img{vertical-align: bottom;}
+.mui-index .mui-card{ margin:10px 0; margin-right:0;}
+.mui-index .mui-card, .mui-index .mui-card-header,.mui-index .mui-card-footer{ border-radius:0; background-color:#fff;border:none;}
+.mui-index .mui-card .mui-table-view .mui-table-view-cell.mui-media{padding:10px;}
+.mui-index .mui-card-header{padding:10px 8px;position:relative; font-size:18px}
+.mui-index .mui-card-header:before{position: absolute;content: "";height: 13px;left: 0;top: 50%;width: 6px;background-color: #f06000;border-radius:0 20% 20% 0;-moz-border-radius:0 20% 20% 0;border-radius:0 20% 20% 0;-webkit-font-smoothing: antialiased;-webkit-transform: translateX(-50%) translateY(-50%);transform: translateX(-50%) translateY(-50%);}
+.mui-index .mui-card-header h5{color:#333; font-weight:600; font-size:15px;}
+.mui-index .mui-card.card img{border-radius:0.2rem 0 0 0.2rem;}
+.mui-index .mui-card.card .mui-card-content-inner .card-info{width:42%;color:#FFF;padding:0.6rem;position:absolute;background: -webkit-linear-gradient(left, rgba(110,82,252,1) 20%, rgba(180,42,250,1) 100%);top:0;right:10px;bottom:10px;border-radius:0 0.2rem 0.2rem 0;}
+.mui-index .mui-card.card .mui-card-content-inner .card-info:before {content: "";position: absolute;left:-0.4rem;top:50%;border-top:0.8rem solid transparent;border-right: 0.8rem solid #6e52fc;
+border-bottom:0.8rem solid transparent;-webkit-transform: translateY(-50%)}
+.mui-index .mui-card.card .mui-card-content-inner .card-info h4{font-size:1rem;}
+.mui-index .mui-card.card .mui-card-content-inner .card-info ul{color:#fff;padding-left:17px; line-height:1.8;font-size:0.42rem;}
+.mui-index .mui-card-footer{ text-align:center; font-size:12px;}
+.mui-index .mui-card-footer a{color:#59acff!important;}
+.mui-index .mui-table-view .mui-media-object{ max-width:115px!important;width:115px!important; height:85px;background-size:auto 100%!important;border-radius: 4px;}
+.mui-index .mui-table-view p{ color:#999999; line-height:1.6;}
+.mui-index .mui-table-view p.mui-ellipsis-2{line-height:1.3;}
+.mui-index .mui-table-view span.title{ color:#333333; display:inherit; line-height:1.2;}
+.mui-index .mui-slider .mui-slider-indicator{ bottom: 0; text-align:right;padding-right:10px}
+.mui-index .mui-slider-title{ color:#666666;opacity:1;background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);background: -o-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);background: linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%);padding-right: 35%;color: #fff;}
+.mui-index .mui-media-body .mui-media-footer{ overflow:hidden; height:22px;}
+.mui-index .mui-media-body .mui-media-footer span{ overflow:hidden;}
+.mui-index .mui-media-body .mui-media-footer span:first-child~span{ display:inline-block; line-height:1; font-size:12px;padding:2px 0;}
+.mui-index .mui-grid-view{ background:#FFF}
+.mui-index .mui-grid-view .mui-table-view-cell{border:none;padding:inherit;}
+.mui-index .mui-grid-view .mui-table-view-cell .mui-category-ico{height:40px;width:40px;display:-webkit-inline-box;overflow:hidden;border-radius:100%;}
+.mui-index .mui-grid-view .mui-media-body{ font-size:0.48rem!important;margin-top:0!important;color:#666666!important; height:auto!important; line-height:1.1!important}
+#category .mui-popover-content{height:100%;}
+.mui-table-view.mui-group-btn dd{position:relative;padding:5px 10px; height:40px;overflow:hidden}
+.mui-table-view.mui-group-btn dd:after{content:'';position:absolute;left:0;bottom:0;right:auto;top:auto;height:1px;width:100%;background-color:#e6e6e6;display:block;z-index:15;-webkit-transform:scaleY(.5);transform:scaleY(.5);}
+.mui-table-view.mui-group-btn dd span{display:-webkit-inline-box;font-size:14px;padding:inherit;}
+.mui-table-view.mui-group-btn dd span:nth-child(2){font-size:16px;padding-left:10px;}
+.mui-table-view.mui-group-btn dd img{border-radius:100%;width:22px; height:22px;font-size:0;}
+.mui-table-view.mui-group-btn .mui-table-view-cell{float:left;border-radius:0!important;text-align:center;width:25%; padding:0;}
+.mui-table-view.mui-group-btn .mui-table-view-cell:after{left:0px;}
+.mui-table-view.mui-group-btn .mui-table-view-cell:last-child:after{height:1px;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a{height:1.7rem;margin:0!important;color:#666666;line-height:1.7rem; font-size:0.48rem;font-family: "Microsoft Yahei","微软雅黑",Arial,"Hiragino Sans GB","宋体","Helvetica Neue",Helvetica,sans-serif;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a:after{content:" ";width:200%;height:200%;position: absolute;top:0;left:0;right:0; border: 1px solid #e6e6e6;border-left:none;border-top:none;border-bottom:none;box-sizing:border-box;-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+.mui-table-view.mui-group-btn .mui-table-view-cell.bdr-none a:after{border-right:none;}
+
+</style>
+{template 'common/followed'}
+{template 'common/nav'}
+<div class="mui-content mui-index">
+    <div class="mui-scroll-wrapper-ext">
+        <div class="mui-scroll-ext">
+            <div class="mui-slider">
+                <div class="mui-slider-group mui-slider-loop">
+                    <!--支持循环，需要重复图片节点-->
+                    {loop array_reverse($advlist) $adv}
+                    <div class="mui-slider-item mui-slider-item-duplicate"><a href="{$adv['link']}"><img src="{php echo tomedia($adv['thumb'])}" />
+                    {if $adv['advname']!=''}<p class="mui-slider-title mui-ellipsis">{$adv['advname']}</p>{/if}
+                    </a></div>
+                    {php break;}
+                    {/loop}
+                    {loop $advlist $adv}
+                    <div class="mui-slider-item">
+                    <a href="{$adv['link']}"><img src="{php echo tomedia($adv['thumb'])}" />
+                    {if $adv['advname']!=''}<p class="mui-slider-title mui-ellipsis">{$adv['advname']}</p>{/if}
+                    </a>
+                    </div>
+                    {/loop}
+                    <!--支持循环，需要重复图片节点-->
+                    {loop $advlist $adv}
+                    <div class="mui-slider-item mui-slider-item-duplicate"><a href="{$adv['link']}"><img src="{php echo tomedia($adv['thumb'])}" />
+                    {if $adv['advname']!=''}<p class="mui-slider-title mui-ellipsis">{$adv['advname']}</p>{/if}
+                    </a></div>
+                    {php break;}
+                    {/loop}
+                </div>
+                <div class="mui-slider-indicator">
+                    {loop $advlist $k $adv}
+                    <div class="mui-indicator{if $k==0} mui-active{/if}"></div>
+                    {/loop}
+                </div>
+            </div>
+            {if $_W['_config']['catesindex']}
+            <ul class="mui-table-view mui-grid-view mui-grid-9">
+                {loop $cateData[0] $v}
+                {if $v['visible_level']}
+                <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+                    <a href="{php echo !empty($v['redirect'])?$v['redirect']:app_url('activity/activity/display',array('pid'=>$v['parentid']?$v['parentid']:$v['id'],cid=>$v['parentid']?$v['id']:0))}"><span class="mui-category-ico"><img width='100%' height="100%" src="{php echo tomedia($v['thumb']);}" /></span><div class="mui-media-body">{$v['name']}</div></a>
+                </li>{/if}
+                {/loop}
+                {if $_W['_config']['catemore'] || $_W['_config']['catemore']==''}
+                <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+                    <a href="#" class="js-popover" data-popover="category">
+                    <span class="mui-category-ico"><img width='100%' height="100%" src="{php echo empty($_W['_config']['catemoreico'])?FX_URL . 'app/resource/images/icon-class-all.png':tomedia($_W['_config']['catemoreico'])}" /></span>
+                    <div class="mui-media-body">全部</div>
+                    </a>
+                </li>
+                {/if}
+            </ul>
+            {/if}
+            {if $_W['plugin']['card']['config']['card_enable'] && $_W['plugin']['card']['config']['index_enable']}
+            <div class="mui-card mui-afterbefore-no card">
+                <div class="mui-card-header">
+                <a href="{php echo $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&do=cardfans&m=fx_activity_plugin_babycard';}" class="mui-navigate-right"><h5>会员</h5><span class="mui-badge mui-badge-inverted">开通会员</span></a></div>
+                <div class="mui-card-content">
+                	<div class="mui-card-content-inner" style="padding-top:0; min-height:100px;">
+                    	<a href="{php echo $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&do=cardfans&m=fx_activity_plugin_babycard';}">
+                    	<img width='60%' src="{if $yearcard['thumb']}{php echo tomedia($yearcard['thumb'])}{else}../addons/fx_activity/web/resource/images/card/1.png{/if}" />
+                    	<div class="card-info">
+                            <h4>会员权益</h4>
+                            <div class="info-list mui-small">
+                            	<ul>
+                                	<li>可享受活动专享折扣</li>
+                                    <li>可享受活动免单</li>
+                                    {if $_W['plugin']['card']['config']['credit_double']}<li>积分奖励翻倍</li>{/if}
+                                </ul>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {/if}
+            <div id="hot" class="mui-card mui-afterbefore-no">
+                <div class="mui-card-header"><h5>热门活动</h5></div>
+                <div class="mui-card-content">
+                    <ul class="mui-table-view">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="category" class="mui-popover mui-popover-left">
+	<div class="mui-popover-header">所有分类<a href="#category" class="mui-pull-right  mui-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+	<div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            <div class="mui-content-padded" style="padding-bottom:100px;">
+            	{php $i=0;}
+                {loop $cateData[0] $k $cate}
+                {if empty($cate['redirect'])}
+                <ul class="mui-table-view mui-group-btn" style="border-radius:7px;">
+                	<dd>
+                        <span class="mui-pull-left"><img src="{php echo tomedia($cate['thumb']);}" /></span>
+                        <span style="color:{php echo empty($cate['color'])?'#666666':$cate['color']}">{$cate['name']}</span>
+                        <span class="mui-pull-right"><a style="color:{php echo empty($cate['color'])?'#666666':$cate['color']}" href="{php echo app_url('activity/activity/display',array('pid'=>$cate['id']))}">全部</a></span>
+                    </dd>
+                    {loop $children[$cate['id']] $i $ccate}
+                    <li class="mui-table-view-cell{if ($i+1)%4==0} bdr-none{/if}"><a href="{php echo app_url('activity/activity/display',array('pid'=>$cate['id'],cid=>$ccate['id']))}">{$ccate['name']}</a></li>
+                    {/loop}
+                </ul>
+                {/if}
+                {/loop}
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="hotlist">
+<li class="mui-table-view-cell mui-media" style="display:none">
+	<a href="{php echo app_url('activity/detail/display')}&activityid={{d.id}}">
+		<div class="mui-media-object mui-pull-left" style="background:url('{$_W['attachurl']}{{d.thumb}}') no-repeat center"></div>
+		<div class="mui-media-body">
+			<span class="title mui-ellipsis">{{d.title}}</span>
+			<p class="mui-ellipsis-2 mui-small">{{d.intro}}</p>
+			<p class="mui-small">{{# if(d.switch.joinnum==1){ }}已报名：<font color="#666666">{{d.joinnum}} 人</font>{{# } }} 剩余名额：<font color="#666666">{{d.tpl_gnum}}</font></p>
+			<div class="mui-media-footer">{{d.tpl_status}} {{d.tpl_price}}</div>
+		</div>
+	</a>
+</li>
+</script>
+<script>
+//获得slider插件对象
+var gallery = mui('.mui-slider');
+gallery.slider({ interval:5000});
+$(".js-popover").on('click',function(e) {
+	mui('.mui-scroll-wrapper').scroll({indicators: false});
+	var popover = "#"+$(this).data("popover");
+	mui(popover).popover('toggle');
+});
+//上拉加载活动列表
+var thispage = 1;
+$('.mui-scroll-ext').dropload({
+	scrollArea : $('.mui-scroll-wrapper-ext'),
+	threshold : 800,
+	loadDownFn : function(me){
+		mui.getJSON("{php echo app_url('home/index/hot')}", {page:thispage,ucity:position.ucity}, 
+		function(data){
+			var stime = new Date(), result='', gettpl = document.getElementById('hotlist').innerHTML;
+			
+			if (data.tpage == 0){
+				result = '<li class="mui-table-view-cell"><p style="text-align:center">当前没有推荐信息</p><li>';
+			}
+			if (thispage >= data.tpage || data.tpage == 0){
+				me.lock();// 锁定
+				me.noData();// 无数据
+			}
+			for(var i = 0; i < data.list.length; i++){
+				joinstime = new Date(data.list[i].joinstime.replace("-", "/").replace("-", "/"));
+				joinetime = new Date(data.list[i].joinetime.replace("-", "/").replace("-", "/"));
+				starttime = new Date(data.list[i].starttime.replace("-", "/").replace("-", "/"));
+				endtime   = new Date(data.list[i].endtime.replace("-", "/").replace("-", "/"));
+				
+				var joinnum = parseInt(data.list[i].joinnum),
+				gnum  = parseInt(data.list[i].gnum),
+				aprice = data.list[i].aprice,
+				minaprice = data.list[i].minaprice;
+				if (stime > endtime){
+					data.list[i].tpl_status = '<span class="mui-badge">活动结束</span>';
+				}else{
+					if (joinnum >= gnum && gnum > 0){
+						data.list[i].tpl_status = '<span class="mui-badge mui-badge-danger">名额已满</span>';
+					}else{
+						data.list[i].tpl_status = joinstime > stime ? '<span class="mui-badge">还未开始</span>' : (stime>joinetime ? '<span class="mui-badge">报名结束</span>': '<span class="mui-badge mui-badge-orange">报名中</span>');
+					}						
+				}
+				data.list[i].tpl_price = aprice > 0 || minaprice > 0 ?'<span class="mui-text-orange mui-rmb">'+(minaprice?minaprice+' 起':aprice)+'</span>':'<span class="mui-text-success">'+(data.list[i].freetitle!=''?data.list[i].freetitle:'免费活动')+'</span>';
+				data.list[i].tpl_gnum = gnum>0?(gnum-joinnum)+' 人':' 不限';
+				
+				laytpl(gettpl).render(data.list[i], function(html){
+					$("#hot").find('.mui-table-view').append(html);
+					$("#hot").find('.mui-table-view .mui-table-view-cell').fadeIn();
+				});
+			}
+			
+			//$(id).find('.list-content').append(result);
+			thispage++;
+			// 每次数据加载完，必须重置
+			me.resetload();
+		});
+	}
+});
+
+
+//格式化日期
+Date.prototype.format = function(format) {
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    }
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
+}
+</script>
+</body>
+</html>

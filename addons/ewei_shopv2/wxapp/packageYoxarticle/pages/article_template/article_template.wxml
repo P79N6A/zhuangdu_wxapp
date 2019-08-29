@@ -1,0 +1,21 @@
+<template name="article_template">
+  <block wx:for="{{articleList}}">
+    <view class='catearticleList_item' data-id='{{item.id}}' bindtap='todetail'>
+      <view class='image'>
+        <image class='baseimg' wx:if="{{item.resp_img}}" src='{{item.resp_img}}'></image>
+        <image class='baseimg' wx:else src='' style='background:#fd2c6b;'></image>
+      </view>
+      <view style='float:left;margin-top:4px;'>
+        <view class='title'>
+        <text wx:if="{{item.article_title}}">{{item.article_title}}</text>
+      </view>
+      <view class='desc'>
+        <text wx:if="{{item.resp_desc}}">{{item.resp_desc}}</text>
+      </view>
+      </view>
+      <view class='icon_to' style='margin-top:10px;'>
+        <image class='baseimg' src='../images/right.png'></image>
+      </view>
+    </view>
+  </block>
+</template>

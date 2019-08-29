@@ -1,0 +1,39 @@
+<import src="../commend/commend.wxml" />
+<template name="grid_Template">
+  <swiper-item>
+    <scroll-view scroll-y="true" class="scoll-h">
+      <block wx:for="{{article}}" wx:for-item="item">
+        <view class='gridCell' style="background: #fff;">
+          <image class='gridImg' src="https://zdu.igdlrj.com/attachment/{{item.thumbs}}"  data-index='{{index}}' data-id='{{item.id}}' data-thumbs='{{item.thumbs}}' catchtap='previewImg'></image>
+          <text class='gridName'>{{item.name}}</text>
+        </view>
+      </block>
+      <!-- <template is="commend_Template" data="{{video}}" /> -->
+      <view class='articleCommend' style='padding-top:40rpx;clear: both;'>
+          <view class='commend-content'>
+            <view class='commend-header'>
+              <text class='bigtitle'>热门推荐</text>
+              <view class='all'>
+                <text>查看全部</text>
+              </view>
+            </view>
+
+        <block wx:for="{{video}}">
+
+            <view class='commend-main'>
+              <view class='commend-cell'>
+                <video data-id='{{item.id}}' wx:if="{{item.videos}}" bindplay="videoPlay" bindended="videoEndPlay" controls src="https://zdu.igdlrj.com/attachment/{{item.videos}}"></video>
+                <view class='title' wx:if="{{item.name}}">
+                  <text>{{item.name}}</text>
+                </view>
+                <text class='time' wx:if="{{item.add_time_format}}">{{item.add_time_format}}</text>
+              </view>
+            </view>
+        </block>
+
+
+          </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</template>

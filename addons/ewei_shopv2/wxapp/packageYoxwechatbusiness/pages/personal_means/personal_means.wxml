@@ -1,0 +1,14 @@
+<view class='container'>
+  <view class='head'>
+    <view class='edit_customer' bindtap='toedit'>
+      编辑资料
+    </view>
+    <view class='bank_card' bindtap='tobank'>
+      银行卡列表
+    </view>
+    <view class='electronic_contract' bindtap='toe_c'>
+      电子合同
+    </view>
+  </view>
+
+</view>

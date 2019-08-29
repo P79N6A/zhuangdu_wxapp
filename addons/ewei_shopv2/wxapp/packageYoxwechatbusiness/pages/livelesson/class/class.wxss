@@ -1,0 +1,282 @@
+page{
+  background: #fff;
+}
+.baseimg{
+  /* display: block; */
+  width: 100%;
+  height: 100%;
+}
+.img{
+  min-height: 20px;
+  float: left;
+  height:0px;
+}
+.content{
+  width: 100%;
+  min-height:100px;
+}
+.teacher{
+  float: left;
+  width: 100%;  
+}
+.teacher .avatar{
+  width: 54px;
+  height: 34px;
+  float: left;
+  margin-top:20rpx;
+  margin-left:24rpx;
+}
+.teacher .avatar image{
+  width: 52px;
+  height: 52px;
+  border-radius: 27px;
+}
+.teacher .nickname{
+  font-size: 16px;
+  float: left;
+  margin-top:24rpx;
+  margin-left:10rpx;
+}
+.teacher .nickname .name{
+  color: #999;
+}
+.teacher text{
+  font-size: 16px;
+  color: #11c886;
+}
+.allmessage{
+  float: right;
+  width:235px;
+  background: #fff;
+  margin-left:18rpx;
+  margin-right:66px;
+  margin-bottom:16px;
+}
+.allmessage .message{
+  margin-bottom: 10px;
+}
+.audio{
+  padding:20rpx;
+  border-radius:10rpx;
+  background-color:#fd2d6b;
+  border:1px solid #f0f0f0;
+  overflow:hidden;
+}
+.ico{
+  width: 26rpx; 
+  height: 30rpx; 
+  float: left;
+}
+.tab{
+  width: 100%;
+  height: 40px;
+}
+.tab_item{
+  margin-left:130px;
+  margin-top:10px;
+  margin-bottom:10px;
+  font-size: 14px;
+  position: relative;
+}
+.tab_item::after{
+  position: absolute;
+  display: block;
+  content: "";
+  height: 8rpx;
+  width: 24px;
+  background: #fd2d6b;
+  bottom: -4px;
+  left: 4px;
+  border-radius: 16rpx;
+}
+.times{
+  width:300px;
+  margin-left:236px;
+  margin-top:14px;
+  font-size:12px;
+  color:#afafaf;
+}
+.down{
+  width: 276px;
+  height: 28px;
+  clear: both;
+  margin-left:72px;
+}
+.down .transmit{
+  float: left;
+}
+.down .transmit,.down .love,.down .commit{
+  width: 22px;
+  height: 22px;
+}
+.down .transmit image,.down .love image,.down .commit image{
+  width: 100%;
+  height: 100%;
+} 
+.down .down_right{
+  float: right;
+}
+.down .down_right .love{
+  float: left;
+  margin-right:44px;
+}
+.down .down_right .love text{
+  float: right;
+}
+.down .down_right .commit{
+  float: right;
+}
+.teacher{
+  width: 100%;
+  height: 50px;
+}
+.teacher .talk{
+  margin-left: 100px;
+}
+.teacher .commit2,.teacher .add{
+  margin-left: 20px;
+}
+.teacher .talk,.teacher .commit2,.teacher .add{
+  width: 50px;
+  height: 50px;
+  background: #fd2d6b;
+  border-radius: 50px;
+  float: left;
+}
+.teacher .talk image,.teacher .commit2 image,.teacher .add image{
+  width: 24px;
+  height: 24px;
+  margin-left: 13px;
+  margin-top: 14px;
+}
+.listen{
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  margin-top:18px;
+}
+.listen .listen_commit,.listen .listen_person{
+  height: 50px;
+  line-height: 50px;
+  width: 150px;  
+  background: #fd2d6b;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 50px;
+  text-align: center;
+}
+.listen .listen_commit{
+  float: left;
+  margin-left:28px;
+}
+.listen .listen_person{
+  float: right;
+  margin-right:24px;
+}
+.listen .listen_person image{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.commitBox{
+  width: 100%;
+  border-radius: 5px;
+  height: auto;
+}
+.commitBox .title{
+  width: 100%;
+  height: 40px;
+}
+.commitBox .title .title_text{
+  font-size: 16px;
+  float: left;
+  margin-left:12px;
+  margin-top:8px;
+}
+.commitBox .title .close{
+  float: right;
+  width: 22px;
+  height: 22px;
+  margin-right:12px;
+  margin-top:8px;
+}
+.commitBox .title .close image{
+  width: 100%;
+  height: 100%;
+}
+.commitBox .commit_list{
+
+}
+.commitBox .commit_cell{
+  width: 100%;
+  height: 90px;
+} 
+.commitBox .commit_cell .avatar{
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-left:28px;
+}
+.commitBox .commit_cell .avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+}
+.commitBox .commit_cell .commit_right{
+  float: right;
+  width: 284px;
+}
+.commitBox .commit_cell .commit_right .name{
+  font-size:15px;
+  float: left;
+}
+.commitBox .commit_cell .commit_right .name text{
+  font-size: 11px;
+  color: #c6d7e0;
+}
+.commitBox .commit_cell .commit_right .like{
+  float: right;
+  width: 16px;
+  height: 15px;
+  margin-right:16px;
+}
+.commitBox .commit_cell .commit_right .like image{
+  width: 100%;
+  height: 100%;
+}
+.commitBox .commit_cell .commit_right .content{
+  text-align: left;
+  clear:both;
+  width: 284px;
+  margin-top:28px;
+}
+.commitBox .talk{
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  border-top: 1px solid #f0f0f0;
+  clear:both;
+}
+.commitBox .talk input{
+  width: 290px;
+  height: 36px;
+  background: #f0f0f0;
+  float: left;
+  margin-left:12px;
+  margin-top:7px;
+  border-radius: 5px;
+  margin-bottom:4px;
+}
+.commitBox .talk .send{
+  font-size: 16px;
+  color: #fd2d6b;
+  width: 32px;
+  height: 20px;
+  float: right;
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}

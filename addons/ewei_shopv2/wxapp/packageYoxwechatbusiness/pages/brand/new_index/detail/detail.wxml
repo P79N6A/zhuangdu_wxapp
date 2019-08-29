@@ -1,0 +1,119 @@
+<view class='container'>
+  <view class='customSwiper'>
+    <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+      <block wx:for="{{sliderList}}">
+        <swiper-item>
+          <image src="{{item.imageSource}}" style='background:#fd2c6b;width:100%;height:100%;'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="tab">
+      <block wx:for="{{sliderList}}" wx:key="key">
+        <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+        <view wx:else class="tab-item"></view>
+      </block>
+    </view>
+  </view>
+  <view class='detail_content bgfff'>
+    <view class='detail_content_left'>
+      <view class='image'>
+        <image class='baseimg' src='{{image}}' style='background:#fd2c6b;'></image>
+      </view>
+      <view class='main'>
+        <view class='title'>
+          <text>{{title}}</text>
+        </view>
+        <!-- <view class='use'>
+          <text>{{use}}</text>
+        </view> -->
+      </view>
+    </view>
+    <!-- <view class='detail_content_right'>
+      <view style='width:14px; height:14px; background:#fd2c6b; border-radius:14px; float:left;'></view>
+      <view>
+        <text class='place'>{{place}}</text>
+      </view>
+    </view> -->
+  </view>
+  <view class='content_down bgfff'>
+    <view class='content_down_left'>
+      <text>产品价格带:</text>
+      <text class='price'>￥{{price}}</text>
+    </view>
+    <view class='content_down_right'>
+      <image src='../images/seen.png'></image>
+      <text style='margin-right:8px;'><text>{{editList.follow}}</text>人看过</text>
+      <image src='../images/collectactive.png'></image>
+      <text><text>{{editList.collect}}</text>人收藏</text>
+    </view>
+  </view>
+  <!-- 品牌档案、终端形象、最新资讯 -->
+  <view class="detail-tab">
+    <view class="detail-tab-item {{detailTopItem==idx ? 'active' : ''}}" wx:for="{{detailTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchTab">
+      {{item}}
+    </view>
+  </view>
+  <swiper class="swiper" current="{{detailTopItem}}" bindchange="bindChange" duration="300">
+    <swiper-item>
+      <scroll-view scroll-y="true">
+        <view class='detail_main bgfff'>
+          <view class='detail_main_cell'>
+            <text>所属公司 xxxxxxxxxxxx</text>
+          </view>
+          <view class='detail_main_cell'>
+            <text>中文名称 xxxxxxxxxxxx</text>
+          </view>
+          <view class='detail_main_cell'>
+            <text>外文名称 xxxxxxxxxxxx</text>
+          </view>
+          <view class='detail_main_cell'>
+            <text>创立时间 xxxxxxxxxxxx</text>
+          </view>
+          <view class='detail_main_cell'>
+            <text>品牌定位 xxxxxxxxxxxx</text>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+  <view class='show_more bgfff'>
+    <text>展开</text>
+    <image src='../images/show_more.png'></image>
+  </view>
+  <view class='detail_commend bgfff'>
+    <view class='detail_commend_title'>
+      <text>推荐商品</text>
+    </view>
+    <block wx:for="{{detail_commendList}}">
+      <view class='detail_commend_cell'>
+        <view class='image'>
+          <image class='baseimg' src='{{item.imgUrl}}' style='background:#fd2c6b;'></image>
+        </view>
+        <view class='title'>
+          <text>{{item.title}}</text>
+        </view>
+        <view class='price'>
+          <text>￥ {{item.price}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 底层固定 -->
+  <view class='fix_buy bgfff'>
+    <view class='shop'>
+      <view class='image'>
+        <image class='baseimg' src='../images/king.png'></image>
+      </view>
+      <text>官方店铺</text>
+    </view>
+    <view class='collect'>
+      <view class='image'>
+        <image class='baseimg' src='../images/collect.png'></image>
+      </view>
+      <text>收藏</text>
+    </view>
+    <view class='buy_btn'>
+      <text>召唤小参谋，帮你找品牌</text>
+    </view>
+  </view>
+</view>

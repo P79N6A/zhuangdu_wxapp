@@ -1,0 +1,33 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-table-view-cell{ padding: 11px 12px;}
+.mui-table-view-cell .mui-ext-icon p{ font-size:15px; margin-top:1.5px;}
+</style>
+<div class="mui-content">
+    <ul class="mui-table-view" style="margin-top:0">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="javascript:;" data-popover='username'>
+            <span class="mui-ext-icon mui-icon-personactive mui-text-yellow"><p class="mui-pl20">&nbsp;账户管理</p></span>
+            <span class="mui-badge mui-badge-inverted">注册、登录、权限等问题</span></a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="javascript:;" data-popover='fabu'>
+            <span class="mui-ext-icon mui-icon-fabu4 mui-text-primary"><p class="mui-pl20">&nbsp;活动发布</p></span>
+            <span class="mui-badge mui-badge-inverted">如何发布活动、操作流程等</span></a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="javascript:;" data-popover='kefu'>
+            <span class="mui-ext-icon mui-icon-phone mui-text-purple"><p class="mui-pl20">&nbsp;电话客服</p></span>
+            <span class="mui-badge mui-badge-inverted">客服服务时间8:00-21:00</span></a>
+        </li>
+    </ul>
+    <ul class="mui-table-view" style="margin-bottom:35px; display:none;">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="javascript:;" data-popover='message'>
+            <span class="mui-ext-icon mui-icon-message mui-text-success"><p class="mui-pl20">&nbsp;的线留言</p></span></a>
+        </li>
+    </ul>
+</div>
+{template 'member/help'}
+</body>
+</html>

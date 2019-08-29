@@ -1,0 +1,17 @@
+<view class="homeView">
+    <view class="headerView" style="width: {{canvasHeight}}px; height:{{canvasHeight}}px;">
+        <image src="http://cdn.w7.cc/images/2017/01/04/d200yYyy97So00J7586c5bfc1557b.jpg?imageView2/5/w/88/format/png"></image>
+    </view>
+    <view class="dashed"></view>
+    <view class="footerView">
+        <view class="tab-content">
+            <scroll-view class="models" scrollWithAnimation="true" scrollX="true">
+                <form data-ids="{{item.id}}" data-idx="{{index}}" reportSubmit="true">
+                    <button class="model {{selectTab==index?'active':''}}" formType="submit">
+                        <image src="http://cdn.w7.cc/images/2017/01/04/d200yYyy97So00J7586c5bfc1557b.jpg?imageView2/5/w/88/format/png"></image>
+                    </button>
+                </form>
+            </scroll-view>
+        </view>
+    </view>
+</view>

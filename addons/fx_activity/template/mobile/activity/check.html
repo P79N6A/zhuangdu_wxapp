@@ -1,0 +1,96 @@
+{template 'common/header'}
+<body>
+<div class="mui-content">
+{if $ishexiao_member}
+	{if $result=='success'}
+	<div class="mui-content-padded">
+        <div class="mui-message">
+            <div class="mui-message-icon">
+            <span class="mui-msg-success"></span>
+            </div>
+            <h4 class="title">核销成功</h4>
+            <p class="mui-desc">点击确定，可返回微信</p>
+            <div class="mui-button-area">
+                <a href="javascript:wx.closeWindow();" class="mui-btn mui-btn-success mui-btn-block">确定</a>
+            </div>
+        </div>
+    </div>
+    {else}
+    <div class="mui-card">
+        <div class="mui-card-header">核销活动凭证</div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <div class="voucher-code">
+                    <p>核销码：{$records['hexiaoma']}</p>
+                    <p>
+                        <img src="{FX_URL}data/qrcode/{$_W['uniacid']}/{$records['orderno']}.png" onerror="javascript:this.src='http://qr.topscan.com/api.php?w=300&text={$qrcodeurl}';">
+                    </p>
+                </div>
+                <div class="voucher-address font-size-14">
+                	<p>参与用户：{$records['username']}&nbsp; {$records['mobile']}</p>
+                    <p>活动地点：{$activity['address']}</p>
+                    <p>活动时间：{$activity['starttime']}</p>
+                </div>
+                <div class="voucher-goods-info font-size-14">
+                    <p>活动名称：{$activity['title']} </p>
+                    <p>参加名额：{$records['teamnum']} 人</p>
+                    {if $records['payprice']}
+                    <p>实付金额：<font class="mui-text-success mui-rmb">{$records['payprice']} 元</font></p>
+                    {elseif $records['price']}
+                    <p>应付金额：<font class="mui-text-error mui-rmb">{$records['price']} 元</font></p>
+                    {/if}
+                    <p>用户昵称：{$records['nickname']}</p>
+                    <p>报名时间：{$records['jointime']}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mui-content-padded mui-button-area">
+    	<a href="javascript:;" id="conbdel" class="mui-btn mui-btn-success mui-btn-block">核销报名</a>
+		<a href="javascript:wx.closeWindow();"  class="mui-btn mui-btn-outlined mui-btn-block">返回微信</a>
+	</div>
+    {/if}
+{else}
+	<div class="mui-content-padded">
+        <div class="mui-message">
+            <div class="mui-message-icon">
+            <span class="mui-msg-error"></span>
+            </div>
+            <h4 class="title">非核销人员</h4>
+            <p class="mui-desc">点击确定，可返回微信</p>
+            <div class="mui-button-area">
+                <a href="javascript:;" id="closewindow" class="mui-btn mui-btn-success mui-btn-block">确定</a>
+            </div>
+        </div>
+    </div>
+{/if}
+</div>
+<script>
+	$(document).on('click','#conbdel',function(){
+		util.confirm('是否确认核销？', ' ', function(e) {
+			if (e.index == 1) {
+	        	var storeid = $('input:radio:checked').val();
+	        	var slen = $(':radio:checked');
+	        	{if !empty($stores)}
+	        	if(slen.length<1){
+	        		//$.confirm('未选择核销门店');return false;
+	        	}
+	        	{/if}
+	          	$.post("{php echo app_url('activity/check',array('mid' => $orderno))}",{storeid:storeid},function(d){
+					if(!d.errno){
+						location.href = "{php echo app_url('activity/check',array('mid' => $orderno,'result' => 'success'))}";
+					}else{
+						util.toast(d.message,'', 'error');
+					}
+				},"json");
+	        }
+		});
+	});
+
+	$('#closewindow').click(function(){
+		wx.closeWindow();
+	});
+</script>
+</body>
+</html>

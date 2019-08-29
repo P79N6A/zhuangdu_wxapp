@@ -1,0 +1,13 @@
+<template name="tabBar_template">
+  <view class="nav-tabs">
+    <view class="tab-list {{currentTab == idx ? 'tabBar-active' : 'tabBar-default' }}" wx:for="{{items}}" wx:key="prototype" wx:for-index="idx" wx:for-item="item" data-current="{{idx}}" bindtap="swichNav">
+      <navigator url='{{item.pagePath}}'>
+        <view class='tabimage'>
+          <image class="iconPath" wx:for-index="idx" data-current="{{idx}}" src="{{currentTab == idx ? item.selectedIconPath : item.iconPath }}"></image>
+        </view>
+        <text class="tab-text {{currentTab == idx ? 'tabBar-active' : 'tabBar-default' }}" wx:for-index="idx" data-current="{{idx}}" src="{{currentTab == idx ? item.selectedIconPath : item.iconPath }}">{{item.text}}</text>
+      </navigator>
+    </view>
+  </view>
+</template>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

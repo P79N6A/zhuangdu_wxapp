@@ -1,0 +1,55 @@
+.inviteuser_cell{
+  width:100px;
+  height: 110px;
+  border: 2px solid #ccc;
+  float: left;
+  background: #fff;
+  font-size: 16px;
+  margin-right: 20px;
+}
+.inviteuser_cell .avatar{
+  width: 50px;
+  height: 50px;
+  margin-left:25px;
+  margin-top:15px;
+}
+.inviteuser_cell .nickname{
+  margin-left:24px;
+  margin-top:6px;
+}
+.baseimg{
+  width: 100%;
+  height: 100%;
+}
+.searchBox{
+  border-top: 1px solid #ccc;
+  width: 100%;
+  height: 42px;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding-top:8px;
+}
+.searchBox image{
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-left:10px;
+  margin-top:4px;
+}
+.searchBox input{
+  float: left;
+  margin-left:8px;
+}
+.searchBox .search{
+  width: 360px;
+  height: 30px;
+  background: #f3f3f3;
+  border-radius: 50px;
+  margin-left:8px;
+}
+.tips{
+  font-size: 16px;
+  color: #c3c3c3;
+  margin-left:126px;
+  margin-top:216px;
+}

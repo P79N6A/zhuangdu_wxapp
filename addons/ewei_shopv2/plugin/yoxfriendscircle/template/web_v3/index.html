@@ -1,0 +1,160 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">精选朋友圈管理 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxfriendscircle">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<div class="col-sm-4">
+			<span class="">
+				 {ifp 'yoxfriendscircle.edit'}
+						 <a class='btn btn-primary btn-sm' href="{php echo webUrl('yoxfriendscircle/edit')}"><i class="fa fa-plus"></i> 添加</a>
+				 {/if}
+			</span>
+		</div>
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='keyword' value="{$_GPC['name']}" placeholder="请输入关键词"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+
+		</div>
+	</div>
+</form>
+
+<!-- 文章列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			{ifp 'yoxfriendscircle.edit'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle/status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle/status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			{/if}
+			{ifp 'yoxfriendscircle.delete'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle/delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+			{/if}
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<th style="width:100px;">排序</th>
+				<th>标题</th>
+				<th>描述</th>
+				<th style="width:100px;">精选</th>
+				<th style="width:100px;">前端显示</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+	
+			{loop $result['data']['list'] $yoxfriendscircle}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$yoxfriendscircle['id']}" />
+				</td>
+				<td>
+					{ifp 'yoxfriendscircle.edit'}
+						<a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('yoxfriendscircle/displayorder',array('id'=>$yoxfriendscircle['id']))}">{$yoxfriendscircle['displayorder']}</a> 
+					{else} 
+						{$yoxfriendscircle['displayorder']} 
+					{/if}
+				</td>
+				<td>{$yoxfriendscircle['name']}</td>
+				<td>{$yoxfriendscircle['description']}</td>
+				<td>
+					<span class='label {if $yoxfriendscircle['is_featured']==1}label-primary{else}label-default{/if}' 
+						{ifp 'yoxhotsearch.page.edit'} 
+							data-toggle="ajaxSwitch" 
+							data-confirm = "确认{if $yoxfriendscircle['is_featured']==1}取消精选{else}设为精选{/if}吗？"
+							data-switch-value="{$yoxfriendscircle["is_featured"]}" 
+							data-switch-value0="0|关闭|label label-default|{php echo webUrl('yoxfriendscircle/is_featured',array('is_featured'=>1,'id'=>$yoxfriendscircle['id']))}" 
+							data-switch-value1="1|开启|label label-primary|{php echo webUrl('yoxfriendscircle/is_featured',array('is_featured'=>0,'id'=>$yoxfriendscircle['id']))}" 
+						{/if}>
+						
+						{if $yoxfriendscircle['status']==1}开启{else}关闭{/if}
+					</span>
+				</td>
+				<td>
+					<span class='label {if $yoxfriendscircle['status']==1}label-primary{else}label-default{/if}' 
+						{ifp 'yoxhotsearch.page.edit'} 
+							data-toggle="ajaxSwitch" 
+							data-confirm = "确认{if $yoxfriendscircle['status']==1}关闭{else}开启{/if}吗？"
+							data-switch-value="{$yoxfriendscircle["yoxhotsearch_status"]}" 
+							data-switch-value0="0|关闭|label label-default|{php echo webUrl('yoxfriendscircle/status',array('status'=>1,'id'=>$yoxfriendscircle['id']))}" 
+							data-switch-value1="1|开启|label label-primary|{php echo webUrl('yoxfriendscircle/status',array('status'=>0,'id'=>$yoxfriendscircle['id']))}" 
+						{/if}>
+						
+						{if $yoxfriendscircle['status']==1}开启{else}关闭{/if}
+					</span>
+				</td>
+				<td>
+					{ifp 'yoxfriendscircle.edit'}
+						<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle/edit',array('id'=>$yoxfriendscircle['id']))}">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                             <i class="icow icow-bianji2"></i>
+                         </span>
+						</a>
+					{/if} 
+					{ifp 'yoxhotsearch.delete'}
+						<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle/delete',array('id'=>$yoxfriendscircle['id']))}" data-confirm="确认要删除此热搜?">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class='icow icow-shanchu1'></i>
+                           </span>
+						</a>
+					{/if}
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						{ifp 'yoxfriendscircle.edit'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle/status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle/status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						{/if}
+						{ifp 'yoxhotsearch.delete'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle/delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+						{/if}
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂时没有任何朋友圈文章!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

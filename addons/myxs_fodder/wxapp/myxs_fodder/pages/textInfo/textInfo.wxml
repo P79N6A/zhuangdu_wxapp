@@ -1,0 +1,84 @@
+<view class="werow DiyNav">
+    <view class="Navicon wecolumn" style="padding-left:5px;color:#000;">
+        <view class="wxf1"></view>
+        <i-icon bindtap="ReturnNew" size="20" style="line-height:4px;" type="thome"></i-icon>
+        <view class="wxf1"></view>
+    </view>
+    <view class="wxf1 NavText"></view>
+    <view class="Navicon"></view>
+</view>
+<view class="werow memberStyle">
+    <view>
+        <image src="{{contentData.member_head_portrait}}" style="width:42px;height:42px;border-radius:42px;"></image>
+    </view>
+    <view class="mName">{{contentData.member_name}}</view>
+</view>
+<text bindtap="TextCopi" class="TextStyle">{{contentData.text}}</text>
+<block wx:if="{{contentData.type=='img'}}">
+    <view class="werow" wx:if="{{contentData.content.length===1}}">
+        <view class="wxf1"></view>
+        <image bindtap="previewImage" data-src="{{contentData.content[0]}}" mode="widthFix" src="{{contentData.content[0]}}" style="width:{{w/1.1}}px"></image>
+        <view class="wxf1"></view>
+    </view>
+    <view class="werow" style="height:{{contentData.content.length/3*photoWidth+25}}px" wx:if="{{contentData.content.length>=2}}">
+        <view class="wxf1 mr10mt10 "></view>
+        <view style="width:{{photoWidth*3+15}}px;height:{{contentData.content.length/3*photoWidth+25}}px">
+            <image bindtap="previewImage" class="mr10mt10" data-src="{{imgs}}" src="{{imgs}}" style="width:{{photoWidth}}px;height:{{photoWidth}}px" wx:for="{{contentData.content}}" wx:for-item="imgs" wx:key="i*this"></image>
+        </view>
+        <view class="wxf1"></view>
+    </view>
+</block>
+<view class="werow" wx:if="{{contentData.type=='video'}}">
+    <view class="wxf1"></view>
+    <video autoplay="true" id="Myplay" src="{{contentData.content[0]}}" style="width:{{w/1.1}}px;height:225px"></video>
+    <view class="wxf1"></view>
+</view>
+<view class="werow" style="margin-bottom:15px;margin-top:15px">
+    <view class="wxf1 werow" style="margin-left:15px;">
+        <view class="ArticleDate wecolumn">
+            <view class="wxf1"></view>
+            <view> {{contentData.create_time}}</view>
+            <view class="wxf1"></view>
+        </view>
+    </view>
+    <view bindtap="CollectionL" class="werow w60">
+        <view class="pr2 wecolumn">
+            <view class="wxf1"></view>
+            <i-icon size="20" type="{{contentData.clstate?'TCollection':'FCollection'}}"></i-icon>
+            <view class="wxf1"></view>
+        </view>
+        <view class=" wxf1  wecolumn">
+            <view class="wxf1"></view>
+            <view class="StatisticsStyle">{{contentData.clnb>10000?'10000+':contentData.clnb}}</view>
+            <view class="InteractionStyle">收藏</view>
+            <view class="wxf1"></view>
+        </view>
+    </view>
+    <view bindtap="download" class="werow w60" data-Min="{{di}}" data-index="{{i}}" id="{{x.content_id}}">
+        <view class="pr2 wecolumn">
+            <view class="wxf1"></view>
+            <i-icon size="20" type="xiazai"></i-icon>
+            <view class="wxf1"></view>
+        </view>
+        <view class=" wxf1  wecolumn">
+            <view class="wxf1"></view>
+            <view class="StatisticsStyle">{{contentData.donnb>10000?'10000+':contentData.donnb}}</view>
+            <view class="InteractionStyle">下载</view>
+            <view class="wxf1"></view>
+        </view>
+    </view>
+    <button class="werow w60 shareStyle" openType="share">
+        <view class="wecolumn" style="line-height:35px;">
+            <view class="wxf1"></view>
+            <i-icon size="20" type="fengxiang"></i-icon>
+            <view class="wxf1"></view>
+        </view>
+        <view class="wxf1  wecolumn tl">
+            <view class="wxf1"></view>
+            <view class="StatisticsStyle">{{contentData.sharenb>10000?'10000+':contentData.sharenb}}</view>
+            <view class="InteractionStyle">分享</view>
+            <view class="wxf1"></view>
+        </view>
+    </button>
+</view>
+<view wx:if="{{0}}">广告</view>

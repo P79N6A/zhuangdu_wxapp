@@ -1,0 +1,75 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商-成分社-编辑化妆品</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>添加化妆品</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="col-lg control-label">等级</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <select name="level">
+                <option value="1">等级一</option>
+                <option value="2">等级二</option>
+                <option value="3">等级三</option>
+                <option value="4">等级四</option>
+                <option value="5">等级五</option>
+                <option value="6">等级六</option>
+                <option value="7">等级七</option>
+                </select>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">化妆品名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="名称" />
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('thumb', $result['data']['thumb'])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">成分</label>
+            <div class="col-sm-9 col-xs-12"><b>请勾选成分</b></div>
+            <div class="col-sm-9 col-xs-12">
+            	{loop $ingredient_list $ingredient}
+                <input type="checkbox" name="ingredient[]"  {$ingredient['checked']} value="{$ingredient['id']}" placeholder="名称" />{$ingredient['en_name']}({$ingredient['cn_name']})<br/>
+                {/loop}
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

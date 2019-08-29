@@ -1,0 +1,129 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">微商-成分社-产品成分 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxwechatbusiness.ingredients.ingredient_list">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<div class="col-sm-4">
+			<span class="">
+					 <a class='btn btn-primary btn-sm' href="{php echo webUrl('yoxwechatbusiness/ingredients.ingredient_edit')}"><i class="fa fa-plus"></i> 添加成分</a>
+			</span>
+		</div>
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="请输入关键词"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+
+		</div>
+	</div>
+</form>
+
+<!-- 列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxwechatbusiness/ingredients/product_ingredient_delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<!--<th style="width:100px;">排序</th>-->
+				<th style="width: 340px;">成分</th>
+				<th style="width: 300px;">中文名</th>
+				<th>概略特性</th>
+				<th>粉刺</th>
+				<th>刺激</th>
+				<th>安心度</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{loop $result['data']['list'] $yoxwechatbusiness_info}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$yoxwechatbusiness['id']}" />
+				</td>
+				<!--<td>
+					{ifp 'yoxwechatbusiness.edit'}
+						<a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('yoxwechatbusiness/displayorder',array('id'=>$yoxwechatbusiness['id']))}">{$yoxwechatbusiness['displayorder']}</a> 
+					{else} 
+						{$yoxwechatbusiness['displayorder']} 
+					{/if}
+				</td>-->
+				<td>{$yoxwechatbusiness_info['en_name']}</td>
+				<td>{$yoxwechatbusiness_info['cn_name']}</td>
+				<td>{$yoxwechatbusiness_info['general_characteristics']}</td>
+				<td>{$yoxwechatbusiness_info['acne']}</td>
+				<td>{$yoxwechatbusiness_info['stimulate']}</td>
+				<td>{$yoxwechatbusiness_info['safety']}</td>
+				<td>
+					{ifp 'yoxwechatbusiness.edit'}
+						<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_edit',array('id'=>$yoxwechatbusiness_info['id']))}">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                             <i class="icow icow-bianji2"></i>
+                         </span>
+						</a>
+					{/if} 
+					{ifp 'yoxwechatbusiness.delete'}
+						<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_delete',array('id'=>$yoxwechatbusiness_info['id']))}" data-confirm="确认要删除?">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class='icow icow-shanchu1'></i>
+                           </span>
+						</a>
+					{/if}
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwechatbusiness/ingredients/ingredient_status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxwechatbusiness/ingredients/product_ingredient_delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂无数据!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

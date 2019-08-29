@@ -1,0 +1,21 @@
+<view class='container'>
+  <view class='merch_user_list'>
+    <block wx:for="{{merch_user_list}}">
+      <view class='merch_user_cell' data-id='{{item.id}}' bindtap='merch_choice'>
+        <view class='merchname'>
+          {{item.merchname}}
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="img-box">
+    <view class="img" wx:for="{{certificate}}" wx:for-item="item" wx:key="*this">
+      <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+      <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg">删除</view>
+    </view>
+    <view class="upload-img-btn" bindtap="chooseImg" wx:if="{{certificate.length<9}}">
+      +
+    </view>
+  </view>
+  <button type='primary' bindtap='complete'>完成</button>
+</view>

@@ -1,0 +1,201 @@
+{template 'common/header'}
+<script type="text/javascript" src="{FX_URL}app/resource/js/jquery.cookie.js"></script>
+<style type="text/css">
+.mui-content{ background:#FFF;}
+.mc-login .avatar { width:100%!important; min-height:142px!important;}
+.mc-login .avatar img{ margin-bottom:0;}
+</style>
+<body>
+<div class="mui-content mc-login mc-tel-bonded">
+{if empty($_W['member']['mobile']) || $actype=='change'}
+	<div class="avatar mui-text-center">
+		<img src="{php echo tomedia($_W['fans']['avatar'])}" class="mui-img-circle">
+        <p class="mui-text-orange mui-big">{$_W['fans']['nickname']}</p>
+        {if $actype=='project'}
+        <p class="mui-text-muted">现在只需验证手机号就可以发布活动了</p>
+        {/if}
+	</div>
+	<form action="" method="post" enctype="multipart/form-data" onSubmit="return WxLogin(this)">
+	<div class="mui-control-content mui-active" id="login-basic">
+		<div class="mui-input-group">
+			<div class="mui-input-row">
+				<label class="mui-label-icon"><i class="fa fa-mobile" style="font-size:18px"></i></label>
+				<input name="username" type="number" placeholder="手机号" pattern="[0-9]*"/>
+			</div>
+            {if $_W['_config']['smsswitch']}
+			<div class="mui-input-row mui-help">
+				<label class="mui-label-icon"><i class="fa fa-key"></i></label>
+				<input name="smscode" type="number" placeholder="验证码" pattern="[0-9]*"/>
+				<div class="mui-help-info mui-text-right"><a href="javascript:;" id="get_code">获取验证码</a></div>
+			</div>
+            {/if}
+		</div>
+	</div>
+	<div class="mui-content-padded">
+		<input type="hidden" name="mode" value="basic">
+		<input type="hidden" name="token" value="CXz4">
+		<button class="mui-btn mui-btn-orange mui-btn-block login-basic" type="submit" name="submit" value="提交">下一步</button>
+	</div>
+	</form>
+	<div class="mui-content-padded">
+		<div class="mui-text-center mui-mt15" style="display:none">
+        	<a href="./index.php?i=4&amp;c=auth&amp;a=register&amp;forward=aT00JmM9bWMmYT1ob21lJg%3D%3D&amp;wxref=mp.weixin.qq.com#wechat_redirect">注册账号</a>
+        </div>
+	</div>
+{else}
+    <div class="mui-text-center">
+        <img src="{$_W['siteroot']}app/resource/images/bonded-tel.png">
+        <div class="mui-b">你的手机号:{$_W['member']['mobile']}</div>
+    </div>
+    <div class="mui-content-padded">
+        <a class="mui-btn mui-btn-success mui-btn-block" href="{php echo app_url('member/login/mobile', array('actype'=>'change'))}">更换手机号</a>
+    </div>
+{/if}
+</div>
+<script type="text/javascript">
+$(function(){
+	$.getUrlParam = function (name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
+	var setting = $.getUrlParam('setting');
+	if (setting) {
+		var jsonstate = history.state;//获取当前所在的state
+		if (!jsonstate){
+			//history.pushState({page: "login"}, null, null);
+		}
+	}
+});
+function WxLogin(form) {
+	if (!form['username'].value) {
+		util.alert('请输入手机号', ' ', function() {
+			$("input[name='username']").focus();
+		});
+		return false;
+	}else{
+		 var mobile = $("input[name='username']").val();
+		 var pattern = /^1[34578]\d{9}$/; 
+		  
+		 if (!pattern.test(mobile)) {
+				 util.alert('手机号不合法', ' ', function() {
+					$("input[name='username']").focus();
+				 });
+				return false;
+		 }
+		 if (form['username'].value == "{$_W['member']['mobile']}"){
+			$("input[name='username']").val('');
+			util.alert('当前手机已绑定,无需重复绑定', ' ', function() {
+				$("input[name='username']").focus(); 
+			}); 
+			return false;
+		}
+	}
+	{if $_W['_config']['smsswitch']}
+	if (!form['smscode'].value) {
+		util.alert('请输入验证码', ' ', function() {
+			$("input[name='smscode']").focus();
+		});
+		return false;
+	}else{
+		var smscode = form['smscode'].value;		  
+		if ($.getCookie("sms_code")!=smscode) {
+			util.alert('验证码不正确', ' ', function() {
+				$("input[name='smscode']").focus();
+			});
+			return false;
+		}else if(form['username'].value!=$.getCookie("sms_mobile")){
+			util.alert('当前手机号与验证码不符', ' ', function() {
+				$("input[name='username']").focus();
+			});
+			return false;
+		}
+	}
+	{/if}
+}
+
+var issend=true;//短信初始控制开关
+$(function(){
+	if($.getCookie("captcha")){  
+		var count = $.getCookie("captcha");  
+		var btn = $('#get_code');  
+		btn.html(count+"秒后可重发");
+		issend=false;
+		var resend = setInterval(function(){  
+			count--;  
+			if (count > 0){  
+				btn.html(count+"秒后可重发");
+				$.setCookie("captcha", count);
+			}else {  
+				clearInterval(resend);  
+				btn.html("获取验证码");
+				issend=true;
+				$.delCookie("captcha");
+			}  
+		}, 1000);  
+	}
+	$("#get_code").on("tap",function() {
+		if(issend){ 
+			//验证电话号码手机号码 
+			var phoneObj = $("input[name='username']"); 
+			if (phoneObj.val() != ""){  
+				var phoneVal=phoneObj.val();  
+				var p1 = /^(0|86|17951)?(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/;  
+				var me = false;  
+				if (p1.test(phoneVal)) me=true;  
+				if (!me){
+					phoneObj.val('');
+					util.alert('请输入正确的手机号码', ' ', function() {
+						phoneObj.focus(); 
+					}); 
+					return false;  
+				}else{
+					if (phoneVal == "{$_W['member']['mobile']}"){
+						phoneObj.val('');
+						util.alert('当前手机已绑定,无需重复绑定', ' ', function() {
+							phoneObj.focus(); 
+						}); 
+						return false;
+					}
+					issend=false; 
+					var btn = $(this);  
+					var count = 60;  
+					var resend = setInterval(function(){  
+						count--;  
+						if (count > 0){  
+							btn.html(count+"秒后可重发");  
+							$.setCookie("captcha", count);
+						}else {  
+							clearInterval(resend);  
+							issend=true;
+							btn.html("获取验证码");
+							$.delCookie("captcha");
+						}  
+					}, 1000);
+					$.ajax({
+						type: 'POST',
+						url: "{php echo app_url('api/sendsms/code',array('title'=>$activity['title']))}&mobile="+phoneVal,
+						dataType: 'json',
+						success: function(data){
+							if(data.hasOwnProperty("result")){
+								util.toast('发送成功');
+							}else if(data.hasOwnProperty("sub_msg")){
+								util.alert(data.sub_msg, ' ', function() {return false;});
+								//util.alert('测试验证码：'+$.getCookie("sms_code"), ' ', function() {return false;});
+							}
+						},
+						error:function(){
+							util.alert('服务器加载错误, 请联系主办方', ' ', function() {return false;});
+						}
+					});
+				} 
+			}else{ 
+				util.toast('手机不能为空',"","error");
+				return false; 
+			} 
+		} 
+	});
+})
+</script>
+</body>
+</html>

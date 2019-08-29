@@ -1,0 +1,309 @@
+page{
+  background: #fff;
+}
+.classmember {
+  width:90%;
+  height: 176px;
+  border-radius: 10px;
+  background: #fd2d6b;
+  margin-left:16px;
+}
+
+.classmember .classmember_up {
+  width: 282px;
+  height: 72px;
+  border-bottom: 2px solid #fff;
+  margin-left:24px;
+  line-height:72px;
+}
+
+.classmember .classmember_up .classmember_up_title {
+  float: left;
+  color: #fff;
+}
+
+.classmember .classmember_up .classmember_up_title image {
+  width: 30px;
+  height: 32px;
+  margin-top:-4px;
+}
+
+.classmember .classmember_up .classmember_up_title text {
+  font-size: 22px;
+  margin-left:10px;
+}
+.classmember .classmember_up .classmember_up_rule{
+  float: right;
+}
+.classmember .classmember_up .classmember_up_rule text{
+  font-size: 14px;
+  color: #fff;
+}
+.classmember .classmember_down{
+  width: 282px;
+  height: 72px;
+  color: #fff;
+  padding-top: 20px;
+}
+.classmember .classmember_down .font14{
+  font-size:16px;
+  margin-left:24px;
+}
+.classmember .classmember_down .font12{
+  font-size:14px;
+  margin-left:24px;
+  margin-top:6px;
+}
+.classmember .classmember_down .opci{
+  font-size: 52px;
+  opacity: 0.3;
+  margin-top:-6px;
+  font-style: italic;
+}
+.member_power{  
+  width: 282px;
+  margin-top:28px;
+}
+.item_title{
+ width: 200px;
+ margin-left:100px;
+}
+
+.member_power{
+  width: 282px;
+}
+.item_title{
+ width: 200px;
+}
+.item_title text{
+  font-size: 24px;
+  margin-left:4px;
+}
+.item_title .rightup{
+  float: left;
+  margin-top:10px;
+}
+.item_title .rightdown{
+  float: right;
+  margin-right:54px;
+  margin-top:10px;
+}
+.item_futitle{
+  font-size: 14px;
+  color: #fd2d6b;
+  margin-left:94px;
+}
+.member_power_content{
+  width: 360px;
+  height: 160px;
+  margin-top:10px;
+}
+.member_power_cell{
+  width: 104px;
+  height: 76px;
+  float: left;
+  text-align: center;
+  margin-left:16px;
+}
+.member_power_cell .image{
+  width: 40px;
+  height: 40px;
+  margin-left:24px;
+}
+.member_power_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+
+.member_power_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+.member_power_cell .title{
+  font-size: 12px;
+  margin-top:8px;
+}
+.member_power_cell .title{
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.freestudy_cell image{
+  width: 100px;
+  height: 126px;
+  margin-left:86px;
+}
+.freestudy_cell .content{
+  width: 282px;
+  height: 54px;
+  border: 1px solid #fd2d6b;
+  text-align: center;
+  border-radius: 10px;
+  margin-top:14px;
+}
+.freestudy_cell .content .content_name{
+  font-size: 12px;
+}
+.freestudy{
+  border-bottom: 1px solid #f5f5f5;
+}
+.freestudy .checkall{
+  font-size: 14px;
+  margin-left:150px;
+  margin-bottom:10px;
+  margin-top:6px;
+}
+.freestudy_cell .content .content_explain{
+  font-size: 12px;
+  color: #fd2d6b;
+} 
+.freestudy_swiper{
+  height: 200px;
+}
+.freelisten{
+  border-bottom:1px solid #f5f5f5;
+}
+.freelisten_cell{
+  width: 154px;
+  height: 165px;
+  border: 1px solid #fd2d6b;
+  border-radius: 6px;
+  float: left;
+  margin-left:22px;
+  margin-top:16px;
+}
+.freelisten_cell .image{
+  width: 154px;
+  height: 96px;
+}
+.freelisten_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+.freelisten_cell .title{
+  font-size: 12px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-left:20px;
+  margin-top:8px;
+}
+.freelisten_cell .price{
+  font-size:26rpx;
+  margin-left: 20px;
+  margin-top:4px;
+}
+.boughtclass_content{
+  margin-top: 10px;
+}
+.boughtclass_cell{
+  width: 120px;
+  height: 68px;
+  border-radius:5px;
+  display:inline-block;
+  margin-right: 10px;
+}
+.boughtclass_cell .image{
+  width: 120px;
+  height: 48px;
+}
+.boughtclass_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+.boughtclass_cell .boughtclass_down{
+  height: 20px;
+  color: #fff;
+}
+.boughtclass_cell .boughtclass_down .original{
+  width: 34%;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  background: #626161;
+  font-size: 14rpx;
+  float: left;
+}
+.boughtclass_cell .boughtclass_down .member{
+  width: 66%;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  background: #fd2d6b;
+  font-size: 20rpx;
+  float: right;
+}
+.scroll1,scroll2,.scroll3{
+  height: 68px;
+}
+.coupon_cell{
+  width: 322px;
+  border: 2px solid #Fe90b1;
+  height: 98px;
+  margin-left:20px;
+  margin-top:18px;
+}
+.coupon_cell .coupon_cell_left{
+  float: left;
+  width: 248px;
+  height: 98px;
+}
+.coupon_cell .coupon_cell_left .image{
+  width: 94px;
+  height: 76px;
+  position: relative;
+  margin-left:14px;
+  margin-top:10px;
+  float:left;
+}
+.coupon_cell .coupon_cell_left .image image{
+  width: 100%;
+  height: 100%;
+}
+.coupon_cell .content{
+  width: 108px;
+  height: 108px;
+  float: left;
+  font-size: 10px;
+  margin-bottom: 4px;
+  margin-left:10px;
+  margin-top:16px;
+}
+.coupon_cell .content .content_text{
+  font-size: 12px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.coupon_cell .content .price{
+  font-size: 12px;
+  color: #fd2d6b;
+  margin-top: 6px;
+} 
+.coupon_cell .coupon_cell_right{
+  float: right;
+  color: #fd2d6b;
+  margin-top:16px;
+  margin-right:14px;
+}
+.coupon_cell .coupon_cell_right .coupon_price{
+
+}
+.coupon_cell .coupon_cell_right .use{
+  width: 60px;
+  height: 18px;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 18px;
+  background: #fd2d6b;
+  border-radius: 18px;
+}

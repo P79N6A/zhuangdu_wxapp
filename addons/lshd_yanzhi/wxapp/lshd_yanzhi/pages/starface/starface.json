@@ -1,0 +1,9 @@
+{
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#ffaeeb",
+    "navigationBarTitleText": "测测明星脸",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "top-nav-bar": "/lshd_yanzhi/components/top-nav-bar/top-nav-bar"
+    }
+}

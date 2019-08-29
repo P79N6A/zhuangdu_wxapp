@@ -1,0 +1,73 @@
+{template 'common/header'}
+<style>
+  .city_users { background:#FFF; }
+  .city_users li { padding:8px 10px 8px 15px; border-bottom:1px solid #EFEFEF; font-size:16px;color: #646464}
+  .city_users li span{display: inline-block;height: 35px}
+  .mui-media-body,.mui-media-body p{ color:#666666;}
+  .mui-media-body p:first-child span { overflow:hidden; display:inline-block;line-height:1;}
+  .mui-media-body p:first-child span.mui-ellipsis{ max-width:60%;}
+  .mui-media-body p:first-child span.mui-ext-icon{ width:15px; height:15px; margin-left:10px; position:relative; border-radius: 100%;}
+  .mui-media-body p:first-child span.mui-ext-icon:before{ font-size:12px;top:42%;left: 60%;-webkit-transform: translateX(-50%) translateY(-50%) scale(0.8);transform: translateX(-50%) translateY(-50%) scale(0.8);}
+  .mui-media-body p:first-child span.mui-icon-nan{background:#71a4df; color:#FFF;}
+  .mui-media-body p:first-child span.mui-icon-nv{background:#fb8282; color:#FFF;}
+  .mui-table-view li img{border-radius:10%; margin-right:10px;vertical-align: middle;}
+</style>
+<div class="mui-content">
+	{if !empty($join)}
+	<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 0;">
+        <li class="mui-table-view-cell mui-media">
+            <a class="mui-navigate-right"{if !empty($join)} href="{php echo app_url('home/user/user',array('rid'=>$join['id']));}"{/if}>
+                {if $join['pic']==''}
+                <img class="mui-media-object mui-pull-left" src="{php echo tomedia($_W['fans']['avatar'])}">
+                {else}
+                <img class="mui-media-object mui-pull-left" src="{php echo tomedia($join['pic']);}">
+                {/if}
+                <div class="mui-media-body">
+                	<p><span class="mui-ellipsis">{$join['nickname']}</span> <span class="mui-ext-icon{if !empty($join['gender']) && $join['gender']!='保密'}{php echo $join['gender']=='女'?' mui-icon-nv':' mui-icon-nan'}{/if}">&nbsp;</span></p>
+                    <p class="mui-ellipsis mui-small">人数 <span class="mui-text-orange">{$join['buynum']}</span> 人 报名时间 {php echo tranTime(strtotime($join['jointime']))}</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+    {/if}
+	<div class="mui-content-padded">
+	<p>已有 <span class="mui-text-orange">{php echo $joinnum;}</span> 位用户成功报名</p>
+    </div>
+    <ul class="mui-table-view mui-table-view-chevron">
+    	{loop $records $row}
+        {if $row['id']!=$join['id']}
+        <li class="mui-table-view-cell mui-media">
+            <a class="mui-navigate-right"{if !empty($join)} href="{php echo app_url('home/user/user',array('rid'=>$row['id']));}"{/if}>
+                {if $row['pic']==''}
+                <img class="mui-media-object mui-pull-left" src="{php echo tomedia($row['headimgurl']);}">
+                {else}
+                <img class="mui-media-object mui-pull-left" src="{php echo tomedia($row['pic']);}">
+                {/if}
+                <div class="mui-media-body">
+                    <p><span class="mui-ellipsis">{$row['nickname']}</span> <span class="mui-ext-icon{if !empty($row['gender']) && $row['gender']!='保密'}{php echo $row['gender']=='女'?' mui-icon-nv':' mui-icon-nan'}{/if}">&nbsp;</span></p>
+                    <p class="mui-ellipsis mui-small">人数 <span class="mui-text-orange">{$row['buynum']}</span> 人 报名时间 {php echo tranTime(strtotime($row['jointime']))}</p>
+                </div>
+            </a>
+        </li>
+        {php $lasttime = strtotime($row['jointime'])}
+        {/if}
+        {/loop}
+        {loop $activity['falsedata']['head'] $k $headurl}
+        {if $k > $activity['falsedata']['num']-1}{php break;}{/if}
+        <li class="mui-table-view-cell mui-media">
+            <a class="mui-navigate-right">
+                <img class="mui-media-object mui-pull-left" src="{php echo tomedia($headurl);}">
+                <div class="mui-media-body">
+                    {$activity['falsedata']['nickname'][$k]}
+                    {php $stime = empty($lasttime)?strtotime($activity['joinstime'])+789594:$lasttime}
+                    {php $timestr = $stime-(1812*3.1415926*($k+1)*0.2898875469)-pow(5.644541,0.02877598*($k+1))}
+                    <p class="mui-ellipsis mui-small">人数 <span class="mui-text-orange">1</span> 人 报名时间 {php echo tranTime($timestr)}</p>
+                </div>
+            </a>
+        </li>
+        {/loop}
+    </ul>
+    {template 'footer'}
+</div>
+</body>
+</html>

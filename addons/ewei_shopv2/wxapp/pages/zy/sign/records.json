@@ -1,0 +1,6 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "详细记录",
+  "component": true,
+  "usingComponents":{}
+}

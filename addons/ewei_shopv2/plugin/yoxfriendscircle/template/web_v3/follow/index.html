@@ -1,0 +1,143 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">关注管理 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxfriendscircle.follow">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<div class="col-sm-4">
+			<span class="">
+				 {ifp 'follow.edit'}
+						 <a class='btn btn-primary btn-sm' href="{php echo webUrl('yoxfriendscircle.follow/edit')}"><i class="fa fa-plus"></i> 添加</a>
+				 {/if}
+			</span>
+		</div>
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='uid' value="{$_GPC['uid']}" placeholder="请输入uid"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+
+		</div>
+	</div>
+</form>
+
+<!-- 关注列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			{ifp 'follow.edit'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.follow/status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.follow/status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			{/if}
+			{ifp 'follow.delete'}
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle.follow/delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+			{/if}
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<th style="width:100px;">ID</th>
+				<th style="width:208px;">用户</th>
+				<th style="width:208px;">关注了</th>
+				<!--<th style="width:100px;">前端显示</th>-->
+				<th style="width:190px;">关注时间</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+	
+			{loop $result['data']['list'] $follow}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$follow['id']}" />
+				</td>
+				<td>{$follow['id']}</td>
+				<td><img height="50" src="{$follow['avatar']}">{$follow['nickname']}</td>
+				<td>{if $follow['followed_logo']}<img height="50" src="{$follow['followed_logo']}">{/if}
+				{if $follow['followed_avatar']}<img height="50" src="{$follow['followed_avatar']}">{/if}
+				{$follow['followed_storename']}{$follow['followed_nickname']}</td>
+				<!--<td>
+					<span class='label {if $yoxfriendscircle['status']==1}label-primary{else}label-default{/if}' 
+						{ifp 'yoxhotsearch.page.edit'} 
+							data-toggle="ajaxSwitch" 
+							data-confirm = "确认{if $follow['status']==1}关闭{else}开启{/if}吗？"
+							data-switch-value="{$follow["status"]}" 
+							data-switch-value0="0|关闭|label label-default|{php echo webUrl('follow/status',array('status'=>1,'id'=>$follow['id']))}" 
+							data-switch-value1="1|开启|label label-primary|{php echo webUrl('follow/status',array('status'=>0,'id'=>$follow['id']))}" 
+						{/if}>
+						{if $follow['status']==1}开启{else}关闭{/if}
+					</span>
+				</td>-->
+				<td>{$follow['add_time_format']}</td>
+				<td>
+					{ifp 'follow.edit'}
+						<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle.follow/edit',array('id'=>$follow['id']))}">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                             <i class="icow icow-bianji2"></i>
+                         </span>
+						</a>
+					{/if} 
+					{ifp 'follow.delete'}
+						<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxfriendscircle.follow/delete',array('id'=>$follow['id']))}" data-confirm="确认要删除此关注?">
+							<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                <i class='icow icow-shanchu1'></i>
+                           </span>
+						</a>
+					{/if}
+				</td>
+			</tr>
+			{/loop}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						{ifp 'follow.edit'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.follow/status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxfriendscircle.follow/status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						{/if}
+						{ifp 'follow.delete'}
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxfriendscircle.follow/delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+						{/if}
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂时没有关注!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

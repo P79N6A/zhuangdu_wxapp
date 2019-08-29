@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>人脸识别</title>
+
+    <meta name="format-detection" content="telephone=no, address=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+
+    <meta name="apple-touch-fullscreen" content="yes"/>
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="keywords" content="微擎,微信,微信公众平台,we7.cc" />
+
+    <meta name="description" content="公众平台自助引擎（www.we7.cc），简称微擎，微擎是一款免费开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。" />
+
+    <link rel="shortcut icon" href="{$_W['siteroot']}attachment/images/global/wechat.jpg" />
+    {php echo register_jssdk(true);}
+
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util.js"></script>
+
+    <script src="{$_W['siteroot']}app/resource/js/require.js"></script>
+
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js?v=20170802"></script>
+
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js?v=20170802"></script>
+
+    <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js?v=20170802"></script>
+
+    <link href="{$_W['siteroot']}app/resource/css/bootstrap.min.css?v=20170802" rel="stylesheet">
+
+    <link href="{$_W['siteroot']}app/resource/css/common.min.css?v=20170802" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+
+            }
+
+        }
+
+        window.sysinfo = {
+
+            'uniacid': '1',		'acid': '1',				'siteroot': '{$_W['siteroot']}',
+
+            'siteurl': '{$_W['siteroot']}app/index.php?i=1&c=entry&eid=103',
+
+            'attachurl': '{$_W['siteroot']}attachment/',
+
+            'attachurl_local': '{$_W['siteroot']}attachment/',
+
+            'attachurl_remote': '',
+
+            'MODULE_URL': '{$_W['siteroot']}addons/ruike_face/',		'cookie' : {'pre': '3fed_'}
+
+        };
+
+        // jssdk config 对象
+
+        jssdkconfig = null || {};
+
+        // 是否启用调试
+
+        jssdkconfig.debug = false;
+
+        jssdkconfig.jsApiList = [
+
+            'checkJsApi',
+
+            'onMenuShareTimeline',
+
+            'onMenuShareAppMessage',
+
+            'onMenuShareQQ',
+
+            'onMenuShareWeibo',
+
+            'hideMenuItems',
+
+            'showMenuItems',
+
+            'hideAllNonBaseMenuItem',
+
+            'showAllNonBaseMenuItem',
+
+            'translateVoice',
+
+            'startRecord',
+
+            'stopRecord',
+
+            'onRecordEnd',
+
+            'playVoice',
+
+            'pauseVoice',
+
+            'stopVoice',
+
+            'uploadVoice',
+
+            'downloadVoice',
+
+            'chooseImage',
+
+            'previewImage',
+
+            'uploadImage',
+
+            'downloadImage',
+
+            'getNetworkType',
+
+            'openLocation',
+
+            'getLocation',
+
+            'hideOptionMenu',
+
+            'showOptionMenu',
+
+            'closeWindow',
+
+            'scanQRCode',
+
+            'chooseWXPay',
+
+            'openProductSpecificView',
+
+            'addCard',
+
+            'chooseCard',
+
+            'openCard',
+
+            'openAddress'
+
+        ];
+
+    </script>
+
+</head>
+
+<body id="main" >
+
+<form action="" method="post">
+
+    <div style="width:100%;height:20%;margin:10px 0px;text-align:center;">
+
+        <h3>测试结果</h3>
+
+    </div>
+
+
+
+    <div style="text-align: center; width:100%;height:40%;margin:40px 0px">
+
+        <img width="250"  src="{php echo tomedia($filename)}">
+
+    </div>
+
+
+
+    <div class="mui-input-cell"style="text-align:center;">
+
+        <span style="font-size:16px;font-family: '微软雅黑';align:center;"><font style="color:red;">{$info['nickname']}</font>{if $info['sex']}帅哥{else}美女{/if},长按识别二维码关注我们，<br/><b style="color:red;">↓↓</b>获取更多精彩！<b style="color:red;">↓↓</b></span>
+
+    </div>
+
+    <div style="width:100%;height:10%;text-align:center;margin:20px 0px;color:#ccc;font-size:14px;">
+
+    <!--<span>测试结果：</span>-->
+        <img src="http://open.weixin.qq.com/qr/code?username={$cache['account']}" style="width:80px;height:80px;">
+    </div>
+
+    <!--<div class="mui-input-cell">-->
+
+    <!--<div style="width:100%;height:20px;margin:10px 0px;text-align:center;">请点击右侧+号拍照或上传一张</div>-->
+
+    <!--</div>-->
+
+    <div class="mui-input-cell">
+
+        {loop $files['faces'] $k $item}
+
+        <span style="font-size:16px;">&nbsp;&nbsp;根据老衲分析：您是一位{$item['attributes']['age']['value']}岁左右，颜值分既然达到{$item['attributes']['facequality']['value']}分的{if $item['attributes']['gender']['value']=='Female'}女性{else}男性{/if}</span><br/>
+
+        {/loop}
+
+
+
+    </div>
+
+    <div style="width:100%;height:20px;align:center;margin:20px 0px;">
+
+        <center><input type="submit"  name="refesh" class="mui-btn mui-btn-success" value="重测"></center>
+
+    </div>
+
+</form>
+
+<script type="text/javascript">
+
+    var ball=document.getElementById('main');
+
+    var h=window.innerHeight;
+
+    ball.style.height=h+'px';
+
+        wx.ready(function () {
+        sharedata = {
+            title: "人脸识别测年龄颜值",
+            desc: "小伙伴们快来测测你的年龄和颜值吧！",
+            link: "{$this->createMobileUrl('face')}",
+            imgUrl: "{$_W['siteroot']}addons/ruike_face/template/img/face.jpg",
+            
+            success: function(){
+           
+                alert('分享成功！');
+            },
+            cancel: function(){
+                alert('分享失败！');
+            }
+             
+        };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareQZone(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+ 
+    });
+
+</script>
+
+{template 'common/footer'}
+
+
+

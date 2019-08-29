@@ -1,0 +1,23 @@
+<import src="./personal_template/personal_template.wxml" />
+<view class='container'>
+  <view class='top-tab'>
+    <view class="top-tab-item {{currentTopItem==idx ? 'active' : ''}}" wx:for="{{topTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchnavTab">
+      {{item}}
+    </view>
+  </view>
+  <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" data-id='{{item.id}}' duration="300" style="height:{{winHeight}}rpx;">
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+          <template is="personal_template" data="{{personalList,...item,item}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

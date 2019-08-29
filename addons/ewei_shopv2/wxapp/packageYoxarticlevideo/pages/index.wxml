@@ -1,0 +1,12 @@
+<import src="commend/commend.wxml" />
+<import src="grid/grid.wxml" />
+  <view class='container'>
+    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+      <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="swichNav">海报</view>
+      <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="swichNav">视频</view>
+    </scroll-view>
+    <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+      <template is="grid_Template" data="{{video,article}}" />
+      <template is="commend_Template" data="{{video}}" />
+    </swiper>
+  </view>

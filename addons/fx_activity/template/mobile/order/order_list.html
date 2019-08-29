@@ -1,0 +1,328 @@
+{template 'common/header'}
+<style type="text/css">
+/*-webkit-transition: top 2s ease-in-out;transition: top 2s ease-in-out;*/
+.mui-bar.mui-bar-tab{transition:transform .45s,opacity .3s;-webkit-transition:-webkit-transform .45s,opacity .3s; }
+.mui-content .mui-control-content{ height: 100%;}
+.mui-content .mui-card:first-child{ margin-top:0;}
+.mui-bar-nav,.mui-segmented-control.mui-scroll-wrapper,.mui-segmented-control.mui-scroll-wrapper .mui-scroll{ height:1.7rem;}
+.mui-bar-nav .mui-segmented-control.mui-scroll-wrapper{height:1.7rem;padding-right:20%;}
+.mui-bar-nav~.mui-content{padding-top:3.6rem;}
+.mui-bar-nav~.mui-content .mui-card:first-child{ margin-top:0;}
+.mui-bar-nav .mui-segmented-control .mui-control-item{font-size:.6rem;margin-left:0.4rem;margin-right: 0.5rem;line-height:1.75rem;border-bottom:none!important;}
+.mui-bar-nav .mui-segmented-control .mui-control-item.mui-active{color:#FF7B33!important;border-bottom:none!important;}
+.mui-bar-nav .mui-segmented-control .mui-slider-progress-ext{ bottom:0.5px; top:auto;}
+.mui-bar-nav .mui-tab-more{position:fixed;right:0;top:1.93rem;height:1.3rem;overflow: hidden;margin-top: 5px;width:10%;background: #fff;box-shadow: rgba(255,255,255,0.85) -15px 0px 8px;z-index: 10;}
+.mui-bar-nav .mui-tab-more .mui-table-view{height:100%;width:100%;display:table;table-layout:auto;}
+.mui-bar-nav .mui-tab-more .mui-table-view:after{ height:0;}
+.mui-bar-nav .mui-tab-more .mui-collapse{display:table-cell;vertical-align: middle;padding: inherit;width:100%;}
+.mui-bar-nav .mui-tab-more .mui-collapse a{ background:none;color:#fff;font-size:12px;line-height:2;width:100%; height:100%;margin:0;}
+.mui-bar-nav .mui-tab-more .mui-collapse a:after{right:10px;font-size: 13px;}
+.mui-bar-nav .mui-tab-more .mui-collapse.mui-active{background:none;}
+.mui-bar-nav .mui-tab-more .mui-collapse.mui-active a:after{color:#FF7B33}
+.mui-bar-nav .mui-search .mui-placeholder{padding-top:0.33rem;line-height:30px;}
+.mui-bar-nav .mui-search .mui-placeholder .mui-icon{ padding:5px 10px;}
+.mui-bar-nav .mui-slider-indicator:before{content: '';position: absolute;left: 0;right: auto;top:0;height: 1px;width: 100%;background-color:#e0e0e0;display: block;z-index: 15;-webkit-transform: scaleY(.5);transform: scaleY(.5);-webkit-transform-origin: 0 100%;transform-origin: 0 100%;}
+.mui-search input[type=search]{padding-right:15px;}
+.mui-popover .mui-popover-header a{ color:#969696;position:absolute;z-index:1;display:block;right:-10px;top:50%;-webkit-transform: translateX(-50%) translateY(-50%);transform: translateX(-50%) translateY(-50%);}
+.mui-popover .mui-popover-header a me{ font-size:30px;}
+.mui-popover .mui-popover-content{height:100%;}
+.mui-popover-top{width:100%!important;border-radius:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0);-webkit-box-shadow:none;box-shadow:none;-webkit-transition:-webkit-transform .3s,opacity .3s;transition:transform .3s,opacity .3s;}
+.mui-popover-top.mui-active{position:fixed;-webkit-transform:translate3d(0,0,0);transform: translate3d(0,0,0);}
+
+.selector-control{ z-index:100; position:relative; height:1.71rem; overflow:hidden; background:#fdfdfd;}
+.selector-control .mui-table-view{ background:#fdfdfd; margin-top:0; display:table;width:100%;table-layout: fixed;height: 1.7rem;}
+.selector-control .mui-table-view-cell.mui-collapse{ overflow:visible;vertical-align: middle; padding:0;width:100%; text-align:center;display:table-cell!important;}
+.selector-control .mui-table-view-cell.mui-collapse a{ line-height:3.5;font-size:0.5rem;}
+.selector-control .mui-table-view-cell.mui-collapse.mui-active{ background:#fdfdfd; color:#FF7B33}
+.selector-control .mui-table-view-cell.mui-collapse a.mui-active{ background:none; color:#FF7B33}
+.selector-control .mui-table-view-cell.mui-collapse a:after{ right:inherit;content: ""!important; width: 0;height: 0;border-top: .2rem solid #bbb;border-left: .18rem solid transparent;border-right: .18rem solid transparent;border-bottom: 0;margin-left: .18rem;}
+.selector-control .mui-table-view-cell.mui-collapse.mui-active a:after{ color:#FF7B33;border-top: 0;border-left: .18rem solid transparent;border-right: .18rem solid transparent;border-bottom: .2rem solid #FF7B33;margin-bottom: 0;}
+.mui-refresh.mui-table-view:after{height:1px!important;}
+.mui-refresh .mui-navigate-right:after{ content:'\e565'; font-size:20px;}
+
+.selector-content{top:3.6rem;left:0;right:0;box-shadow:none;max-height:75%;width:100%; background:#FFF;}
+.selector-content .selector-content-item{display:none;position:relative; height:100%;}
+.selector-content .mui-table-view-cell a{ padding-left:30px; font-size:14px; line-height:1.5;}
+.selector-content .mui-table-view-cell:after{ left:0;}
+.selector-content .mui-table-view-cell.mui-selected{ color:#FF7B33;}
+.selector-content .mui-table-view-cell.mui-selected a:before{ content: '\e472';left: 5px; font-size: 24px;}
+.selector-content .selector-content-item ul:after{height: 1px;}
+.mui-backdrop-top .mui-backdrop{margin-top:3.6rem!important;}
+
+.mui-scroll-container{ height:70px;overflow: hidden; margin-bottom:5px;}
+.mui-scroll-container.onlyone{height:auto;}
+.mui-scroll-control{ min-height:105px;text-align:left;white-space:nowrap;position:relative;overflow:hidden;overflow-x:scroll;}
+.mui-scroll-control .scroll-control-item{ text-align:left;margin-left:2%; overflow:hidden; position:relative; height:70px; width:32%; display:inline-block;}
+.mui-scroll-control .scroll-control-item:first-child{ margin-left:0;}
+.mui-scroll-control .scroll-control-item img{position: relative;top: 0;left:50%;-webkit-transform: translateX(-50%);transform: translateX(-50%); height:100%;display: block;}
+.mui-scroll-control .mui-col-xs-12{width:100%!important;height:auto!important; position:relative}
+.mui-scroll-control .mui-col-xs-12.scroll-control-item img{height: auto; width:100%!important;left:0;-webkit-transform: translateX(0);transform: translateX(0%);}
+.mui-scroll-container.onlyone .mui-scroll-control{overflow:hidden;}
+.mui-blur .mui-content, .mui-blur .mui-bar, .mui-blur .subscribe{filter: url(blur.svg#blur);-webkit-filter: blur(10px);-moz-filter: blur(10px);-ms-filter: blur(10px);filter: blur(10px);filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);}
+
+.mui-card.mui-one{box-shadow:none}
+.mui-card.mui-one .mui-card-header img:first-child{width:18px!important;height:18px!important;}
+.mui-card.mui-one .mui-card-header.mui-card-media .mui-media-body{font-weight:normal;margin-left:25px;min-height:22px;height:22px;overflow:hidden}
+.mui-card.mui-one .mui-card-header.mui-card-media .mui-media-body p{color:#99a5b5;}
+.mui-card.mui-one .mui-card-header .mui-media-body i.mui-badge{right:-10px;border-radius: 100px 0 0 100px;}
+.mui-card.mui-one .mui-fee-bar{border-radius:3px;line-height:2.2;height:44px;background:#fff5f4;border-left:solid 2px #ffdbdd;padding:8px;padding-left:0px;overflow:hidden;}
+.mui-card.mui-one .mui-card-content-inner{line-height:2.2;}
+.search-row-item{display:table-cell;position:relative;vertical-align:middle;}
+.search-row-item.first{min-width:35px;max-width:85px;padding-right:20px;padding-top:3px;}
+.search-row-item.first .mui-navigate-right:after{content:'\e581';right:6px;font-weight:bold;color:#333;}
+.search-row-item.last{width:38px;text-align:right; padding-top:3px;}
+#mui_screen{ width:80%;left:auto;right:0;}
+#mui_screen .mui-popover-content{padding-bottom:45px;}
+#mui_screen .mui-btn-group{height:45px;overflow:hidden;background:#fafafa;margin-top:-40px;position:relative;z-index:15;}
+#mui_screen .mui-btn-group .mui-btn{width:50%;height:45px;border-radius:0;}
+
+.mui-table-view.mui-group-btn{margin:0; padding-left:10px!important;}
+.mui-table-view.mui-group-btn,.mui-table-view.mui-group-btn .mui-table-view-cell{border-radius:0!important;}
+.mui-table-view.mui-group-btn .mui-table-view-cell{float:left;text-align:center;width:28%; margin-right:5%;padding:3px 0!important; margin-bottom:3px;}
+.mui-table-view.mui-group-btn .mui-table-view-cell:after{height:0!important;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a{background:#fff!important;margin:0!important;border-radius:5px!important;color:#333;line-height:2; font-size:12px;font-family: "Microsoft Yahei","微软雅黑",Arial,"Hiragino Sans GB","宋体","Helvetica Neue",Helvetica,sans-serif;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a:after{content:" ";width:199%;height:200%;position: absolute;top: 0;left: 0;border: 1px solid #aaa;box-sizing: border-box;border-radius:10px;-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+.mui-table-view.mui-group-btn .mui-table-view-cell.mui-selected a{color:#ff6f02;}
+.mui-table-view.mui-group-btn .mui-table-view-cell.mui-selected a:after{border:1px solid #ff6f02;}
+</style>
+<div class="mui-content">
+    <header class="mui-bar mui-bar-nav" style="height:1.9rem;">
+        <div class="mui-input-row mui-search" style=" margin:0 auto; width:95%;height:1.9rem;display:table;table-layout:auto;">
+            <div class="search-row-item js-popover" data-popover="mui_search">
+                <input type="search" class="mui-input-clear" placeholder="" data-input-clear="1" data-input-search="1" value="{$keyword}">
+                <span class="mui-icon mui-icon-clear mui-hidden"></span>
+                <span class="mui-placeholder"{if !empty($keyword)} style="text-align:left;"{/if}><span class="mui-icon mui-icon-search"></span>{if empty($keyword)}<span>手机/姓名/昵称</span>{/if}</span>
+            </div>
+            <div class="search-row-item last js-popover" data-popover="mui_screen">筛选</div>
+        </div>
+    </header>
+    <div id="item0" class="mui-scroll-wrapper-ext" style="margin-top:1.9rem">
+        <div class="mui-scroll-ext">
+            <div class="list-content" style="margin-top:0.4rem">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mui_search" class="mui-popover mui-popover-left">
+	<form action="" method="post" onSubmit="return check(this)" style="position: initial">
+    <div class="mui-popover-header">
+    	<div class="mui-input-row mui-search" style="margin:0;width:85%; background:none;">
+            <input type="search" name="keyword" class="mui-input-clear" placeholder="手机/姓名/昵称" data-input-clear="1" data-input-search="1" value="{$keyword}">
+            <span class="mui-icon mui-icon-clear"></span>
+            <span class="mui-placeholder"><span class="mui-icon mui-icon-search"></span></span>
+        </div>
+        <a class="mui-pull-right mui-popover-close js-popover-close" data-popover="mui_search" style="right: -30px;padding: inherit;">取消&nbsp;</a>
+    </div>
+    </form>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-content-padded">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="mui_screen" class="mui-popover mui-popover-left">
+	<input type="hidden" name="status" value=""/>
+    <input type="hidden" name="review" value=""/>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            	<div style="background:#FFF;line-height:3;margin-top:10px"><span class="mui-content-padded">报名状态</span></div>
+            	<ul class="mui-table-view mui-group-btn mui-table-view-radio">
+                    <li class="mui-table-view-cell mui-selected"><a href="#" class="mui-navigate-left" data-status="">全部</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="0">待付款</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="1">待验票</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="3">已完成</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="5">已取消</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="7">已退款</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-review="0">待审核</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-review="2">已拒绝</a></li>
+                </ul>
+			</div>
+        </div>
+    </div>
+    <div class="mui-btn-group">
+    	<button type="button" class="mui-btn mui-btn-orange mui-pull-right submit">确定</button>
+    	<button type="button" class="mui-btn mui-btn-default mui-pull-right reset">重置</button>
+    </div>
+</div>
+<script type="text/html" id="ordelist">
+<a href="{php echo app_url('order/order/detail')}&id={{d.id}}">
+<div class="mui-card mui-one mui-card-line">
+    <div class="mui-card-header mui-card-media">
+        <img src="{{d.avatar}}">
+        <div class="mui-media-body">
+            <p class="mui-small" style="line-height:1.9!important;">{{d.nickname}}{{d.statusmsg}}</p>
+		</div>
+    </div>
+    <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+            <p style="font-size:14px;margin-bottom:0;">{{# if(d.aprice!='0.00'){ }}金额{{# } else { }}免费票{{# } }}<span class="mui-pull-right mui-rmb">{{d.aprice}}  ×{{d.buynum}}</span></p>
+        </div>
+    </div>
+	<div class="mui-card-footer">
+		<div class="mui-text-orange">{{# if(d.market_price!='0.00'){ }}优惠<span class="mui-rmb"> {{d.market_price}}{{# } }}</span></div>
+        <div class="mui-text-gray"><p style="margin-bottom:0;"><span style="color:#99a5b5;">共{{d.buynum}}张票</span> 合计：<span class="mui-rmb">{{d.price}}</span></p></div>
+    </div>
+</div>
+</a>
+</script>
+<script>
+mui('.scrollbar').scroll({indicators: false});
+mui('.mui-scroll-wrapper').scroll({indicators: false});
+
+//上拉加载活动列表
+var loadItem=function(id,parentid,childid){
+	var pageStart = 0,pageEnd = 0,thispage = 1,thispsize = 10;
+	var counter=0;//计数器
+	var status = $("#mui_screen input[name='status']").val();
+	var review = $("#mui_screen input[name='review']").val();
+	
+	$(id).find('.mui-scroll-ext').dropload({
+		scrollArea : $(id),
+		threshold : 50,
+		loadDownFn : function(me){
+			mui.getJSON("{php echo app_url('order/order/getOrder',array('keyword' => $keyword, 'activityid'=>$activityid))}",
+			{page:thispage, status:status, review:review}, function(data){					
+				var stime = new Date(),result='';
+				console.log(data);
+				if (data.tpage == 0){
+					result = '<div class="no-orders-at-all">'
+					+'<div class="head-block">'
+					+'    <div class="blank-icon mui-ext-icon mui-icon-mhuodong"></div>'
+					+'    <p class="hint">暂无报名信息</p>'
+					+'    <p class="recommend-hint"></p>'
+					+'</div></div>';
+					$(id).find('.list-content').append(result);
+				}
+				if (thispage >= data.tpage || data.tpage == 0){
+					me.lock();// 锁定
+					me.noData();// 无数据
+				}
+				for(var i = 0; i < data.list.length; i++){
+					var status  = parseInt(data.list[i].status);
+					var gettpl = document.getElementById('ordelist').innerHTML;
+					
+					if (!data.list[i].price) data.list[i].price = "0.00";
+					if (!data.list[i].aprice) data.list[i].aprice = "0.00";
+					if (!data.list[i].payprice) data.list[i].payprice = "0.00";
+					
+					switch(status)
+					{
+						case 0:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-rmb">未支付</span>';
+							break;
+						case 1:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-yellow">待验票</span>';
+							break;
+						case 2:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-yellow">待验票</span>';
+							break;
+						case 3:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-orange">已完成</span>';
+							break;
+						case 5:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-gray">已取消</span>';
+							break;
+						case 7:
+							data.list[i].statusmsg = '<span class="mui-pull-right mui-text-orange">已退款</span>';
+							break;
+						default:
+					}
+					laytpl(gettpl).render(data.list[i], function(html){
+						$(id).find('.list-content').append(html);
+					});
+				}
+				
+				//$(id).find('.list-content').append(result);
+				thispage++;
+				// 每次数据加载完，必须重置
+				me.resetload();
+			});
+		}
+	});
+	
+};
+
+$(function() {
+	loadItem('#item0',0,0);
+	var winW = $(window).width(),winH = $(window).height(),iTime = 0;
+	//弹窗控制器
+	$(".js-popover").on("click", function(e) {
+		$("body").removeClass('mui-backdrop-top');
+		var popover = "#"+$(this).data("popover");
+		mui(popover).popover('toggle');
+		if (popover == '#mui_search') {
+			var t = '{$keyword}';
+			if (util.ios()){
+				$("input[name='keyword']").focus().val(t);
+			}else{
+
+				setTimeout(function(){$("input[name='keyword']").focus().val(t);}, 520);
+			}
+		}
+	});
+	$(".js-popover-close").on("click",function(e) {
+		var popover = "#"+$(this).data("popover");
+		mui(popover).popover('hide');
+	}); 
+	$('.mui-search .mui-icon-clear').on("click", function(e) {
+		$("input[name='keyword']").focus();
+		$("input[name='keyword']").val('');
+	});
+
+	//单击空白关闭弹窗出发事件
+	$('body').delegate('.mui-backdrop','click', function(e) {
+		$("#mui_screen ul").find('li').removeClass('mui-selected');
+		$("#mui_screen input").each(function(i){
+			$("#mui_screen ul").eq(i).find('li').eq($(this).val()).addClass('mui-selected');
+		});
+		$("body").removeClass('mui-backdrop-top');
+	});
+	//筛选控制
+	$('#mui_screen button').on("tap",function(e) {
+		if ($(this).hasClass('reset')){
+			$("#mui_screen input[name='status']").val('');
+			$("#mui_screen input[name='review']").val('');
+			$('#mui_screen li').removeClass('mui-selected');
+			$('#mui_screen ul').each(function(){
+				$(this).find('li').eq(0).addClass('mui-selected');
+			});
+			return false;
+		}
+		mui('#mui_screen').popover('hide');
+		$('#mui_screen li.mui-selected a').each(function(){
+			if ($(this).data('status')!=undefined){
+				$("#mui_screen input[name='status']").val($(this).data('status'));
+				$("#mui_screen input[name='review']").val('');
+			}
+			if ($(this).data('review')!=undefined){
+				$("#mui_screen input[name='review']").val($(this).data('review'));
+				$("#mui_screen input[name='status']").val('');
+			}
+		});
+		setTimeout(function() {
+			$('#item0').find('.list-content').html('');
+			$('#item0').find('.dropload-down').remove();
+			loadItem('#item0',0,0);
+		},100);
+	});
+});
+
+function check(form){
+	if ($.trim(form['keyword'].value) == '') {
+		util.tips('关键词不能为空');
+		return false;
+	}else{
+		form['keyword'].blur();
+		return true;
+	}
+	return false;
+}
+</script>
+</body>
+</html>

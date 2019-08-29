@@ -1,0 +1,20 @@
+<view class="nav">
+    <view  class="{{nav==1 ? 'active' : ''}}"  bindtap="changeNav" data-id="1"><text>最新</text></view>
+    <view  class="{{nav==2 ? 'active' : ''}}" bindtap="changeNav" data-id="2"><text>产品功能</text></view>
+    <view  class="{{nav==3 ? 'active' : ''}}" bindtap="changeNav" data-id="3"><text>活动</text></view>
+</view>
+<view class="list">
+    <view class="detail"><image  bindtap="bigDetail" data-id="1"  data-bigimgsrc="../../images/1/banner.png" src="../../images/1/banner.png"></image></view>
+    <view class="detail"><image  bindtap="bigDetail" data-id="2" data-bigimgsrc="../../images/1/muban.png"  src="../../images/1/banner.png"></image></view>
+    <view class="detail"><image  bindtap="bigDetail" data-id="3"  data-bigimgsrc="../../images/1/shucai.png" src="../../images/1/banner.png"></image></view>
+
+</view>
+
+
+ <view  bindtap="closeShadow" class="shadow" wx:if="{{bigImg}}"></view>
+  <view class="result_block"  wx:if="{{bigImg}}">
+      <image  class="success_img" src="{{bigImgSrc}}" alt=""></image>
+
+      <button>立即使用</button>
+
+  </view>

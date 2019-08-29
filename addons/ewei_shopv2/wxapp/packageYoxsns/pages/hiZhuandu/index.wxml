@@ -1,0 +1,74 @@
+<import src="../sns/index.wxml" />
+<import src="../sns/main_tempalte/main_tempalte.wxml" />
+<!-- <import src="./tab_template/tab_template.wxml" /> -->
+<import src="../../../pages/tabBar_template/tabBar.wxml" />
+<view class='container'>
+  <view class='weather bgfff'>
+    <open-data class="avatar" type="userAvatarUrl"></open-data>
+    <text style='display:block; font-size:24rpx;'>Hi，妆度 今天天气挺不错得，祝您心情美美哒。</text>
+    <view class="hotcity-common" style="display:inline;">当前位置: </view>
+    <view class="thisCityName">{{location}}{{county}}</view>
+    <view class="thisCityName" bindtap="jump">
+      <icon type="download" size="14" color='#ffb5de' class='changeCity' />
+      <text>更改定位</text>
+    </view>
+    <view class="weatherwrap">
+      <!--显示当天的天气信息-->
+      <view class="info">
+        <!--城市名称 当前日期-->
+        <view class="city">{{location}} ({{today}})</view>
+        <!--当天温度-->
+        <view class="temp">{{weather.now.tmp}}℃</view>
+        <!--其他描述-->
+        <view class="Zhuanweather">
+          <view>{{weather.now.cond_txt}}</view>
+          <view>{{weather.now.wind_dir}}</view>
+          <view>{{weather.now.wind_sc}}</view>
+          <view>PM2.5: {{weather.air_now_city.pm25}}</view>
+          <view>{{weather9.air_now_city.qlty}}</view>
+        </view>
+        <!-- <view class="life" style='text-indent:1em;'>{{dress.txt}}</view> -->
+      </view>
+    </view>
+  </view>
+  <view class='searchBox'>
+    <view class='mainsearch bgfff'>
+      <navigator class='search-nav' hover-class='none' url='/pages/goods/index/index?fromsearch=1'>
+        <view class='search-input'>
+          <image src="./images/search.png"></image>
+          <text class='input'> 搜心得、妆品、成分 </text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <view class='nav bgfff'>
+    <block wx:for="{{navList}}">
+      <view class='nav-cell' bindtap='tips'>
+        <view class='icon'>
+          <image class='baseimg' src='{{item.imgUrl}}'></image>
+        </view>
+        <text>{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+  <view class='bannerBox bgfff'>
+    <view class='beautiful banner-image' style='height:300px;margin-bottom:10px;' bindtap='tofaceinvestigating'>
+      <image class='baseimg' style='border-radius:10px;' src='./images/beautiful.png'></image>
+    </view>
+    <view class='baner-text'>
+      <text>适合我得变美计划</text>
+      <view class='checkmore'>
+        <text>查看更多</text>
+        <image src='./images/right.png'></image>
+      </view>
+    </view>
+    <view class='banner-image' bindtap='tocallenge'>
+      <image class='baseimg' src='https://zdu.igdlrj.com/attachment/images/2/2018/12/EV6nYLlFhHs6hiZVfHlaV6hnnlLVsN.jpg'></image>
+      <text>早睡挑战</text>
+    </view>
+  </view>
+</view>
+<template is="community-Template" data="{{scrollLeft,currentnavtab,winHeight,community,...item,item}}" />
+<!-- <template is="main_tempalte" data="{{community,...item,item}}" /> -->
+<!-- <template is="tab_template" data="{{catearticle,currentTab,currenttab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community,...item}}" /> -->
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

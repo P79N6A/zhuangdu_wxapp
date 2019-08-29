@@ -1,0 +1,31 @@
+{php define(MUI, true);}
+{fx_template 'common/header'}
+<style type="text/css">
+.mui-lottery-view .mui-media-body{color:#a6742b}
+.mui-lottery-view .mui-navigate-right:after{color:#FFF;font-size:16px;right:2px}
+</style>
+	{if strexists($msg, 'SQL Error:')}
+	<div class="mui-content-padded">
+		<div class="mui-message">
+			<div class="mui-message-icon">
+				<span class="mui-msg-error"></span>
+			</div>
+			<h4 class="title">系统错误</h4>
+			<div class="mui-desc" style="color:#929292;">请及时联系管理员</div>
+			<div class="mui-desc" style="color:#929292; margin-top:10px; text-align:left;">{$msg}</div>
+			<div class="mui-button-area">
+				<a href="javascript:;" onClick="history.go(-1);" class="mui-btn mui-btn-success mui-btn-block">确定</a>
+			</div>
+		</div>
+	</div>
+	{else}
+	<script type="text/javascript">
+		{if $_W['lottery']['enable'] && (!$_W['lottery']['fee'] || ($_W['lottery']['fee'] && strpos($msg,'支付成功') !== false))}
+		$("html").append('<ul class="mui-table-view mui-afterbefore-no mui-lottery-view" style="position:fixed;left:0;bottom:0;right:0;z-index:9999;"><li class="mui-table-view-cell mui-media"><a href="{$_W['lottery']['url']}" style="background:#fcf5e3;"><div class="mui-media-body">抽奖特权<p class="mui-small mui-text-gray">恭喜您获得抽奖机会！</p></div><span class="mui-badge mui-gradient-orange mui-navigate-right" style="padding:8px; padding-right:20px">马上抽奖</span></a></li></ul>');
+		{/if}
+		util.message('{$msg}', '{$redirect}', '{$type}', '{$desc}');
+	</script>
+	{/if}
+</body>
+
+</html>

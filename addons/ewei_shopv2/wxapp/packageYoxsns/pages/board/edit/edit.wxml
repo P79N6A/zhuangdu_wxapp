@@ -1,0 +1,39 @@
+<form bindsubmit="formSubmit">
+  <view class="edit-header">
+    <text bindtap='saveEdit'>取消</text>
+    <button class="header-delive" form-type="submit">发表</button>
+  </view>
+  <view class='edit-main'>
+    <textarea class='edit-text' placeholder='这一刻的想法...' placeholder-style='color:#888' bindinput="getInputValue"></textarea>
+    <!-- <view class='edit-img'>
+      <view wx:for="{{imgArr}}">
+        <image src="{{item}}" mode="aspectFill"></image>
+      </view> -->
+    <view class="img-box">
+      <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this" style='margin-right:10px;'>
+        <image style='margin: 0 10rpx 10rpx 0;' src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+        <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg">删除</view>
+      </view>
+      <view class="upload-img-btn" bindtap="chooseImg" wx:if="{{imgs.length<2}}">
+        <image src='../primary/images/upload.png'></image>
+      </view>
+    </view>
+  </view>
+  <!-- <view class='edit-footer'>
+    <view class='footer-row' bindtap='chooseLocation'>
+      <image class='edit-icon' src="../images/locate.png"></image>
+      <text>所在位置</text>
+      <image class='edit-icon' src="../images/navigate.png"></image>
+    </view>
+    <view class='footer-row'>
+      <image class='edit-icon' src="../images/ask-people.png"></image>
+      <text>谁可以看</text>
+      <image class='edit-icon' src="../images/navigate.png"></image>
+    </view>
+    <view class='footer-row'>
+      <image class='edit-icon' src="../images/@.png"></image>
+      <text>提醒谁看</text>
+      <image class='edit-icon' src="../images/navigate.png"></image>
+    </view>
+  </view> -->
+</form>

@@ -1,0 +1,11 @@
+<view class="banner">
+    <image src="../../images/1/banner.png"></image>
+</view>
+<view class="type">
+    <view class="muban">
+        <view class="round"><image src="../../images/1/muban.png"></image></view><text>海报模板</text>
+    </view>
+    <view class="sucai">
+        <view class="round"><image src="../../images/1/shucai.png"></image></view><text>产品素材</text>
+    </view>
+</view>

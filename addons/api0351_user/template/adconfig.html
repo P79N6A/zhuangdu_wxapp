@@ -1,0 +1,73 @@
+{template 'common/header'}
+<div class="panel-success">
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+          
+          
+          <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">首页流量主开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[adStarta]" style="width:150px;">
+						<option value="1" {if $setConfig[10][value] == 1} selected="selected" {/if}>开启广告</option>
+						<option value="2" {if $setConfig[10][value] == 2} selected="selected" {/if}>关闭广告</option>
+					</select>
+					<span class="help-block">【悟空源码】开启后将在首页关于上方显示</span>
+				</div>
+			</div>
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">广告位 ID</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[adatxt]" class="form-control" value="{$setConfig[11][value]}" placeholder="">
+                <span class="help-block">悟空源码社区通过添加广告位后获取，比如直接输入：adunit-071fd71f201ad2a4 即可</span>
+            </div>
+        </div>
+            
+            
+          <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">人脉流量主开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[adStartb]" style="width:150px;">
+						<option value="1" {if $setConfig[12][value] == 1} selected="selected" {/if}>开启广告</option>
+						<option value="2" {if $setConfig[12][value] == 2} selected="selected" {/if}>关闭广告</option>
+					</select>
+					<span class="help-block">开启后原幻灯广告将被关闭替换为流量主广告</span>
+				</div>
+			</div>
+            
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">广告位 ID</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[adbtxt]" class="form-control" value="{$setConfig[13][value]}" placeholder="">
+                <span class="help-block">通过添加广告位后获取，比如直接输入：adunit-071fd71f201ad2a4 即可</span>
+            </div>
+        </div>
+        
+    
+     <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">个人流量主开关</label>
+				<div class="col-sm-8">
+					<select class="we7-select" name="data[adStartc]" style="width:150px;">
+						<option value="1" {if $setConfig[14][value] == 1} selected="selected" {/if}>开启广告</option>
+						<option value="2" {if $setConfig[14][value] == 2} selected="selected" {/if}>关闭广告</option>
+					</select>
+					<span class="help-block">开启后将在个人中心显示对应广告</span>
+				</div>
+			</div>
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">广告位 ID</label>
+            <div class="col-sm-9">
+                <input type="text" name="data[adctxt]" class="form-control" value="{$setConfig[15][value]}" placeholder="">
+                <span class="help-block">通过添加广告位后获取，比如直接输入：adunit-071fd71f201ad2a4 即可</span>
+            </div>
+        </div>
+
+			<div class="form-group" style="text-align:center; width:100%;">
+				<input type="submit" name="submit" value="保存设置" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+	</form>
+</div>
+{template 'common/footer'}

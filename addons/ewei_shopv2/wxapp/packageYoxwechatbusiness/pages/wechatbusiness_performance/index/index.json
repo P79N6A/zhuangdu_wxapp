@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "date-picker": "../date-picker/date-picker",
+    "line-chart": "../../wechatbusinessuser/management/sale_situation/line-chart/line-chart"
+  },
+  "navigationBarTitleText": "业绩列表"
+}

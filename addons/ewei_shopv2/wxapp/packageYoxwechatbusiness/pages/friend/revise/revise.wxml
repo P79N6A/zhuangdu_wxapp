@@ -1,0 +1,7 @@
+<view class='container'>
+  <textarea bindinput='bindtext' placeholder='点击编辑'>
+  </textarea>
+  <button class='save' bindtap='formsubmit' class="commitBtn {{btnflag?'active':''}}">
+    保存
+  </button>
+</view>

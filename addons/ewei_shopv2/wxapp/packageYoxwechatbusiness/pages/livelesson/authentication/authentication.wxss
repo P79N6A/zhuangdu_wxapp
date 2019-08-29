@@ -1,0 +1,72 @@
+page {
+  background: #fff;
+}
+
+.tip1 {
+  width: 226px;
+  height: 218px;
+  margin-left: 94px;
+  margin-top: 50px;
+}
+
+.tip1 .tip1_cell {
+  width: 226px;
+  height: 42px;
+  line-height: 42px;
+  color: #afafaf;
+  margin-bottom: 10px;
+}
+
+.tip1 .tip1_cell .image {
+  width: 40px;
+  height: 40px;
+  background: #fd2d6b;
+  border-radius: 40px;
+  float: left;
+  margin-right:8px;
+}
+
+.tip1 .tip1_cell .image image {
+  width: 22px;
+  height: 24px;
+  margin-left: 9px;
+  margin-top: -3px;
+}
+
+.tip1 .tip1_cell .title {
+  font-size: 15px;
+  /* float: right; */
+  text-align: left;
+  margin-left: 4px;
+}
+
+.certify {
+  width: 172px;
+  height: 120px;
+  margin-left: 42px;
+}
+
+.certify .certify_title {
+  font-size: 18px;
+  color: #afafaf;
+  text-align: left;
+}
+
+.certify  .certify_cell {
+  font-size: 14px;
+  width: 160px;
+  height: 18px;
+  margin-bottom: 4px;
+}
+
+.button {
+  width: 244px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+  background: #fd2d6b;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-left: 62px;
+}

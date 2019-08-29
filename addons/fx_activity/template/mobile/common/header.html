@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{if !empty($pagetitle)}{$pagetitle}{elseif !empty($_W['page']['title'])}{$_W['page']['title']}{/if}</title>
+<meta name="format-detection" content="telephone=no, email=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="shortcut icon" href="{$_W['siteroot']}{$_W['config']['upload']['attachdir']}/{if !empty($_W['setting']['copyright']['icon'])}{$_W['setting']['copyright']['icon']}{else}images/global/wechat.jpg{/if}" />
+<link rel="stylesheet" type="text/css" href="{$_W['siteroot']}app/resource/css/common.min.css?v=201801071">
+<link rel="stylesheet" type="text/css" href="{FX_URL}app/resource/components/mui/mui.ext.css?v=201802133">
+<link rel="stylesheet" type="text/css" href="{FX_URL}app/resource/components/dropload/dropload.css?v=20171106">
+{php echo register_jssdk(false);}
+<!--兼容图片上传1.0-->
+<script>var app_module_name='{MODULE_NAME}';</script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/util.js?v=201801071"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/require.js?v=201801071"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js?v=201801071"></script>
+<script type="text/javascript" src="{FX_URL}app/resource/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="{FX_URL}app/resource/js/app/util.min.js?v=201801088"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/mui.min.js?v=201801071"></script>
+<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/app/common.js?v=20171106"></script>
+<script type="text/javascript" src="{FX_URL}app/resource/components/dropload/dropload.min.js"></script>
+<script type="text/javascript" src="{FX_URL}app/resource/components/layui/laytpl.js"></script>
+<script type="text/javascript" src="{FX_URL}app/resource/components/headroom/jQuery.headroom.js?v=20171113"></script>
+<script type="text/javascript">
+var htmlFont = $("html").css("font-size").replace('px',''),
+	shareData = {
+	title : "{$_W['share']['title']}",
+	desc  : "{$_W['share']['desc']}",
+	link  : window.location.href,
+	imgUrl: "{php echo tomedia($_W['share']['pic'])}"
+};
+wx.ready(function () {	
+	var _sharedata = {
+		title  : shareData.title,
+		desc   : shareData.desc,
+		link   : shareData.link,
+		imgUrl : shareData.imgUrl,
+		success: function(share){
+			var ac = {php echo $controller=='activity' && $action=='detail'?1:0};
+			if (ac == 1){
+				var url = "{php echo app_url('activity/detail/share',array('id'=>$activity['id']))}";
+				$.post(url,function(d) {
+					if (d.result==1 || d.result==2){
+						util.alert(d.data, ' ');
+					}
+				},"json");		
+			}
+		},
+		cancel : function(){util.alert('已取消分享', ' ')}
+	};
+	wx.onMenuShareAppMessage(_sharedata);
+	wx.onMenuShareTimeline(_sharedata);
+	wx.onMenuShareQQ(_sharedata);
+});
+var position = {lat:0,lng:0,addr:'',city:'',ucity:''};
+position = $.getCookie("position")==null ? position : JSON.parse($.getCookie("position"));
+{if intval($_W['_config']['location'])}
+if ($.getCookie("position")==null) util.location(function(e){window.location.reload();});
+{/if}
+{if intval($_W['_config']['citys'])}
+var countrie = {php echo intval($_W['_config']['countrie'])==1 || !intval($_W['_config']['countrie']) ? 1 : 0};
+if (countrie && position.ucity==''){
+	position.ucity = '全国';
+}else{
+	//console.log(position);
+	position.ucity = !position.ucity ? position.city.replace("市", "") : position.ucity;
+}
+{/if}
+</script>
+</head>
+<body>

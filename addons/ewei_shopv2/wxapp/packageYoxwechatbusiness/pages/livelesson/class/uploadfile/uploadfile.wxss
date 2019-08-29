@@ -1,0 +1,66 @@
+page{
+  background: #fff;
+}
+.complete{
+  width: 64px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  color: #fff;
+  background: #fd2d6b;
+  border-radius: 10px;
+  margin-left:288px;
+  margin-top:12px;
+}
+.img-box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:#fff; 
+    padding-left:10px;
+}
+.img{
+    width: 100px;
+    height: 100px;  
+    position: relative;
+    margin-right: 10px;
+}
+.img image{
+    width: 100%;
+    height: 100%;
+}
+.delete-btn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 30px;
+}
+.upload-img-btn{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border: 1px solid #ccc;
+    margin-bottom:10px;
+    /* margin-left:10px; */
+    /* margin-top:10px; */
+}
+.martop60{
+  margin-top:320rpx;
+  margin-left:-108px;
+}
+.default_btn{
+  padding:6rpx 50rpx;
+  border-radius:36rpx;
+  border:1px solid #c7c7c7;
+  text-align:center;
+  background:#fd2d6b;
+  color:#fff;
+}

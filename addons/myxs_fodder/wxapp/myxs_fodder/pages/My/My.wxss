@@ -1,0 +1,60 @@
+.Cent {
+    background-color: #f9f9f9;
+    padding-top: 65px;
+}
+
+.DiyNav,.MemberInfo {
+    background-color: rgb(255,64,129);
+    color: #fff;
+}
+
+.MemberInfo {
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.MemberName {
+    font-size: 16px;
+}
+
+.MemberId {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.NavButGroup,.MyD_C {
+    background-color: #fff;
+}
+
+.NavButGroup {
+    margin-top: 1px;
+}
+
+.NavButGroupa {
+    margin-top: 10px;
+}
+
+.MyD_C {
+    height: 50px;
+}
+
+.NavButGroup>view {
+    line-height: 35px;
+    color: #000;
+}
+
+.memberImg {
+    border-radius: 80px;
+    border: #fff solid 1px;
+}
+
+.icons {
+    color: rgb(255,64,129);
+}
+
+.actf {
+    position: fixed;
+    bottom: 8%;
+    left: 10px;
+    right: 10px;
+}

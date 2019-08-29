@@ -1,0 +1,214 @@
+/* packageYoxlivelesson/index.wxss */
+@import "./tab_template/index_template/index_template.wxss";
+/* @import "../../../packageYoxsns/pages/sns/main_template/main_template.wxss"; */
+.community-content{
+  width: 100%;
+  height: 104px;
+  /* border-radius: 10px; */
+  background: #fff;
+  /* margin-left:66rpx; */
+  margin-bottom:20rpx;
+}
+.community-content image{
+  display: block;
+  width:80px;
+  height: 80px;
+  border-radius:6px;
+  float: left;
+  margin-left:40rpx;
+  margin-top:25rpx; 
+}
+.community-text{
+  float:right;
+  width:164px;
+  margin-right:32rpx;
+  margin-top:30rpx;
+}
+.community-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+.content-or-join{
+  font-size: 12px;
+  font-weight: bold;
+}
+.time{
+  color:#ccc;
+  font-size:12px;
+  margin-top:16rpx;
+  display:block;
+}
+.tab-h{
+    height: 80rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #F7F7F7; 
+    font-size: 16px; 
+    white-space: nowrap;
+    position: relative;
+    top: 0; 
+    left: 0; 
+    z-index: 99;
+}
+.bgfff{
+  background: #fff;
+}
+.tab-item{
+  margin:0 28rpx;
+  display: inline-block;
+  position: relative;
+}
+.tab-item.active{
+  color: #000;
+}
+.tab-item.active:after{ 
+  content: "";
+  display: block;
+  height: 4rpx;
+  width: 82rpx;
+  background: #fe2e6c;
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  border-radius: 16rpx;
+}
+.searchBox{
+  width: 100%;
+  height: 40px;
+  padding-top: 10rpx;
+}
+.search{
+  width: 350px;
+  height: 32px;
+  border: 1px solid #000;
+  border-radius: 32rpx;
+  margin-left: 20rpx;
+}
+.search image{
+  margin: 16rpx 10rpx 10rpx 254rpx;
+  position: absolute;
+  left:25rpx;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+}
+.search input{
+  margin-left: 300rpx;
+  height: 60rpx;
+  border-radius: 5px;
+}
+.search-input{
+  color: #fff;
+}
+.search text{
+  margin-left: 15rpx;
+  width: 15%;
+  line-height: 150%;
+  text-align: center;
+}
+.place-holder{
+  font-size: 24rpx;
+}
+.sousuo{
+  float: right;
+  color: #fff;
+  margin-top:-56rpx;
+  margin-right:29rpx;
+}
+.banner{
+  width: 100%;
+  height: 140px;
+}
+.banner image{
+  width: 100%;
+  height: 100%;
+}
+.nav{
+  width: 100%;
+  height: 94px;
+  background: #fff;
+  border-bottom: 4px solid #f0f0f0;
+  padding-left:35rpx;
+}
+.nav-item{
+  float: left;
+  width: 33%;
+  font-size: 28rpx;
+  color: #999;
+}
+.nav-item image{
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-left:48rpx;
+  margin-top:28rpx;
+  margin-bottom:18rpx;
+}
+.nav-item text{
+  margin-left:35rpx;
+}
+.tab-content{
+  margin-top:32rpx;
+  min-height:500px;
+}
+.item-class{
+  width: 100%;
+  height: 212rpx;
+  background: #fff;
+  margin-bottom: 4rpx;
+}
+.item-class .avatar{
+  width: 72px;
+  height: 72px;
+  float: left;
+  margin-left:26rpx;
+  margin-top:34rpx;
+  margin-right:26rpx;
+}
+.item-class .avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius:5px;
+}
+.item-class .title,.item-class .name,.item-class .bottom{
+  float: left;
+}
+.item-class .title{
+  width:202px;
+  font-size:36rpx;
+  margin-top:36rpx;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow:ellipsis;
+}
+.item-class .name{
+  width:210px;
+  height:24px;
+  font-size:30rpx;
+  color:#9f9f9f;
+  margin-top:4rpx;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow:ellipsis;
+}
+.item-class .name image{
+  width: 13px;
+  height: 13px;
+}
+.item-class .name text{
+  margin-left:8rpx;
+}
+.item-class .bottom{
+  font-size: 24rpx;
+  color:#ccc;
+  margin-top:8rpx;
+}
+.bottom-right-free{
+  float: right;
+  color: #36c993;
+  margin-right:38rpx;
+  font-size:28rpx;
+}

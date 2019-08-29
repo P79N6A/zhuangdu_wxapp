@@ -1,0 +1,107 @@
+{template 'common/header'}
+<style>
+.mui-media-body span{ font-size:18px;line-height:1.8;}
+.mui-media-body p{ color:#666666;}
+.mui-table-view-cell{ padding: 11px 12px;}
+.mui-table-view-cell .mui-ext-icon p{ font-size:15px; margin-top:1.5px;}
+.mui-card.mui-one{box-shadow:none;}
+.mui-card.mui-one .mui-card-header{padding-left:10px; font-size:15px;}
+.mui-card.mui-one label.mui-rmb{ width:12%; padding-left:0;font-size: 20px;line-height:1.5;}
+.mui-card.mui-one label.mui-rmb~input{ width:88%;font-size: 45px; line-height:1;;border-radius:0; height:55px; padding:0px;}
+.mui-card-footer{ font-size:15px;}
+</style>
+    <div class="mui-content">
+    	<ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media">
+                <a class="mui-navigate-right" href="javascript:;">
+                    <img class="mui-media-object mui-pull-left" src="{php echo tomedia($_W['fans']['avatar'])}">
+                    <div class="mui-media-body">
+                        {$_W['fans']['nickname']}
+                        <p class="mui-ellipsis mui-text-gray mui-small">目前仅支技提现到微信零钱</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="mui-card mui-one">
+            <div class="mui-card-header"><span class="mui-text-gray">提现金额</span></div>
+            <div class="mui-card-content">
+            	<div class="mui-card-content-inner">
+                    <div class="mui-input-row">
+                        <label class="mui-rmb"></label>
+                        <input type="number" id="money" name="money" value="" onKeyUp="" />
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="mui-card-footer" style="text-align:center">
+                <span class="mui-text-gray">可用余额 {if $merchant['no_money']}{php echo number_format($merchant['no_money'],2);}{else}0.00{/if} 元</span>
+                <a class="mui-text-primary js-money-all" href="javascript:;" data-money="{if $merchant['no_money']}{php echo number_format($merchant['no_money'],2);}{else}0.00{/if}">全部提现</a>
+            </div>
+        </div>
+        <div class="mui-content-padded mui-padded-top-5">
+        <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-submit">{if in_array('cash', $_W['_config']['task'])}{$_W['_config']['cash_time']} 小时内自动处理{else}每周一统一处理{/if}，确认提现</button>
+        </div>
+        {template 'footer'}
+    </div>
+<script>
+$(function(){
+	//判断键盘弹出隐藏
+	var money = document.querySelector('#money');
+	var wHeight = window.innerHeight;//获取初始可视窗口高度 
+	window.addEventListener('resize', function(){//监测窗口大小的变化事件  
+		var hh = window.innerHeight; 
+		if (wHeight > hh){
+			money.type = 'text';
+		}else{
+			money.type = 'number';
+		}
+	},false);
+	$('#money').on('focus',function(e){
+		var obj = this;
+		setTimeout(function() {
+			obj.type = 'text';
+		}, 150);
+	});
+	$('#money').on('blur',function(e){
+		 this.type = 'number';
+	});
+	//金额输入格式化
+	$('#money').bind('keyup', function () {
+		var obj = this;
+		var id = obj.id;  
+		var val =obj.value;  
+		var regStrs = [  
+			['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0  
+			['[^\\d\\.]+$', ''], //禁止录入任何非数字和点  
+			['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点  
+			['^(\\d+\\.\\d{2}).+', '$1'], //禁止录入小数点后两位以上
+			['^(\\.\\d{2}).+', '$1'] //禁止录入小数点后两位以上
+    	];  
+		for(i=0; i<regStrs.length; i++){  
+			var reg = new RegExp(regStrs[i][0]);  
+			obj.value = obj.value.replace(reg, regStrs[i][1]);  
+		} 
+		console.log(obj.value);
+		
+	});
+	$('.js-submit').on("tap",function(e) {
+		var money = $('#money').val();
+		util.loading();
+		$.post("{php echo app_url('member/merch/cash')}", {money:money}, function(data){
+			util.loading().close();
+			if(!data.errno){
+				util.toast(data.message,'');
+				
+			}else{
+				util.tips(data.message);
+			}
+		},"json");
+	});
+	$('.js-money-all').on("tap",function(e) {
+		var money = $(this).data("money");
+		$('#money').val(money);
+	});
+});  
+</script>
+</body>
+</html>

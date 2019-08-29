@@ -1,0 +1,46 @@
+<top-nav-bar backgroundStyle="rgba(168,243,238,0.98)" title="生成美图"></top-nav-bar>
+<view class="container">
+    <view class="top-block">
+        <image bindtap="saveimg" class="main-img" src="{{imageurl}}"></image>
+        <view class="tabs"></view>
+    </view>
+</view>
+<view class="footer-download">
+    <view bindtap="saveimg" class="download">
+        <image src="../../images/downloadshow.svg"></image>
+        <text>保存这张美图</text>
+    </view>
+</view>
+<view class="middle">
+    <view class="navbar">
+        <view bindtap="navbarTap" class="item {{currentTab==index?'active':''}}" data-idx="{{item.id}}" wx:for="{{navbar}}" wx:key="unique">
+            <text>{{item.name}}</text>
+        </view>
+    </view>
+    <view class="tab-content">
+        <scroll-view class="models" scrollWithAnimation="true" scrollX="true">
+            <form bindsubmit="selectTemplate" data-ids="{{item.id}}" data-idx="{{index}}" reportSubmit="true" wx:for="{{fordata}}" wx:key="index">
+                <button class="model {{selectTab==index?'active':''}}" formType="submit">
+                    <image src="{{item.url}}"></image>
+                    <view class="text">{{item.name}}</view>
+                </button>
+            </form>
+        </scroll-view>
+    </view>
+</view>
+<view class="ad-container" wx:if="{{adid}}">
+    <view class="ad">
+        <ad unitId="{{adid}}"></ad>
+    </view>
+</view>
+<view catchtouchmove="move" class="loadmain" hidden="{{onshow}}">
+    <view class="load">
+        <view class=" loading ">
+            <image src="../../images/loading.png "></image>
+            <text>智能识别中...</text>
+        </view>
+    </view>
+</view>
+<view style="opacity:0;z-index:0;position:absolute;top:1500px;left:1500px" wx:if="{{canvas}}">
+    <canvas canvasId="mycanvas" style="width:520px;height:710px;opacity:0;z-index:0;top:1500px;left:1500px"></canvas>
+</view>

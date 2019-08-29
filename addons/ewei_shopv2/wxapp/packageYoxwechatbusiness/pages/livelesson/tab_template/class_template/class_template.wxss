@@ -1,0 +1,58 @@
+.item-class{
+  width: 100%;
+  height: 212rpx;
+  background: #fff;
+  margin-bottom: 4rpx;
+}
+.item-class .avatar{
+  width: 72px;
+  height: 72px;
+  float: left;
+  margin-left:26rpx;
+  margin-top:34rpx;
+  margin-right:26rpx;
+}
+.item-class .avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius:5px;
+}
+.item-class .title,.item-class .name,.item-class .bottom{
+  float: left;
+}
+.item-class .title{
+  width:202px;
+  font-size:36rpx;
+  margin-top:36rpx;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow:ellipsis;
+}
+.item-class .name{
+  width:210px;
+  height:24px;
+  font-size:30rpx;
+  color:#9f9f9f;
+  margin-top:4rpx;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow:ellipsis;
+}
+.item-class .name image{
+  width: 13px;
+  height: 13px;
+}
+.item-class .name text{
+  margin-left:8rpx;
+}
+.item-class .bottom{
+  font-size: 24rpx;
+  color:#ccc;
+  margin-top:8rpx;
+}
+.bottom-right-free{
+  float: right;
+  color: #36c993;
+  margin-right:38rpx;
+  font-size:28rpx;
+}

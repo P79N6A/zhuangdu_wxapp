@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.8,1.0">
+	<application setting="false">
+		<name><![CDATA[素材文案小程序]]></name>
+		<identifie><![CDATA[myxs_fodder]]></identifie>
+		<version><![CDATA[1.0.19]]></version>
+		<type><![CDATA[biz]]></type>
+		<ability><![CDATA[素材文案小程序，轻松管理素材]]></ability>
+		<description><![CDATA[素材文案]]></description>
+		<author><![CDATA[悟空源码]]></author>
+		<url><![CDATA[http://www.5kym.cn]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+    			<item type="wxapp" />
+                </supports>
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="设置" do="Basics" state="Basics" direct="false" />
+			<entry title="分类" do="class" state="class" direct="false" />
+			<entry title="会员" do="member" state="member" direct="false" />
+			<entry title="日签" do="DaySign" state="DaySign" direct="false" />
+			<entry title="内容" do="content" state="content" direct="false" />
+			<entry title="分组" do="grouping" state="grouping" direct="false" />
+			<entry title="广告" do="advert" state="advert" direct="false" />
+		</menu>
+		<page>
+			<entry title="首页" do="/myxs_fodder/pages/index/index" state="" direct="false" />
+		</page>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_class` (
+  `class_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
+  `class_name` varchar(255) DEFAULT '' COMMENT '分类名称',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `class_status` int(5) DEFAULT '1' COMMENT '分类状态：1启用，2删除',
+  `circle_id` int(11) DEFAULT '0' COMMENT '0：广场分类，非0为圈子ID且为圈子分类',
+  `uniacid` int(11) DEFAULT '0',
+  PRIMARY KEY (`class_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='内容分类表';
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_content` (
+  `content_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '内容ID',
+  `circle_id` int(11) DEFAULT '0' COMMENT '圈子ID',
+  `class_id` int(11) DEFAULT '0' COMMENT '分类ID',
+  `member_id` int(11) DEFAULT '0' COMMENT '会员ID',
+  `content` text COMMENT '图片，视频地址',
+  `content_status` int(5) DEFAULT '1' COMMENT '0：删除，1：显示，2隐藏',
+  `content_class` int(5) DEFAULT NULL COMMENT '1：广场内容，2圈子内容',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+  `clnb` int(11) DEFAULT '0' COMMENT '收藏数量',
+  `donnb` int(11) DEFAULT '0' COMMENT '下载数量',
+  `sharenb` int(11) DEFAULT '0' COMMENT '分享数量',
+  `text` text COMMENT '文本内容',
+  `uniacid` int(11) DEFAULT '0',
+  `fictitious_clnb` int(11) DEFAULT '0' COMMENT '虚拟收藏量',
+  `fictitious_donnb` int(11) DEFAULT '0' COMMENT '虚拟下载数量',
+  `fictitious_sharenb` int(11) DEFAULT '0' COMMENT '虚拟分享数量',
+  `type` varchar(255) DEFAULT 'img' COMMENT 'img:图片，video:视频，voice：音频',
+  `grouping_id` int(11) DEFAULT '0' COMMENT '用户分组ID，看查看内容根据此ID区分',
+  PRIMARY KEY (`content_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_day_sign` (
+  `sign_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '日签ID',
+  `sign_title` varchar(255) DEFAULT NULL COMMENT '日签标题',
+  `sign_content` text COMMENT '日签内容',
+  `sign_img` varchar(255) DEFAULT NULL COMMENT '日签图片',
+  `display_time` int(11) DEFAULT NULL COMMENT '指定显示时间',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `sign_status` tinyint(5) DEFAULT '1' COMMENT '0：删除，1：显示',
+  `uniacid` int(11) DEFAULT '0',
+  PRIMARY KEY (`sign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_grouping` (
+  `grouping_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分组ID',
+  `grouping_name` varchar(255) DEFAULT '0' COMMENT '分组名称',
+  `grouping_passwd` varchar(255) DEFAULT '0' COMMENT '分组邀请码',
+  `create_time` int(11) DEFAULT '0' COMMENT '分组创建时间',
+  `uniacid` int(11) DEFAULT '0',
+  PRIMARY KEY (`grouping_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_member` (
+  `member_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '会员ID',
+  `open_id` varchar(225) DEFAULT NULL COMMENT '小程序获取的微信openid',
+  `create_time` int(11) DEFAULT '0' COMMENT '注册时间',
+  `member_status` tinyint(5) DEFAULT '1' COMMENT '0：删除：1：正常，2：黑名单',
+  `member_name` varchar(255) DEFAULT NULL COMMENT '会员名称',
+  `member_head_portrait` tinytext COMMENT '会员头像',
+  `member_mobile` varchar(255) DEFAULT NULL COMMENT '会员手机',
+  `member_is_bind` tinyint(5) DEFAULT '0' COMMENT '0：未绑定，1：已绑定',
+  `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+  `uniacid` int(11) DEFAULT NULL,
+  `is_system` int(5) DEFAULT '0' COMMENT '0,不是系统管理员，1，是系统管理员，前台可上传广场内容',
+  `grouping_id` int(11) DEFAULT '0' COMMENT '用户分组ID，看查看内容根据此ID区分',
+  PRIMARY KEY (`member_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='会员表';
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_operation_log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `identity` varchar(255) DEFAULT '0' COMMENT 'user:用户',
+  `operation` varchar(255) DEFAULT '0' COMMENT 'xz:下载,sz：收藏',
+  `content_id` int(11) DEFAULT '0' COMMENT '内容ID',
+  `member_id` int(11) DEFAULT '0' COMMENT '会员id',
+  `content_class` int(5) DEFAULT '0' COMMENT '1：广场内容，2：圈子内容',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `uniacid` int(11) DEFAULT NULL,
+  `status` int(5) DEFAULT NULL COMMENT '1收藏，2取消，3下载',
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户收藏，下载';
+CREATE TABLE IF NOT EXISTS `ims_myxs_fodder_system` (
+  `system_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '系统设置ID',
+  `system_code` varchar(255) DEFAULT '0' COMMENT '设置识别码，sms:短信',
+  `system_content` text COMMENT '设置内容',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `system` text COMMENT '基础默认设置',
+  `uniacid` int(11) DEFAULT '0',
+  PRIMARY KEY (`system_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_myxs_fodder_class`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_content`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_day_sign`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_grouping`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_member`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_operation_log`;
+DROP TABLE IF EXISTS `ims_myxs_fodder_system`;
+]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

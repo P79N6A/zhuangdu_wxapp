@@ -1,0 +1,37 @@
+<view class="top-nav-bar" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;background:#fb4f69;">
+    <view class="top-nav-bar-top" style="height:{{statusBarHeight*2}}rpx;width:100vw"></view>
+    <view class="top-nav-bar-bottom" style="height:88rpx;width:100vw">
+        <view bindtap="goBack" class="option-item">
+            <button bindtap="goback">
+                <image mode="aspectFill" src="../../images/back_white_simple.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+        <view bindtap="goHome" class="option-item">
+            <button bindtap="goback">
+                <image mode="aspectFill" src="../../images/home_white_200.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+    </view>
+</view>
+<view class="top-empty" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;"></view>
+<view class="tmp-container" style="position: fixed;top: {{statusBarHeight*2+88}}rpx;left: 0;">
+    <image src="../../images/loverstmp.png"></image>
+</view>
+<scroll-view class="scoll-h" scrollY="true">
+    <view class="container plaza-container">
+        <view class="scroll-wrapper">
+            <view class="column-wrapper">
+                <view class="column" id="dataList">
+                    <view bindtap="toshow" class="item" data-itemid="{{indexs}}" wx:for="{{template}}" wx:for-index="indexs" wx:key="item">
+                        <view class="image-wrapper" data-col="{{col}}" data-index="{{index}}">
+                            <image binderror="handleImageError" class="image" data-col="{{col}}" data-index="{{index}}" mode="aspectFill" src="{{item.url}}"></image>
+                        </view>
+                        <view class="footer">
+                            <text class="title">{{item.name}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</scroll-view>

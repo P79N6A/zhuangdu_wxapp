@@ -1,0 +1,62 @@
+{if $_W['_config']['navswitch'] || $_W['_config']['navswitch']==''}<nav class="mui-bar mui-bar-tab" id="bar">
+    {if $_W['_config']['homewitch'] || $_W['_config']['homewitch']==''}
+    <a class="mui-tab-item{if $_GPC['do']=='home'} mui-active{/if}" href="{php echo app_url('home/index/display')}">
+        <span class="mui-icon mui-ext-icon mui-icon-home"></span>
+        <span class="mui-tab-label">精选</span>
+    </a>
+    {/if}
+    <a class="mui-tab-item{if $_GPC['do']=='activity'} mui-active{/if}" href="{php echo app_url('activity/activity/display')}">
+        <span class="mui-icon mui-ext-icon mui-icon-faxian"></span>
+        <span class="mui-tab-label">发现</span>
+    </a>
+    {if  $_W['_config']['merch'] && (ADMIN || $_W['_config']['proswitch']==1 || $_W['allow']['activity']['post'])}
+    <a class="mui-tab-item" href="{php echo app_url('member/project/post')}" style=" position:relative;overflow:visible;">
+        <span class="mui-icon mui-ext-icon mui-icon-faqi" style="position: absolute;height: 50px;width: 56px;font-size: 40px;top: -18px;z-index: 999;"></span>
+        <span class="mui-icon mui-ext-icon">&nbsp;</span>
+        <span class="mui-tab-label">发布</span>
+    </a>
+    {/if}
+    <a class="mui-tab-item{if $_GPC['do']=='records'} mui-active{/if}" href="{php echo app_url('records/records/list')}">
+        <span class="mui-icon mui-ext-icon mui-icon-activity"></span>
+        <span class="mui-tab-label">我的报名</span>
+    </a>
+    <a class="mui-tab-item{if $_GPC['do']=='member'} mui-active{/if}" href="{php echo app_url('member/home/display')}">
+        <span class="mui-icon mui-ext-icon mui-icon-person"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+</nav>
+<script>
+mui.init();
+mui('.mui-bar-tab').on('tap','a',function(){
+	var $this = $(this);
+	if (this.getAttribute('href') != null) {
+		console.log(this.getAttribute('href'));
+		location.href = this.getAttribute('href');
+	} else {
+		return false;
+	}
+});
+$(function() {
+	$("#bar").headroom({
+		scrollArea:'.mui-scroll-wrapper-ext',
+		distance:100,
+		classes: {
+			initial: "head-slide",
+			pinned: "head-slide-reset",
+			unpinned: "head-slide-down"
+		}
+	});
+	$("#bar").headroom({
+		scrollArea:'.mui-content',
+		distance:100,
+		classes: {
+			initial: "head-slide",
+			pinned: "head-slide-reset",
+			unpinned: "head-slide-down"
+		}
+	});
+	if ($("#bar").hasClass('head-slide')){
+		$('.mui-content').css('padding-bottom',0);
+	}
+});
+</script>{/if}

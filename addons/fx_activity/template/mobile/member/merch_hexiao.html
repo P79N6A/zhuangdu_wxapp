@@ -1,0 +1,253 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-bar.mui-bar-tab{ background:transparent!important;box-shadow:none!important;bottom:20px;height: 2rem!important;}
+.mui-bar.mui-bar-tab .mui-btn{border-radius:1rem;top:0;box-shadow: 0 2px 5px rgba(0,0,0,.25); margin:0 auto; width:50%;}
+.mui-bar-tab~.mui-content{padding-bottom:0px;}
+.mui-slider .mui-scroll-wrapper.mui-slider-indicator{width:100%;margin:auto;}
+.mui-slider .mui-scroll-wrapper.mui-slider-indicator .mui-scroll{width:100%;}
+.mui-slider .mui-control-item{color:#999!important;position:relative;}
+.mui-slider .mui-control-item.mui-active{color:#333!important;border:none!important;}
+.mui-slider .mui-control-item.mui-active:after{position:absolute;left:35px;right:35px;bottom:5px;height:2px;background-color:#EC0000;content: "";}
+.mui-slider .mui-slider-group{min-height:280px;}
+.mui-slider .mui-slider-group .mui-slider-item{border:none!important;padding:8px 12px;position:relative}
+.mui-slider .mui-slider-group .mui-slider-item:before{position:absolute;left:0;right:0;top:0;height:1px;z-index:2;background-color:#e0e0e0!important;content:"";-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+*{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+input {-webkit-user-select:auto; /*webkit浏览器*/}
+.mui-slider-group .mui-checkbox:after{height:0px!important;}
+.mui-slider-group .mui-checkbox.mui-left label{padding-left:52px;}
+.mui-slider-group .mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio]{left:12px;}
+.mui-slider-group .mui-checkbox .mui-btn{position:absolute;padding:5px;top:50%;-webkit-transform: translateY(-50%);transform: translateY(-50%);}
+.mui-slider-group .mui-media .mui-checkbox.mui-left label{padding-left:14px;}
+.mui-slider-group .mui-media .mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio]{left:0;}
+</style>
+<footer class="mui-bar mui-bar-tab">
+<a class="mui-tab-item js-popover" href="javascript:;" data-popover='merch_saler' style="width:3%;">
+    <span class="mui-btn mui-ext-icon mui-icon-plus mui-btn-block mui-gradient-danger"></span>
+</a>
+</footer>
+<div class="mui-content mui-project" id="prolist">
+
+    <div id="slider" class="mui-slider" style="background:#FFF;height:100%">
+        <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <div class="mui-scroll">
+                <a class="mui-control-item mui-active" href="#item0" data-type="saler">核销员列表</a>
+                <a class="mui-control-item" href="#item1" data-type="store">场地列表</a>
+            </div>
+        </div>
+        <div class="mui-slider-group" style="height:100%;">
+            <div id="item0" class="mui-slider-item mui-control-content mui-active">
+                <div class="mui-scroll-wrapper-ext">
+                    <div class="mui-scroll-ext">
+                    	<form class="mui-input-group" action="" method="post">
+                    	<div class="mui-input-row mui-checkbox mui-left js-checkall" style="background:#f5f4f9;display:none">
+                            <label style="width:auto">全选</label>
+                            <input name="checkall" value="Item 2" type="checkbox" onClick="var ck = this.checked; $('.mui-slider-item.mui-active :checkbox').each(function(){this.checked = ck});">
+                            <button type="button" class="mui-btn mui-btn-danger mui-small js-delete" data-type='saler' style="right:3.1rem;">删除</button>
+                            <button type="button" class="mui-btn mui-btn-cancel mui-small" style="right:10px;">取消</button>
+                        </div>
+                        <div class="list-content js-longtap">
+                            <ul class="mui-table-view" style="margin:0;"></ul>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="item1" class="mui-slider-item mui-control-content">
+                <div class="mui-scroll-wrapper-ext">
+                    <div class="mui-scroll-ext">
+                    	<form class="mui-input-group" action="" method="post">
+                        <div class="mui-input-row mui-checkbox mui-left js-checkall" style="background:#f5f4f9;display:none">
+                            <label>全选</label>
+                            <input name="checkall" value="Item 2" type="checkbox" onClick="var ck = this.checked; $('.mui-slider-item.mui-active :checkbox').each(function(){this.checked = ck});">
+                           	<button type="button" class="mui-btn mui-btn-danger mui-small js-delete" data-type='store' style="right:3.1rem;">删除</button>
+                            <button type="button" class="mui-btn mui-btn-cancel mui-small" style="right:10px;">取消</button>
+                        </div>
+                        <div class="list-content js-longtap">
+                            <ul class="mui-table-view" style="margin:0;"></ul>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'member/setting'}
+<script type="text/html" id="salerlist">
+<li class="mui-table-view-cell mui-media">
+	<div class="mui-input-row mui-checkbox mui-left mui-pull-left" style="display:none">
+		<label></label>
+		<input name="ids" value="{{d.id}}" type="checkbox" class="items">
+	</div>
+    <a href="javascript:;" class="js-popover" data-popover='merch_saler' data-id='{{d.id}}'>
+        <div class="mui-media-body">
+        	<div class="mui-pull-left" style="width:75%"><span class="mui-ellipsis-1">{{d.salername}}</span><p class="mui-small mui-text-gray">{{# if(d.storename == ''){ }}全店核销{{# } else { }}指定场地{{# } }}/<span>核销人员 {{d.salernum}} 名</span></p></div>
+        	<div class="mui-pull-right"><font class="mui-text-orange">管理</font></div>
+        </div>
+	</a>
+</li>
+</script>
+<script type="text/html" id="storelist">
+<li class="mui-table-view-cell mui-media">
+	<div class="mui-input-row mui-checkbox mui-left mui-pull-left" style="display:none">
+		<label></label>
+		<input name="ids" value="{{d.id}}" type="checkbox" class="items">
+	</div>
+    <a href="javascript:;" class="js-popover" data-popover='merch_store' data-id='{{d.id}}'>
+        <div class="mui-media-body">
+        	<div class="mui-pull-left" style="width:75%"><span class="mui-ellipsis-1">{{d.storename}}</span><p class="mui-small mui-text-gray">{{d.address}}</p></div>
+        	<div class="mui-pull-right"><p><font class="mui-text-orange">管理</font></p></div>
+        </div>
+	</a>
+</li>
+</script>
+<script>
+function handler(e) {
+	e.preventDefault();
+}
+//document.removeEventListener('touchend', handler, false);
+//删除操作
+var touchY = 0, longTap = 0;
+$(".js-longtap").on({
+    touchstart: function(e){
+		var self = this;
+		e.preventDefault();		
+        longTap=0;//设置初始为0
+        timeOutEvent = setTimeout(function(){
+			longTap=1;//假如长按，则设置为1
+			//console.log($(self).html());
+			$(self).find('.mui-checkbox').show();
+            $(self).prev(".js-checkall").show();
+			$(self).find('a').removeClass('js-popover').css({"width":"90%","margin-left":"0.2rem"});
+			$(self).find('.mui-media-body .mui-pull-right').hide();
+			$('.mui-bar').hide();
+        }, 500);
+		var e = event || window.event;
+		var touch = e.touches[0];
+        touchY = touch.clientY;
+    },
+    touchmove: function(e){
+		var e = event || window.event;
+        var touch = e.touches[0]
+        if(Math.abs(touch.clientY - touchY) > 0){			
+			clearTimeout(timeOutEvent);
+			timeOutEvent = 0;
+        }		
+    },
+    touchend: function(e){
+        clearTimeout(timeOutEvent);
+        if(timeOutEvent!=0 && longTap==0){//点击
+            //此处为点击事件----在此处添加跳转详情页
+			//alert(2);
+        }
+    }
+});
+$('.js-checkall .mui-btn-cancel').on('tap', function(){
+	$(this).parent().hide();
+	$(this).parent().next().find('.mui-checkbox').hide();    
+	$(this).parent().next().find('.mui-media-body .mui-pull-right').show();
+	$(this).parent().next().find('a').addClass('js-popover').css({"width":"auto","margin-left":"-14px"});
+	$('.mui-bar').show();
+});
+$('.js-delete').on('tap',function(e){
+	e.stopPropagation();
+	var ids = [];
+	var $checkboxes = $(this).parents("form").find('.items:checkbox:checked');
+	
+	$checkboxes.each(function() {
+		if (this.checked) {
+			ids.push(this.value);
+		};
+	});
+
+	if (ids.length == 0) {
+		util.tips('至少选择一条记录!', 2000);
+		return false;
+	}
+	var self = this;
+	util.confirm('确定删除吗？删除后不可恢复！', ' ', function(e) {
+		if (e.index) {
+			$.post("{php echo app_url('member/merch/hexiao', array('opp'=>'delete'))}", {id : ids, type : $(self).data('type')}, function(data){
+				console.log(data);
+				if(!data.errno){
+					$checkboxes.each(function() {
+						$(this).parent().parent().remove();
+					});
+				};
+				util.tips(data.message);
+			}, 'json');
+		}
+	});
+});
+mui('.mui-bar-tab').on('tap','a',function(){
+	return true;
+})
+//屏蔽slider选项卡弹出遮罩
+$('.mui-slider .mui-control-item').on('tap',function(e) {
+	setTimeout(function(){$('.mui-backdrop').remove()});
+	$("body").addClass('mui-backdrop-none');
+});
+//上拉加载活动列表
+var loadItem=function(id, type){
+	var thispage = 1;
+	$(id).find('.mui-scroll-ext').dropload({
+		scrollArea : $(id).find('.mui-scroll-wrapper-ext'),
+		threshold : 50,
+		loadDownFn : function(me){
+			mui.getJSON("{php echo app_url('member/merch/hexiao')}",{page:thispage,type:type}, 
+			function(data){
+				var stime = new Date(), result='';
+				if (data.tpage == 0){
+					result = '<div class="no-orders-at-all">'
+					+'<div class="head-block">'
+					+'    <div class="blank-icon mui-ext-icon mui-icon-mhuodong"></div>'
+					+'    <p class="hint">当前没有任何信息</p>'
+					+'    <p class="recommend-hint"></p>'
+					+'</div></div>';
+					$(id).find('.list-content').append(result);
+				}
+				if (thispage >= data.tpage || data.tpage == 0){
+					me.lock();// 锁定
+					me.noData();// 无数据
+				}
+				
+				var gettpl = document.getElementById(type+'list').innerHTML;
+				
+				for(var i = 0; i < data.list.length; i++){
+					laytpl(gettpl).render(data.list[i], function(html){
+						$(id).find('.list-content .mui-table-view').append(html);
+					});
+				}
+				
+				//$(id).find('.list-content').append(result);
+				thispage++;
+				// 每次数据加载完，必须重置
+				me.resetload();
+			});
+		}
+	});
+	
+};
+
+//跳转到指定item
+var item_index = parseInt('{$_GPC["item"]}');
+if (item_index){
+	mui('#slider').slider().gotoItem(item_index);
+	//$('#item0').find('.list-content .mui-table-view').append('<div class="mui-loading"><div class="mui-spinner"></div></div>');
+}else{
+	loadItem('#item0', 'saler');
+}
+
+//监听slide
+document.getElementById('slider').addEventListener('slide', function(e) {
+	var key = parseInt(e.detail.slideNumber),
+		type = $('#slider .mui-control-item').eq(key).data("type");
+	if (!$("#item"+key).find('.mui-table-view li').length) {
+		loadItem('#item'+key, type);
+	}
+	$('footer').find('.js-popover').attr('data-popover', 'merch_'+type);
+
+});
+</script>
+</body>
+</html>

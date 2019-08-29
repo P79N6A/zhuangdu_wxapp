@@ -1,0 +1,50 @@
+<view class='container'>
+  <block wx:for="{{packs_list}}">
+    <view class='packs_cell b-shadow' bindtap='toggleBtn' data-id='{{item.id}}'>
+      <view class='packs_cell_left'>
+        <view class='title'>
+          {{item.title}}
+        </view>
+        <view class='futitle'>
+          {{item.futitle}}
+        </view>
+      </view>
+      <view class='packs_cell_right'>
+        <view style='width:64px;height:16px;font-size:12px;line-height:16px;text-align:center;color:#fd2d6b;background:#fff;border-radius:10px;margin-left:16px;margin-top:36px;'>
+          {{uhide==item.id?'收起':'查看详情'}}
+        </view>
+        <image class="{{uhide==item.id?'active':''}}" src='./image/unfold.png'></image>
+      </view>
+      <view class='down clearfix {{uhide==item.id?" ":"hidden"}}'>
+        <block wx:for="{{item.lists}}" wx:for-item="types">
+          <view class='coupon_cell'>
+            <view class='image'>
+              <image src='{{types.imgUrl}}'></image>
+              <view class='top'>
+                TOP
+                <text>{{types.id}}</text>
+              </view>
+            </view>
+            <view class='content'>
+              <view class='title'>
+                {{types.title}}
+              </view>
+              <view class='descript'>
+                {{types.content}}
+              </view>
+              <view class='price'>
+                <view class='one_price'>
+                  ￥
+                  <text>{{types.one_price}}</text>/盒
+                </view>
+                <view class='kg'>
+                  <text>{{types.kg}}</text>*2/盒
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+</view>

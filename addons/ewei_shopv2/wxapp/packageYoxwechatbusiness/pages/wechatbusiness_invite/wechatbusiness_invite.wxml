@@ -1,0 +1,53 @@
+  <view class='header'>
+      <view class="search">
+          <input  bindconfirm="bindSearch" bindfocus="bindFocus" bindinput="bindInput" type="text" placeholder="搜索"  placeholder-class='search-icon'/>
+      </view>
+      <view class="nav">
+          <view><text data-id="1"  class="{{choose_id==1 ? 'choose' : ''}}"  bindtap='changeNav'>邀请的代理</text></view>
+          <view><text data-id="2" class="{{choose_id==2 ? 'choose' : ''}}"  bindtap='changeNav'>邀请的用户</text></view>
+          <view><text data-id="3" class="{{choose_id==3 ? 'choose' : ''}}"  bindtap='changeNav'>待激活代理</text></view>
+          <view><text data-id="4" class="{{choose_id==4 ? 'choose' : ''}}"  bindtap='changeNav' >待激活用户</text></view>
+      </view>
+  </view>
+
+  <view class="list">
+<!--       <view class="item">
+          <view>ID:104</view>
+          <view>级别：市代</view>
+          <view class="alive">已激活</view>
+      </view>
+            <view class="item">
+          <view>ID:104</view>
+          <view>级别：市代</view>
+          <view class="alive">已激活</view>
+      </view>
+            <view class="item">
+          <view>ID:104</view>
+          <view>级别：市代</view>
+          <view>未激活</view>
+      </view>
+            <view class="item">
+          <view>ID:104</view>
+          <view>级别：市代</view>
+          <view class="alive">已激活</view>
+      </view> -->
+  </view>
+    <view class="fui-loading" wx:if="{{showload}}">
+        <view class="icon"></view>
+        <view class="text">正在加载</view>
+    </view>
+    <view class="fui-loading empty" wx:if="{{list.length==total&&total>0}}">
+        <view class="text">没有更多了</view>
+    </view>
+
+
+  <view  wx:if="{{nolist}}" class="nolist">您当前还没有邀请过他人，邀请他人加入</view>
+
+  <navigator url="./invite_user/index" hover-class="none"><image class="yaoqing" src="../../image/invite/yaoqing.png"></image></navigator>
+
+
+
+
+
+
+

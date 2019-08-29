@@ -1,0 +1,14 @@
+<view class='container'>
+  <form bindsubmit="formSubmit">
+    <input class='input_name' bindinput='getname'></input>
+    <input class='input_timestart' bindinput='gettimestart'></input>
+    <input class='input_timeend' bindinput='gettimeend'></input>
+    <view class='imageBox'>
+      <image src='{{img}}'></image>
+    </view>
+    <view bindtap='chooseImg' class='chooseimg'>
+    </view>
+    <button form-type="submit"></button>
+  </form>
+
+</view>

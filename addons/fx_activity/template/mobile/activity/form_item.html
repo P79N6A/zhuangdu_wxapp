@@ -1,0 +1,8 @@
+<div class="form_item_item">
+    <input type="hidden" class="form_item_id" name="form_item_id_{$form['id']}[]" VALUE="{$formitem['id']}"/>
+    <input type="hidden" class="form_item_show" name="form_item_show_{$form['id']}[]" VALUE="1" />
+    <div class="mui-input-row">
+        <i class="mui-ext-icon mui-icon-remove" onclick="removeItem(this)" data-type='form'></i>
+        <input type="text" class="form_item_title" name="form_item_title_{$form['id']}[]" VALUE="{$formitem['title']}" placeholder="{$formitem['placeholder']}"/>
+    </div>
+</div>

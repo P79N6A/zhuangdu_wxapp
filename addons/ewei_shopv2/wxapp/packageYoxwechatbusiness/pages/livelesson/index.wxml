@@ -1,0 +1,71 @@
+<import src="./tab_template/tab_template.wxml"/>
+<import src="./tab_template/index_template/index_template.wxml"/>
+<import src="./tab_template/class_template/class_template.wxml" />
+<view class='container'>
+  <view class='searchBox bgfff'>
+    <view class='search bgfff'>
+      <image src="./images/search.png"></image>
+      <input placeholder-class="place-holder" class="search-input" placeholder="搜课程、讲师、热门" />
+    </view>
+    <!-- <text class='sousuo'>搜索</text> -->
+  </view>
+  <view>
+    <!-- <block wx:for="{{classList}}"> -->
+    <template is="tab_template" data="{{catearticle,currentTab,currenttab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community1,community2,community3,...item,classList,tabList}}" />
+    <!-- </block> -->
+    <!-- banner -->
+    <!-- <view class='banner'>
+      <image src="https://i04picsos.sogoucdn.com/dcea99dfdbd6bc16"></image>
+    </view> -->
+    <!-- nav -->
+    <!-- <view class='nav'> -->
+      <!-- <view class='nav-item'>
+        <image src="./images/man.png"></image>
+        <text>大咖来了</text>
+      </view>
+      <view class='nav-item'>
+        <image src="./images/choice.png"></image>
+        <text>精选系列</text>
+      </view>
+      <view class='nav-item'>
+        <image src="./images/free.png"></image>
+        <text>免费专区</text>
+      </view> -->
+      <!-- <view class='nav-item'>
+        <image src="./images/pay.png"></image>
+        <text>付费专区</text>
+      </view> -->
+    <!-- </view> -->
+    <!-- <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height: {{winHeight?winHeight+'px':'auto'}}">
+      <swiper-item wx:for="{{[0,1,2,3,4,5]}}">
+        <scroll-view scroll-y="true" class="scoll-h" style="height: {{winHeight?winHeight+'px':'auto'}}">
+          <block wx:for="{{tabList}}">
+            <view class='item-class' data-id='{{item.id}}' data-name='{{item.name}}' bindtap='jumpDetail'>
+              <view class='avatar'>
+                <image wx:if="{{item.thumb}}" src="https://zdu.igdlrj.com/attachment/{{item.thumb}}"></image>
+                <image wx:else src='https://i01picsos.sogoucdn.com/7a3b0d7611c6d804'></image>
+              </view>
+              <view class='title'>
+                <text wx:if="{{item.name}}">{{item.name}}</text>
+                <text wx:else>妆度</text>
+              </view>
+              <view class='name'>
+                <image src="./images/l-name.png"></image>
+                <text wx:if="{{item.descript}}">{{item.descript}}</text>
+                <text wx:else>妆度</text>
+              </view>
+              <view class="bottom">
+                <text style='margin-right:64rpx;'>{{item.is_hot}}人气</text>
+                <text>{{item.update_time}}</text>
+              </view>
+              <view class='bottom-right-free'>
+                <text>免费</text>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </swiper-item>
+    </swiper> -->
+    <!-- <template is="tab_template" data="{{catearticle,currentTab,currenttab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community,...item}}" /> -->
+  </view>
+</view>

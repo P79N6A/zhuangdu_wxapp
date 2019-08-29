@@ -1,0 +1,38 @@
+<view class="toptab">
+    <view class="tab-h">
+        <view bindtap="clickTab" class="tab-item-1 {{currentTab==0?'active':''}}" data-current="0">女神颜值榜</view>
+        <view bindtap="clickTab" class="tab-item-2 {{currentTab==1?'active':''}}" data-current="1">男神颜值榜</view>
+    </view>
+</view>
+<view class="swiper1">
+    <scroll-view class="scoll-h" scrollY="true">
+        <view class="container plaza-container">
+            <view class="scroll-wrapper">
+                <view class="column-wrapper">
+                    <view class="column" id="dataList">
+                        <view bindtap="detailpage" class="item" data-itemid="{{indexs}}" style="width:{{!item.isOp?351:item.width}}rpx;height:{{!item.isOp?520:item.height}}rpx" wx:for="{{alldata}}" wx:for-index="indexs" wx:key="item">
+                            <view class="image-wrapper" data-col="{{col}}" data-index="{{index}}" style="width:{{!item.isOp?351:item.width}}rpx;height:{{!item.isOp?364:item.height}}rpx">
+                                <image binderror="handleImageError" class="image" data-col="{{col}}" data-index="{{index}}" mode="aspectFill" src="{{item.photo}}"></image>
+                            </view>
+                            <view class="footer">
+                                <text class="title">{{item.beauty}}</text>
+                                <view class="infos" data-col="{{col}}" data-index="{{index}}">
+                                    <image class="avatar" src="{{item.headimg}}"></image>
+                                    <text class="nickname">{{item.nickname}}</text>
+                                    <view catchtap="doLike" class="like-container" data-col="{{col}}" data-index="{{index}}">
+                                        <image class="likeicon" src="../../images/time.png"></image>
+                                        <text class="likes" style="color:#8F8F8F">{{item.time}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view bindtap="retry" class="loading">
+                    <image class="loadingicon" src="../../images/loading_icon.png" wx:if="{{isFetching}}"></image>
+                    <text class="loadingstatus">{{loadingStatus}}</text>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+</view>

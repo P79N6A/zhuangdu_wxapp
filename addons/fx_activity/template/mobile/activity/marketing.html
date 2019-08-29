@@ -1,0 +1,116 @@
+<style type="text/css">
+.mui-popup-backdrop{z-index: 999!important;}
+.marketing-popover{ background:#f7f7f7!important; height:80%;}
+.marketing-popover .mui-popover-content{ height:85%;}
+.marketing-popover .mui-scroll-wrapper{ margin-bottom:0;}
+.marketing-popover .mui-table-view{text-align:left!important;color:rgb(102, 102, 102)!important;}
+.marketing-popover .mui-table-view li{border-radius:0!important;}
+.marketing-popover .mui-table-view li:last-child:after{ height:0;}
+.marketing-popover .mui-table-view li.noselect{color:#333!important;background-color:#eaeaea!important;}
+.marketing-popover .mui-table-view li a{border-radius:0!important;}
+.marketing-popover .mui-input-group:before{ height:0;}
+.marketing-popover .mui-input-row{ background:none!important;}
+.marketing-popover .mui-input-row:last-child:after{ height:0;}
+.marketing-popover .mui-input-row label{ float:left!important; line-height:1}
+#marketing_1 span.mui-badge-orange.mui-badge-outlined{left:-10px;}
+#marketing_1 span.mui-badge-orange.mui-badge-outlined:before{border-radius:100px;}
+#marketing_1 span.mui-badge-orange.mui-badge-outlined~span{padding-left:0;}
+</style>
+{if !empty($marketing)}
+<div id="marketing" class="mui-popover mui-popover-bottom mui-popover-action marketing-popover">
+    <div class="mui-popover-header">主办方优惠</div>
+    <div class="mui-popover-content">
+    	<div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            {if $_GPC['ac']=='join'}
+            <div class="mui-input-group">
+                {if !empty($marketing[0])}
+                {loop $marketing[0] $key $v}
+                <div class="mui-input-row js-marketlist mui-checkbox{if $afterMarketing['max']!=$v['meet'] || $afterMarketing['m']!=1} mui-disabled{/if}" data-meet="{$v['meet']}" data-type="1">
+                    <label>折扣券：满{$v['meet']}名，可享 {$v['give']} 折</label>
+                    <input name="give" value="{$v['give']}" type="checkbox"{if $afterMarketing['max']==$v['meet'] && $afterMarketing['m']==1} checked disabled{else} disabled{/if}>
+                </div>
+                {/loop}
+                {else}
+                {loop $marketing[1] $key $v}
+                <div class="mui-input-row js-marketlist mui-checkbox{if $afterMarketing['max']!=$v['meet'] || $afterMarketing['m']!=2} mui-disabled{/if}" data-meet="{$v['meet']}" data-type="2">
+                    <label>满减：省{$v['give']}元，满{$v['meet']}名可使用</label>
+                    <input name="give" value="{$v['give']}" type="checkbox"{if $afterMarketing['max']==$v['meet'] && $afterMarketing['m']==2} checked disabled{else} disabled{/if}>
+                </div>
+                {/loop}
+                {/if}
+                {if !empty($marketing[2])}
+                {loop $marketing[2] $v}
+                <div class="mui-input-row mui-checkbox{if $_W['member']['groupid'] != $v['groupid']} mui-disabled{/if}">
+                {if $v['discount']}
+                    <label>VIP {$v['grouptitle']} 专享：{$v['discount']} 折</label>
+                    <input name="discount" value="{$v['discount']}" type="checkbox"{if $_W['member']['groupid'] != $v['groupid']} disabled{else} checked disabled{/if}>
+                {else}
+                	<label>VIP {$v['grouptitle']} 专享：立减 {$v['money']} 元</label>
+                    <input name="money" value="{$v['money']}" type="checkbox"{if $_W['member']['groupid'] != $v['groupid']} disabled{else} checked disabled{/if}>
+                {/if}
+                </div>
+                {/loop}
+                {/if}
+            </div>
+            {else}
+            <ul class="mui-table-view mui-afterbefore-no">
+                {if !empty($marketing[0])}
+                {loop $marketing[0] $key $v}
+                <li class="mui-table-view-cell">折扣券：{$v['give']} 折<span class="mui-badge mui-badge-inverted">单次报名满{$v['meet']}人:可使用</span></li>
+                {/loop}
+                {else}
+                {loop $marketing[1] $key $v}
+                <li class="mui-table-view-cell">满减：省 {$v['give']} 元<span class="mui-badge mui-badge-inverted">单次报名满{$v['meet']}人:可使用</span></li>
+                {/loop}
+                {/if}
+                {if !empty($marketing[2])}
+                {loop $marketing[2] $key $v}
+                {if $v['discount']}
+                <li class="mui-table-view-cell">折扣券：{$v['discount']} 折<span class="mui-badge mui-badge-inverted">VIP {$v['grouptitle']} 专享</span></li>
+                {else}
+                <li class="mui-table-view-cell">立减券：省 {$v['money']} 元<span class="mui-badge mui-badge-inverted">VIP {$v['grouptitle']} 专享</span></li>
+                {/if}
+                {/loop}
+                {/if}
+            </ul>
+            {/if}
+        </div>
+        </div>
+    </div>
+    <div class="mui-bar mui-bar-footer">
+        <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-close" data-popover="marketing">完成</button>
+    </div>
+</div>
+{/if}
+{if ($activity['prize']['credit'] || $activity['prize']['share_credit'] || $activity['prize']['sign_credit']) && $_GPC['ac']!='join'}
+<div id="marketing_1" class="mui-popover mui-popover-bottom mui-popover-action marketing-popover">
+	<div class="mui-popover-header">积分奖励</div>
+    <div class="mui-popover-content">
+    	<div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <ul class="mui-table-view mui-afterbefore-no market-box">
+                {if $activity['prize']['credit']}<li class="mui-table-view-cell"><span class="mui-badge-orange mui-badge-outlined{if !strpos($_SERVER['HTTP_USER_AGENT'], 'Mac OS X')} android{/if}">报名</span><span>可得 {$activity['prize']['credit']} 积分</span></li>{/if}
+                {if $activity['prize']['share_credit']}<li class="mui-table-view-cell"><span class="mui-badge-orange mui-badge-outlined{if !strpos($_SERVER['HTTP_USER_AGENT'], 'Mac OS X')} android{/if}">分享</span><span>可得 {$activity['prize']['share_credit']} 积分</span></li>{/if}
+                {if $activity['prize']['sign_credit']}<li class="mui-table-view-cell"><span class="mui-badge-orange mui-badge-outlined{if !strpos($_SERVER['HTTP_USER_AGENT'], 'Mac OS X')} android{/if}">签到</span><span>可得 {$activity['prize']['sign_credit']} 积分</span></li>{/if}
+            </ul>
+        </div>
+        </div>
+    </div>
+    <div class="mui-bar mui-bar-footer">
+        <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-close" data-popover="marketing_1">完成</button>
+    </div>
+</div>
+{/if}
+<script>
+mui('.marketing-popover .mui-scroll-wrapper').scroll();
+//触发规格选择器
+$(".js-marketing").on("tap",function(e) {
+	var popover = "#"+$(this).data("popover");
+	mui(popover).popover('toggle');
+});
+$(".js-close").on("tap",function(e) {
+	var popover = "#"+$(this).data("popover");
+	mui(popover).popover('hide');
+});
+</script>

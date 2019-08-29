@@ -1,0 +1,34 @@
+<template name="samecity_Template">
+  <view class='othericty'>
+    <view style='float:left;'>
+      <view class='out'>
+        <view class='in'>
+          <view class='init'></view>
+        </view>
+      </view>
+      <text style='float:left;'>其他城市</text>
+    </view>
+    <view class='samecity_icon' style='float:right;'>
+      <image src='./images/right.png'></image>
+    </view>
+  </view>
+  <block wx:for="{{samecityList}}" wx:for-item="item">
+    <view class='samecity_cell'>
+      <view class='samecity_cell_left'>
+        <view class='image'>
+          <image class='baseimg' src='{{item.imgUrl}}'></image>
+        </view>
+        <view style='float:left;'>
+          <view class='title'>
+            <text>{{item.title}}</text>
+          </view>
+          <view class='readnumber'>
+            <text style='margin-right:8px;'>{{item.discussnumber}}讨论</text>
+            <text>{{item.readnumber}}阅读</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view style='width:100%;height:50px;'></view>
+</template>

@@ -1,0 +1,80 @@
+<import src="../article_template/article_template.wxml" />
+<import src="../article_template2/article_template2.wxml" />
+<view class='container'>
+  <view wx:if='{{article_sys.article_temp=="0"}}'>
+    <view class='articlebanner'>
+      <image class='baseimg' wx:if="{{article_sys.article_image}}" src='{{article_sys.article_image}}' style=''></image>
+      <image class='baseimg' wx:else style='background:#ffcccc;'></image>
+    </view>
+    <view class='articleList'>
+      <block wx:for="{{articleList}}">
+        <view class='articleList_item' data-id='{{item.id}}' bindtap='todetail'>
+          <view class='title'>
+            <text wx:if="{{item.article_title}}">{{item.article_title}}</text>
+          </view>
+          <view class='icon_to'>
+            <image class='baseimg' src='../images/right.png'></image>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='article_history' wx:if='{{article_sys.article_temp=="1"}}'>
+    <view class='article_history_list'>
+      <block wx:for="{{articleList}}" wx:for-index="index" wx:for-item="item">
+        <block wx:for="{{item.articles}}" wx:for-item="item2" wx:for-index="index2">
+          <view class='articleList_history_item' data-id='{{item2.id}}' bindtap='todetail'>
+            <view class='image'>
+              <image class='baseimg' wx:if="{{item2.resp_img}}" src='{{item2.resp_img}}'></image>
+              <image class='baseimg' wx:else src='' style='background:#fd2c6b;'></image>
+            </view>
+            <view class='title'>
+              <text wx:if="{{item2.article_title}}">{{item2.article_title}}</text>
+            </view>
+            <!-- <view class='desc'>
+              <text wx:if="{{item2.resp_desc}}">{{item2.resp_desc}}</text>
+            </view> -->
+          </view>
+        </block>
+      </block>
+    </view>
+  </view>
+  <view class='article_cate' wx:if='{{article_sys.article_temp=="2"}}'>
+    <scroll-view class="top-tab" scroll-x="true" scroll-left="{{scrollLeft}}" scroll-with-animation="{{true}}">
+      <view class="top-tab-item {{currentTopItem==index ? 'active' : ''}}" wx:for="{{catearticle}}" data-index='{{index}}' wx:for-index="index" data-id='{{item.id}}' bindtap="switchTab2">
+        {{item.category_name}}
+      </view>
+    </scroll-view>
+    <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight}}rpx">
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true">
+          <template is="article_template" data="{{item,...item,articleList}}" />
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+          <template is="article_template" data="{{item,...item,articleList}}" />
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+<view class='article_cate' wx:if='{{article_sys.article_temp=="3"}}'>
+    <scroll-view class="top-tab" scroll-x="true" scroll-left="{{}}" scroll-with-animation="{{true}}">
+      <view class="top-tab-item {{currentTopItem==index ? 'active' : ''}}" wx:for="{{catearticle}}" data-index='{{index}}' wx:for-index="index" data-id='{{item.id}}' bindtap="switchTab2">
+        {{item.category_name}}
+      </view>
+    </scroll-view>
+    <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight}}rpx">
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true">
+          <template is="article_template2" data="{{item,...item,articleList}}" />
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+          <template is="article_template2" data="{{item,...item,articleList}}" />
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>

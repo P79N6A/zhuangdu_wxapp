@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://bbs.91jtxx.cn" versionCode="0.8,1.0">
+	<application setting="false">
+		<name><![CDATA[疯狂人脸识别]]></name>
+		<identifie><![CDATA[lshd_yanzhi]]></identifie>
+		<version><![CDATA[1.2.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[疯狂人脸识别]]></ability>
+		<description><![CDATA[疯狂人脸识别]]></description>
+		<author><![CDATA[悟空源码社区]]></author>
+		<url><![CDATA[http://www.5kym.cn]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+		<supports>
+			<item type="wxapp" />
+		</supports>
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="用户" do="user" state="" direct="false"/>
+			<entry title="模板消息" do="message" state="" direct="false"/>
+			<entry title="小程序设置" do="setpkg" state="" direct="false"/>
+			<entry title="首页菜单" do="menu" state="" direct="false"/>
+			<entry title="首页幻灯片" do="slider" state="" direct="false"/>
+			<entry title="商品推荐设置" do="shop" state="" direct="false"/>
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_ad` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`image` varchar(255) NOT NULL,
+`title` varchar(64) NOT NULL,
+`urls` varchar(255),
+`type` int(11) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_facedecoration` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(64) NOT NULL,
+`url` varchar(64) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_facemerge` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(64) NOT NULL,
+`url` varchar(64) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_facesticker` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(64) NOT NULL,
+`url` varchar(64) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_imgfilter` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` varchar(64) NOT NULL,
+`url` varchar(64) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_menu` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`title` varchar(255),
+`image` varchar(64) NOT NULL,
+`types` int(11) NOT NULL,
+`inurl` varchar(255),
+`sort` int(11),
+`visit` int(11),
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_plaza` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`userid` int(11) NOT NULL,
+`datas` text NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_seting` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`name` varchar(64) NOT NULL,
+`color` varchar(32) NOT NULL,
+`image` varchar(64) NOT NULL,
+`banquan` varchar(64),
+`adid` varchar(255),
+`visit` int(11),
+`wecatimg` varchar(255),
+`alipay` varchar(255),
+`backimg` varchar(255) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_shop` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`name` varchar(255) NOT NULL,
+`title` varchar(255) NOT NULL,
+`image` varchar(255) NOT NULL,
+`types` varchar(255) NOT NULL,
+`urls` varchar(255) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_slider` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`remark` varchar(128) NOT NULL,
+`image` varchar(64) NOT NULL,
+`types` int(11) NOT NULL,
+`inurl` varchar(255),
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_tplmsg` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) NOT NULL,
+`title` varchar(255) NOT NULL,
+`mid` varchar(128) NOT NULL,
+`content` varchar(500) NOT NULL,
+`data` text NOT NULL,
+`url` varchar(255) NOT NULL,
+`emphasis` varchar(32),
+`createtime` int(10) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_tplmsg_bulk` (
+`id` int(10) NOT NULL AUTO_INCREMENT,
+`uniacid` int(10) NOT NULL,
+`mid` int(10) NOT NULL,
+`remark` varchar(255) NOT NULL,
+`status` tinyint(1) NOT NULL,
+`createtime` int(10) NOT NULL,
+`group` int(10) NOT NULL,
+`type` tinyint(1) NOT NULL,
+`openids` text NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_lshd_yanzhi_user` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`uniacid` int(11) NOT NULL,
+`openid` varchar(64) NOT NULL,
+`nickname` varchar(64) NOT NULL,
+`headimg` varchar(255),
+`creattime` varchar(32) NOT NULL,
+`formid` varchar(32),
+`sharenum` int(11),
+`sharevisible` int(11) NOT NULL,
+`apply` int(11) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_lshd_yanzhi_ad`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_facedecoration`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_facemerge`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_facesticker`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_imgfilter`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_menu`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_plaza`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_seting`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_shop`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_slider`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_tplmsg`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_tplmsg_bulk`;
+DROP TABLE IF EXISTS `ims_lshd_yanzhi_user`;
+]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+
+</manifest>

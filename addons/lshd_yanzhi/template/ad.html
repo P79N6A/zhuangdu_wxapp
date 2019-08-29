@@ -1,0 +1,124 @@
+{template 'common/header'}
+<div class="main">
+    <div class="col-lg-12">
+        <div class="panel panel-danger">
+            <div class="main">
+                <ul class="nav nav-tabs">
+                    <li {if $op=='' }class="active" {/if}><a href="{php echo $this->createWebUrl('ad', array('op' => ''))}">广告列表</a></li>
+                    <li {if $op=='add' }class="active" {/if}><a href="{php echo $this->createWebUrl('ad', array('op' => 'add'))}">添加广告</a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                {if $op==''}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:10%">名称</th>
+                            <th style="width:10%">类型</th>
+                            <th style="width:20%">链接/appid</th>
+                            <th style="width:20%">图标</th>
+                            <th style="width:10%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loop $menuurl $items}
+                        <tr>
+                            <td>{$items['title']}</td>
+                            <td>{if $items['type']==1}小程序{else if $items['type']==2}网页{else if $items['type']==3}小程序路径{/if}</td>
+                            <td>{$items['urls']}</td>
+                            <td><img src="{php echo tomedia($items['image'])}" width="50px"></td>
+                            <td> <a href="{php echo $this->createWebUrl('ad', array('op' => 'edit', 'id' =>$items['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>
+                                <a href="{php echo $this->createWebUrl('ad', array('op' => 'delete', 'id' => $items['id']))}" onclick="return confirm('确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        {/loop}
+                    </tbody>
+                </table>
+                {/if} {if $op=='add'}
+                <form action="" method="post" class="form-horizontal form">
+                    <div class="form-group">
+                        <input type="hidden" name="op" value="adds" />
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="title" value="{$menuurl['title']}" placeholder="网址或小程序名称" />
+                            <div class="help-block">网址或小程序名称</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="type" value="1" {if $menuurl[ 'type']==1 }checked{/if}>小程序
+                            <input type="radio" name="type" value="2" {if $menuurl[ 'type']==2 }checked{/if}>网页
+                            <input type="radio" name="type" value="3" {if $menuurl[ 'type']==3 }checked{/if}>小程序路径
+                            <div class="help-block">请按照添加的选择小程序appid/路径或网页链接，否则跳转失败！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/appid/路径</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="urls" value="{$menuurl['urls']}" />
+                            <div class="help-block">悟空源码社区提示跳转小程序格式：小程序appid   网页格式：https://m.baidu.com，小程序路径跳转格式：<span style="color: red;"> 小程序appid||小程序路径</span>不能有空格</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">图标</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $menuurl['image']);}
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input name="submit" type="submit" value="提交" class="btn btn-primary">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </div>
+                    </div>
+                </form>
+                {/if} {if $op=='edit'}
+                <form action="" method="post" class="form-horizontal form">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">名称</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="op" value="adds" />
+                            <input type="hidden" name="ids" value="{$edit['id']}" />
+                            <input type="text" class="form-control" name="title" value="{$edit['title']}" />
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">类型</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="type" value="1" {if $edit[ 'type']==1 }checked{/if}>小程序
+                            <input type="radio" name="type" value="2" {if $edit[ 'type']==2 }checked{/if}>网页
+                            <input type="radio" name="type" value="3" {if $edit[ 'type']==3 }checked{/if}>小程序路径
+                            <div class="help-block">请按照添加的选择小程序appid/路径或网页链接，否则跳转失败！</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">链接/appid/路径</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="urls" value="{$edit['urls']}" />
+                            <div class="help-block">跳转小程序格式：小程序appid   网页格式：https://m.baidu.com，小程序路径跳转格式：<span style="color: red;"> 小程序appid||小程序路径</span>不能有空格</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">图标</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $edit['image']);}
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input name="submit" type="submit" value="提交" class="btn btn-primary">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </div>
+                    </div>
+                </form>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+{template 'common/footer'}

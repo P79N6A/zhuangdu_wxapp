@@ -1,0 +1,636 @@
+{fx_template 'common/header'}
+<link href="{FX_URL}web/resource/css/util.min.css?v=20170802" rel="stylesheet">
+<script type="text/javascript" src="{FX_URL}web/resource/js/util.min.js?v=20170912"></script>
+<style type="text/css">
+.btn.min-width {min-width: 104px;} 
+.slDiv ul,li{margin:0px;padding:0px;}
+.slDiv ul { margin-bottom:10px;}
+.slDiv{position:relative;}  
+.slDiv #btnSelect{background:url("../images/selAppear.png") right no-repeat;display:inline-block;}  
+.slDiv .ulDiv{display:none;width:100%;border:1px solid #EEEEEE;border-radius:1px;background:#FFF;margin-top:0px;position:absolute;z-index:100;}  
+.slDiv .ulDiv.ulShow{display:block;max-height: 400px;overflow-y: auto;}  
+.slDiv .ulDiv ul li{text-indent:10px;cursor:pointer;list-style-type:none;}  
+.slDiv .ulDiv ul li:hover{background:#1e90ff; color:#FFF}  
+.slDiv .ulDiv ul li i{ color:#999; font-size:12px}
+.slDiv .ulDiv ul li em{ color:#5cb85c; font-size:12px}
+.slDiv .ulDiv ul li span{overflow: hidden;text-overflow: ellipsis;white-space: nowrap; float:left;max-width:80%;}
+.remark{background-color: #FDEEEE;color: #ED5050;}
+.table td span.caret{margin-top:0px; margin-left:2px;}
+.label-default{background-color:#d1dade;color:#5e5e5e;}
+.table>tbody+tbody{border-top:none;}
+.modal-body .radio-inline{ margin-top:0px;}
+.modal-body div{ margin-right:10px}
+.body-list .panel-heading{ border-bottom:none; padding:8px; line-height:2.1}
+.body-list .panel-title{font-size: 14px;}
+.dropdown-menu{ min-width:100px;}
+</style> 
+<link href="{$_W['siteroot']}web/resource/components/select2/select2.min.css" rel="stylesheet">
+<ul class="nav nav-tabs">
+	<li{if $status==''} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'keyword'=>$keyword))}">全部记录 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[0]}</span></a>
+    </li>
+    <li{if $status=='0'} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>0,'keyword'=>$keyword))}">待付款 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[1]}</span></a>
+    </li>
+	<li{if $status==1 || $status==2} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>1,'keyword'=>$keyword))}">待参与 <span class="label label-warning pull-right" style="margin-left: 10px;">{php echo $totals[2]+$totals[3]}</span></a>
+    </li>
+    <li{if $status==3} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>3,'keyword'=>$keyword))}">已参与 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[4]}</span></a>
+    </li>
+	<li{if $status==5} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>5,'keyword'=>$keyword))}">已取消 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[5]}</span></a>
+    </li>
+    <li{if $status==6} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>6,'keyword'=>$keyword))}">待退款 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[6]}</span></a>
+    </li>
+    <li{if $status==7} class="active"{/if}>
+        <a href="{php echo web_url('records/records/display',array('activityid'=>$activityid,'status'=>7,'keyword'=>$keyword))}">已退款 <span class="label label-warning pull-right" style="margin-left: 10px;">{$totals[7]}</span></a>
+    </li>
+</ul>
+{if $_W['allow']['records']['status'] || !$_W['allow']}
+<div id="modal-module-gift" class="modal fade" tabindex="-1">
+    <div class="modal-dialog" style='width: 450px;'>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">状态设置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="js-is-pay" style="display:inline-block">
+                {if $_W['allow']['records']['cancelpay'] || !$_W['allow']}
+                <label class="radio radio-inline">
+                    <input type="radio" name="status" value="0" id="status0"> 取消付款
+                </label>
+                {/if}
+                {if $_W['allow']['records']['confrimpay'] || !$_W['allow']}
+                <label class="radio radio-inline">
+                    <input type="radio" name="status" value="1" id="status1"> 确认付款
+                </label>
+                {/if}
+                </div>
+                {if $_W['allow']['records']['confrimjoin'] || !$_W['allow']}
+                <div class="js-is-free" style="display:inline-block">
+            	<label class="radio radio-inline">
+                    <input type="radio" name="status" value="2" id="status2"> 报名生效
+                </label>
+                </div>
+                {/if}
+                {if $_W['allow']['records']['canceljoin'] || !$_W['allow']}
+                <label class="radio radio-inline">
+                    <input type="radio" name="status" value="5" id="status5"> 取消报名
+                </label>
+                {/if}
+                {if $_W['allow']['records']['hexiao'] || !$_W['allow']}
+                <label class="radio radio-inline">
+                    <input type="radio" name="status" value="3" id="status3"> 确认核销
+                </label>
+                {/if}
+            </div>
+            <div class="modal-footer" style="padding: 5px 15px;">				
+				<a class="btn btn-default js-cancel" aria-hidden="true" data-dismiss="modal">取消</a>				
+				<a class="btn btn-primary js-record-status-post" data-id="" data-price="" data-dismiss="modal" aria-hidden="true">确定</a>			
+			</div>	
+        </div>
+    </div>
+</div>
+{else}
+<style type="text/css">.dropdown-menu{left:auto; right:0!important;}</style>
+{/if}
+<div class="panel panel-default">
+	<div class="panel-body">
+		<form action="" method="get" class="form-horizontal" role="form" onSubmit="return check(this)" id="form1">
+			{if !MERCHANTID}
+            <input type="hidden" name="c" value="site">
+			<input type="hidden" name="a" value="entry">
+			<input type="hidden" name="m" value="fx_activity">
+            {/if}
+            <input type="hidden" name="ac" value="records" />
+			<input type="hidden" name="do" value="records">
+			<input type="hidden" name="op" value="display">
+            <input type="hidden" name="status" value="{$status}">
+            <div class="form-group" style="margin-bottom:20px;">
+            	{if !MERCHANTID}
+                <div class="col-md-2">
+                    <select name="merchantid" class="form-control s1">
+                    	<option value="-1" {if $merchantid=='-1'}selected="selected"{/if}>所有主办方</option>
+                    {if $_W['user']['uid']}
+                        <option value="0" {if $merchantid=='0'}selected="selected"{/if}>{$_W['_config']['sname']}</option>
+                    {/if}
+                    {loop $merchants $row}
+                        <option value="{$row['id']}" {if $merchantid==$row['id']}selected="selected"{/if}>{$row['name']}</option>
+                    {/loop}
+                    </select>
+                </div>
+                {/if}
+                <div class="col-md-2">
+                    <select name="timetype" class="form-control">
+                        <option value="">时间类型</option>
+                        <option value="1" {if $_GPC['timetype']==1}selected="selected"{/if}>报名时间</option>
+                        <option value="2" {if $_GPC['timetype']==2}selected="selected"{/if}>支付时间</option>
+                        <option value="3" {if $_GPC['timetype']==3}selected="selected"{/if}>核销时间</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+                    </div>
+                </div>
+                <div class="col-md-2 pull-right text-right">
+                    <button type="button" class="btn btn-warning js-hexiao" data-aid="{$activityid}" data-placement="left">一键核销</button>
+                </div>
+			</div>
+            <div class="form-group" style="margin-bottom:0;">
+				<div class="col-md-4">
+                    <input type="hidden" name="activityid" id="selectaid" value="{$activityid}">
+                    <div class="slDiv">  
+                    	<input id="btnSelect" class="form-control tpl-category-parent" name="title" value="{$activity['title']}" placeholder="请输入活动名称关键词" />  
+                        <div class="ulDiv"></div>  
+                    </div>  
+				</div>
+                <div class="col-md-8">
+                	<div class="input-group">
+                        <input class="form-control" name="keyword" id="" type="text" value="{$keyword}" placeholder="姓名/昵称/电话/核销码/单号/规格">
+                        <div class="input-group-btn">
+                        <span class="btn" id="search">搜索</span>
+                        <span class="btn" id="output">导出</span>
+                        </div>   
+                    </div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#search").click(function(){
+		$('#form1')[0].submit();
+	});
+	//div Select菜单
+	$("#btnSelect").bind('input propertychange, change', function(e) {
+		var title = $(this).val(),
+			merchantid = $('.s1').val();
+		if ($.trim(title) == '') {
+			$('#selectaid').val('');
+			return false;
+		}
+		$.post("{php echo web_url('records/records/activity', array('merchantid' => $merchantid))}", {title:title, merchantid:merchantid}, function(data) {
+			var stime = new Date(),
+				result = '<li value="0">请选择一个活动</li>';
+				console.log(data.list);
+			for(var i = 0; i < data.list.length; i++){
+				var endtime = new Date(data.list[i].endtime.replace("-", "/").replace("-", "/"));				
+				result += '<li value="'+data.list[i].id+'"><span>'+data.list[i].title+'</span>'+(stime < endtime ? '<em>　进行中 !!!</em>' : '<i>　已结束 !!!</i>')+'</li>';
+					
+			}
+			$('.ulDiv').html('<ul>' + result + '</ul>');
+		}, "json");
+	});
+	$('#btnSelect').on('click', function(event){  
+		event=event||window.event;    
+    	event.stopPropagation();
+		$(this).siblings('.ulDiv').addClass('ulShow');  
+	});
+	$(document).click(function(e){
+		$('.ulDiv').removeClass('ulShow');  
+	}); 
+	$('.slDiv .ulDiv').delegate("ul li", "click",function(e){
+		var selTxt=$(this).text();  
+		$('.slDiv #btnSelect').text(selTxt);  
+		$('#selectaid').val($(this).val());
+		$('.ulDiv').removeClass('ulShow');
+		location.href = "{php echo web_url('records/records/display');}&activityid=" + $(this).val() + "&merchantid=" + $('.s1').val();
+	});
+</script>
+<form class="form-horizontal" action="" method="post">
+<div class="panel panel-default" id="ddd">
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th class="text-center" style="width:40px;">
+					<input type="checkbox" name="checkall" value="" id="checkall" onClick="var ck = this.checked; $(':checkbox').each(function(){this.checked = ck});">
+				</th>
+                <th class="text-center" style="width:50px;">序号</th>
+				<th>基本信息</th>
+                <th class="text-center" style="width:85px;">核销码</th>
+                <th class="text-center" style="width:80px;">支付方式</th>
+                <th class="text-center" style="width:70px;">状态</th>
+                <th class="text-center" style="width:90px;">金额</th>
+                <th class="text-center" style="width:50px;">人数</th>
+				<th class="text-center" style="width:55px;">签到<!--span id="timeSortEnd">签到<i class="fa fa-sort-numeric-asc"></i></span--></th>
+                <th class="text-center" style="width:70px;">操作员</th>
+				<th class="text-center" style="width:85px;">操作</th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+{loop $records $k $row}
+<div class="panel panel-default body-list">
+	<div class="panel-heading clearfix">
+    	<div class="panel-title pull-left"><span class="text-primary">商户单号：{php echo $row['uniontid']?$row['uniontid']:$row['orderno'];}</span> <span class="text-danger">| 交易单号：{php echo $row['transid']?$row['transid']:'暂无';}</span></div>
+        <div class="pull-right">
+            {if ($_W['allow']['records']['refund'] || !$_W['allow']) && $row['status']!=7 && $row['transid']}
+            <a href="javascript:;" class="btn btn-{php echo $row['status']==6?'warning':'primary';} btn-sm{if $row['status']!=7} js-refund{/if}" data-rid="{$row['id']}">{if $row['status']==6}待退款{elseif $row['status']==7}已退款{else}退款{/if}</a>
+            {/if}
+        	<a href="javascript:;" class="js-print" style=" display:none"><span class="label label-default">打印凭证 <span class="glyphicon glyphicon-print" aria-hidden="true"></span> </span></a>
+            <div class="btn-group">
+            	{if $row['status']!=7}
+                    {if $_W['allow']['records']['review'] || !$_W['allow']}
+                    <div class="btn-group">
+                        <button type="button" class="btn {php echo $row['review']?'btn-default':'btn-warning';} dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font>{php echo $row['review']?'通过':'待审';}</font><span class="caret"></span></button>
+                        <ul class="dropdown-menu" id="menu_{$row['id']}">
+                            <li class="js-review" data-id="{$row['id']}" data-review="{php echo $row['review']?0:1;}"><a href="javascript:;">{php echo $row['review']?'取消审核':'通过';}</a></li>
+                        </ul>
+                    </div>
+                    {else}
+                    <a href="javascript:;" class="btn btn-default btn-sm">{php echo $row['review']?'已通过':'待审';}</a>
+                    {/if}
+                    {if $_W['allow']['records']['status'] || !$_W['allow']}
+                    <a href="javascript:;" class="js-record-edit-status btn btn-success btn-sm" data-price="{$row['price']}" data-id="{$row['id']}" data-status="{$row['status']}">设置</a>
+                    {/if}
+                {/if}
+                {if $_W['allow']['records']['delete'] || !$_W['allow']}
+                <a href="javascript:;" class="btn btn-danger btn-sm js-delete" data-rid="{$row['id']}" data-toggle="tooltip" data-placement="left">删除</a>
+                {/if}
+            </div>
+        </div>
+    </div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+            <tbody>
+            <tr data-toggle="popover" data-trigger="hover" data-placement="left" class="js-goods-img">
+				<td class="text-center" style="width:40px;"><input type="checkbox" name="check" value="{$row['id']}" class="items"></td>
+                <td class="text-center" style="width:50px;">{php echo $k+1}</td>
+				<td style="white-space: normal;">
+                <div class="pull-left" style="padding-right:5px;">
+                {if $row['pic']==''}<img class="scrollLoading" src="{php echo tomedia($row['headimgurl']);}" data-url="{php echo tomedia($row['headimgurl']);}" onerror="this.src='{php echo tomedia($row['headimgurl']);}'" height="80" width="80" data-width="200">
+                {else}<img class="scrollLoading" src="{php echo tomedia($row['pic']);}" data-url="{php echo tomedia($row['pic']);}" onerror="this.src='{php echo tomedia($row['pic']);}'" height="80" width="80" data-width="200">                
+                {/if}</div>
+                <div class="small">
+                    <span style="display:block;margin-top:0;">姓名：{$row['realname']}</span>
+                    <span style="display:block;margin-top:0;">昵称：{$row['nickname']}</span>
+                    <span style="display:block;margin-top:0;">手机：{$row['mobile']}</span>
+                    <span class="text-muted" style="display:block;margin-top:8px;">规格：{if !empty($row['optionname'])}{$row['optionname']}{else}无{/if}</span>
+                    <span class="label label-warning" style="display:none;">{$row['gender']}</span>
+                </div>
+                </td>
+                <td class="text-center" style="width:85px;"><span>{$row['hexiaoma']}</span></td>
+                <td class="text-center" style="width:80px;">
+                	{if empty($row['paytype']) && $row['aprice'] > 0}
+                    <span class="label label-default" id="js-paytype{$row['id']}">未支付</span>
+                    {elseif $row['paytype']=='wechat'}
+                    <span class="label label-success" id="js-paytype{$row['id']}">微信支付</span>
+                    {elseif $row['paytype']=='delivery'}
+                    <span class="label label-warning" id="js-paytype{$row['id']}">线下支付</span>
+                    {elseif $row['paytype']=='credit'}
+                    <span class="label label-primary" id="js-paytype{$row['id']}">余额支付</span>                    
+                    {elseif $row['paytype']=='admin'}
+                    <span class="label label-warning">后台操作</span>
+                    {else}
+                    <span class="label label-info">免支付</span>
+                    {/if}
+				</td>
+                <td class="text-center" style="width:70px;">
+                	{if $row['status']==0 && $row['aprice'] > 0}
+                    	{if $row['paytype']=='delivery'}<span class="label label-danger">待确认</span>{else}<span class="label label-danger" id="js-status{$row['id']}">待支付</span>{/if}
+                    {elseif $row['status']==1 || ($row['paytype']=='delivery' && $row['status']==0)}
+                    	{if $row['payprice'] > 0}<span class="label label-warning" id="js-status{$row['id']}">待参与</span>{else}<span class="label label-danger" id="js-status{$row['id']}">待支付</span>{/if}
+                    {elseif $row['status']==2}
+                        <span class="label label-warning" id="js-status{$row['id']}">待参与</span>
+                    {elseif $row['status']==3}
+                    	<span class="label label-default" id="js-status{$row['id']}">已参与</span>
+                    {elseif $row['status']==5}
+                    	<span class="label label-default" id="js-status{$row['id']}">已取消</span>
+                    {elseif $row['status']==6}
+                    	<span class="label label-default" id="js-status{$row['id']}">待退款</span>
+                    {elseif $row['status']==7}
+                    	<span class="label label-default" id="js-status{$row['id']}">已退款</span>
+                    {/if}
+				</td>
+                <td class="text-center" style="width:90px;">
+                {if $row['aprice'] > 0}
+                    <span class="text-muted small">总额￥{$row['price']}</span><br>
+                    <span class="text-muted small">实付￥{php echo $row['payprice'] > 0 ? $row['payprice'] : '0.00'}</span>
+                {else}
+                    <span class="text-muted small">免费</span>
+                {/if}
+				</td>
+                <td class="text-center" style="width:50px;">{$row['buynum']} 人</td>
+				<td class="text-center" style="width:55px;">{$row['signin']} 次</td>
+                <td class="text-center" style="width:70px;">
+					{if $row['operation']=='admin'}
+                    <span class="label label-warning">管理员</span>
+                    {else}
+                    <span>用户</span>
+                    {/if}
+				</td>
+				<td class="text-right" style="width:85px;overflow:visible;">
+                	<a href="javascript:;" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg{$row['id']}">用户信息</a>
+                </td>
+			</tr>
+            <tr class="panel-heading">
+				<td colspan="11">
+                	{php $saler = getMember($row['veropenid']);}
+                    <span class="pull-right">报名时间：{$row['jointime']}{if $row['ishexiao']} || 核销时间：{$row['sendtime']} || 核销员：{php echo empty($saler['nickname'])?'后台核销':$saler['nickname']}{/if}</span>
+				</td>
+			</tr>
+            <tr class="remark">
+				<td colspan="11">
+					<div class="pull-left">留言备注：{if $row['msg']==''}这家伙真懒，没有留下任何信息{else}{$row['msg']}{/if}</div>
+				</td>
+			</tr>
+            </tbody>
+		</table>
+	</div>
+	<input type="hidden" name="token" value="{$_W['token']}" />
+</div>
+{php include fx_template('records/form_data');}
+{/loop}
+{if $_W['allow']['records']['review'] || $_W['allow']['records']['delete'] || !$_W['allow']}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center" style="width:40px;">
+                <input type="checkbox" name="checkall" value="" id="checkall" onClick="var ck = this.checked; $(':checkbox').each(function(){this.checked = ck});">
+            </th>
+            <th class="text-lfet">
+            {if $_W['allow']['records']['review'] || !$_W['allow']}
+            <a href="javascript:;" class="btn btn-success min-width js-review-batch js-on-review">通过审核</a>
+            <a href="javascript:;" class="btn btn-warning min-width js-review-batch js-off-review">取消审核</a>
+            {/if}
+            {if $_W['allow']['records']['delete'] || !$_W['allow']}
+            <a href="javascript:;" class="btn btn-danger min-width js-batch js-deletes" data-placement="right">删除</a>
+            {/if}
+            </th>
+        </tr>
+        </thead>
+    </table>
+</div>
+{/if}
+<div class="pull-right">{$pager}</div>
+</form>
+<script>
+function output(id, status, keyword, thispage){
+	$.post("{php echo web_url('records/records/output')}",{activityid:id, status:status, keyword:keyword, page:thispage}, function(data){
+		if (data.tpage == 0){
+			util.tips('暂无数据');
+		}else if(thispage < data.tpage){
+			thispage++;
+			$('#tips-container span').html("共 {$total_output} 条记录 {php echo ceil($total_output / $filesize)} 个文件需要生成，正在生成第 " + thispage + " 个文件");
+			output(id, status, keyword, thispage);
+		}else{
+			util.tips('生成完毕，准备打包下载!');
+			location.href = "{php echo web_url('records/records/download')}&file_title="+data.title+"&temp_folder="+data.temp_folder;
+		}
+	},"json");
+}
+$(function(){
+	$('#output').click(function() {
+		var activityid = "{$activityid}";
+		var status     = "{$status}";
+		var keyword    = "{$keyword}";
+		var thispage   = 1;
+		util.loading("共 {$total_output} 条记录 {php echo ceil($total_output / $filesize)} 个文件需要生成，正在生成第 1 个文件");
+		output(activityid, status, keyword, thispage);
+	});
+	// 修改状态
+	$('.js-record-edit-status').click(function() {
+		var records_status = $(this).data('status'),
+			records_id = $(this).data('id'),
+			records_price = $(this).data('price');
+		{if MERCHANTID}
+		switch(records_status)
+		{
+			case 3:util.tips('已参与不可更改状态!', 2000);return false;break;
+			case 7:util.tips('已退款不可更改状态!', 2000);return false;break;
+			default:break;
+		}
+		{/if}
+		$('.js-record-status-post').data('id',records_id);
+		$('.js-record-status-post').data('price',records_price);
+		$('#modal-module-gift').find('input:radio[name="status"]').prop('checked',false);
+		if (records_price!=''){
+			$('.modal-body').find('.js-is-free').hide();
+			$('.modal-body').find('.js-is-pay').show();
+		}else{
+			$('.modal-body').find('.js-is-free').show();
+			$('.modal-body').find('.js-is-pay').hide();
+		}
+		popwin = $('#modal-module-gift').modal();
+	});
+	$('.js-cancel,.close').click(function() {
+		$('#record-status-container').hide();
+		$('.main').css("opacity","1");$('.nav').css("opacity","1");$('.big-menu').css("opacity","1");
+	});
+	$('.js-record-status-post').click(function() {
+		var records_id = $(this).data('id');
+		var records_price = $(this).data('price');
+		var status = $('.modal-body').find("input[name^='status']:checked").val();
+		var className;
+		switch(status)
+		{
+			case '0':className = 'label-danger';break;
+			case '1':className = 'label-warning';break;
+			case '2':className = 'label-warning';break;
+			case '3':className = 'label-default';break;
+			case '5':className = 'label-default';break;
+			default:break;
+		}
+		$.post("{php echo web_url('records/records/status')}",{id:records_id,status:status,price:records_price},function(d){
+			if(!d.errno){
+				util.tips('操作成功!');
+				$('#js-status'+records_id).html(d.message);
+				$('#js-status'+records_id).removeClass('label-default');
+				$('#js-status'+records_id).removeClass('label-success');
+				$('#js-status'+records_id).removeClass('label-warning');
+				$('#js-status'+records_id).removeClass('label-danger');
+				$('#js-status'+records_id).addClass(className);
+			}else{
+				util.tips(d.message);
+			}
+		},"json");
+		$('#record-status-container').hide();
+		$('.main').css("opacity","1");$('.nav').css("opacity","1");$('.big-menu').css("opacity","1");
+	});
+		
+	$('.js-review').click(function(e){
+		e.stopPropagation();
+		var $this = $(this),id = $this.data('id'),review=parseInt($this.attr('data-review'));
+		if (review) {
+			html = '确认通过审核?';
+		}else{
+			html = '确认取消审核?';
+		}
+		util.nailConfirm(this, function(state) {
+			$this.parents('.btn-group').trigger('click');
+			if(!state) return;
+			$.post("{php echo web_url('records/records/review')}", {id:id,review:review}, function(data){
+				if(!data.errno){
+					if(review==1){
+						$this.parent().siblings('button').removeClass('btn-warning').addClass('btn-default');
+					}else{
+						$this.parent().siblings('button').removeClass('btn-default').addClass('btn-warning');
+					}
+					$this.attr('data-review',review?0:1);
+					$this.find('a').html(review?'待审':'通过');
+					$this.parents('.btn-group').find('font').html(review?'通过':'待审');
+					util.tips(data.message);
+				};
+			}, 'json');
+		}, {html:html,placement: 'left'});
+	});
+	
+	//批量审核操作
+	$('.js-review-batch').click(function(e){
+		e.stopPropagation();
+		var ids = [];
+		var $checkboxes = $('.items:checkbox:checked');
+		$checkboxes.each(function() {
+			if (this.checked) {
+				ids.push(this.value);
+			};
+		});
+	
+		if (ids.length == 0) {
+			util.tips('请选择要操作的信息!', 2000);
+			return false;
+		}
+		var html = '';
+		if ($(this).hasClass('js-on-review')) {
+			html = '确认通过审核?';
+			review = 1;
+		}else if($(this).hasClass('js-off-review')){
+			html = '确认取消审核?';
+			review = 0;
+		}
+		var $this = $(this);
+		util.nailConfirm(this, function(state) {
+			if(!state) return;
+			$.post("{php echo web_url('records/records/review')}", {id:ids, review:review}, function(data){
+				if(!data.errno){
+					util.tips(data.message);
+				};
+				window.location.reload();
+			}, 'json');
+		}, {html: html,placement: $this.data('placement')});
+	});
+	
+	//批量删除效果b
+	$('.js-batch').click(function(e){
+		e.stopPropagation();
+		var ids = [];
+		var $checkboxes = $('.items:checkbox:checked');
+		$checkboxes.each(function() {
+			if (this.checked) {
+				ids.push(this.value);
+			};
+		});
+	
+		if (ids.length == 0) {
+			util.tips('请选择要操作的信息!', 2000);
+			return false;
+		}
+		var op = '';
+		var html = '';
+		if ($(this).hasClass('js-deletes')) {
+			op = 'delete';
+			html = '确认删除?';
+		}
+		var $this = $(this);
+		util.nailConfirm(this, function(state) {
+			if(!state) return;
+			$.post("{php echo web_url('records/records')}", {op : op,id : ids}, function(data){
+				if(!data.errno){
+					$checkboxes.each(function() {
+						$(this).parents('.body-list').remove();
+					});
+				};
+				util.tips(data.message);
+			}, 'json');
+		}, {html: html,placement: $this.data('placement')});
+	});
+
+	//删除效果b，单条操作
+	$('.js-delete').click(function(e) {
+		e.stopPropagation();
+		var $this = $(this);
+		var records_id = $this.data('rid');
+		util.nailConfirm(this, function(state) {
+			if (!state) return;
+			$.post("{php echo web_url('records/records/delete')}", {id : records_id}, function(data) {
+				if(!data.errno){
+					$this.parents('.body-list').remove();
+				}
+				util.tips(data.message);
+			}, 'json');
+		}, {html:"确定删除？",placement: $this.data('placement')});
+	});
+	//一键核销
+	$('.js-hexiao').click(function(e) {
+		e.stopPropagation();
+		var $this = $(this);
+		var a_id  = $this.data('aid');
+		var total = "{php echo $totals[2]+$totals[3]}";
+		if (a_id == '0' || a_id == ''){
+			util.tips('请选择一个活动！', 2000);
+			return false;
+		}
+		if (total == '0'){
+			util.tips('暂无需要核销的信息！', 2000);
+			return false;
+		}
+		util.nailConfirm(this, function(state) {
+			if (!state) return;
+			util.loading("共{php echo $totals[2]+$totals[3]}条记录需要处理，请稍后...<br>正在处理中，可能需要一些时间，请勿刷新页面");
+			$.post("{php echo web_url('records/records/hexiao')}", {activityid : a_id}, function(data) {
+				if(!data.errno){
+					util.tips(data.message);
+				}else{
+					util.tips(操作失败);
+				}
+			}, 'json');
+		}, {html:"确定核销所有待参与用户吗？此操作不可恢复 ",placement: $this.data('placement')});
+	});
+	//退款
+	$('body').delegate('.js-refund','click', function(e){
+		var $this = $(this);
+		var id = $this.data('rid');
+		e.stopPropagation();
+		util.nailConfirm(this, function(state) {
+			if(!state) return;
+			util.loading("请稍后...");
+			$.post("{php echo web_url('records/records/refund')}", {id : id}, function(data) {
+				if(data.status){
+					$this.html('已退款');
+					$this.removeClass('js-refund');
+					$('#js-status'+id).html('已退款');
+					$('#js-status'+id).removeClass('label-success label-warning label-danger');
+					$('#js-status'+id).addClass('label-default');
+				}
+				util.tips(data.message);
+			}, 'json');
+		}, {html: "确认退款?"});
+		
+	});
+	
+	var $pop = null;
+	$('.scrollLoading').hover(function(){
+		var img = $(this).attr('src');
+		var obj = this;
+		var $pop = util.popover(obj, function($popover, obj){
+			obj.$popover = $popover;
+		}, '<div><img src="'+img+'" style="max-width:'+$(this).data('width')+'px;"></div>');
+	}, function(){
+		this.$popover.remove();
+	});
+	
+});
+require(['../../components/select2/select2.min'], function(){
+	$(".s1").select2();
+	$(".select2").css('width','100%');
+});
+</script>
+{fx_template 'common/footer'}

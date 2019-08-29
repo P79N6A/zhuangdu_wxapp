@@ -1,0 +1,60 @@
+.top{
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  background: #f0f0f0;
+}
+.top text{
+  font-size: 24rpx;
+  color: #878787;
+  margin-left:24px;
+}
+.goodfriend_cell{
+  width: 100%;
+  height: 68px;
+  line-height: 68px;
+  background: #fff;
+  border-bottom: 2px solid #e4e4e4;
+}
+.goodfriend_cell .goodfriend_cell_left{
+  float: left;
+}
+.goodfriend_cell .number{
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+  background: #fd2c6b;
+  float: left;
+  margin-top:28px;
+  margin-left:22px;
+  margin-right:18px;
+}
+.goodfriend_cell .avatar{
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.goodfriend_cell .avatar image{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.goodfriend_cell .title{
+  font-size: 38rpx;
+  color: #050505;
+  float: left;
+  margin-right: 10px;
+}
+..goodfriend_cell .title text{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.goodfriend_cell .goodfriend_cell_right .time{
+  float: right;
+  font-size:28rpx;
+  color: #949494;
+  margin-right:10px;
+  margin-top:-4px;
+}

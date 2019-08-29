@@ -1,0 +1,24 @@
+<template name="personal_template">
+  <view class='personal_list'>
+    <block wx:for="{{personalList}}">
+      <view class='personal_cell'>
+        <view class='avatar'>
+          <image wx:if="{{item.avatar}}" src='{{item.avatar}}'></image>
+          <image wx:else style='background:#fd2d6b;'></image>
+        </view>
+        <view class='name'>
+          {{item.nickname}}
+        </view>
+        <view class='content'>
+          {{item.comment}}
+        </view>
+        <view class='time'>
+          {{item.add_time_format}}
+        </view>
+        <view class='answer'>
+          回复
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

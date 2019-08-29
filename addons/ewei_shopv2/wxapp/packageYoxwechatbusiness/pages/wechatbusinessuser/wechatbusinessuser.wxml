@@ -1,0 +1,25 @@
+<view class='container'>
+  <view class='inviteusers'>
+    <view class='searchBox'>
+      <view class='search'>
+        <image src='./images/large.png'></image>
+        <input placeholder='搜索' placeholder-style='color:#979797;'></input>
+      </view>
+    </view>
+    <view class='tips' wx:if="{{mydownleveluserList==[] || mydownleveluserList==''}}">
+      当前还没有团队
+    </view>
+    <view wx:else>
+      <block wx:for="{{mydownleveluserList}}" >
+      <view class='inviteuser_cell' bindtap='detailchange' data-uid='{{item.uid}}'>
+        <view class='avatar'>
+          <image class='baseimg' src="{{item.avatar}}"></image>
+        </view>
+        <view class='nickname'>
+          <text>{{item.nickname}}</text>
+        </view>
+      </view>
+    </block>
+    </view>
+  </view>
+</view>

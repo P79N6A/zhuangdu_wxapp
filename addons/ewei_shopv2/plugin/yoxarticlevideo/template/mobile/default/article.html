@@ -1,0 +1,200 @@
+{template '_header'}
+<style>
+    .fui-page, .fui-page-group {
+        background-color: #f2f5f7;
+    }
+    .header {
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+        font-size: 16px;
+        border-bottom: 1px solid #ddd;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: #212121;
+        width: 100%;
+        z-index: 1;
+        background-color: #fff;
+        font-weight: bold;
+    }
+    .content {
+        position: absolute;
+        top: 44px;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .external {
+        display: none!important;
+    }
+    .posts {
+        list-style: none;
+        margin-top: 6px;
+    }
+    .posts li {
+        background-color: #fff;
+        margin-bottom: 6px;
+    }
+    .posts a {
+        display: block;
+        padding: 0 15px;
+        position: relative;
+    }
+    .posts a:after {
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #ddd;
+        border-bottom: 2px solid #ddd;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 0;
+        margin: auto;
+        content: '';
+        -webkit-transform: rotate(-45deg);
+    }
+    .posts .head {
+        min-height: 36px;
+        padding: 15px 0;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .posts .head > div {
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+    }
+    .posts .headimg {
+        width: 36px;
+        height: 36px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 100%;
+        -webkit-border-radius: 100%;
+        background-color: #f2f5f7;
+        margin-right: 10px;
+    }
+    .posts .nickname {
+        font-size: 14px;
+        color: #212121;
+        font-weight: 600;
+    }
+    .posts .muted {
+        font-size: 10px;
+        color: #9a9a9a;
+    }
+    .posts .body {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+    .posts video {
+        width: 100%;
+    }
+</style>
+<div class="header">
+    图文
+</div>
+<div class="content">
+    <ul class="posts">
+        
+    </ul>
+</div>
+<script src="{php echo EWEI_SHOPV2_LOCAL}static/js/underscore.js"></script>
+<script type="text/x-template" id="post">
+    <li>
+        <a href="/app/index.php?i={$_W['uniacid']}&c=entry&m=ewei_shopv2&do=mobile&r=yoxarticlevideo.edit&id=<%=id %>">
+            <div class="post">
+                <div class="head">
+                    <div>
+                        <div>
+                            <div class="nickname"><%=name %></div>
+                            <div class="muted"><%=date_format('m-d H:i', add_time) %></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!--<div class="body">
+                    <div><%=description %></div>
+                    <div class="video">
+                        <video src="/<%=videos %>"></video>
+                    </div>
+                </div>-->
+            </div>
+        </a>
+    </li>
+</script>
+<script>
+    var str_pad = function(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    };
+    var date_format = function(format, timestamp) {
+        var str = '';
+        var len = format.length;
+        var date = new Date(timestamp * 1000);
+        for (var i = 0; i < len; i++) {
+            var c = format.charAt(i);
+            switch (c) {
+                case 'Y': str += date.getFullYear(); break;
+                case 'm': str += str_pad(date.getMonth() + 1, 2); break;
+                case 'd': str += str_pad(date.getDate(), 2); break;
+                case 'H': str += str_pad(date.getHours(), 2); break;
+                case 'i': str += str_pad(date.getMinutes(), 2); break;
+                case 's': str += str_pad(date.getSeconds(), 2); break;
+                default: str += c; break;
+            }
+        }
+        return str;
+    };
+    $(function() {
+        var inAction = false;
+        var page = 1;
+        var size = 10;
+        var template = _.template($("#post").html());
+        var getPosts = function(refresh) {
+            if (inAction) {
+                return;
+            }
+            inAction = true;
+            if (refresh) {
+                $(".posts").html("");
+                page = 1;
+            }
+            $.ajax({
+                url: '/app/index.php?i={$_W['uniacid']}&c=entry&m=ewei_shopv2&do=mobile&r=yoxarticlevideo.article',
+                type: 'get',
+                data: {
+                    page: page++,
+                    size: size
+                },
+                dataType: 'json',
+                success: function(response) {
+                    inAction = false;
+                    if (response.status == 1) {
+                        var data = response.data.list;
+                        for (var i in data) {
+                            $(".posts").append(template(data[i]));
+                        }
+                    }
+                    else {
+                        
+                    }
+                }
+            });    
+        };
+        getPosts();
+        $(".content").on("scroll", function() {
+            if (this.scrollTop + this.clientHeight >= this.scrollHeight) {
+                getPosts();
+            }
+        });
+    });
+</script>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

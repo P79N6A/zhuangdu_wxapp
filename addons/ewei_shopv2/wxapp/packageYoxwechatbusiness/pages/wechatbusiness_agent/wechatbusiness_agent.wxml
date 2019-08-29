@@ -1,0 +1,80 @@
+<view class='header'>
+    <view class="little_title">邀请用户数量</view>
+    <view class="count">
+        <view class="type">
+            <view class="type_num">
+                0
+            </view>
+            <view class="type_name">
+                普通用户
+            </view>
+        </view>
+
+          <view class="type">
+              <view class="type_num">
+                  0
+              </view>
+              <view class="type_name">
+                  普通用户
+              </view>
+          </view>
+          <view class="type">
+              <view class="type_num">
+                  0
+              </view>
+              <view class="type_name">
+                  普通用户
+              </view>
+          </view>
+
+    </view>
+   <view class="time">
+        <view class="prev"> {{prev}} </view>
+        <view class="month">2019年8月</view>
+        <view class="prev"> {{next}} </view>
+    </view>
+</view>
+
+
+  <view class="list">
+      <view bindtap="choose" class="item" style="background:#fff url({{choose_url}}) no-repeat;background-position:90% 50%;background-size: 30px 25px;">
+          <view class="list_type_name">普通用户</view>
+          <view>仅可老用户或系统发送邀请注册成为用户</view>
+      </view>
+       <view class="item">
+          <view class="list_type_name">授权市代</view>
+          <view>首单必须一次性下单金额大于等于<text class="price">590</text></view>
+      </view>
+       <view class="item">
+          <view class="list_type_name">授权市代</view>
+          <view>首单必须一次性下单金额大于等于<text class="price">590</text></view>
+      </view>
+
+      <view class="item">
+          <view class="list_type_name">授权市代</view>
+          <view>首单必须一次性下单金额大于等于<text class="price">590</text></view>
+      </view>
+      <view class="item">
+          <view class="list_type_name">授权市代</view>
+          <view>首单必须一次性下单金额大于等于<text class="price">590</text></view>
+      </view>
+  </view>
+
+  <view class="bottom">
+      <view><image src="../../image/agent/invite.png" alt=""></image></view>
+      <view>邀请用户</view>
+  </view>
+
+  <view class="shadow"></view>
+  <view class="share">
+      <view class="share_block">
+          <view><image class="share_img" src="../../image/agent/invite_img.png" alt=""></image></view>
+          <view class="share_button">
+            <button type="default">分享二维码</button>
+            <button type="default">分享链接</button>
+          </view>
+      </view>
+
+  </view>
+
+

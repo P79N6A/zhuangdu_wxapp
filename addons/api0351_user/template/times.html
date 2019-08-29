@@ -1,0 +1,37 @@
+{template 'common/header'}
+
+<div class="main">
+    <div class="form-group">
+        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">配置说明</label>
+        <div class="col-sm-8">
+            <span class="help-block">
+            <b style="color:#FC0004">http://<b style="color:#0000FF">网址</b>/app/index.php?<b style="color:#0000FF">i=ID</b>&c=entry&a=wxapp&do=DelPay&m=api0351_user</b>
+            <br>
+            需要注意的是：网址要修改为你自己的，<b>i=ID</b>这里的ID要修改为你当前模块应用的ID(不会的朋友可咨询客服)。
+            <br>
+            <br>
+            设置定制任务需要服务器环境的支持（这里以常用的宝塔、或者360网站监控为例）。
+            <br>
+            <br>
+            <b style="color:#0000FF">宝塔：</b>设置方式是打开计划任务 -> 添加计划任务 -> 访问URL（设置一个定时访问的时间自动执行即可）。
+            <br>
+            <br>
+            <b style="color:#FC0004">360网站监控：</b>控制面板 -> 网站监控 -> HTTP/HTTPS监控 -> (名称随意，监控对象填写网址即可)
+            <br>
+            <br>
+            
+1、过期VIP会员（过期后自动降级为普通会员）<br>
+2、未支付订单（长时间未支付的残留订单信息）<br>
+3、空白用户数据（长时间未完成基本资料的游客信息）<br>
+4、无效模板消息（已经使用过的模块消息ID）<br>
+5、无效的收藏信息（尚未获取微信权限资料的用户信息）<br>
+6、无效的关注信息（尚未获取微信权限资料的用户信息）<br>
+7、无效的留言信息（尚未获取微信权限资料的用户信息）<br>
+<br>
+ *以上设置配置完毕后，参数配置的开启关闭功能生效（否则无法自动执行清理程序）。
+            </span>
+        </div>
+    </div>
+</div>
+
+{template 'common/footer'}

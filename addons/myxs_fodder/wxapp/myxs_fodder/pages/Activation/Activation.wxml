@@ -1,0 +1,23 @@
+<view class="werow DiyNav" style="position:absolute">
+    <view class="Navicon wecolumn" style="padding-left:5px;color:#000;">
+        <view class="wxf1"></view>
+        <i-icon bindtap="ReturnNew" size="20" style="line-height:4px;" type="fanhui"></i-icon>
+        <view class="wxf1"></view>
+    </view>
+    <view class="wxf1 NavText">验证</view>
+    <view class="Navicon"></view>
+</view>
+<view style="margin-top:70px">
+    <view class="weui-cells__title">如无邀请码，请联系管理员领取。</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">邀请码</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input bindchange="vfCode" class="weui-input" placeholder="请输入邀请码"></input>
+            </view>
+        </view>
+    </view>
+</view>
+<button bindtap="submt" class="circleCreateSub">验证</button>

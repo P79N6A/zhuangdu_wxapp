@@ -1,0 +1,83 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">早起挑战-活动编辑</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>活动编辑</div>
+        <div class="form-group">
+            <label class="col-lg control-label">活动名称</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwakeupchallenge.activity.edit'}
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="活动名称" />
+                {/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwakeupchallenge.activity.edit'}
+                {php echo tpl_form_field_image2('image', $result['data']['image'])}
+                {/if}
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">发起人</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_selector('uid',array('required'=>false,'preview'=>false,'key'=>'uid','text'=>'nickname','type'=>'text','placeholder'=>'昵称/姓名/手机号','buttontext'=>'选择发起人 ', 'items'=>$result['data'],'url'=>webUrl('member/query') ))}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">是否入团才可签到</label>
+            <div class="col-sm-9 col-xs-12">
+                <!--<input type="text" name="must_invited" class="form-control" value="{$result['data']['must_invited']}" placeholder="是否入团才可签到" />-->
+            <label class="radio-inline">
+				<input type="radio" name="must_invited" id="must_invited" value="0" checked="{if $result['data']['must_invited']==0}checked{/if}" class="" aria-invalid="false">
+				需入团
+				</label>
+				<label class="radio-inline">
+				<input type="radio" name="must_invited" id="must_invited" value="1" checked="{if $result['data']['must_invited']==1}checked{/if}" aria-invalid="false" class="valid">
+				无需入团
+				</label>
+                <span class="help-block">是否入团才可签到</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">状态</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwakeupchallenge.activity.edit'}
+                <input type="text" name="status" class="form-control" value="{$result['data']['status']}" placeholder="状态" />
+                <span class="help-block">状态</span>
+                {/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">开始结束时间</label>
+            <div class="col-sm-9 col-xs-12">
+            {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $result['data']['begin_time']),'endtime'=>date('Y-m-d H:i',$result['data']['end_time'])),true);}
+                <span class="help-block">时间</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                {ifp 'result.edit'}
+                <input type="submit" value="提交" class="btn btn-primary" />
+                {/if}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

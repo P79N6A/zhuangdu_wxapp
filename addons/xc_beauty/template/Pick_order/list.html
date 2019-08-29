@@ -1,0 +1,152 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            配货中心
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="{url 'site/entry/Pick_class',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}">分类</a></li>
+            <li role="presentation"><a href="{url 'site/entry/Pick',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}">货品</a></li>
+            <li role="presentation" class="active"><a>订单</a></li>
+        </ul>
+        <div class="ibox-content">
+            <form action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}" id="searchform" method="post">
+                <div class="row" style="padding: 0 15px;">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="订单号" name="out_trade_no" value="{$out_trade_no}">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="用户id" name="openid" value="{$openid}">
+                    </div>
+                    <div class="col-sm-3">
+                        <select data-placeholder="请选择状态" class="chosen-select" name="status" id="status">
+                            <option value="0" hassubinfo="true">请选择状态</option>
+                            <option value="-1" hassubinfo="true" {if $status==-1}selected{/if}>待配货</option>
+                            <option value="1" hassubinfo="true" {if $status==1}selected{/if}>送货中</option>
+                            <option value="2" hassubinfo="true" {if $status==2}selected{/if}>已完成</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="margin-top:5px;">
+                        <button type="submit" class="btn btn-default " style="margin-right:5px;">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <form action="" method="post" class="form-horizontal form">
+            <input type="hidden" name="token" value="{$_W['token']}">
+            <div class="table-responsive panel-body">
+                <table class="table-striped table-bordered table-hover dataTables-example table">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th>货品</th>
+                        <th>订单信息</th>
+                        <th>状态</th>
+                        <th style="text-align:right;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $list $index $item}
+                    <tr data-pei="{$item['pei']}">
+                        <td><div class="type-parent">
+                            {loop $item['pid'] $index2 $item2}
+                            {$item2['name']}  {$item2['price']}元{if $item2['unit']}/{$item2['unit']}{/if}*{$item['total']}<br/>
+                            {/loop}
+                        </div></td>
+                        <td><div class="type-parent">
+                            订单号：{$item['out_trade_no']}<br/>
+                            下单用户id：{$item['openid']}<br/>
+                            门店：{$item['store_name']}<br/>
+                            数量：{$item['total']}<br/>
+                            金额：{$item['amount']}元<br/>
+                        </div></td>
+                        <td><div class="type-parent" style="width: 100px;height: 32px;">
+                            {if $item['status']==-1}
+                            <a class="btn   btn-xs btn-rounded btn-success">待配货</a>
+                            {elseif $item['status']==1}
+                            <a class="btn   btn-xs btn-rounded btn-success">送货中</a>
+                            {elseif $item['status']==2}
+                            <a class="btn   btn-xs btn-rounded btn-success">已完成</a>
+                            {/if}
+                        </div></td>
+                        <td style="text-align:right;">
+                            {if $item['status']==-1}
+                            <a class="btn btn-primary btn-xs edit" data-id="{$item['id']}"><i class="fa fa-edit"></i>配货完成</a>
+                            <a class="btn btn-danger btn-xs delete" data-id="{$item['id']}"><i class="fa fa-edit"></i>取消订单</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                <div style="text-align: right;">
+                    {$pager}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js"],function(){
+        var objc="";
+        $(function(){
+            //订单状态
+            $("body").on("click",'.edit',function(){
+                var that=this;
+                objc=this;
+                var id=$(this).attr("data-id");
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'statuschange','version_id'=>$_GPC['version_id'])}",
+                    data:{id:id},
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            $(that).parent().prev().find("a").html('送货中');
+                            $(that).parent().empty();
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+            //删除
+            $(".delete").click(function(){
+                var that=$(this);
+                var id=$(this).attr('data-id');
+                swal({
+                    title: '确定删除吗?',
+                    text: "确定删除吗?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消'
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type:"post",
+                            url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'delete','version_id'=>$_GPC['version_id'])}",
+                            data:{id:id},
+                            dataType:'json',
+                            success:function(res){
+                                if(res.status==1){
+                                    swal('操作成功!', '操作成功!', 'success');
+                                    that.parent().parent().remove();
+                                }else{
+                                    swal('操作失败!', '操作失败!', 'error');
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+        })
+    })
+</script>
+{template 'common/footer'}

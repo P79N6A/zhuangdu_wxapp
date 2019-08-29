@@ -1,0 +1,743 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="{FX_URL}app/resource/css/style.css?v=20170912">
+<link rel="stylesheet" type="text/css" href="{FX_URL}app/resource/css/detail.css?v=201801148">
+<style type="text/css">
+.latecolor{color:#ff9900}
+.latecolorbg{background-color:#ff9900}
+.lateborder{border:1px solid#ff9900}
+.addressXX{color:#000;line-height:22px}
+.tag{padding:10px;background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);background: -o-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);background: linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);position: absolute;bottom:0; z-index:10; height:40px;left: 0;right: 0;}
+.tag span{font-size:14px;line-height:1.5;text-align:left;color:#fff;}
+.box-float{ display:none;}
+.basic-box .mui-navigate-left{color:#828282;}
+.basic-box .mui-navigate-left p{color:#828282; margin:0;}
+.mui-detail{text-align:justify}
+.mui-detail .mui-card-header span{ display:block; position:relative; color:#666666; font-size:15px; line-height:1.5}
+.mui-detail .mui-card-header span:before{position: absolute;content: ""; height:100%!important;left:0;top:0;width:4px; background-color:#ff8208;}
+.mui-detail .mui-card-content p{margin-bottom:0px; margin-top:10px;}
+.mui-detail .mui-card-content p:first-child{margin:0;}
+.mui-detail .mui-card-content img{margin: 0!important;max-width: 100%;height: auto!important;vertical-align: bottom;font-size: 0;}
+.mui-detail .mui-card-content ul,.mui-detail .mui-card-content ol{padding-left: 15px;line-height:1.5;color:#7f7f7f; margin:0;}
+.mui-detail .mui-card-footer{text-align:center;font-size:12px;}
+.mui-detail .mui-card-footer.js-show{-webkit-box-shadow:0 -20px 30px #fff;box-shadow:0px -25px 30px #FFF;-webkit-backface-visibility: hidden;backface-visibility: hidden;}
+.mui-detail .mui-card-footer.js-show .mui-ext-icon:after{content: "\e662";font-size:10px;}
+.mui-detail .mui-card-footer.js-hide .mui-ext-icon:after{content: "\e663";font-size:10px;}
+.mui-detail .mui-card-footer.js-hide{box-shadow:none;}
+.mui-table-box{display:table;table-layout:auto;width:100%;}
+.mui-table-box .mui-table-item{display:table-cell;vertical-align:middle;}
+.mui-table-box.mui-time{height:40px;border-radius:3px;padding:1px;margin-bottom:10px;}
+.mui-table-box.mui-time .mui-table-item:first-child{width:70px;background:#fff;border-radius:3px 0 0 3px;text-align:center;position:relative}
+.mui-table-box.mui-time .mui-table-item:nth-child(2){border-bottom:38px solid #fff;border-left:0;border-right:10px solid transparent;}
+.mui-table-box.mui-time .mui-table-item .arrow{display:block;width:14px;height:14px;font-size:14px;overflow:hidden;position:absolute;left:10px;}
+.mui-table-box.mui-time .mui-table-item em.arrow{top:-10px;color:#FF7B33;font-style:normal;}
+.mui-table-box.mui-time .mui-table-item span.arrow{top:-9px;color:white;}
+.mui-table-box.mui-time.wait-countdown{background:#07cbb7}
+.mui-table-box.mui-time.wait-countdown .mui-table-item em.arrow{color:#07cbb7;}
+.mui-table-box.mui-time.wait-countdown .mui-table-item.countdown .clockrun span{color:#12bfa1!important;}
+.mui-card-view .mui-media-body{color:#a6742b}
+.mui-card-view .mui-navigate-right:after{ color:#FFF; font-size:16px;right:2px;}
+.mui-card-view .mui-table-view-cell.mui-media{border-radius:0!important;}
+.pricebar>.mui-card .mui-card-header h5{color:#333333;line-height:1.3;font-weight:800;}
+.pricebar>.mui-card .mui-card-footer{min-height:25px;padding:10px;}
+.pricebar>.mui-card .mui-card-footer span{ color:#828282;}
+.mui-card-media .mui-table-view:after{height:1px!important;}
+.mui-card-media .mui-table-view a.mui-active{background:#fff;}
+.mui-card.mui-one{box-shadow:none;}
+.mui-card.mui-one .mui-card-footer .mui-footer-item{ margin-right:10px;}
+.mui-bar .mui-btn-outlined{ border:none!important;}
+
+.mui-card.mui-two .mui-card-header{ position:relative;}
+.mui-card.mui-two .mui-card-header{ background:none;}
+.mui-card.mui-two .mui-card-header img:first-child{ width: 36px!important;height: 36px!important;border-radius:5px;}
+.mui-card.mui-two .mui-card-header .mui-media-body{ height:36px; font-size:13px; line-height:1.8!important;overflow:hidden;margin-left:48px;}
+.mui-card.mui-two .mui-card-header .mui-media-body>span{ overflow:hidden; position:relative;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge{ right:0; padding-top:4px;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge-orange{ background:#fff!important; color:#ff6f02!important;padding-top:6px; padding-bottom:5px;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge-orange:after{content: " ";width: 200%;height: 200%;position: absolute;top: 0;left: 0;border: 1px solid #ff6f02;box-sizing: border-box;border-radius: 100px;-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+.mui-card.mui-two .mui-card-header .mui-icon-renzheng3{ width:15px; height:15px;font-size:12px;line-height:15px; text-align:center;position:absolute; top:35px;left:35px;background:#fff;border-radius: 100%; z-index:999}
+.mui-card.mui-two .mui-card-header .mui-icon-renzheng3:after{ color:#ff6d1f;}
+.mui-card.mui-two .mui-card-content{ margin:0 10px;}
+.mui-card.mui-two .mui-card-content:after{ height:0px;}
+.mui-card.mui-two .mui-card-content-inner{background:#f7f7f7; padding:10px;border-radius: 10px; margin-bottom:10px;}
+.mui-card.mui-two .mui-card-content-inner p.mui-small{ font-size:80%!important;line-height:1.5}
+.mui-card.mui-two .mui-card-footer a.mui-badge{font-size:13px;padding:0 10px;padding-top:6px; padding-bottom:5px;}
+.mui-card.mui-two .mui-card-footer span:nth-child(3){position:relative}
+.mui-card.mui-two .mui-card-footer span:nth-child(3):after{content: " ";position: absolute;border-right: 1px solid #d3d3d3;top: 50%;height: 120%;-webkit-transform: scaleX(0.5) translateY(-50%);transform: scaleX(0.5) translateY(-50%);-webkit-transform-origin: 0 100%;transform-origin: 0 100%;}
+.mui-card.mui-three .mui-card-content:after{ height:0;}
+.mui-card.mui-three .mui-media .mui-media-body .mui-ext-icon:before{color:#9c9c9c;top:48%;}
+.mui-card.mui-three .mui-media .mui-tel{ position:absolute; width:45px; height:100%; top:0px; right:0px; z-index:999; margin:0;}
+.mui-card.mui-three .mui-media-body{ position:relative; overflow:initial;min-height:26px;display:table; width:100%;}
+.mui-card.mui-three .mui-media-body .mui-media-content-inner{vertical-align: middle;display: table-cell;}
+.mui-card-footer .mui-ext-icon:before{font-size:12px;}
+
+.mui-media .mui-media-header .mui-badge,.mui-index .mui-table-view .mui-badge{border-radius: 3px;padding:3px;}
+.mui-media.location-phone .mui-media-body .mui-ext-icon{line-height:1.3;position:relative;}
+.mui-media.location-phone .mui-navigate-right:after{line-height:2;color:#11c0a3; font-size:25px;}
+.mui-media.location-phone .mui-media-body:after{content: " ";position: absolute;border-right: 1px solid #e5e5e5;top: 0px;right: -10px;height: 100%;-webkit-transform: scaleX(0.5);transform: scaleX(0.5); }
+.market-box.mui-table-view{font-size:11px;}
+.market-box.mui-table-view:before{left:14px;}
+.market-box.mui-table-view .mui-table-view-cell{background:#fafafa;padding:9px 12px;}
+.market-box span.mui-badge-orange.mui-badge-outlined{padding:1px 5px;font-size:11px;position:relative;}
+.market-box span.mui-badge-orange.mui-badge-outlined:before{border-radius:10px;}
+.market-box span.mui-badge-orange.mui-badge-outlined~span{padding-left:0.1rem;}
+
+.join-none{background:rgba(0, 0, 0, 0.75);box-shadow:none;-webkit-box-shadow:none;}
+.join-none .mui-btn{background:none!important;border:none!important; color:#fff}
+.mui-icon-location-fill:after{content: '\e333';}
+footer.mui-bar.mui-bar-tab,footer.mui-bar.mui-bar-tab .mui-tab-item{height:45px!important;}
+footer.mui-bar.mui-bar-tab .mui-tab-item{color:#333333;}
+footer.mui-bar.mui-bar-tab .mui-tab-item .mui-icon{width:20px;height:20px;top:0px;}
+footer.mui-bar.mui-bar-tab .mui-ext-icon:before{font-size:16px;color:#929292}
+footer.mui-bar.mui-bar-tab .mui-active.mui-ext-icon:before{color:#ff5100;}
+footer.mui-bar.mui-bar-tab .mui-btn{font-size:14px!important;top:0px!important;height:45px;line-height:36px!important;border-radius:0!important;}
+footer.mui-bar.mui-bar-tab .mui-gradient-orange{background:-webkit-linear-gradient(left, rgba(255,202,0,1) 0%, rgba(255,148,2,1) 100%);background:-moz-linear-gradient(left, rgba(255,202,0,1) 0%, rgba(255,148,2,1) 100%);background:-o-linear-gradient(left, rgba(255,202,0,1) 0%, rgba(255,148,2,1) 100%);background:linear-gradient(left, rgba(255,202,0,1) 0%, rgba(255,148,2,1) 100%);color:#fff!important}
+footer.mui-bar.mui-bar-tab .mui-gradient-danger{background:-webkit-linear-gradient(left, rgba(255,148,0,1) 0%, rgba(255,51,84,1) 100%);background:-moz-linear-gradient(left, rgba(255,110,1,1) 0%, rgba(252,75,85,1) 100%);background:-o-linear-gradient(left, rgba(255,110,1,1) 0%, rgba(252,75,85,1) 100%);background:linear-gradient(left, rgba(255,110,1,1) 0%, rgba(252,75,85,1) 100%);color:#fff!important}
+</style>
+{if $activity['atype']!=4}
+    {if TIMESTAMP < strtotime($activity['joinetime']) && TIMESTAMP >= strtotime($activity['joinstime'])}
+        {if $joinnum < $activity['gnum'] || $activity['gnum']==0}
+            {php $joinJs='js-join';}
+            {if $activity['hasoption']}
+                {php $joinUrl="javascript:;"}
+                {php $joinJs.=' js-selector';}
+            {else}
+                {php $joinUrl=app_url('home/join/display', array('activityid'=>$activityid))}
+            {/if}
+            {php $joinbtnActive=true}
+            {php $joinbtnName='立即报名';}
+            {if $_W['plugin']['card']['config']['card_enable']}
+            	{if !$yearcard['buy'] && $activity['atype']==3}
+                	{php $joinUrl = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&do=cardfans&m=fx_activity_plugin_babycard';}
+                {/if}
+                {if $activity['atype']==3}{php $joinbtnName=$yearcard['name'].'专享'}{/if}
+            {/if}
+        {else}
+            {php $joinbtnActive=false}
+            {php $joinUrl="javascript:;"}
+            {php $joinbtnName='已经抢光了';}
+        {/if}
+    {else}
+        {php $joinbtnActive=false}
+        {php $joinbtnName=TIMESTAMP < strtotime($activity['joinstime'])?'报名还未开始':'报名已结束';}
+        {php $joinUrl="javascript:;"}        
+    {/if}
+    {if $join > 0 && !$activity['switch']['rejoin']}
+    	{php $joinJs='';}
+        {php $joinbtnActive=true;}]
+        {php $joinbtnName='已报名点击查看';}
+        {php $joinUrl=app_url('records/records/list', array('activityid'=>$activityid))}
+    {/if}    
+    {if ($_W['_config']['guanzhu_join']==2 && !$_W['fans']['follow']) || $_W['container']!='wechat'}
+        {php $joinUrl="javascript:;"}
+        {php $joinJs='js-join js-follow'}
+    {/if}
+    <footer class="mui-bar mui-bar-tab">
+        {if $activity['show']==1 && $activity['review']==1}
+            {if $_W['_config']['homebtn']!='0'}
+            <a class="mui-tab-item" href="{php echo app_url('activity/home/index')}" style="width:1%;">
+                <span class="mui-icon mui-ext-icon mui-icon-merchants"></span>
+                <span class="mui-tab-label">首页</span>
+            </a>
+            {/if}
+            {if $_W['_config']['kefu']['switch']}
+            <a class="mui-tab-item{if $_W['_config']['kefu']['type']!=2} js-popover{/if}" data-popover="kefu" data-type="kefu" href="{if $_W['_config']['kefu']['type']==2}{$_W['_config']['kefu']['url']}{else}javascript:;{/if}"  style="width:1%;">
+                <span class="mui-icon mui-ext-icon mui-icon-kefu4 mui-active"></span>
+                <span class="mui-tab-label">客服</span>
+            </a>
+            {/if}
+            <a class="mui-tab-item" data-type="favorite" data-favorite="{if $favo}0{else}1{/if}" style="width:1%;">
+                <span class="mui-icon mui-ext-icon mui-icon-favorite js-favorite{if $favo} mui-active{/if}"></span>
+                <span class="mui-tab-label">收藏</span>
+            </a>
+            <a class="mui-tab-item {$joinJs}" href="{$joinUrl}" style="width:3%;">
+                <span class="mui-btn {if $joinbtnActive}mui-gradient-danger{else}mui-btn-default{/if} mui-btn-block">{$joinbtnName}</span>
+            </a>
+        {else}
+        	<span class="mui-btn mui-btn-default mui-btn-block">仅供浏览</span>
+        {/if}
+    </footer>
+{/if}
+
+{if $_W['_config']['fbtn']!='0'}
+<div id="touchbtn" style="position:fixed; bottom:60px;right:5px;z-index:999;width:45px; height:45px;opacity:0.35">
+    <a href="{php echo app_url('member/home')}" >
+       <span class="mui-ext-icon mui-icon-person" style=" width:45px; height:45px;line-height:1.7;color:#FFF;font-size:18px; text-align:center; background:#FF7B33; display: block; padding: 5px;border-radius: 50%;border: 2px solid #fff; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.28);"></span>
+    </a>
+</div>
+{/if}
+{template 'common/followed'}
+<div class="mui-content">
+<div class="mui-scroll-ext">
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!--支持循环，需要重复图片节点-->
+            {loop array_reverse($activity['atlas']) $row}
+            <div class="mui-slider-item mui-slider-item-duplicate"><img src="{php echo tomedia($row)}" /></div>
+            {php break;}
+            {/loop}
+            {loop $activity['atlas'] $row}
+            <div class="mui-slider-item"><img src="{php echo tomedia($row)}" /></div>
+            {/loop}
+            <!--支持循环，需要重复图片节点-->
+            {loop $activity['atlas'] $row}
+            <div class="mui-slider-item mui-slider-item-duplicate"><img src="{php echo tomedia($row)}" /></div>
+            {php break;}
+            {/loop}
+        </div>
+        <div class="mui-slider-indicator">
+        	{loop $activity['atlas'] $k $row}
+            <div class="mui-indicator{if $k==0} mui-active{/if}"></div>
+            {/loop}
+        </div>
+    </div>
+    <script>var gallery = mui('.mui-slider');gallery.slider({interval:5000});</script>
+    <div class="pricebar" id="J_PriceBar">
+       	<div class="mui-card mui-one" style="margin:0;">
+        	<div class="mui-card-header mui-card-media" style="padding-bottom:0;">
+                <h5 class="mui-ellipsis-2">{$activity['title']}</h5>
+            </div>
+            <div class="mui-card-content mui-afterbefore-no">
+            	<div class="mui-card-content-inner">
+                    <div class="mui-table-box" style=" height:45px;">
+                        <div class="mui-table-item mui-text-orange" style="font-size:20px;">
+                            {if $activity['aprice'] > 0 || $activity['maxprice']['aprice']>0}
+                                ¥&nbsp;{php echo $activity['maxprice']['aprice'] > $activity['minprice']['aprice'] ? '<strong class="mui-big">'.$activity['minprice']['aprice'].'</strong> 起':'<strong class="mui-big">'.$activity['aprice'].'</strong>';}
+                            {else}
+                                <span class="mui-small">{if $activity['freetitle']!=''}{$activity['freetitle']}{else}免费活动{/if}</span>
+                            {/if}
+                            {if $_W['plugin']['card']['config']['card_enable'] && ($activity['atype']==2 || $activity['atype']==3)}
+                                <span class="mui-badge mui-badge-yellow">
+                                {if $activity['atype']==2}
+                                    {if $activity['prize']['cardper']['enable']}
+                                        {$yearcard['name']} {$activity['prize']['cardper']['percent']} 折
+                                    {else}
+                                        {php echo $activity['marketprice'] > 0 ? $yearcard['name'].'&nbsp;¥&nbsp;'.$activity['marketprice'].($activity['maxprice']['marketprice'] > 0?' 起':''):$yearcard['name'].'：免单'}
+                                    {/if}
+                                {/if}
+                                {if $activity['atype']==3} 仅限{$yearcard['name']}{/if}
+                                </span>
+                            {/if}
+                        </div>
+                        <div class="mui-table-item mui-text-gray" style="vertical-align:bottom;text-align:right;line-height:2.7">
+                            {if $activity['switch']['joinnum']}
+                            	已报名<span class="mui-text-yellow">{$joinnum}</span>{if $activity['gnumshow']}/{php echo $activity['gnum']>0 ? $activity['gnum'] : '名额不限'}{else}人{/if}
+                            {else}
+                            	{php echo $activity['gnum']>0?'剩余'.($activity['gnum']-$joinnum).'人':'名额不限'}
+                            {/if}
+                        </div>
+                    </div>
+                    {if $joinnum < $activity['gnum'] || empty($activity['gnum'])}
+                    <div class="mui-table-box mui-time mui-gradient-danger{if TIMESTAMP < strtotime($activity['joinstime'])} wait-countdown{/if} js-countdown">
+                    	<div class="mui-table-item">
+                        	<em class="arrow">&#9670;</em>
+                            <span class="arrow">&#9670;</span>
+                        	<span class="mui-text-orange" style="margin-top:3px;display:inline-block;font-size:16px;padding-left:5px">
+                            {php echo TIMESTAMP < strtotime($activity['joinstime'])?'预热中':(empty($_W['_config']['slogan'])?'大牌快抢':$_W['_config']['slogan'])}
+                            </span>
+                        </div>
+                        <div class="mui-table-item"></div>
+                        <div class="mui-table-item countdown" style="text-align:right;">
+                            <span class="txt" id="J_CountDownTxt"></span>
+                            <div class="clockrun mui-pull-right"></div>
+                        </div>
+                    </div>
+                    {/if}
+                    {if $_W['plugin']['card']['config']['card_enable'] && ($activity['atype']==2 || $activity['atype']==3)}
+                    <ul class="mui-table-view mui-afterbefore-no mui-card-view" style="margin-bottom:10px">
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{if $yearcard['buy']}javascript:;{else}{php echo $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&do=cardfans&m=fx_activity_plugin_babycard';}{/if}" style="background: #fcf5e3;">
+                            <div class="mui-media-body">
+                                {$yearcard['name']}专享
+                                <p class="mui-small mui-text-gray">开通{$yearcard['name']}，下单可享受专属特权</p>
+                            </div>
+                            {if !$yearcard['buy']}
+                            <span class="mui-badge mui-gradient-orange mui-navigate-right " style="padding:8px;padding-right:20px">立即开通</span>
+                            {else}
+                            <span class="mui-badge mui-gradient-orange">已开通</span>
+                            {/if}</a>
+                        </li>
+                    </ul>
+                    {/if}
+                </div>
+            </div>
+            <div class="mui-card-footer" style="text-align:center;background:#fafafa;padding-bottom:9px;-webkit-justify-content:left;justify-content:left;">
+                <span class="mui-footer-item"><em class="mui-ext-icon mui-icon-eye mui-text-yellow"></em> {php echo $activity['falsedata']['read']+$activity['trueread']}</span>
+                <span class="mui-footer-item"><em class="mui-ext-icon mui-icon-fenxiangs mui-text-yellow"></em> {php echo $activity['falsedata']['share']+$activity['trueshare']}</span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    {if !empty($marketing[0]) || !empty($marketing[1]) || !empty($marketing[2]) || $activity['prize']['credit'] || $activity['prize']['share_credit'] || $activity['prize']['sign_credit']}
+	<ul class="mui-table-view market-box" style="margin-top:0;">
+    	{if !empty($marketing[0]) || !empty($marketing[1]) || !empty($marketing[2])}
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="#" data-popover='marketing'><span class="mui-badge-orange mui-badge-outlined{if !strpos($_SERVER['HTTP_USER_AGENT'], 'Mac OS X')} android{/if}">优惠</span>
+            <span>主办方优惠</span></a>
+        </li>
+        {/if}
+        {if $activity['prize']['credit'] || $activity['prize']['share_credit'] || $activity['prize']['sign_credit']}
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right js-popover" href="#" data-popover='marketing_1'><span class="mui-badge-orange mui-badge-outlined{if !strpos($_SERVER['HTTP_USER_AGENT'], 'Mac OS X')} android{/if}">积分</span>
+            {if $activity['prize']['credit']}
+            <span>报名可得 {$activity['prize']['credit']} 积分</span>
+            {elseif $activity['prize']['share_credit']}
+            <span>分享可得 {$activity['prize']['share_credit']} 积分</span>
+            {else}
+            <span>签到可得 {$activity['prize']['sign_credit']} 积分</span>
+            {/if}
+            </a>
+        </li>
+        {/if}
+    </ul>
+    {/if}
+    <div class="content">
+        <!-- 基本信息 -->      
+        <div class="mui-card mui-one mui-three" style="margin-bottom:0px;">
+            <div class="mui-card-content">
+                <ul class="mui-table-view mui-table-view-chevron">
+                <li class="mui-table-view-cell mui-media" id="storesData">
+					<a class="{if !$activity['hasonline']}mui-navigate-right js-popover{/if}" data-popover="storelist">
+                    	<div class="mui-media-body">
+                        	<div class="mui-media-content-inner">
+                                <p>适用场地<span class="store-num"></span></p>
+                            </div>
+                        </div>
+					</a>
+				</li>
+                {if $activity['hasonline']}
+                <li class="mui-table-view-cell mui-media">
+					<a style="background:#fff;">
+						<div class="mui-media-body">
+                        	<div class="mui-media-content-inner">
+                                <p class="mui-ext-icon mui-icon-dingwei">
+                                    <span class="mui-pl20 mui-ellipsis-2 mui-text-gray">线上活动（无须现场参与）</span>
+                                </p>
+                            </div>
+
+						</div>
+					</a>
+                </li>
+                {if !empty($merchant['tel'])}
+                <li class="mui-table-view-cell mui-media location-phone">
+                    <a class="mui-navigate-right mui-icon-phone-fill" href="tel:{$merchant['tel']}">
+                        <div class="mui-media-body">
+                            <div class="mui-media-content-inner">
+                                <p class="mui-ext-icon mui-icon-phone">
+                                    <span class="mui-pl20 mui-ellipsis-2 mui-text-gray">{$merchant['tel']}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {/if}
+                {/if}
+                <li class="mui-table-view-cell mui-media location-phone" style="padding-right:12px;">
+                    <a class="" style="background:#fff;">
+                        <div class="mui-media-body">
+                            <div class="mui-media-content-inner">
+                                <p class="mui-ext-icon mui-icon-shizhong">
+                                    <span class="mui-pl20 mui-ellipsis-2 mui-text-rmb">{if TIMESTAMP < strtotime($activity['endtime'])}{php echo date('y年m月d日 H:i',strtotime($activity['starttime']))} 至 {php echo date('y年m月d日 H:i',strtotime($activity['endtime']))}{else}<font color="#FF0000">活动结束</font>{/if}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+				</ul>
+            </div>
+        </div>
+        
+        <div class="mui-card mui-one mui-two" style="font-family:'微软雅黑'">
+            <div class="mui-card-header mui-card-media">
+                <a href="{if $_W['_config']['merch']==1}{php echo app_url('member/profile/display',array('id'=>$merchant['id'],'muid'=>$merchant['uid']));}{else}javascript:;{/if}">
+                    <img src="{$merchant['logo']}">
+                    {if $merchant['iscert']}
+                    <span class="mui-ext-icon mui-icon-renzheng3"></span>
+                    {/if}
+                    <div class="mui-media-body">
+                        <span class="mui-ellipsis">{$merchant['name']}</span>
+                        <p class="mui-small">主办方信息{if $_W['_config']['merch']==1} | 关注用户{php echo number_format($fansnum,0);} 人{/if}</p>
+                        {if $_W['_config']['merch']==1}
+                        <i class="mui-badge{if !$fans} mui-badge-orange{/if} mui-pull-right js-merch-follow" data-follow="{if $fans}0{else}1{/if}" data-id="{$merchant['id']}" data-muid="{$merchant['uid']}" onClick="javascript:return false;">{if $fans}已关注{else}+ 关注{/if}</i>
+                        {/if}
+                    </div>
+                </a>
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <p class="mui-ellipsis-3 mui-text-gray mui-small" style="margin:0;">{$merchant['detail']}</p>
+                </div>
+            </div>
+        </div> 
+        {if !empty($activity['info'])}
+		<div class="mui-card mui-one mui-three mui-detail" style="margin-top:10px;">
+            <div class="mui-card-header mui-card-media" style="padding:0;">
+                <ul class="mui-table-view">
+                 	<li class="mui-table-view-cell"><a href="javascript:;"><p>报名须知</p></a></li>
+                </ul>
+            </div>
+            <div class="mui-card-content">
+            	<div class="mui-card-content-inner" style="padding:10px;">
+                    {$activity['info']}
+            	</div>
+            </div>
+        </div>
+        {/if}
+        <div class="mui-card mui-one mui-three mui-detail js-detail" style="margin-top:10px">
+            <div class="mui-card-header mui-card-media" style="padding:0;">
+                <ul class="mui-table-view">
+                 	<li class="mui-table-view-cell"><a href="javascript:;"><p>图文详情</p></a></li>
+                </ul>
+            </div>
+            <div class="mui-card-content" style="overflow:hidden;">
+            	<div class="mui-card-content-inner" style="padding:10px;">
+                	{$activity['detail']}
+                    {if $activity['total']>1}{/if}
+            	</div>
+            </div>
+            <div class="mui-card-footer js-show">
+                <span class="mui-ext-icon mui-text-orange" style="width:100%;">查看全部详情 </span>
+            </div>
+            <script>$(function(){setTimeout(function(){var h1=3000,h2=$('.js-detail').find('.mui-card-content-inner').height();if(h2>h1){$('.js-detail').find('.mui-card-content').css('max-height','2000px');$('.js-detail').find('.mui-card-footer').show()}else{$('.js-detail').find('.mui-card-content').css('max-height','none');$('.js-detail').find('.mui-card-footer').hide()}},200);$('.js-detail').delegate(".js-show","tap",function(e){$('.js-detail').find('.mui-card-content').css('max-height','none');$(this).removeClass('js-show').addClass('js-hide');$(this).find('span').text('收起详情 ')});$('.js-detail').delegate(".js-hide","tap",function(e){$('.js-detail').find('.mui-card-content').css('max-height','2000px');$(this).removeClass('js-hide').addClass('js-show');$(this).find('span').text('查看全部详情 ')})});</script>
+        </div>
+        {if $activity['switch']['avatar'] && (!empty($records) || $activity['falsedata']['num'])}
+        <div class="M_detail" style="margin:0;">
+        	<div class="mod_tab" style="display:none"><span>男士：{$gender['man']}人&nbsp;&nbsp;&nbsp;&nbsp;女士：{$gender['women']}人</span></div>
+            <ul class="mui-table-view mui-before-no" style="margin-top:10px">
+                <li class="mui-table-view-cell">
+                	<a class="mui-navigate-right" href="{php echo app_url('home/user', array('activityid'=>$activityid))}"><p>已报名{if $activity['switch']['joinnum']}({$joinnum}){/if}</p><span class="mui-badge mui-badge-inverted">更多报名</span></a>
+                </li>
+            </ul>
+            <div class="detail-item detail-more">
+            <a href="{php echo app_url('home/user', array('activityid'=>$activityid))}" class="more-user">
+            {loop $records $i $row}
+            <div class="bm-user">
+            {if $row['buynum']>1}<div class="mui-badge mui-badge-purple" style="position:absolute;z-index:10;top:20px;right:-10px;padding:2px 4px;background:rgba(138,109,233,0.95)">× {$row['buynum']}</div>{/if}
+            {if $row['pic']==''}
+            <img src="{php echo tomedia($row['headimgurl']);}"/>
+            {else}
+            <img src="{php echo tomedia($row['pic']);}" />
+            {/if}
+            <p class="mui-small mui-ellipsis mui-text-gray">{$row['nickname']}</p>
+            </div>
+            {/loop}
+            {if $i<11}
+                {loop $activity['falsedata']['head'] $k $headurl}
+                {if $k > $activity['falsedata']['num']-1 || $k > 11-$i}{php break;}{/if}
+                <div class="bm-user">
+                <img src="{php echo tomedia($headurl);}" />
+                <p class="mui-small mui-ellipsis mui-text-gray">{$activity['falsedata']['nickname'][$k]}</p>
+                </div>
+                {/loop}
+            {/if}
+            </a>
+            </div>
+        </div>
+        {/if}
+        
+        <!--{if $activity['telto']!='' || $activity['wechatnum']!=''}
+        <ul class="mui-table-view" style=" margin-top:10px;">
+        	{if $activity['telto']!=''}
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="tel:18652257885">
+                <p>主持人电话：{$activity['telto']}</p></a>
+            </li>
+            {/if}
+            {if $activity['wechatnum']!=''}
+            <li class="mui-table-view-cell">
+                <a href="javascript:;">
+                <p>官方微信号：{$activity['wechatnum']}</p></a>
+            </li>
+            {/if}
+        </ul>
+        {/if}-->
+        <div style="height:65px;"></div>
+    </div>
+</div>
+</div>
+<div id="cover"></div>
+<div id="guide"><img src="{FX_URL}app/resource/images/guide.png"></div>
+{if $activity['hasoption'] == '1'}{template 'activity/activity_option'}{/if}
+{template 'activity/popover'}
+<script type="text/html" id="storeTpl">
+<li class="mui-table-view-cell mui-media location-phone">
+	<a class="mui-navigate-right mui-icon-location-fill" onClick="openFun.wxMap({{d.lat}},{{d.lng}},'{{d.storename}}','{{d.address}}');" >
+		<div class="mui-media-body">
+			<div class="mui-media-content-inner">
+				<p class="mui-ext-icon mui-icon-dingwei">
+					<span class="mui-pl20 mui-ellipsis-2{{# if(d.distance!=0){ }} mui-small{{# } }} mui-text-gray">{{d.address}}</span>
+					{{# if(d.distance!=0){ }}<span class="mui-pl20">{{(d.distance*0.001).toFixed(1)}}km</span><span class="mui-small mui-text-gray closesttome"> 离我最近</span>{{# } }}
+				</p>
+			</div>
+		</div>
+	</a>
+</li>
+{{# if(d.tel!=''){ }}
+<li class="mui-table-view-cell mui-media location-phone">
+	<a class="mui-navigate-right mui-icon-phone-fill" href="tel:{{d.tel}}">
+		<div class="mui-media-body">
+			<div class="mui-media-content-inner">
+				<p class="mui-ext-icon mui-icon-phone">
+					<span class="mui-pl20 mui-ellipsis-2 mui-text-gray">{{d.tel}}</span>
+				</p>
+			</div>
+		</div>
+	</a>
+</li>
+{{# } }}
+</script>
+<script>
+mui('.mui-bar-tab').on('tap','a',function(){
+	var $this = $(this);
+	if (this.getAttribute('href') != null) {
+		console.log(this.getAttribute('href'));
+		location.href = this.getAttribute('href');
+	} else {
+		if ($(this).data('type')!=undefined){
+			if ($(this).data('type')=='favorite'){
+				openFun.setProperty(this, {$activity['id']}, 'favorite');
+			}else if($(this).data('type')=='kefu'){
+				
+			}
+		}
+		return true;
+	}
+})
+var container = "{$_W['container']}";
+var openFun = {
+	wxMap:function(lat,lng,name,address){
+		if (container=='wechat'){
+			wx.ready(function () {
+				wx.openLocation({
+					latitude: lat, // 纬度，浮点数，范围为90 ~ -90
+					longitude: lng, // 经度，浮点数，范围为180 ~ -180。
+					name: name, // 位置名
+					address: address, // 地址详情说明
+					scale: 16, // 地图缩放级别,整形值,范围从1~28。默认为最大
+					infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+				});
+			});
+		}else{
+			location.href = "http://apis.map.qq.com/uri/v1/marker?marker=coord:"+lat+","+lng+";title:"+name+";addr:"+address+"&referer=myapp";
+		}
+	},
+	loadstore:function(latitude, longitude){
+		var pageStart = 0,pageEnd = 0,thispage = 1,thispsize = 10;
+		$('#storelist').find('.mui-scroll').dropload({
+			scrollArea : $('#storelist').find('.mui-scroll-wrapper'),
+			threshold : 50,
+			loadDownFn : function(me){
+				$.post("{php echo app_url('activity/detail/getstore',array('activityid'=>$activityid))}",{lat:latitude,lng:longitude,page:thispage}, function(data){
+					var gettpl = document.getElementById('storeTpl').innerHTML;
+					if (thispage >= data.tpage || data.tpage == 0){
+						me.lock();// 锁定
+						me.noData();// 无数据
+					}
+					if (data.total==1){
+						gettpl = gettpl.replace('<span class="mui-small mui-text-gray closesttome"> 离我最近</span>','');
+						$('#storesData').find('a').removeClass('mui-navigate-right js-popover').css('background','#fff');
+					}else{
+						$('#storesData').find('.store-num').text('('+data.total+')');
+					}
+					$.each(data.list, function(i, o) {
+						laytpl(gettpl).render(o, function(html){
+							if (i==0){
+								$(html).insertAfter('#storesData');
+							}
+							html = '<ul class="mui-table-view mui-table-view-chevron"><li class="mui-table-view-cell mui-media"><a style="background:#fff;"><div class="mui-media-body"><div class="mui-media-content-inner"><p>'
+							+o.storename+'</p></div></div></a></li>'+html+'</ul>';
+							$('#storelist .list-content').append(html);
+						});
+					});
+						//$('#storesData').append(arr.join(''));
+					thispage++;
+					// 每次数据加载完，必须重置
+					me.resetload();
+				}, 'json');
+			}
+		});
+	},
+	setProperty:function(obj,id,op){/*收藏 */
+		var total_favo = parseInt($(obj).find('em').text());
+		var favorite = parseInt($(obj).attr('data-favorite'));
+		util.loading();
+		$.post("{php echo app_url('activity/detail/favorite')}",{activityid:id,favorite:favorite,type:'{$_GPC["ac"]}'},function(d){
+			util.loading().close();
+			if (op=='favorite'){
+				if(d.result=='1'){;
+					util.tips(d.data?'取消收藏':'收藏成功');
+					$(obj).attr("data-favorite",d.data);
+					if (d.data){
+						$('.js-favorite').removeClass("mui-active");
+					}else{
+						$('.js-favorite').addClass("mui-active");
+					}
+					
+					$(obj).find('em').text(' ' + (d.data?total_favo-1:total_favo+1));
+				}else if (d.result==2){
+					if (container=='wechat'){
+						util.confirm('还未注册，点击确认自动注册？', ' ', function(e) {
+							if (e.index == 1) {
+								location.href = "{php echo app_url('auth/oauth/info')}";
+							}
+						});
+					}else{
+						util.tips('需要在微信中打开');
+					}
+				}else{
+					util.tips('收藏失败');
+				}
+			}
+		},"json");
+	}
+}
+{if !$activity['hasonline']}
+openFun.loadstore(position.lat,position.lng);
+{/if}
+//关注
+$('.js-merch-follow').on("tap",function(e) {
+	var $this = $(this);
+	util.loading();
+	$.post("{php echo app_url('member/profile/follow')}",
+	{id:$this.data('id'),muid:$this.data('muid'),follow:$this.attr('data-follow'),type:'{$_GPC["ac"]}'},function(d){
+		util.loading().close();
+			if(d.result==1){
+				util.tips('操作成功');
+				$this.attr("data-follow",d.data);
+				$this.toggleClass("mui-badge-orange");
+				$this.text(d.data ? '+ 关注' : '已关注');
+			}else if (d.result==2){
+				if (container=='wechat'){
+					util.confirm('还未注册，点击确认自动注册？', ' ', function(e) {
+						if (e.index == 1) {
+							location.href = "{php echo app_url('auth/oauth/info')}";
+						}
+					});
+				}else{
+					util.tips('需要在微信中打开');
+				}
+			}else{
+				util.tips('操作失败','','error');
+			}
+	},"json");
+});
+{if $_W['_config']['fbtn']!='0'}
+/* 浮标拖动动作 */
+var drag = document.getElementById('touchbtn'),
+winWeight = window.innerWidth,
+winHeight = window.innerHeight - 50,
+middleWin = winWeight / 2,
+middleHin = winHeight / 6,
+endTouchX = 0,
+endTouchY = 0,
+iTime = 0;
+function touchMove(ev) {
+	ev.preventDefault();
+	var ev = ev.touches[0];
+	drag.style.top = (ev.pageY - 30) + 'px';
+	drag.style.left = (ev.pageX - 30) + 'px';
+	endTouchX = ev.pageX;
+	endTouchY = ev.pageY;
+}
+drag.addEventListener('touchstart',function(ev) {
+	clearTimeout(iTime);
+	$(drag).fadeTo(50, 0.85);
+	document.addEventListener('touchmove', touchMove, false);
+	document.addEventListener('touchend',function(ev) {
+		document.ontouchmove = null;
+		document.ontouchend = null;
+		if (endTouchY < middleHin && endTouchX > 80 && endTouchX < winWeight - 80) { //停靠上边
+			//drag.style.top = '2px';
+			$(drag).stop().animate({top: '2px'},160,function() {
+				iTime = setTimeout(function() {$(drag).fadeTo(600, 0.35)},3800);
+			});
+		} else if (endTouchY > middleHin * 5 && endTouchX > 80 && endTouchX < winWeight - 80) { //停靠下边
+			$(drag).stop().animate({top: winHeight - 55 + 'px'},160,function() {
+				iTime = setTimeout(function() {$(drag).fadeTo(600, 0.35)},3800);
+			});
+		} else {
+			if (endTouchX > 0 && endTouchX < middleWin) { //停靠左边
+				$(drag).stop().animate({left: '2px'},160,function() {
+					iTime = setTimeout(function() {$(drag).fadeTo(600, 0.35)},3800);
+				});
+
+			} else if (endTouchX != 0) { //停靠右边
+				$(drag).stop().animate({left: winWeight - 50 + 'px'},160,function() {
+					iTime = setTimeout(function() {$(drag).fadeTo(600, 0.35)},3800);
+				});
+			}
+		}
+		document.removeEventListener('touchmove', touchMove, false);
+	}, false)
+}, false)
+{/if}
+//计时
+var sh,joinstime = "{$activity['joinstime']}",joinetime = "{$activity['joinetime']}";
+FreshTime(".clockrun",joinstime,joinetime);
+sh=setInterval(function(){FreshTime(".clockrun",joinstime,joinetime)},1000);
+function FreshTime(id,starttime,endtime){
+	var st = starttime.replace(/-/g,"/"),//开始时间
+	    et = endtime.replace(/-/g,"/");//结束时间
+		st = new Date(st);//开始时间
+	    et = new Date(et);//结束时间
+		//console.log(st);
+	var nowtime = new Date(),//当前时间
+		start_time = parseInt(st.getTime()),
+		end_time = parseInt(et.getTime()),
+		now_time = parseInt(nowtime.getTime()),
+		lefttime = -1; 
+	if (start_time > now_time){
+		lefttime = parseInt((start_time - now_time)/1000);
+	}else if(end_time > now_time){
+		lefttime = parseInt((end_time - now_time)/1000);
+		//console.log(lefttime);
+	}
+	//var bar_width =  (1-(lefttime/3600))*100+"%"; //计算进度条百分比
+	if (lefttime >= 0) {
+		dd=util.pad(parseInt((lefttime/86400)),2);
+		hh=util.pad(parseInt((lefttime/3600))-dd*24,2);
+		mm=util.pad(parseInt((lefttime/60)%60),2);
+		ss=util.pad(parseInt(lefttime%60),2);
+		var clockrun ='<span id="ti_time_hour">'+hh+'</span>:<span id="ti_time_min">'+mm+'</span>:<span id="ti_time_sec">'+ss+'</span>';
+		clockrun = dd!='00' ? '<span id="ti_time_day">'+dd+'</span> 天 ' + clockrun : clockrun;
+		if (start_time > now_time){
+			$('#J_CountDownTxt').text('距开始报名');
+			$('.js-join').find('span.mui-btn').text('报名还未开始');
+			$(id).html(clockrun);
+		}else if(end_time > now_time){
+			var hasoption = parseInt("{$activity['hasoption']}");
+			var guanzhu = parseInt("{$_W['_config']['guanzhu_join']}");
+			var follow = parseInt("{$_W['fans']['follow']}");
+			$('#J_CountDownTxt').text('距报名结束仅剩余');
+			if (((guanzhu==2 && follow) || guanzhu==1) && container=='wechat'){
+				if (hasoption){
+					$('.js-join').attr('href','javascript:;');
+					$('.js-join').addClass('js-selector');
+				}else{
+					$('.js-join').attr('href',"{$joinUrl}");
+				}
+			}
+			$('.js-join').find('span.mui-btn').text('{$joinbtnName}');
+			$('.js-join').find('span.mui-btn').removeClass('mui-btn-default');
+			$('.js-join').find('span.mui-btn').addClass('mui-gradient-danger');
+			$(id).html(clockrun);
+		}
+		//$('#progressbar').css("width",bar_width);
+	}else{
+		$('.js-join').attr('href','javascript:;');
+		$('.js-join').removeClass('js-selector');
+		$('.js-join').find('span.mui-btn').text('来晚了，报名已结束');
+		$('.js-join').find('span.mui-btn').addClass('mui-btn-default');
+		$('.js-join').find('span.mui-btn').addClass('mui-gradient-danger');
+		$('.js-countdown').remove();
+	}
+}
+
+//阅读量计数器
+$.post("{php echo app_url('activity/detail/read',array('id'=>$activity['id']))}",function(d) {},"json");
+</script>
+</body>
+</html>

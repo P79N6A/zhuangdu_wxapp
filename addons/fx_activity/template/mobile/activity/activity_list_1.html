@@ -1,0 +1,672 @@
+{template 'common/header'}
+<style type="text/css">
+/*-webkit-transition: top 2s ease-in-out;transition: top 2s ease-in-out;*/
+.mui-bar.mui-bar-tab{transition:transform .45s,opacity .3s;-webkit-transition:-webkit-transform .45s,opacity .3s;}
+.mui-content .mui-control-content{ height: 100%;}
+.mui-content .mui-card:first-child{ margin-top:0;}
+.mui-bar-nav,.mui-segmented-control.mui-scroll-wrapper,.mui-segmented-control.mui-scroll-wrapper .mui-scroll{ height:1.7rem;}
+.mui-bar-nav .mui-segmented-control.mui-scroll-wrapper{height:1.7rem;padding-right:20%;}
+.mui-bar-nav~.mui-content{padding-top:3.6rem;}
+.mui-bar-nav~.mui-content .mui-card:first-child{ margin-top:0;}
+.mui-bar-nav .mui-segmented-control .mui-control-item{font-size:.6rem;margin-left:0.4rem;margin-right: 0.5rem;line-height:1.75rem;border-bottom:none!important;}
+.mui-bar-nav .mui-segmented-control .mui-control-item.mui-active{color:#FF7B33!important;border-bottom:none!important;}
+.mui-bar-nav .mui-segmented-control .mui-slider-progress-ext{ bottom:0.5px; top:auto;}
+.mui-bar-nav .mui-tab-more{position:fixed;right:0;top:1.93rem;height:1.3rem;overflow: hidden;margin-top: 5px;width:10%;background: #fff;box-shadow: rgba(255,255,255,0.85) -15px 0px 8px;z-index: 10;}
+.mui-bar-nav .mui-tab-more .mui-table-view{height:100%;width:100%;display:table;table-layout:auto;}
+.mui-bar-nav .mui-tab-more .mui-table-view:after{ height:0;}
+.mui-bar-nav .mui-tab-more .mui-collapse{display:table-cell;vertical-align: middle;padding: inherit;width:100%;}
+.mui-bar-nav .mui-tab-more .mui-collapse a{ background:none;color:#fff;font-size:12px;line-height:2;width:100%; height:100%;margin:0;}
+.mui-bar-nav .mui-tab-more .mui-collapse a:after{right:10px;font-size: 13px;}
+.mui-bar-nav .mui-tab-more .mui-collapse.mui-active{background:none;}
+.mui-bar-nav .mui-tab-more .mui-collapse.mui-active a:after{color:#FF7B33}
+.mui-bar-nav .mui-search .mui-placeholder{padding-top:0.33rem;line-height:30px;}
+.mui-bar-nav .mui-search .mui-placeholder .mui-icon{ padding:5px 10px;}
+.mui-bar-nav .mui-slider-indicator:before{content: '';position: absolute;left: 0;right: auto;top:0;height: 1px;width: 100%;background-color:#e0e0e0;display: block;z-index: 15;-webkit-transform: scaleY(.5);transform: scaleY(.5);-webkit-transform-origin: 0 100%;transform-origin: 0 100%;}
+.mui-search input[type=search]{padding-right:15px;}
+.mui-popover .mui-popover-header a{ color:#969696;position:absolute;z-index:1;display:block;right:-10px;top:50%;-webkit-transform: translateX(-50%) translateY(-50%);transform: translateX(-50%) translateY(-50%);}
+.mui-popover .mui-popover-header a me{ font-size:30px;}
+.mui-popover .mui-popover-content{height:100%;}
+.mui-popover-top{width:100%!important;border-radius:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0);-webkit-box-shadow:none;box-shadow:none;-webkit-transition:-webkit-transform .3s,opacity .3s;transition:transform .3s,opacity .3s;}
+.mui-popover-top.mui-active{position:fixed;-webkit-transform:translate3d(0,0,0);transform: translate3d(0,0,0);}
+
+.selector-control{ z-index:100; position:relative; height:1.71rem; overflow:hidden; background:#fdfdfd;}
+.selector-control .mui-table-view{ background:#fdfdfd; margin-top:0; display:table;width:100%;table-layout: fixed;height: 1.7rem;}
+.selector-control .mui-table-view-cell.mui-collapse{ overflow:visible;vertical-align: middle; padding:0;width:100%; text-align:center;display:table-cell!important;}
+.selector-control .mui-table-view-cell.mui-collapse a{ line-height:3.5;font-size:0.5rem;}
+.selector-control .mui-table-view-cell.mui-collapse.mui-active{ background:#fdfdfd; color:#FF7B33}
+.selector-control .mui-table-view-cell.mui-collapse a.mui-active{ background:none; color:#FF7B33}
+.selector-control .mui-table-view-cell.mui-collapse a:after{ right:inherit;content: ""!important; width: 0;height: 0;border-top: .2rem solid #bbb;border-left: .18rem solid transparent;border-right: .18rem solid transparent;border-bottom: 0;margin-left: .18rem;}
+.selector-control .mui-table-view-cell.mui-collapse.mui-active a:after{ color:#FF7B33;border-top: 0;border-left: .18rem solid transparent;border-right: .18rem solid transparent;border-bottom: .2rem solid #FF7B33;margin-bottom: 0;}
+.mui-refresh.mui-table-view:after{height:1px!important;}
+.mui-refresh .mui-navigate-right:after{ content:'\e565'; font-size:20px;}
+
+.selector-content{top:3.6rem;left:0;right:0;box-shadow:none;max-height:75%;width:100%; background:#FFF;}
+.selector-content .selector-content-item{display:none;position:relative; height:100%;}
+.selector-content .mui-table-view-cell a{ padding-left:30px; font-size:14px; line-height:1.5;}
+.selector-content .mui-table-view-cell:after{ left:0;}
+.selector-content .mui-table-view-cell.mui-selected{ color:#FF7B33;}
+.selector-content .mui-table-view-cell.mui-selected a:before{ content: '\e472';left: 5px; font-size: 24px;}
+.selector-content .selector-content-item ul:after{height: 1px;}
+.mui-backdrop-top .mui-backdrop{margin-top:3.6rem!important;}
+
+.mui-scroll-container{ height:70px;overflow: hidden; margin-bottom:5px;}
+.mui-scroll-container.onlyone{height:auto;}
+.mui-scroll-control{ min-height:105px;text-align:left;white-space:nowrap;position:relative;overflow:hidden;overflow-x:scroll;}
+.mui-scroll-control .scroll-control-item{ text-align:left;margin-left:2%; overflow:hidden; position:relative; height:70px; width:32%; display:inline-block;}
+.mui-scroll-control .scroll-control-item:first-child{ margin-left:0;}
+.mui-scroll-control .scroll-control-item img{position: relative;top: 0;left:50%;-webkit-transform: translateX(-50%);transform: translateX(-50%); height:100%;display: block;}
+.mui-scroll-control .mui-col-xs-12{width:100%!important;height:auto!important; position:relative}
+.mui-scroll-control .mui-col-xs-12.scroll-control-item img{height: auto; width:100%!important;left:0;-webkit-transform: translateX(0);transform: translateX(0%);}
+.mui-scroll-container.onlyone .mui-scroll-control{overflow:hidden;}
+.mui-blur .mui-content, .mui-blur .mui-bar, .mui-blur .subscribe{filter: url(blur.svg#blur);-webkit-filter: blur(10px);-moz-filter: blur(10px);-ms-filter: blur(10px);filter: blur(10px);filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);}
+.mui-card.mui-one .mui-card-header .mui-media-body i.mui-badge{right:-10px;border-radius: 100px 0 0 100px;}
+.mui-card.mui-one .mui-fee-bar{border-radius:3px;line-height:2.2;height:44px;background:#fff5f4;border-left:solid 2px #ffdbdd;padding:8px;padding-left:0px;overflow:hidden;}
+.search-row-item{display:table-cell;position:relative;vertical-align:middle;}
+.search-row-item.first{min-width:35px;max-width:85px;padding-right:20px;padding-top:3px;}
+.search-row-item.first .mui-navigate-right:after{content:'\e581';right:6px;font-weight:bold;color:#333;}
+.search-row-item.last{width:38px;text-align:right; padding-top:3px;}
+#mui_screen{ width:80%;left:auto;right:0;}
+#mui_screen .mui-popover-content{padding-bottom:45px;}
+#mui_screen .mui-btn-group{height:45px;overflow:hidden;background:#fafafa;margin-top:-40px;position:relative;z-index:15;}
+#mui_screen .mui-btn-group .mui-btn{width:50%;height:45px;border-radius:0;}
+
+.mui-table-view.mui-group-btn{margin:0; padding-left:10px!important;}
+.mui-table-view.mui-group-btn,.mui-table-view.mui-group-btn .mui-table-view-cell{border-radius:0!important;}
+.mui-table-view.mui-group-btn .mui-table-view-cell{float:left;text-align:center;width:28%; margin-right:5%;padding:3px 0!important; margin-bottom:3px;}
+.mui-table-view.mui-group-btn .mui-table-view-cell:after{height:0!important;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a{background:#fff!important;margin:0!important;border-radius:5px!important;color:#333;line-height:2; font-size:12px;font-family: "Microsoft Yahei","微软雅黑",Arial,"Hiragino Sans GB","宋体","Helvetica Neue",Helvetica,sans-serif;}
+.mui-table-view.mui-group-btn .mui-table-view-cell a:after{content:" ";width:199%;height:200%;position: absolute;top: 0;left: 0;border: 1px solid #aaa;box-sizing: border-box;border-radius:10px;-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+.mui-table-view.mui-group-btn .mui-table-view-cell.mui-selected a{color:#ff6f02;}
+.mui-table-view.mui-group-btn .mui-table-view-cell.mui-selected a:after{border:1px solid #ff6f02;}
+</style>
+{template 'common/followed'}
+{template 'common/nav'}
+<div class="mui-content">
+<div id="slider" class="mui-slider" style="height:100%">
+    <header class="mui-bar mui-bar-nav" style="{if $_W['_config']['cateswitch']}height:3.6rem; {else}height:1.9rem; {/if}z-index:1000;">
+        <div class="mui-input-row mui-search" style=" margin:0 auto; width:95%;height:1.9rem;display:table;table-layout:auto;">
+            {if intval($_W['_config']['citys'])}
+            <div class="search-row-item first" id="ucity"><a class="mui-navigate-right mui-ellipsis-1" href="{php echo app_url('utility/city/display')}"></a></div>
+            {/if}
+            <div class="search-row-item js-popover" data-popover="mui_search">
+                <input type="search" class="mui-input-clear" placeholder="" data-input-clear="1" data-input-search="1" value="{$keyword}">
+                <span class="mui-icon mui-icon-clear mui-hidden"></span>
+                <span class="mui-placeholder"{if !empty($keyword)} style="text-align:left;"{/if}><span class="mui-icon mui-icon-search"></span>{if empty($keyword)}<span>搜索您喜欢的活动</span>{/if}</span>
+            </div>
+            <div class="search-row-item last js-popover" data-popover="mui_screen">筛选</div>
+        </div>
+        {if $_W['_config']['cateswitch']}
+        <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="font-size:0;">
+            <div class="mui-scroll">
+                <a class="mui-control-item mui-active" href="#item0" data-pid='0' data-cid='0' data-key='0'>全部</a>
+                {php $i=0;}
+                {loop $cates $k $cate}
+                {php $i++}
+                {if $pid == $cate['id']}{php $item = $i;}{/if}
+                <a class="mui-control-item" href="#item{$i}" data-pid='{$cate['id']}' data-cid='{php echo $cid?$cid:0}' data-key='{$i}'>{$cate['name']}</a>
+                {/loop}
+            </div>
+        </div>
+        <div class="mui-tab-more">
+             <ul class="mui-table-view js-selector" style="margin-top:0;">
+                <li class="mui-table-view-cell mui-collapse"><a class="mui-navigate-right" data-popover="selector" data-type="children">分类</a></li>
+             </ul>
+        </div>
+        {/if}
+    </header>
+	<div class="mui-slider-group" style="height:100%;{if $_W['_config']['cateswitch']} padding-top:3.6rem{else} padding-top:1.9rem{/if}">
+        <div id="item0" class="mui-slider-item mui-control-content mui-active">
+            <div class="mui-scroll-wrapper-ext">
+                <div class="mui-scroll-ext">
+                    {if $_W['_config']['location']}
+                    <ul class="mui-table-view mui-refresh" style="margin-top:0px;">
+                        <li class="mui-table-view-cell" style="background-color:#fff;line-height:1.3;padding-left:0.4rem;">
+                            <span class="mui-navigate-right" style="font-size:12px;"></span>
+                        </li>
+                    </ul>
+                    {/if}
+                    <div class="list-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {php $i=0;}
+        {loop $cates $k $cate}
+        {php $i++}
+        <div id="item{$i}" class="mui-slider-item mui-control-content">
+            <div class="mui-scroll-wrapper-ext">
+                <div class="mui-scroll-ext">
+                    <div class="list-content">
+                        <div class="mui-loading">
+                            <div class="mui-spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/loop}
+    </div>
+</div>
+</div>
+
+<div id="selector" class="mui-popover mui-popover-top mui-radius-none selector-content" style="padding-bottom:0;">
+	<div id="children" class="selector-content-item">
+        <div class="mui-popover-content">
+            <div class="mui-row mui-fullscreen" style="overflow:hidden">
+                <div class="mui-col-xs-6" style="height:100%">
+                    <div class="scrollbar">
+                        <div class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+                            <a class="mui-control-item js-cate-check{if $pid==0} mui-active{/if}" href="#content0" data-pid="0" data-cid="0" data-key="0" data-title="全部分类">全部分类</a>
+                            {php $i=0;}
+                            {loop $cates $cate}
+                            {php $i++}
+                            <a class="mui-control-item js-cate-check{if $pid==$cate['id']} mui-active{/if}" href="#content{$i}" data-pid="{$cate['id']}" data-cid="0" data-key="{$i}">{$cate['name']}</a>
+                            {/loop}
+                        </div>
+                    </div>
+                </div>
+                <div class="mui-col-xs-6" style="height:100%;background:#f5f5f5">
+                <div class="scrollbar">
+                    <div class="mui-control-contents">
+                    <div id="content0" class="mui-control-content{if !$pid} mui-active{/if}"></div>
+                    {php $i=0;}
+                    {loop $cates $cate}
+                    	{php $i++}
+                        <div id="content{$i}" class="mui-control-content{if $pid==$cate['id']} mui-active{/if}">{if (!empty($children[$cate['id']]))}
+                            <ul class="mui-table-view" style="max-height:inherit; margin-top:0;">
+                            	<li class="mui-table-view-cell js-cate-check{if $pid==$cate['id'] && !$cid} active{/if}" data-key="{$i}" data-pid="{$cate['id']}" data-cid="0" data-all="1">全部{$cate['name']}</li>
+                                {loop $children[$cate['id']] $ccate}
+                                <li class="mui-table-view-cell js-cate-check{if $cid==$ccate['id']} active{/if}" data-key="{$i}" data-pid="{$cate['id']}" data-cid="{$ccate['id']}">{$ccate['name']}</li>
+                                {/loop}
+                            </ul>
+                        {/if}</div>
+                    {/loop}
+                    </div>
+                </div>
+                </div>
+        	</div>
+        </div>
+    </div>
+</div>
+<div id="mui_search" class="mui-popover mui-popover-left">
+	<form action="" method="post" onSubmit="return check(this)" style="position: initial">
+    <div class="mui-popover-header">
+    	<div class="mui-input-row mui-search" style="margin:0;width:85%; background:none;">
+            <input type="search" name="keyword" class="mui-input-clear" placeholder="输入主办方、或感兴趣的活动" data-input-clear="1" data-input-search="1" value="{$keyword}">
+            <span class="mui-icon mui-icon-clear"></span>
+            <span class="mui-placeholder"><span class="mui-icon mui-icon-search"></span></span>
+        </div>
+        <a class="mui-pull-right mui-popover-close js-popover-close" data-popover="mui_search" style="right: -30px;padding: inherit;">取消&nbsp;</a>
+    </div>
+    </form>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-content-padded">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="mui_screen" class="mui-popover mui-popover-left">
+	<input type="hidden" name="order" value="0"/>
+    <input type="hidden" name="pricetype" value="0"/>
+    <input type="hidden" name="status" value="0"/>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            	<div style="background:#FFF;line-height:3;margin-top:10px"><span class="mui-content-padded">排序</span></div>
+            	<ul class="mui-table-view mui-group-btn mui-table-view-radio">
+                    <li class="mui-table-view-cell mui-selected"><a href="#" class="mui-navigate-left" data-order="0">综合排序</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-order="1">最新发布</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-order="2">人气最高</a></li>
+                    {if $_W['_config']['location']}<li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-order="3">离我最近</a></li>{/if}
+                </ul>
+                <div style="background:#FFF;line-height:3;margin-top:10px"><span class="mui-content-padded">费用</span></div>
+                <ul class="mui-table-view mui-group-btn mui-table-view-radio">
+                    <li class="mui-table-view-cell mui-selected"><a href="#" class="mui-navigate-left" data-price="0">全部</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-price="1">只看免费</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-price="2">只看收费</a></li>
+                </ul>
+                <div style="background:#FFF;line-height:3;margin-top:10px"><span class="mui-content-padded">活动状态</span></div>
+                <ul class="mui-table-view mui-group-btn mui-table-view-radio">
+                    <li class="mui-table-view-cell mui-selected"><a href="#" class="mui-navigate-left" data-status="0">不限</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="1">报名中</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="2">未开始</a></li>
+                    <li class="mui-table-view-cell"><a href="#" class="mui-navigate-left" data-status="3">已结束</a></li>
+                </ul>
+                </div>
+        </div>
+    </div>
+    <div class="mui-btn-group">
+    	<button type="button" class="mui-btn mui-btn-orange mui-pull-right submit">确定</button>
+    	<button type="button" class="mui-btn mui-btn-default mui-pull-right reset">重置</button>
+    </div>
+</div>
+
+<script type="text/html" id="actlist">
+<a href="{php echo app_url('activity/detail/display')}&activityid={{d.id}}">
+<div class="mui-card mui-one">
+    <div class="mui-card-header mui-card-media">
+        <img src="{{d.merchant.logo}}">
+        <div class="mui-media-body" style="line-height:1.5!important;">
+            <span class="mui-ellipsis" style="margin-right:30%;display:block;">{{d.merchant.name}}<p class="mui-small mui-ellipsis-1">{{d.merchant.detail}}</p></span>
+		</div>
+    </div>
+    <div class="mui-card-content mui-after-no">
+        <div class="mui-card-content-inner">
+            <p style="color:#333;font-size:14px;" class="mui-ellipsis-2">
+			{if $_W['plugin']['card']['config']['card_enable']}
+			{{# if(d.atype == 2){ }}<span class="mui-badge mui-badge-yellow" style="border-radius:3px;margin-right:5px;line-height:1.2;">{$yearcard['name']}</span>{{# } }}
+			{{# if(d.atype == 3){ }}<span class="mui-badge mui-badge-yellow" style="border-radius:3px;margin-right:5px;line-height:1.2;">仅限{$yearcard['name']}</span>{{# } }}
+			{/if}
+			{{d.title}}</p>
+            <div class="mui-scroll-container{{d.atlaslen==1?' onlyone':''}}">
+                <div class="mui-scroll-control">{{d.tpl_atlas}}</div>
+            </div>
+            <p class="mui-ext-icon mui-icon-shizhong"> {{d.tpl_startMsg}} {{d.tpl_joinMsg}}</p>
+            <p class="mui-ext-icon"><span class="mui-text-danger">人气 {{parseInt(d.trueread)+parseInt(d.falseread)}}</span> | {{d.showjoin ? d.joinnum+' 人已报名':''}} | {{d.hasonline==1?'线上活动':d.tpl_adinfo+' '+ d.distance}}</p>
+			<p class="mui-fee-bar">
+				<span class="mui-badge" style="background:none;color:#ff3e15;">{{d.tpl_aprice}}</span>
+				{if $_W['plugin']['card']['config']['card_enable']}{{# if(d.atype == 2){ }}<span class="mui-badge mui-badge-danger">{$yearcard['name']}：{{d.tpl_marketprice}}</span>{{# } }}{/if}
+				{{d.tpl_joinBtn}}
+			</p>
+        </div>
+    </div>
+    <div class="mui-card-footer" style="display: none;">
+    	{{d.showjoin?'<span class="mui-text-gray">已报名 <em class="mui-text-orange">'+d.joinnum+'</em></span>':''}}
+        <span class="mui-text-gray">{{d.tpl_quota}}</span>
+        {{!d.showjoin?'<span class="mui-text-gray"></span><span class="mui-text-gray"></span><span class="mui-text-gray"></span>':''}}
+        <span class="mui-text-gray"><em class="mui-icon mui-icon-eye"></em> {{parseInt(d.trueread)+parseInt(d.falseread)}}</span>
+        <span class="mui-text-gray{{d.favorite>0?' mui-active':''}}" data-favorite="{{d.favorite>0?0:1}}" onclick="setProperty(this,{{d.id}},'favorite');return false;"> <em class="mui-ext-icon mui-icon-xihuan"> {{d.ftimes}}</em></span>
+    </div>
+</div>
+</a>
+</script>
+<script>
+mui('.scrollbar').scroll({indicators: false});
+mui('.mui-scroll-wrapper').scroll({indicators: false});
+var container = "{$_W['container']}";
+//屏蔽slider选项卡弹出遮罩
+$('.mui-slider .mui-control-item').on('tap',function(e) {
+	setTimeout(function(){$('.mui-backdrop').remove()});
+	$("body").addClass('mui-backdrop-none');
+});
+$('.js-cate-check').on('tap',function(e) {
+	var contentID = $(this).attr("href");
+	$(contentID).siblings().hide();
+	$(contentID).fadeTo(500,1);
+	setTimeout(function(){$('.mui-backdrop.mui-active').siblings('.mui-backdrop').remove()});
+	$("body").addClass('mui-backdrop-none');
+});
+{if $_W['_config']['location']}
+$('.mui-refresh').find('span').html(position.addr?position.city+position.addr:'正在获取位置......');
+$('#ucity a').text(position.ucity?position.ucity:'定位中...');
+$('.mui-refresh').on('tap',function(){
+	var _this = $(this);
+	_this.find('span').html('正在获取位置......');
+	util.location(function(position) {
+		_this.find('span').html(position.addr);
+	});
+});
+{/if}
+/*var scrollBefore = $('.mui-scroll-wrapper-ext').scrollTop();
+$('.mui-scroll-wrapper-ext').scroll(function() {
+	var scrollAfter = $('.mui-scroll-wrapper-ext').scrollTop();
+	if (scrollBefore < scrollAfter) {
+		if (scrollAfter>50) {
+			$(".mui-content").css('padding-bottom',0);
+			$('.mui-bar.mui-bar-tab').css({'-webkit-transform':'translate3d(0,150%,0)',transform:'translate3d(0,150%,0)',opacity:0});
+		}
+	} else {
+		$('.mui-bar.mui-bar-tab').css({'-webkit-transform':'translate3d(0,0,0)',transform:'translate3d(0,0,0)',opacity:1});
+	}
+	scrollBefore = scrollAfter;
+});*/
+
+//上拉加载活动列表
+var loadItem=function(id,parentid,childid){
+	var pageStart = 0,pageEnd = 0,thispage = 1,thispsize = 10;
+	var counter=0;//计数器
+	var ordertype = $("#mui_screen input[name='order']").val(),
+		pricetype = $("#mui_screen input[name='pricetype']").val(),
+		status = $("#mui_screen input[name='status']").val();
+		//console.log(pricetype);
+	$(id).find('.mui-scroll-ext').dropload({
+		scrollArea : $(id).find('.mui-scroll-wrapper-ext'),
+		threshold : 50,
+		loadDownFn : function(me){
+			mui.getJSON("{php echo app_url('activity/activity/ajax',array('keyword' => $keyword))}",{page:thispage,parentid:parentid,childid:childid,ordertype:ordertype,
+				pricetype:pricetype,status:status,lat:position.lat,lng:position.lng,ucity:position.ucity},
+				function(data){
+					
+				var stime = new Date(),result='';
+				if (data.tpage == 0){
+					result = '<div class="no-orders-at-all">'
+					+'<div class="head-block">'
+					+'    <div class="blank-icon mui-ext-icon mui-icon-mhuodong"></div>'
+					+'    <p class="hint">当前没有任何信息</p>'
+					+'    <p class="recommend-hint"></p>'
+					+'</div></div>';
+					$(id).find('.list-content').append(result);
+				}
+				if (thispage >= data.tpage || data.tpage == 0){
+					me.lock();// 锁定
+					me.noData();// 无数据
+				}
+				for(var i = 0; i < data.list.length; i++){
+					joinstime = new Date(data.list[i].joinstime.replace("-", "/").replace("-", "/"));
+					joinetime = new Date(data.list[i].joinetime.replace("-", "/").replace("-", "/"));
+					starttime = new Date(data.list[i].starttime.replace("-", "/").replace("-", "/"));
+					endtime   = new Date(data.list[i].endtime.replace("-", "/").replace("-", "/"));
+					var joinnum  = parseInt(data.list[i].joinnum),
+						quota    = parseInt(data.list[i].quota),
+						aprice   = data.list[i].aprice,
+						marketprice   = data.list[i].marketprice,
+						minprice = data.list[i].minprice,
+						maxprice = data.list[i].maxprice;
+					
+					if (stime > endtime){
+						data.list[i].tpl_startMsg = endtime.format('y') != stime.format('y') ? endtime.format('yy年MM月dd日 hh:mm'):endtime.format('MM月dd日 hh:mm');
+						data.list[i].tpl_joinBtn = '<span class="mui-badge mui-pull-right" style="padding:8px">活动结束</span>'
+						data.list[i].tpl_joinMsg = '';
+					}else{
+						if (stime < starttime){
+							data.list[i].tpl_startMsg = starttime.format('MM月dd日 hh:mm')+' 开始';
+						}else{
+							data.list[i].tpl_startMsg = '活动进行中';
+						}
+						
+						if (joinnum >= quota && quota > 0){
+							data.list[i].tpl_joinMsg = '';
+							data.list[i].tpl_joinBtn = '<span class="mui-badge mui-badge-danger mui-pull-right" style="padding:8px">名额已满</span>'
+						}else{
+							data.list[i].tpl_joinMsg = joinstime > stime ? '<span class="mui-badge mui-badge-danger">'+joinstime.format('MM月dd日 hh:mm')+' 开启报名</span>' : '';
+							data.list[i].tpl_joinBtn = joinstime > stime ? '<span class="mui-badge mui-badge-danger" style="padding:8px">'+'预热中</span>' : (stime>joinetime ? '<span class="mui-badge mui-pull-right" style="padding:8px">报名结束</span>': '<span class="mui-badge mui-badge-orange mui-gradient-danger mui-pull-right" style="padding:8px">立即报名</span>');
+						}						
+					}
+					var atlaslen=0;
+					data.list[i].tpl_atlas='';
+					if (data.bigimg==1 || data.list[i].atlas==null){
+						atlaslen = 1;
+						data.list[i].tpl_atlas+='<span class="scroll-control-item mui-col-xs-12"><img src="'+"{$_W['attachurl']}"+data.list[i].thumb+'"></span>';
+					}else{
+						atlaslen = data.list[i].atlas.length;
+						$.each(data.list[i].atlas, function(k, atlas) {
+							data.list[i].tpl_atlas+='<span class="scroll-control-item'+(atlaslen==1?' mui-col-xs-12':'')+'"><img src="'+"{$_W['attachurl']}"+atlas+'"></span>';
+							if (k == 2) return false;
+						});
+					}
+					data.list[i].atlaslen = atlaslen;
+					
+					data.list[i].tpl_aprice = aprice > 0 || maxprice.aprice > 0 ?'价格：<em class="mui-rmb"><font class="mui-big">'+(maxprice.aprice?minprice.aprice:aprice)+'</font></em>'+(maxprice.aprice>minprice.aprice?' 起':''):'<em class="mui-big">'+(data.list[i].freetitle!=''?data.list[i].freetitle:'免费活动')+'</em>';
+					
+					if (data.list[i].prize.hasOwnProperty("cardper") && data.list[i].prize.cardper.enable==1){
+						data.list[i].tpl_marketprice = data.list[i].prize.cardper.percent+'折';
+					}else{
+						data.list[i].tpl_marketprice = marketprice > 0 || maxprice.marketprice > 0 ?'<em class="mui-rmb"><font class="mui-big">'+(maxprice.marketprice?minprice.marketprice:marketprice)+'</font></em>'+(maxprice.marketprice>minprice.marketprice?' 起':''):'免单';
+					}
+					
+					
+					data.list[i].tpl_quota = (quota>0?'剩余 <em class="mui-text-orange">'+(quota-joinnum)+'</em>':'<em class="mui-text-orange">名额不限</em>');
+					
+					if (data.list[i].adinfo!='' && data.list[i].adinfo!=null){
+						data.list[i].tpl_adinfo = position.ucity != '全国' ? data.list[i].adinfo.split(',')[3] : (data.list[i].adinfo.split(',')[2]).replace("市", "") + data.list[i].adinfo.split(',')[3];
+					}else{
+						data.list[i].tpl_adinfo = '';
+					}
+					
+					if (data.list[i].merchant.storename==null) data.list[i].merchant.storename = '';
+					
+					var gettpl = document.getElementById('actlist').innerHTML;
+					laytpl(gettpl).render(data.list[i], function(html){
+						$(id).find('.list-content').append(html);
+					});
+				}
+				
+				//$(id).find('.list-content').append(result);
+				thispage++;
+				// 每次数据加载完，必须重置
+				me.resetload();
+			});
+		}
+	});
+	
+};
+
+{if $_W['_config']['cateswitch']}
+var old_pid = 0,old_cid = new Array(),old_key = 0,old_screen = new Array(),cid_arr = new Array();
+var loadChild = function(pid,cid,key){
+	var html='',itemid = document.getElementById('item'+key);
+	var get_screen = new Array();
+	$("#mui_screen input").each(function(i){
+		get_screen[i] = $(this).val();
+	});
+	old_screen[key] = !old_screen[key] ? '0,0,0' : old_screen[key];
+	old_cid[key] = !old_cid[key] ? 0 : old_cid[key];
+	var loading = itemid.querySelector('.mui-loading');
+	if (loading || (old_cid[key]!=cid) ||  get_screen.toString() != old_screen[key].toString()){
+		itemid.querySelector('.list-content').innerHTML = '';
+		$(itemid).find('.dropload-down').remove();
+		loadItem('#item'+key,pid,cid);
+	}
+	old_pid = pid;
+	old_key = key;
+	old_screen[key] = get_screen;
+	old_cid[key] = cid;
+};
+{/if}
+$(function() {
+	//跳转到指定item
+	var item_index = parseInt('{$item}');
+	if (item_index){
+		mui('#slider').slider().gotoItem(item_index);
+		$('#item0').find('.list-content').append('<div class="mui-loading"><div class="mui-spinner"></div></div>');
+	}else{
+		loadItem('#item0',0,0);
+	}	
+
+	var winW = $(window).width(),winH = $(window).height(),iTime = 0;
+	//弹窗控制器
+	var old_popover = '',old_item ='';
+	$(".js-selector").on("tap",'a',function(e) {
+		clearTimeout(iTime);
+		var popover = "#"+$(this).data("popover"),
+			checked = document.querySelector('.selector-content.mui-active'),
+			items   = "#"+$(this).data("type");
+		$(popover).show();
+		$(items).siblings().hide();
+		$(items).fadeIn(800);
+		var selectorH = items=='#children'?$(items).find('.mui-fullscreen .mui-segmented-control').height():$(items).find('.mui-scroll').height();
+		if (old_popover == popover && old_item != items && checked){
+			$(popover).css({'-webkit-transition':'height 0.5s ease-in-out',transition:'height 0.5s ease-in-out'});
+		}
+		selectorH = items == '#screen' ? selectorH+43:selectorH;
+		items == '#screen' ? $(items).css('padding-bottom','43px') : $(items).css('padding-bottom','5px');
+		if ((winH*0.75-43) >= selectorH){
+			$(popover).css("height",selectorH+10+'px');
+		}else{
+			$(popover).css("height",(winH*0.75-43)+'px');
+		}
+		if ((old_popover == popover && old_item == items) || old_popover != popover || !checked){
+			$(popover).css('transition','transform .45s,opacity .6s');
+			if (items=='#children') iTime = setTimeout(function(){$(popover).css('transition','transform .6s,opacity .8s')}, 650);
+			mui(popover).popover('toggle');
+			$("body").toggleClass('mui-backdrop-top');
+		}
+		old_popover = popover;
+		old_item = "#"+$(this).data("type");
+	});	
+	$(".js-popover").on("click", function(e) {
+		$("body").removeClass('mui-backdrop-top');
+		var popover = "#"+$(this).data("popover");
+		mui(popover).popover('toggle');
+		if (popover == '#mui_search') {
+			var t = '{$keyword}';
+			if (util.ios()){
+				$("input[name='keyword']").focus().val(t);
+			}else{
+
+				setTimeout(function(){$("input[name='keyword']").focus().val(t);}, 520);
+			}
+		}
+	});
+	$(".js-popover-close").on("click",function(e) {
+		var popover = "#"+$(this).data("popover");
+		mui(popover).popover('hide');
+	}); 
+	$('.mui-search .mui-icon-clear').on("click", function(e) {
+		$("input[name='keyword']").focus();
+		$("input[name='keyword']").val('');
+	});
+{if $_W['_config']['cateswitch']}
+	var key = 0,pid = 0,cid = 0;
+	//监听slide
+	document.getElementById('slider').addEventListener('slide', function(e) {
+		key = parseInt(e.detail.slideNumber);
+		pid = $('#slider .mui-control-item').eq(key).data("pid");
+		cid = $('#slider .mui-control-item').eq(key).data("cid");
+		loadChild(pid,cid,key);
+	});
+	//选取分类
+	$('#selector .js-cate-check').on('tap',function(e) {
+		key = $(this).data("key");
+		pid = $(this).data("pid");
+		cid = $(this).data("cid");
+		if ($(this).hasClass('mui-table-view-cell')) {
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+		}
+		if (key==0 || !$('#content'+key).html().length || $(this).data("all") || cid){
+			$('#selector').css('transition','transform .6s,opacity .8s');
+			setTimeout(function(){$('.mui-backdrop').remove()});
+			mui('#selector').popover('hide');
+			$('.mui-slider .mui-control-item').eq(key).data('cid',cid);
+			if (key == old_key){
+				loadChild(pid,cid,key);
+			}else{
+				mui('.mui-slider').slider().gotoItem(key,0);
+			}
+			$('.js-selector .mui-table-view-cell.mui-active').removeClass('mui-active');
+			$("body").removeClass('mui-backdrop-top mui-blur');
+		}
+	});
+{/if}
+	//单击空白关闭弹窗出发事件
+	$('body').delegate('.mui-backdrop','click', function(e) {
+		$('#selector').css('transition','transform .6s,opacity .8s');
+		mui('#selector').popover('hide');
+		$("#mui_screen ul").find('li').removeClass('mui-selected');
+		$("#mui_screen input").each(function(i){
+			$("#mui_screen ul").eq(i).find('li').eq($(this).val()).addClass('mui-selected');
+		});
+		$('.js-selector .mui-table-view-cell').removeClass('mui-active');
+		$('#selector .selector-content-item').fadeOut(200);
+		$("body").removeClass('mui-backdrop-top');
+	});
+	//筛选控制
+	$('#mui_screen button').on("tap",function(e) {
+		if ($(this).hasClass('reset')){
+			$("#mui_screen input[name='order']").val(0);
+			$("#mui_screen input[name='pricetype']").val(0);
+			$("#mui_screen input[name='status']").val(0);
+			$('#mui_screen li').removeClass('mui-selected');
+			$('#mui_screen ul').each(function(){
+				$(this).find('li').eq(0).addClass('mui-selected');
+			});
+			return false;
+		}
+		mui('#mui_screen').popover('hide');
+		if ($('header .mui-control-item').length){//判断是否开启分类功能
+			key = $('.mui-control-item.mui-active').data("key");
+			pid = $('.mui-control-item.mui-active').data("pid");
+			cid = $('.mui-control-item.mui-active').data("cid");
+			
+		}
+		$('#mui_screen li.mui-selected a').each(function(){
+			if ($(this).data('order')!=undefined){
+				$("#mui_screen input[name='order']").val($(this).data('order'));
+			}
+			if ($(this).data('price')!=undefined){
+				$("#mui_screen input[name='pricetype']").val($(this).data('price'));
+			}
+			if ($(this).data('status')!=undefined){
+				$("#mui_screen input[name='status']").val($(this).data('status'));
+			}
+		});
+		setTimeout(function() {
+			if ($('header .mui-control-item').length){//判断是否开启分类功能
+				loadChild(pid,cid,key);
+			}else{
+				$('#item'+key).find('.list-content').html('');
+				$('#item'+key).find('.dropload-down').remove();
+				loadItem('#item'+key,pid,cid);
+			}
+		},100);
+	});
+});
+
+/*收藏 */
+function setProperty(obj,id,op){
+	var total_favo = parseInt($(obj).find('em').text());
+	var favorite = parseInt($(obj).attr('data-favorite'));
+	util.loading();
+	$.post("{php echo app_url('activity/detail/favorite')}",{activityid:id,favorite:favorite,type:'list'},function(d){
+		util.loading().close();
+		if (op=='favorite'){	
+			if(d.result==1){;
+				util.toast(d.data?'取消收藏':'收藏成功');
+				$(obj).attr("data-favorite",d.data);
+				$(obj).toggleClass("mui-active");
+				$(obj).find('em').text(' ' + (d.data?total_favo-1:total_favo+1));
+			}else if (d.result==2){
+				if (container=='wechat'){
+					util.confirm('还未注册，点击确认自动注册？', ' ', function(e) {
+						if (e.index == 1) {
+							location.href = "{php echo app_url('auth/oauth/info')}";
+						}
+					});
+				}else{
+					util.tips('需要在微信中打开');
+				}
+			}else{
+				util.toast('收藏失败','','error');
+			}
+		}
+	},"json");
+}
+
+//格式化日期
+Date.prototype.format = function(format) {
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    }
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
+}
+function check(form){
+	if ($.trim(form['keyword'].value) == '') {
+		util.tips('关键词不能为空');
+		return false;
+	}else{
+		form['keyword'].blur();
+		return true;
+	}
+	return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<div class="spec_item" id='spec_{$spec['id']}'>
+    <div class="mui-input-row mui-help spec_item" id='spec_{$spec['id']}'>
+        <i class="mui-ext-icon mui-icon-remove js-remove"  data-type="spec"></i>
+        <i class="mui-ext-icon mui-icon-plus mui-text-primary" onclick="addSpecItem('{$spec['id']}')"></i>
+        <span class="mui-label js-spec-edit" data-id="{$spec['id']}">{php echo empty($spec['title'])?(empty($spec['placeholder'])?'(比如: 门票类型)':$spec['placeholder']):$spec['title']}</span>
+        <input name="spec_id[]" type="hidden" class="spec_id" value="{$spec['id']}" />
+        <input name="spec_title[{$spec['id']}]" type="hidden" class="spec_title" value="{$spec['title']}" placeholder="{php echo empty($spec['placeholder'])?'(比如: 门票类型)':$spec['placeholder']}" />
+    </div>
+    <div id="spec_item_{$spec['id']}" class='spec_item_items'>
+    {if empty($spec['items'])}
+        {php $specitem['id']=random(32);$specitem['show']=1;$specitem['placeholder']='输入选项1'}
+        {template 'activity/spec_item'}
+        {php $specitem['id']=random(32);$specitem['show']=1;$specitem['placeholder']='输入选项2'}
+        {template 'activity/spec_item'}
+    {/if}
+    {loop $spec['items'] $k $specitem}
+    {php $specitem['placeholder']='输入选项'.($k+1);}
+    {template 'activity/spec_item'}
+    {/loop}
+    </div>
+</div>

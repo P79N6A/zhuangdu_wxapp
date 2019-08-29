@@ -1,0 +1,37 @@
+<import src="../../usertab_template/usertab_template.wxml" />
+<view class='container'>
+  <view class="nav bgfff">
+    <view class="{{currentnavTab==index?'nav_active':'nav_default'}}" data-index='{{index}}' wx:for="{{navList}}" bindtap='navbarTap'>
+      <text>{{item}}</text>
+    </view>
+    <view class='line' style='position:absolute; left:122px;top:16px;width:1px;height:32px;background:#f5f5f5;'></view>
+    <view class='line2' style='position:absolute; left:250px;top:16px;width:1px;height:32px;background:#f5f5f5;'></view>
+  </view>
+  <!-- 订单状态 -->
+  <view class='optionBox' style='height:{{show?(selectData.length>5?280:selectData.length*50):0}}px;'>
+    <text class='option' style='height:38px;' wx:for="{{selectData2}}" wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+  </view>
+  <!-- 全部 -->
+  <view class='optionBox' style='height:{{show2?(selectData.length>5?280:selectData.length*50):0}}px;'>
+    <text class='option' style='height:38px;' wx:for="{{selectData}}" wx:key='this' data-index='{{index}}' catchtap='optionTap2'>{{item}}</text>
+  </view>
+  <!-- 排序 -->
+  <view class='optionBox' style='height:{{show3?(selectData.length>5?240:selectData.length*32):0}}px;'>
+    <text class='option' style='height:32px; line-height:32px;' wx:for="{{selectData3}}" wx:key='this' data-index='{{index}}' catchtap='optionTap3'>{{item}}</text>
+  </view>
+  <!-- 列表 -->
+  <block wx:for="{{order_list}}">
+    <view class='order_cell'>
+      <view class='order_id'>
+        订单号：{{item.agentid}}
+      </view>
+      <view class='createtime'>
+        发单时间：{{item.createtime}}
+      </view>
+    </view>
+  </block>
+  <view class='addorder' bindtap='toaddorder'>
+    <image src='../image/add.png'></image>
+  </view>
+</view>
+<template is="usertab_template" data="{{tablist,item,...item,currentTab}}" />

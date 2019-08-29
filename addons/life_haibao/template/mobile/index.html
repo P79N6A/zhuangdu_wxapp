@@ -1,0 +1,249 @@
+﻿<!doctype html>
+<html lang="en">
+{template 'share'}
+<head>
+<!--<script type="text/javascript">
+        var useragent = navigator.userAgent;
+        if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+
+            alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+            var url = '{php echo $this->createMobileUrl('stopllq',array('rid'=> $rid))}';
+            var opened = window.open(url, '_self');
+            //opened.opener = null;
+            //opened.close();
+        }
+</script>-->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/> 
+<title>{$config['share_title']}</title>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/mobile/poster/css/frozen.css" />
+<link rel="stylesheet" href="/addons/life_haibao/template/mobile/poster/css/newposterindex.css">
+<link rel="stylesheet" type="text/css" href="/addons/life_haibao/template/mobile/poster/css/swiper.css">
+<script src="/addons/life_haibao/template/mobile/poster/js/jquery-2.2.3.min.js"></script>
+<script src="/addons/life_haibao/template/mobile/poster/js/swiper.min.js"></script>
+<script type="text/javascript">
+        var docEl = document.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                docEl.style.fontSize = 10 * (docEl.clientWidth / 320) + 'px';
+            };
+        window.addEventListener(resizeEvt, recalc, false);
+        document.addEventListener('DOMContentLoaded', recalc, false);
+    </script>
+<style>
+.follow{font-size:20px;line-height:30px;color:#fff;text-align:center;padding-top:30%;z-index:2000;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.9);display:none;}
+.follow span{font-size:40px;position:absolute;top:10px;left:10px;}
+.follow img{width:180px;margin-top:10px;}
+</style></head>
+<body>
+  <div>
+    <ul class="poster-nav">
+      <li><a href="{php echo $this->createMobileUrl('play')}" class="active">推荐</a></li>
+      <li><a href="{php echo $this->createMobileUrl('more', array('type'=>'businessCard'))}">更多</a></li>
+      <li><a href="{php echo $this->createMobileUrl('watermark')}">加水印</a></li>
+    </ul>
+  </div>
+  <div class="poste-banner">
+    <div class="swiper-container" data-pos="0">
+            <!-- Add Pictures -->
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a href="{$config['followurl']}">
+                    <img src="{$_W[attachurl]}{$config['share_fei']}" alt="banner"/>
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="{php echo $this->createMobileUrl('watermark')}">
+                    <img src="/addons/life_haibao/template/mobile/poster/images/banner-water.jpg" alt="banner"/>
+                  </a>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-dots">
+                <a class="swiper-indicator"></a>
+                <a class="swiper-dot" data-pos="0"></a>
+                <a class="swiper-dot" data-pos="1"></a>
+            </div>
+    </div>
+  </div>
+  <div class="muen">
+    <ul class="list-inline">
+      <li class="sy"><a href="{php echo $this->createMobileUrl('more', array('type'=>'businessCard'))}">所有标签 &gt;</a></li>
+      <li class="li1">完美人都在用</li>
+    </ul>
+  </div>
+  <div class="poster-type-index">
+    <ul>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'head'))}';">
+          <a>头像</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'cover'))}';">
+          <a>封面</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'businessCard'))}';">
+          <a>名片</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'train'))}';">
+          <a>培训</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'merchant'))}';">
+          <a>招商</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'funny'))}';">
+          <a>趣图</a>
+        </li>
+        <li onclick="location.href='{php echo $this->createMobileUrl('more', array('type'=>'cover'))}';">
+          <a>1:1海报</a>
+        </li>
+    </ul>
+  </div>
+  <div class="poster-tit">
+    <ul class="list-inline">
+      <li class="li1">最新海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-new">
+        {php $templates_enable = pdo_fetchall('select * from ' . tablename($this->modulename . '_template') . " where status='1' and type='new' order by modifytime desc limit 0,10");}
+        {loop $templates_enable $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl($item['link'])}">
+            <img src="/addons/life_haibao/template/mobile/poster/images/{$item['name']}" alt="pic"/>
+          </a>
+        </li>
+        {/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">名片海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-bussinessCard">
+        {php $templates_enable = pdo_fetchall('select * from ' . tablename($this->modulename . '_template') . " where status='1' and type='businessCard' limit 0,10");}
+        {loop $templates_enable $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl($item['link'])}">
+            <img src="/addons/life_haibao/template/mobile/poster/images/{$item['name']}" alt="pic"/>
+          </a>
+        </li>
+        {/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">培训海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-train">
+        {php $templates_enable = pdo_fetchall('select * from ' . tablename($this->modulename . '_template') . " where status='1' and type='train' limit 0,10");}
+        {loop $templates_enable $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl($item['link'])}">
+            <img src="/addons/life_haibao/template/mobile/poster/images/{$item['name']}" alt="pic"/>
+          </a>
+        </li>
+        {/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">招商海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-merchant">
+        {php $templates_enable = pdo_fetchall('select * from ' . tablename($this->modulename . '_template') . " where status='1' and type='merchant' limit 0,10");}
+        {loop $templates_enable $item}
+        <li>
+          <a href="{php echo $this->createMobileUrl($item['link'])}">
+            <img src="/addons/life_haibao/template/mobile/poster/images/{$item['name']}" alt="pic"/>
+          </a>
+        </li>
+        {/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline">
+      <li class="li1">1:1方形海报</li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-list-index">
+    <ul style="width: 4640px;" class="poster-square">
+        {php $templates_enable = pdo_fetchall('select * from ' . tablename($this->modulename . '_template') . " where status='1' and type='square' limit 0,10");}
+        {loop $templates_enable $item}
+        <li class="fang">
+          <a href="{php echo $this->createMobileUrl($item['link'])}">
+            <img src="/addons/life_haibao/template/mobile/poster/images/{$item['name']}" alt="pic"/>
+          </a>
+        </li>
+        {/loop}
+    </ul>
+  </div>
+  <div>
+    <ul class="list-inline" id="tagmore">
+      <li class="li1 tagmore"><a href="{php echo $this->createMobileUrl('more', array('type'=>'businessCard'))}">更多海报模板<img src="/addons/life_haibao/template/mobile/poster/images/tagmore.png" alt="tagmore"></a></li><li>
+      </li>
+    </ul>
+  </div>
+  <div class="poster-mask">
+    <div class="poster-maskinner">
+       <img src="/addons/life_haibao/template/mobile/poster/images/loading.gif" alt="load"/>
+      <p>Loading......</p>
+    </div>
+  </div>
+  <script>
+    var dots = 2;
+    var sliderElem = document.querySelector('.swiper-container');
+    var dotElems = sliderElem.querySelectorAll('.swiper-dot');
+    var indicatorElem = sliderElem.querySelector('.swiper-indicator');
+
+    Array.prototype.forEach.call(dotElems, function (dotElem) {
+
+        dotElem.addEventListener('click', function (e) {
+
+            var currentPos = parseInt(sliderElem.getAttribute('data-pos'));
+            var newPos = parseInt(dotElem.getAttribute('data-pos'));
+
+            var newDirection = newPos > currentPos ? 'right' : 'left';
+            var currentDirection = newPos < currentPos ? 'right' : 'left';
+
+            indicatorElem.classList.remove('swiper-indicator--' + currentDirection);
+            indicatorElem.classList.add('swiper-indicator--' + newDirection);
+            sliderElem.setAttribute('data-pos', newPos);
+        });
+    });
+    $(function(){
+          setTimeout(function(){
+                $('.poster-mask').fadeOut();
+          },1500);
+    })
+  </script>
+</body>
+<footer class="ui-footer ui-footer-btn">
+    <ul class="ui-tiled ui-border-t">
+        <li class="ui-border-r"><a onClick="show()"><div>{$config['life_title']}</div></a></li>
+    </ul>
+</footer>
+<div id="follow" class="follow">
+    <span class="close" onClick="hide()">×</span>
+    <p>长按下方二维码图片</p>
+    <p>点选识别图中二维码</p>    <img src="{$_W[attachurl]}{$config['share_qr']}">
+</div>
+<script type="text/javascript">
+function show(){
+    document.getElementById("follow").style.display = "block"; 
+}
+function hide(){
+    document.getElementById("follow").style.display = "none"; 
+}
+</script>
+</body>
+</html>

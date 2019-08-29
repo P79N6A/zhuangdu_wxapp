@@ -1,0 +1,78 @@
+{template 'common/header'}
+<style>
+.avatar{ position:relative; width:69px; margin:auto;}
+.avatar span.mui-ext-icon{ width:18px; height:18px; bottom:5px; right:5px;position:absolute; border-radius: 100%;}
+.avatar span.mui-ext-icon:before{ font-size:12px;top:48%;left: 55%;-webkit-transform: translateX(-50%) translateY(-50%) scale(0.9);transform: translateX(-50%) translateY(-50%) scale(0.9);}
+.avatar span.mui-icon-nan{background:#71a4df; color:#FFF;}
+.avatar span.mui-icon-nv{background:#fb8282; color:#FFF;}
+</style>
+    <footer class="mui-bar mui-bar-tab" style="display:none">
+        <div class="mui-content-padded" style="margin-top:0px;">
+        <button type="submit" class="mui-btn mui-btn-orange mui-btn-block">我要报名</button>
+    	</div>
+	</footer>
+    <div class="mui-content">
+    	<div class="mui-header">
+        	<div class="mui-header-content">
+            	<p class="mui-big"><span class="mui-ellipsis">{$records['nickname']}</span></p>
+                <div class="avatar mui-text-center">
+                    <img src="{php echo tomedia($records['headimgurl'])}" class="mui-img-circle">
+                    <span class="mui-ext-icon{if !empty($records['gender']) && $records['gender']!='保密'}{php echo $records['gender']=='女'?' mui-icon-nv':' mui-icon-nan'}{/if}">&nbsp;</span>
+                </div>
+            </div>
+            <div class="mui-content-padded">
+            	<p class="mui-text-gray mui-small">我参加了{$activity['title']}，大家跟我一起行动起来，快来参加吧！</p>
+            </div>
+        </div>
+        {if $_W['_config']['allowswitch']}
+        <div class="mui-card">
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                	{php $html=''}
+                	{loop $formdata $k $data}
+                        {php $form = model_activity::getSingleActivityForm($data['formid']);}
+                        {if !empty($form)}
+                            {if $form['displaytype']==5}
+                                {if $data['data']!=''}<div class="voucher-code"><p><img src="{php echo tomedia($data['data']);}"></p></div>{/if}
+                            {elseif $form['displaytype']!=6 && $data['data']!=''}
+                            	{php $str = str_replace(',','-',$data['data'])}
+                                {php $str = str_replace(',',' ',$str)}
+                                {php $str = strpos($form['title'],'身份证')!==false?'******************':$str;}
+                                {php $html.="<p>".$form['title']."：".$str."</p>"}
+                        	{/if}
+                    	{/if}
+                    {/loop}
+                    <div class="voucher-goods-info font-size-14">
+                    	<p>姓名：{$records['realname']}</p>
+                        <p>手机：{$records['mobile']}</p>
+                        {$html}
+                        <p>参加名额：{$records['buynum']} 人</p>
+                        {if $records['payprice']}
+                        <p>实付金额：<font class="mui-text-success mui-rmb">{$records['payprice']} 元</font></p>
+                        {elseif $records['price']}
+                        <p>应付金额：<font class="mui-text-error mui-rmb">{$records['price']} 元</font></p>
+                        {/if}
+                        <p>报名时间：{$records['jointime']}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
+    {template 'footer'}
+    </div>
+	<script>
+        //nav激活
+        mui.init();
+        mui('.mui-bar-tab').on('tap', 'a',
+        function() {
+            var $this = $(this);
+            if (this.getAttribute('href') != null) {
+                console.log(this.getAttribute('href'));
+                location.href = this.getAttribute('href');
+            } else {
+                return false;
+            }
+        })
+	</script>
+</body>
+</html>

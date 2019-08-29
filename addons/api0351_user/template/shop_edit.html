@@ -1,0 +1,109 @@
+{template 'common/header'}
+<style type="text/css">
+.we7-form .control-label, form .control-label {
+    text-align: right;
+}
+.col-lg-offset-1 {
+    margin-left: 0; text-align:right
+}
+.date {
+    padding: 0px 12px;
+}
+</style>
+<div class="clearfix">
+	<form action="{php echo $this->createWebUrl('Shop',array('action'=>'look','did' => $ed_ac['did']));}" method="post" class="form-horizontal ajaxfrom we7-form" role="form" id="form-user">
+        <input name="did" value="{$ed_ac['did']}" type="hidden">
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">OPENID</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="openid" name="openid" class="form-control" value="{$ed_ac['openid']}" type="text" disabled="disabled">
+			</div>
+		</div>
+        
+        
+                        <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">店铺性质</label>
+                    <div class="col-sm-8">
+                        <select class="we7-select" name="seid">
+                            <option value="2" {if $ed_ac[seid] == 2} selected="selected" {/if}>服务型店铺</option>
+                            <option value="1" {if $ed_ac[seid] == 1} selected="selected" {/if}>产品型店铺</option>
+                        </select>
+                    </div>
+                </div>
+                
+        
+                		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">店铺名称</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="dtitle" name="dtitle" class="form-control" value="{$ed_ac['dtitle']}" type="text">
+			</div>
+		</div>
+        
+        
+                        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">创建时间</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+                 <input type="text" class="form-control" value="{php echo date('Y-m-d H:i:s',$ed_ac[ctime]);}" disabled="disabled">
+			</div>
+		</div>
+        
+        
+        
+                		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">到期时间</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+                 {php echo tpl_form_field_date('dqtime', date('Y-m-d H:i',$ed_ac[dqtime]) ,true);}
+                 <span class="help-block">点击可直接更改到期时间</span>
+			</div>
+		</div>
+
+
+        
+        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">平米数</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="dnumber" name="dnumber" class="form-control" value="{$ed_ac['dnumber']}" type="text">
+			</div>
+		</div>
+        
+        
+                		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">X坐标</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="x" name="x" class="form-control" value="{$ed_ac['x']}" type="text" disabled="disabled">
+			</div>
+		</div>
+        
+                        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">Y坐标</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="y" name="y" class="form-control" value="{$ed_ac['y']}" type="text" disabled="disabled">
+			</div>
+		</div>
+        
+        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">支付金额</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="dmoney" name="dmoney" class="form-control" value="{$ed_ac['dmoney']}" type="text" >
+			</div>
+		</div>
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">申请说明</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<textarea id="dcontent" name="dcontent" style="height:80px;" class="form-control">{$ed_ac['dcontent']}</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-1 col-xs-12 col-sm-10 col-md-10 col-lg-11">
+				<input class="btn btn-primary span3" name="submit" value="提交修改" type="submit">
+				<input name="token" value="{$_W['token']}" type="hidden">
+			</div>
+		</div>
+        
+        
+	</form>
+</div>
+{template 'common/footer'}

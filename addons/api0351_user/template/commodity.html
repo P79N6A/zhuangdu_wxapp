@@ -1,0 +1,32 @@
+{template 'common/header'}
+<div class="clearfix">
+
+	<table class="table we7-table table-hover">
+		<thead class="navbar-inner">
+		<tr>
+        	<th class="text-center" style="width:40px;">封面</th>
+			<th class="text-center" style="width:200px;">标题</th>
+			<th class="text-center" style="width:100px">发布时间</th>
+			<th class="text-right" style="width:80px;">操作</th>
+		</tr>
+		</thead>
+        {loop $cardr $index $item}
+        <tbody>
+            <tr>
+            	<td class="text-center" style="width:40px;"><img src="{$item['photo']}" /></td>
+                <td class="text-left">{$item['title']}</td>
+                <td class="text-center">
+                    {php echo date('Y/m/d H:i:s',$item['time']);}
+                </td>
+                <td style="width:50px;">
+                <div class="link-group">
+                	<a href="{php echo $this->createWebUrl('Commodity', array('action' => 'del','id' => $item['id']));}" class="del">删除</a>
+                </div>
+                </td>
+            </tr>
+        </tbody>
+        {/loop}
+	</table>
+    {$pager}
+</div>
+{template 'common/footer'}

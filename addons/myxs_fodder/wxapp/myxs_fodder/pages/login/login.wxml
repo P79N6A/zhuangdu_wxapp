@@ -1,0 +1,13 @@
+<view class="werow DiyNav">
+    <view class="Navicon"></view>
+    <view class="wxf1 NavText">授权登陆</view>
+    <view class="Navicon"></view>
+</view>
+<view class="loginCent">
+    <image class="login" src="{{topimg}}"></image>
+    <view class="tip">允许微信授权后，可体验更多功能</view>
+    <button bindgetuserinfo="uploadUserinfo" class="shouquan" openType="getUserInfo">授权登陆</button>
+    <view style="position: relative;width:90%;margin:auto;">
+        <button bindtap="fanhui" class="fanhui" style="position: initial;">返回首页</button>
+    </view>
+</view>

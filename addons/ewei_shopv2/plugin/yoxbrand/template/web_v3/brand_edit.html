@@ -1,0 +1,164 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">品牌馆</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>品牌馆编辑</div>
+        <div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">标题</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="标题" />
+				<p class="help-block" data-valtype="help">标题</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">分类</label>
+            <div class="col-sm-9 col-xs-12">
+            <!-- 1找工厂，2找品牌，3找加盟 -->
+                <select name="type" class="form-control" placeholder="分类" >
+                <option value="0">请选择分类..</option>
+                {loop $cate_list $info}
+                <option {if $info['id']==$result['data']['cate_id']}selected{/if} value="1">{$info['name']}</option>
+                {/loop}
+                </select>
+				<p class="help-block" data-valtype="help">链接标题</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">类型</label>
+            <div class="col-sm-9 col-xs-12">
+            <!-- 1找工厂，2找品牌，3找加盟 -->
+                <select name="type" class="form-control" placeholder="类型" >
+                <option value="0">请选择类型..</option>
+                <option {if $result['data']['type']==1}selected{/if} value="1">找工厂</option>
+                <option {if $result['data']['type']==2}selected{/if} value="2">找品牌</option>
+                <option {if $result['data']['type']==3}selected{/if} value="3">找加盟</option>
+                </select>
+				<p class="help-block" data-valtype="help">类型</p>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">名称</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxfriendscircle.edit'}
+                <input type="text" name="description" class="form-control" value="{$result['data']['description']}" placeholder="发布的文字" />
+                {/if}
+            </div>
+        </div>-->
+		<div class="form-group">
+            <label class="col-lg control-label">轮播图(banner)</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_multi_image('banner', $result['data']['banner'])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">多图/终端形象</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxfriendscircle.edit'}
+                {php echo tpl_form_field_multi_image('thumbs', $result['data']['thumbs'])}
+                {/if}
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">视频</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxfriendscircle.edit'}
+                {php echo tpl_form_field_video('videos', $result['data']['videos']);}
+                {/if}
+            </div>
+        </div>-->
+		<div class="form-group">
+            <label class="col-lg control-label">价格区间</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="price_range" class="form-control" value="{$result['data']['price_range']}" placeholder="价格区间" />
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">产地</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="origin_place" class="form-control" value="{$result['data']['origin_place']}" placeholder="产地" />
+				<p class="help-block" data-valtype="help">中国香港、中国大陆、中国澳门、德国、韩国、日本...</p>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">品牌档案</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea rows="5" type="text" name="description" class="form-control" placeholder="描述" />{$result['data']['description']}
+{if empty($result['data']['description'])}所属公司:
+中文名称：
+外文名称：
+创立时间:
+品牌定位：{/if}
+				</textarea>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">内容</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="content" class="form-control" value="{$result['data']['content']}" placeholder="内容" />
+            </div>
+        </div>-->
+		<div class="form-group">
+            <label class="col-lg control-label">标签</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="tab" class="form-control" value="{$result['data']['tab']}" placeholder="打标签" />
+				<p class="help-block" data-valtype="help">如：天然,时尚,健康，多个请用英文‘,’分割</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">浏览量</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="view_count" class="form-control" value="{$result['data']['view_count']}" placeholder="浏览量" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">收藏量</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="collect_count" class="form-control" value="{$result['data']['collect_count']}" placeholder="收藏量" />
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">前台显示状态</label>
+            <div class="col-sm-9 col-xs-12">
+                <span style="text-align: right;" class="is_advanced">
+                        <label class="notice-default">
+                            <input type="hidden" name="status" value="{php echo intval($result['data']['status'])}" />
+                            <input class="js-switch small checkone" data-type="tpl-advanced" data-tag="yoxbrand"  type="checkbox" value="{php echo intval($result['data']['status'])}" {if !empty($result['data']['status'])}checked{/if}/>
+                        </label>
+                        <label style="display: none;">
+                            <img src="../addons/ewei_shopv2/static/images/loading.gif" width="20" alt=""  onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'" />
+                        </label>
+                    </span>
+                    <span class="help-block">不显示则关闭</span>
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

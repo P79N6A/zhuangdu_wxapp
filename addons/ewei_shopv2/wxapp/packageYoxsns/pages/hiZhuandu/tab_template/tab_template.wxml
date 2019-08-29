@@ -1,0 +1,49 @@
+<import src="./index_template/index_template.wxml" />
+<import src="../.././sns/main_template/main_template.wxml" />
+<template name="tab_template">
+  <view class="container">
+    <!-- <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+      <view class="tab-item {{currentTab==0?'active':''}}" data-currenttab="0" bindtap="swichNav">推荐</view>
+      <view class="tab-item {{currentTab==1?'active':''}}" data-currenttab="1" bindtap="swichNav">彩妆</view>
+      <view class="tab-item {{currentTab==2?'active':''}}" data-currenttab="2" bindtap="swichNav">护肤</view>
+      <view class="tab-item {{currentTab==3?'active':''}}" data-currenttab="3" bindtap="swichNav">美容</view>
+      <view class="tab-item {{currentTab==4?'active':''}}" data-currenttab="4" bindtap="swichNav">招商</view>
+      <view class="tab-item {{currentTab==5?'active':''}}" data-currenttab="5" bindtap="swichNav">更多</view>
+    </scroll-view> -->
+    <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+      <view class="tab-content" style="height:{{winHeight}}rpx">
+        <!-- <swiper-item class="margin52"> -->
+        <!-- <scroll-view scroll-y="true" class="scoll-h"> -->
+        <!-- <template is="index_Template" data="{{...item,catearticle,currentTab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community}}" /> -->
+        <!-- </scroll-view> -->
+        <!-- </swiper-item> -->
+        <swiper-item class="margin52">
+          <scroll-view scroll-y="true" class="scoll-h">
+            <template is="main_template" data="{{community,...item,item}}" />
+          </scroll-view>
+        </swiper-item>
+        <swiper-item class="margin52">
+          <scroll-view scroll-y="true" class="scoll-h">
+            <template is="main_template" data="{{community,...item,item}}" />
+          </scroll-view>
+        </swiper-item>
+        <swiper-item class="margin52">
+          <scroll-view scroll-y="true" class="scoll-h">
+            <template is="main_template" data="{{community,...item,item}}" />
+          </scroll-view>
+        </swiper-item>
+        <swiper-item class="margin52">
+          <scroll-view scroll-y="true" class="scoll-h">
+            <template is="main_template" data="{{community,...item,item}}" />
+          </scroll-view>
+        </swiper-item>
+        <swiper-item class="margin52">
+          <scroll-view scroll-y="true" class="scoll-h">
+            <template is="main_template" data="{{community,...item,item}}" />
+          </scroll-view>
+        </swiper-item>
+      </view>
+    </swiper>
+  </view>
+</template>
+<template is="tab_template" data="{{catearticle,currentTab,currenttab,topTabItems,group2List,currentTopItem,imagesList,winHeight,indicatorDots,interval,autoplay,swiperIndex,community,...item,item}}" />

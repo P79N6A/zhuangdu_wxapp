@@ -1,0 +1,42 @@
+<template name="wait_template">
+  <view class='nav'>
+    <view class="nav_cell {{currentnavItem==idx ? 'nav_active' : ''}}" wx:for="{{waitnav}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchnavTab2">
+      {{item}}
+    </view>
+  </view>
+  <view class='wait_list'>
+    <block wx:for="{{waitList}}">
+      <view style='width:322px;height:100px;'>
+        <view class='coupon_cell'>
+          <view class='coupon_cell_left'>
+            <view class='image'>
+              <image src='{{item.imgurl}}' wx:if="{{item.imgurl}}"></image>
+              <image wx:else style='background:#fd2d6b;'></image>
+              <view style='position:absolute;width: 94px;height: 18px;left:0;bottom:0;background:#e9e6e6;line-height:18px;text-align:center;'>
+                <text style='font-size:10px;'>{{item.learn}}学习</text>
+              </view>
+            </view>
+            <view class='content'>
+              <view class='content_text'>
+                {{item.content}}
+              </view>
+              <view class='price'>
+                ￥
+                <text>{{item.price}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='coupon_cell_right'>
+            <view class='coupon_price'>
+              ￥
+              <text style='font-size:26px;'>{{item.coupon_price}}</text>
+            </view>
+            <view class='use'>
+              领取使用
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

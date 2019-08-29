@@ -1,0 +1,8 @@
+<template name="introduce_template">
+  <!-- <image src=''></image> -->
+  <view class='container' style='text-align:center;'>
+    <view class='detail' style='width:320px;height:400px;line-height:332px;background:#fd2d6b;writing-mode:tb-rl;margin-left:28px;margin-top:26px;color:#fff;font-size:60px;'>
+      详情页
+    </view>
+  </view>
+</template>

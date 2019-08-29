@@ -1,0 +1,34 @@
+<view class='result'>
+    <view class='bigtitle'>
+      专业皮肤报告
+    </view>
+    <block wx:for="{{suggest_info}}">
+      <view class='main_suggest'>
+        {{item.suggest_info.suggest}}
+      </view>
+      <view class='good_list'>
+        <block wx:for="{{item.suggest_info.goods_list}}" wx:for-item="types">
+          <view class='good_list_item' data-id='{{types.id}}' bindtap='togoods_detail'>
+            <view class='title'>
+              {{types.title}}
+            </view>
+            <view class='markprice'>
+              {{types.marketprice}}
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class='package_list'>
+        <block wx:for="{{item.suggest_info.package_list}}" wx:for-item="packs">
+          <view class='package_list_item' data-id='{{packs.id}}' bindtap='topackage_detail'>
+            <view class='title'>
+              {{packs.title}}
+            </view>
+            <view class='price'>
+              {{packs.price}}
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+  </view>

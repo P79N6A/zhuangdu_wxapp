@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "中奖记录",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "component": true,
+  "usingComponents": {}
+}

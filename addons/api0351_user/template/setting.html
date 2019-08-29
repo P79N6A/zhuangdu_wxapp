@@ -1,0 +1,129 @@
+{template 'common/header'}
+
+<div class="main">
+    <form class="form-horizontal form" id="setting-form" action=""
+          method="post">
+
+                <!-- title-->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">模式切换</label>
+                    <div class="col-sm-8">
+                        <select class="we7-select" name="data[payStart]" style="width:150px">
+                            <option value="1" {if $setting[payStart] == 1} selected="selected" {/if}>开启免费模式</option>
+                            <option value="2" {if $setting[payStart] == 2} selected="selected" {/if}>开通付费功能</option>
+                        </select>
+                        <span class="help-block">开通付费功能后"费用设置"项生效,相反则为免费模式。</span>
+                    </div>
+                </div>
+                
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">名片审核</label>
+                    <div class="col-sm-8">
+                        <select class="we7-select" name="data[examine]" style="width:150px">
+                            <option value="1" {if $setting[examine] == 1} selected="selected" {/if}>开启审核</option>
+                            <option value="2" {if $setting[examine] == 2} selected="selected" {/if}>关闭审核</option>
+                        </select>
+                        <span class="help-block">开启审核后，就算当前用户完善资料也得等审核通过后才可看他人信息。</span>
+                    </div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">服务周期</label>
+                    <div class="col-sm-8">
+                        <input name="data[cycle]" class="form-control" value="{$setting['cycle']}" type="text">
+                        <span class="help-block">从购买日算起，多少天后过期（过期后需重新支付费用）单位为'天'</span>
+                    </div>
+                </div>
+                <!-- logo -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">费用设置</label>
+                    <div class="col-sm-8">
+                        <input name="data[wxpay]" class="form-control" value="{$setting['wxpay']}" type="text">
+                        <span class="help-block">每开通建立一张名片需要支付多少费用(单位元),设置费用以后必须设置支付商户号以及密钥</span>
+                    </div>
+                </div>
+                <!-- pic-->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板消息开关</label>
+                    <div class="col-sm-8">
+                        <select class="we7-select" name="data[msStart]">
+                            <option value="1" {if $setting[msStart] == 1} selected="selected" {/if}>开启模板消息</option>
+                            <option value="0" {if $setting[msStart] == 0} selected="selected" {/if}>关闭模板消息</option>
+                        </select>
+                        <span class="help-block">开启模板消息功能后，收藏与留言通知生效。</span>
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">收藏名片通知</label>
+                    <div class="col-sm-8">
+                        <input name="data[sc]" class="form-control" value="{$setting['sc']}" type="text">
+                        <span class="help-block">在小程序模板库里搜索"名片新增收藏通知",关键词（收藏时间、备注）</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">邀请通知模板</label>
+                    <div class="col-sm-8">
+                        <input name="data[bok]" class="form-control" value="{$setting['bok']}" type="text">
+                        <span class="help-block">在小程序模板库里搜索"邀请成功通知",关键词（用户昵称、邀请时间、温馨提示）</span>
+                    </div>
+                </div>
+                
+                                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">定时清理任务</label>
+                    <div class="col-sm-8">
+                        <select class="we7-select" name="data[userVip]">
+                            <option value="0" {if $setting[userVip] == 0} selected="selected" {/if}>关闭自动清理</option>
+                            <option value="1" {if $setting[userVip] == 1} selected="selected" {/if}>开启自动清理</option>
+                        </select>
+                        <span class="help-block">当前设置项生效需要先配置定时任务项才可以生效（具体说明请看定时任务栏目）</span>
+                    </div>
+                </div>
+                
+          <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">关于我们</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<textarea name="data[content]" style="height:300px;" class="form-control">{$setting['content']}</textarea>
+			</div>
+		</div>
+        
+        
+                        <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权设置</label>
+                    <div class="col-sm-8">
+                        <input name="data[copyt]" class="form-control" value="{$setting['copyt']}" type="text">
+
+                    </div>
+                </div>
+                
+                
+                                        <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">腾讯AI_AppID</label>
+                    <div class="col-sm-8">
+                        <input name="data[tappid]" class="form-control" value="{$setting['tappid']}" type="text">
+						 <span class="help-block">腾讯AI开放平台对应的应用APPID(用于纸质名片识别)</span>
+                    </div>
+                </div>
+                
+                                        <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">腾讯AI_AppKey</label>
+                    <div class="col-sm-8">
+                        <input name="data[tappkey]" class="form-control" value="{$setting['tappkey']}" type="text">
+						 <span class="help-block">腾讯AI开放平台对应的应用AppKey(用于纸质名片识别)</span>
+                    </div>
+                </div>
+                
+                
+
+        
+        <div class="form-group" style="text-align:center; width:100%;">
+            <input name="token" type="hidden" value="{$_W['token']}" /> 
+            <input type="submit" class="btn btn-primary" name="submit" value="提交" style=" width:100px" />
+        </div>
+    </form>
+</div>
+
+{template 'common/footer'}

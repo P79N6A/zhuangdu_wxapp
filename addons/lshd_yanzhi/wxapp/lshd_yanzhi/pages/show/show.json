@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "美图生成",
+    "backgroundColor": "#a8f3ee",
+    "navigationBarBackgroundColor": "#a8f3ee",
+    "navigationBarTextStyle": "black",
+    "disableScroll": true,
+    "usingComponents": {
+        "top-nav-bar": "/lshd_yanzhi/components/top-nav-bar/top-nav-bar"
+    }
+}

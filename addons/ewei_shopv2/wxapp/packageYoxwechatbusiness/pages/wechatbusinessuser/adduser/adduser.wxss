@@ -1,0 +1,85 @@
+.bgfff{
+  background: #fff;
+}
+.user_title{
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  font-size: 12px;
+  color: #a9a9a9;
+  padding-left:14px;
+}
+.adduser_common{
+  width: 100%;
+  height: 52px;
+  line-height: 52px;
+  padding-left:14px;
+}
+.adduser_common text{
+  float: left;
+  font-size: 14px;
+  color: #a9a9a9;
+}
+.adduser_common input{
+  height: 52px;
+  float: right;
+  line-height: 52px;
+}
+textarea{
+  width: 100%;
+  height: 200px;
+}
+.user_placeholder{
+  color: #c8c8c8;
+  font-size: 12px;
+  line-height: 52px;
+}
+.form_button{
+  width: 332px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  background: #fd2d6b;
+  margin-top: 10px;
+}
+.img-box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background:#fff; 
+    padding-left:10px;
+}
+.img{
+    width: 100px;
+    height: 100px;  
+    position: relative;
+    margin-right: 10px;
+}
+.img image{
+    width: 100%;
+    height: 100%;
+}
+.delete-btn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 30px;
+}
+.upload-img-btn{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border: 1px solid #ccc;
+    margin-bottom:10px;
+    /* margin-left:10px; */
+    /* margin-top:10px; */
+}

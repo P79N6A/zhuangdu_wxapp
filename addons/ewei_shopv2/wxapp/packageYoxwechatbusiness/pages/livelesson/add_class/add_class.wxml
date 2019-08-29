@@ -1,0 +1,28 @@
+<view class='container'>
+  <view class='time'>
+    <view class='time_left'>
+      04
+    </view>
+    <view class='time_right'>
+      <view class='up'>
+        周六
+      </view>
+      <view class='down'>
+        05/2019
+      </view>
+    </view>
+  </view>
+  <view class='nav'>
+      <view class='nav_cell'  wx:for="{{navList}}" bindtap='tonavdetail' data-id='{{item.id}}'>
+        <view class='image'>
+          <image src='{{item.imgUrl}}'></image>
+        </view>
+        <view class='title'>
+          <text>{{item.title}}</text>
+        </view>
+      </view>
+  </view>
+  <view class='back'>
+    <image src='./images/close.png'></image>
+  </view>
+</view>

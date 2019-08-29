@@ -1,0 +1,39 @@
+<loading wx:if="{{!show}}">加载中...</loading>
+<block wx:if="{{show}}">
+    <view class="container">
+        <view class="top">
+            <image class="logo" mode="widthFix" src="{{cashier.logo}}"></image>
+            <text class="title">{{cashier.title}}</text>
+        </view>
+        <view class="list">
+            <text class="left">支付金额</text>
+            <input bindinput="money" bindtap="showkeybord" class="pay_button" placeholder="请输入支付金额" type="number" value="{{testNumber}}"></input>
+        </view>
+        <view class="jp" wx:if="{{showKeyBord==1}}">
+            <view bindtap="setNumber" class="num" data-number="1">1</view>
+            <view bindtap="setNumber" class="num" data-number="2">2</view>
+            <view bindtap="setNumber" class="num" data-number="3">3</view>
+            <view bindtap="setNumber" class="num2" data-type="delete">
+                <image class="delete" src="../images/cashdel.png"></image>
+            </view>
+            <view bindtap="setNumber" class="num" data-number="4">4</view>
+            <view bindtap="setNumber" class="num" data-number="5">5</view>
+            <view bindtap="setNumber" class="num" data-number="6">6</view>
+            <view bindtap="pay" class="num1">
+                <image class="wx" src="../images/wx.png"></image>
+                <text>支付</text>
+            </view>
+            <view bindtap="setNumber" class="num" data-number="7">7</view>
+            <view bindtap="setNumber" class="num" data-number="8">8</view>
+            <view bindtap="setNumber" class="num" data-number="9">9</view>
+            <view bindtap="closeKeyBord" class="num">
+                <image class="delete" src="../images/down.png"></image>
+            </view>
+            <view bindtap="setNumber" class="num" data-number="0">0</view>
+            <view bindtap="setNumber" class="num" data-number=".">.</view>
+        </view>
+    </view>
+    <navigator class="fui-dot" hoverClass="none" style="bottom:120rpx" url="/pages/changce/store/index">
+        <text class="icox icox-toleft" style="color:#fff;font-size:40rpx"></text>
+    </navigator>
+</block>

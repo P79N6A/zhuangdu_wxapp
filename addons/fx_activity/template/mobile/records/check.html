@@ -1,0 +1,101 @@
+{template 'common/header'}
+<div class="mui-content">
+{if $ishexiao_member}
+	{if $result=='success'}
+	<div class="mui-content-padded">
+        <div class="mui-message">
+            <div class="mui-message-icon">
+            <span class="mui-msg-success"></span>
+            </div>
+            <h4 class="title">核销成功</h4>
+            <p class="mui-desc">点击确定，可返回微信</p>
+            <div class="mui-button-area">
+                <a href="javascript:wx.closeWindow();" class="mui-btn mui-btn-success mui-btn-block">确定</a>
+            </div>
+        </div>
+    </div>
+    {else}
+    <div class="mui-card">
+        <div class="mui-card-header">活动参与凭证<span class="mui-pull-right mui-text-gray">NO.{$NO}</span></div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <div class="voucher-code">
+                {if $records['ishexiao']==1}
+                    <p style="margin:30% 0;"><font class="mui-text-success">此凭证已完成核销</font></p>
+                {else}
+                    <p style="margin-bottom:0"><span style="font-size:85%">核销码：</span>{$records['hexiaoma']}
+                    {if $records['paytype']=='delivery' && $records['status']=='0'}<br><font class="mui-text-error">需线下付款</font>{/if}</p>
+                    <p style="margin:0"><img src="{FX_URL}data/qrcode/{$_W['uniacid']}/{$records['orderno']}.png" onerror="javascript:this.src='http://qr.topscan.com/api.php?w=300&text={$qrcodeurl}';"></p>
+                {/if}
+                </div>
+                <div class="voucher-address font-size-14">
+                	<p>参与用户：{$records['name']}&nbsp; {$records['mobile']}</p>
+                    <p>活动场地：{php echo $activity['hasonline'] ? '线上活动（无须现场参与）' : $_W['merchant']['address']}</p>
+                    <p>活动时间：{$activity['starttime']}</p>
+                </div>
+                <div class="voucher-goods-info font-size-14">
+                    <p>活动名称：{$activity['title']} </p>
+                    <p>参加名额：{$records['buynum']} 人</p>
+                    {if !empty($records['optionname'])}<p>报名规格：{$records['optionname']}</p>{/if}
+                    {if $records['payprice']}
+                    <p>实付金额：<font class="mui-text-success mui-rmb">{$records['payprice']} 元</font></p>
+                    {elseif $records['price']}
+                    <p>应付金额：<font class="mui-text-error mui-rmb">{$records['price']} 元</font></p>
+                    {/if}
+                    <p>用户昵称：{$records['nickname']}</p>
+                    <p>报名时间：{$records['jointime']}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mui-content-padded mui-button-area">
+    	{if $records['ishexiao']!=1}
+    	<a href="javascript:;" id="conbdel" class="mui-btn mui-btn-success mui-btn-block">核销报名</a>
+        {/if}
+		<a href="javascript:wx.closeWindow();"  class="mui-btn mui-btn-outlined mui-btn-block">返回微信</a>
+	</div>
+    {/if}
+{else}
+	<div class="mui-content-padded">
+        <div class="mui-message">
+            <div class="mui-message-icon">
+            <span class="mui-msg-error"></span>
+            </div>
+            <h4 class="title">非核销人员</h4>
+            <p class="mui-desc">点击确定，可返回微信</p>
+            <div class="mui-button-area">
+                <a href="javascript:;" id="closewindow" class="mui-btn mui-btn-success mui-btn-block">确定</a>
+            </div>
+        </div>
+    </div>
+{/if}
+</div>
+<script>
+	$(document).on('click','#conbdel',function(){
+		util.confirm('是否确认核销？', ' ', function(e) {
+			if (e.index == 1) {
+	        	var storeid = $('input:radio:checked').val();
+	        	var slen = $(':radio:checked');
+	        	{if !empty($stores)}
+	        	if(slen.length<1){
+	        		//$.confirm('未选择核销场地');return false;
+	        	}
+	        	{/if}
+	          	$.post("{php echo app_url('records/check/check',array('mid' => $orderno))}",{storeid:storeid},function(d){
+					if(!d.errno){
+						location.href = "{php echo app_url('records/check/display',array('mid' => $orderno,'result' => 'success'))}";
+					}else{
+						util.toast(d.message,'', 'error');
+					}
+				},"json");
+	        }
+		});
+	});
+
+	$('#closewindow').click(function(){
+		wx.closeWindow();
+	});
+</script>
+</body>
+</html>

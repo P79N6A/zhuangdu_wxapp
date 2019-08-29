@@ -1,0 +1,24 @@
+<view class="container">
+  <view class='picture_btn' hidden='{{result_flag}}'>
+    <view hidden='{{!flag || result_flag}}'>
+      <view class='image'>
+        <image id='url' src='{{url}}'></image>
+      </view>
+      <view class='btn' bindtap='toimage'>
+        <text>马上测肤</text>
+      </view>
+    </view>
+    <view hidden='{{flag}}'>
+      <view class='image'>
+        <image src='./images/logo.jpg'></image>
+      </view>
+      <view class='text'>
+        Hi~我是你的美肤小助理~我可以帮助你肌肤问题哦~
+      </view>
+      <view class='check' bindtap='upload'>
+        点击上传
+      </view>
+    </view>
+  </view>
+  
+</view>

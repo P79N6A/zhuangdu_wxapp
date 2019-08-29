@@ -1,0 +1,424 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<style>
+    .type1,.type2,.type3,.type4{
+        display: none;
+    }
+    .parameter{
+        overflow: hidden;
+    }
+    .parameter>input:nth-child(1){
+        width: 50%;
+        float: left;
+    }
+    .parameter>input:nth-child(2){
+        width: 50%;
+        float: left;
+    }
+    .parameter+.parameter{
+        margin-top: 5px;
+    }
+    .level>input:nth-child(1),.level>input:nth-child(2),.level>input:nth-child(3){
+        width: 33.333333333333%;
+        float: left;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {$xtitle}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'web','version_id'=>$_GPC['version_id'])}">网站配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sort','version_id'=>$_GPC['version_id'])}">首页排版</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'map','version_id'=>$_GPC['version_id'])}">地图配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'theme','version_id'=>$_GPC['version_id'])}">主题配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'sms','version_id'=>$_GPC['version_id'])}">短信配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'print','version_id'=>$_GPC['version_id'])}">打印配置</a></li>
+            <li role="presentation" class="active"><a>会员卡配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'refund','version_id'=>$_GPC['version_id'])}">退款配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'rotate','version_id'=>$_GPC['version_id'])}">抽奖配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'share','version_id'=>$_GPC['version_id'])}">分销配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'ad','version_id'=>$_GPC['version_id'])}">公告配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'group','version_id'=>$_GPC['version_id'])}">退款地址</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'online','version_id'=>$_GPC['version_id'])}">客服配置</a></li>
+            <li role="presentation"><a href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'audit','version_id'=>$_GPC['version_id'])}">过审配置</a></li>
+        </ul>
+        <form class="form-horizontal" role="form" method="post" action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'saveprint','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="name" id="name" value="{$list['name']}">
+                    <input type="hidden" name="id" value="{$list['id']}">
+                    <input type="hidden" name="recharge">
+                    <input type="hidden" name="level">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员卡（未激活）</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('card',$list['content']['card']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员卡（已激活）</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('card_on',$list['content']['card_on']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员卡使用须知</label>
+                <div class="col-sm-8">
+                    <textarea rows="10" class="form-control" name="card_rules">{$list['content']['card_rules']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">验证码功能</label>
+                <div class="col-sm-8">
+                    {if $list['content']['code_status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="code_status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="code_status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group verification">
+                <label  class="col-sm-2 control-label">验证码短信接口</label>
+                <div class="col-sm-8">
+                    <label class="radio inline">
+                        <input type="radio" class="ui-radio" name="type" id="type1" value="1" {if $list['content']['type']==1}checked{/if}>阿里云
+                    </label>
+                    <label class="radio inline" style="width:60px;">
+                        <input type="radio" class="ui-radio" name="type" id="type2" value="2" {if $list['content']['type']==2}checked{/if}>聚合数据
+                    </label>
+                </div>
+            </div>
+            <div class="form-group type1">
+                <label  class="col-sm-2 control-label">AccessKeyId</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="AccessKeyId" id="AccessKeyId" value="{$list['content']['AccessKeyId']}">
+                </div>
+            </div>
+            <div class="form-group type1">
+                <label  class="col-sm-2 control-label">AccessKeySecret</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="AccessKeySecret" id="AccessKeySecret" value="{$list['content']['AccessKeySecret']}">
+                </div>
+            </div>
+            <div class="form-group type1">
+                <label  class="col-sm-2 control-label">短信签名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="sign" id="sign" value="{$list['content']['sign']}">
+					<div style="color: red !important;">&#x6B64;&#x6E90;&#x7801;&#x7531;&#xFF1A;&#x5F00;&#x5427;&#x6E90;&#x7801;&#x793E;&#x533A;www.5kym.com&#x53D1;&#x5E03;</div>
+                </div>
+            </div>
+            <div class="form-group type1">
+                <label  class="col-sm-2 control-label">模版CODE</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="code" id="code" value="{$list['content']['code']}">
+                    <span class="help-block">模板变量：验证码为${code}</span>
+                </div>
+            </div>
+            <div class="form-group type2">
+                <label  class="col-sm-2 control-label">APPKEY</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="key" id="key" value="{$list['content']['key']}">
+                </div>
+            </div>
+            <div class="form-group type2">
+                <label  class="col-sm-2 control-label">短信模板ID</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="tpl_id" id="tpl_id" value="{$list['content']['tpl_id']}">
+                    <span class="help-block">模板变量：验证码为#code#</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">充值选项</label>
+                <div class="col-sm-8">
+                    {if $list['content']['recharge']}
+                    {loop $list['content']['recharge'] $index $item}
+                    <div class="input-group parameter">
+                        <input type="text" class="form-control" name="r_price" value="{$item['r_price']}" placeholder="充值价格">
+                        <input type="text" class="form-control" name="g_price" value="{$item['g_price']}" placeholder="赠送价格">
+                        <span class="input-group-btn" onclick="parameter.parameter_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/loop}
+                    {else}
+                    <div class="input-group parameter">
+                        <input type="text" class="form-control" name="r_price" value="" placeholder="充值价格">
+                        <input type="text" class="form-control" name="g_price" value="" placeholder="赠送价格">
+                        <span class="input-group-btn" onclick="parameter.parameter_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <script>
+                var parameter={
+                    parameter_add:function(objc){
+                        $(objc).parent().after('<div class="input-group parameter"> ' +
+                                '<input type="text" class="form-control" name="r_price" value="" placeholder="充值价格"> ' +
+                                '<input type="text" class="form-control" name="g_price" value="" placeholder="赠送价格"> ' +
+                                '<span class="input-group-btn" onclick="parameter.parameter_add(this)"> ' +
+                                '<button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button> ' +
+                                '</span> ' +
+                                '<span class="input-group-btn" onclick="parameter.parameter_del(this)"> ' +
+                                '<button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button> ' +
+                                '</span> ' +
+                                '</div>');
+                    },
+                    parameter_del:function(objc){
+                        if($(objc).parent().siblings().length>0){
+                            $(objc).parent().remove();
+                        }
+                    }
+                }
+            </script>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">提现功能</label>
+                <div class="col-sm-8">
+                    {if $list['content']['withdraw']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="withdraw">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="withdraw" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">起提金额</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="withdraw_amount" id="withdraw_amount" value="{$list['content']['withdraw_amount']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">积分功能</label>
+                <div class="col-sm-8">
+                    {if $list['content']['score_status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="score_status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="score_status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">积分图标(50*50)</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('score_icon',$list['content']['score_icon']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">积分获得</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">实付金额</button>
+                        </span>
+                        <input type="text" class="form-control" placeholder="单位（元）" name="score_attr" value="{$list['content']['score_attr']}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">元倍数 获</button>
+                        </span>
+                        <input type="text" class="form-control" name="score_value" value="{$list['content']['score_value']}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">积分</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">折扣功能</label>
+                <div class="col-sm-8">
+                    {if $list['content']['discount_status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="discount_status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="discount_status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">折扣图标(50*50)</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('discount_icon',$list['content']['discount_icon']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">折扣</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="discount" value="{$list['content']['discount']}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">折</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员等级功能</label>
+                <div class="col-sm-8">
+                    {if $list['content']['level_status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="level_status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="level_status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员等级</label>
+                <div class="col-sm-8">
+                    {if $list['content']['level']}
+                    {loop $list['content']['level'] $index $item}
+                    <div class="input-group level">
+                        <input type="text" class="form-control" name="level_name" value="{$item['name']}" placeholder="等级名称">
+                        <input type="text" class="form-control" name="level_price" value="{$item['price']}" placeholder="会员折扣">
+                        <input type="text" class="form-control" name="level_amount" value="{$item['amount']}" placeholder="消费金额">
+                        <span class="input-group-btn" onclick="level.level_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="level.level_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/loop}
+                    {else}
+                    <div class="input-group level">
+                        <input type="text" class="form-control" name="level_name" placeholder="等级名称">
+                        <input type="text" class="form-control" name="level_price" placeholder="会员折扣">
+                        <input type="text" class="form-control" name="level_amount" placeholder="消费金额">
+                        <span class="input-group-btn" onclick="level.level_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="level.level_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <script>
+                var level={
+                    level_add:function(objc){
+                        $(objc).parent().after('<div class="input-group level">' +
+                                '<input type="text" class="form-control" name="level_name" placeholder="等级名称">' +
+                                '<input type="text" class="form-control" name="level_price" placeholder="会员折扣">' +
+                                '<input type="text" class="form-control" name="level_amount" placeholder="消费金额">' +
+                                '<span class="input-group-btn" onclick="level.level_add(this)">' +
+                                '<button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>' +
+                                '</span>' +
+                                '<span class="input-group-btn" onclick="level.level_del(this)">' +
+                                '<button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>' +
+                                '</span>' +
+                                '</div>');
+                    },
+                    level_del:function(objc){
+                        if($(objc).parent().siblings().length>0){
+                            $(objc).parent().remove();
+                        }
+                    }
+                }
+            </script>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" name="submit" class="btn btn-default" value="提交">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    if($("#type1").is(":checked")){
+        $(".type1").show();
+        $(".type4").show();
+    }else{
+        $(".type1").hide();
+    }
+    if($("#type2").is(":checked")){
+        $(".type2").show();
+        $(".type4").show();
+    }else{
+        $(".type2").hide();
+    }
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js"],function(){
+        $(function(){
+            //短信验证
+            $("input[name='type']").change(function(){
+                if($("#type1").is(":checked")){
+                    $(".type1").show();
+                    $(".type4").show();
+                }else{
+                    $(".type1").hide();
+                }
+                if($("#type2").is(":checked")){
+                    $(".type2").show();
+                    $(".type4").show();
+                }else{
+                    $(".type2").hide();
+                }
+            });
+            $("input[name='submit']").click(function(){
+                getjson();
+                getjson2();
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savecard','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        })
+    })
+
+    function getjson(){
+        var recharge=[];
+        $("body").find(".parameter").each(function(){
+            var r_price=$(this).find("input[name='r_price']").val();
+            var g_price=$(this).find("input[name='g_price']").val();
+            if(r_price!=""){
+                var data={};
+                data.r_price=r_price;
+                data.g_price=g_price;
+                recharge.push(data);
+            }
+        });
+        if(recharge.length>0){
+            $("input[name='recharge']").val(JSON.stringify(recharge));
+        }
+    }
+    function getjson2(){
+        var level=[];
+        $("body").find(".level").each(function(){
+            var name=$(this).find("input[name='level_name']").val();
+            var price=$(this).find("input[name='level_price']").val();
+            var amount=$(this).find("input[name='level_amount']").val();
+            if(name!="" && price!="" && amount!=null){
+                var data={};
+                data.name=name;
+                data.price=price;
+                data.amount=amount;
+                level.push(data);
+            }
+        });
+        if(level.length>0){
+            $("input[name='level']").val(JSON.stringify(level));
+        }
+    }
+</script>
+{template 'common/footer'}

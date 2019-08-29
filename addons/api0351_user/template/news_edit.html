@@ -1,0 +1,50 @@
+{template 'common/header'}
+<style type="text/css">
+.we7-form .control-label, form .control-label {
+    text-align: right;
+}
+.col-lg-offset-1 {
+    margin-left: 0; text-align:right
+}
+.date {
+    padding: 0px 12px;
+}
+</style>
+<div class="clearfix">
+	<form action="{php echo $this->createWebUrl('News',array('action'=>'edit','nid'=>$ed_ac[nid]));}" method="post" class="form-horizontal ajaxfrom we7-form" role="form" id="form-user">
+        
+        
+        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">标题</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="title" name="title" class="form-control" value="{$ed_ac['title']}" type="text">
+			</div>
+		</div>
+
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">内容</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<textarea class="form-control" name="content" id="description" rows="5">{$ed_ac['content']}</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-1 col-xs-12 col-sm-10 col-md-10 col-lg-11">
+				<input class="btn btn-primary span3" name="submit" value="提交信息" type="submit">
+				<input name="token" value="{$_W['token']}" type="hidden">
+			</div>
+		</div>
+        
+        
+	</form>
+</div>
+
+	<script>
+	require(['jquery', 'util'], function($, u){
+		$(function(){
+			u.editor($('#description')[0]);
+		});
+	});
+	</script>
+{template 'common/footer'}

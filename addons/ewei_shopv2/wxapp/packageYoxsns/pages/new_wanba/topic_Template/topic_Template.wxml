@@ -1,0 +1,31 @@
+<import src="/utils/wxParse/wxParse.wxml" />
+<template name="topic_Template">
+  <block wx:for="{{topicList}}">
+    <view class='topic_cell bgfff'>
+      <view class='topic_cell_first'>
+        <view class='topic_cell_first_left'>
+          <view class='title'>
+            {{item[0].title}}
+          </view>
+          <view class='futitle'>
+            <view class="wxParse">
+              <template is="wxParse" data="{{wxParseData:item}}" />
+            </view>
+          </view>
+        </view>
+        <view class='topic_cell_first_right'>
+          <text>{{item[0].createtime}}</text>
+        </view>
+      </view>
+      <view class='topic_cell_second'>
+        <block wx:for="{{item[0].images}}" wx:for-item="types">
+          <image src='{{types}}'></image>
+        </block>
+      </view>
+      <view class='topic_cell_third'>
+        <text style='margin-right:16px;'>点赞：<text>{{item[0].goodcount}}</text></text>
+        <text>帖子：<text>{{item[0].postcount}}</text></text>
+      </view>
+    </view>
+  </block>
+</template>

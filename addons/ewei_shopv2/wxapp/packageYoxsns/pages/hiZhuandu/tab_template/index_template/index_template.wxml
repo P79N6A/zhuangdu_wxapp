@@ -1,0 +1,142 @@
+<template name="index_Template">
+  <!-- 官方精选 -->
+  <view class='group bgfff margin14' style='height:228px;'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#官方精选</text>
+      </view>
+      <view class='group_title_right'>
+        <text>查看全部 ></text>
+      </view>
+    </view>
+    <view class='group_content'>
+      <swiper class="swiper-block" previous-margin="90rpx" next-margin="90rpx" current="0" bindchange="swiperChange">
+        <block wx:for="{{imagesList}}" wx:index="{{index}}">
+          <swiper-item class="swiper-item">
+            <image mode="aspectFill" src="{{item}}" class="slide-image {{swiperIndex == index ? 'active2' : ''}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <!-- 品牌讲堂、VIP会员、精品小课、大师课、免费专区、课程优惠劵 -->
+  <view>
+    <scroll-view class='group2 bgfff margin14' scroll-x="true" style="white-space:nowrap;">
+      <view>
+        <block wx:for="{{catearticle}}">
+          <view class='group2_cell'>
+            <view class='group2_image'>
+              <image style='background-color:#fd2c6b;'></image>
+            </view>
+            <view style='white-space:nowrap;text-overflow:ellipsis;'>
+              <text>{{item.category_name}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 热门课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#热门课程</text>
+      </view>
+      <view class='group_title_right'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content'>
+      <view class='group_content_left' style='position:relative;'>
+        <image style='position:absolute;width: 136px;height: 126px; border-radius:5px; padding:5px 4px;' src='{{community[0].images[0]}}'></image>
+        <text style='position:absolute;left:18px; top:24px;' class='group_title'>{{community[0].title}}</text>
+        <text style='position:absolute;left:18px; top:50px;' class='group_futitle'>{{community[0].content}}</text>
+      </view>
+      <view class='group_content_right'>
+        <view class='group_content_right_top' style='position:relative;'>
+          <image style='position:absolute;width:162.61px;height:64px; border-radius:5px; margin-top:17px;' src='{{community[1].images[0]}}'></image>
+          <text style='position:absolute;left:18px; top:24px;' class='group_title'>{{community[1].title}}</text>
+          <text style='position:absolute;left:18px; top:50px;font-size:16px;' class='group_furtitle'>{{community[1].content}}</text>
+        </view>
+        <view class='group_content_right_down' style='position:relative;'>
+          <image style='position:absolute;width:162.61px;height:64px; border-radius:5px; margin-top:17px;' src='{{community[2].images[0]}}'></image>
+          <text style='position:absolute;left:18px; top:24px;' class='group_title'>{{community[2].title}}</text>
+          <text style='position:absolute;left:18px; top:50px;font-size:16px;' class='group_furtitle'>{{community[2].content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- banner -->
+  <view class='banner margin14'>
+    <image src='' style='background:#fd2c6b;'></image>
+  </view>
+  <!-- 产品课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title' style='margin-bottom:10px;'>
+      <view class='group_title_left'>
+        <text>#产品课程</text>
+      </view>
+      <view class='group_title_right'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content' style='width:326px;margin-left:2px;'>
+      <view class='group_content_left' style='width:84px; height:84px; position:relative;'>
+        <image style='position:absolute;width: 106px;height: 126px; border-radius:5px; padding:5px 4px;' src='{{community[0].images[0]}}'></image>
+        <text class='group_title' style='position:absolute;left:18px; top:24px;font-size:19px;'>{{community[0].title}}</text>
+        <text class='group_futitle' style='position:absolute;left:18px; top:50px;font-size:16px;'>{{community[0].content}}</text>
+      </view>
+      <view class='group_content_left' style='width:84px; height:84px; margin-left:7px; position:relative;'>
+        <image style='position:absolute;width: 106px;height: 126px; border-radius:5px; padding:5px 4px;margin-left:3px;' src='{{community[1].images[0]}}'></image>
+        <text class='group_title' style='position:absolute;left:30px; top:24px;font-size:19px;'>{{community[1].title}}</text>
+        <text class='group_futitle' style='position:absolute;left:30px; top:50px;font-size:16px;'>{{community[1].content}}</text>
+      </view>
+      <view class='group_content_right4' style='margin-top:22px;margin-right:-16px;'>
+        <view class='group_content_right4_item' style='position:absolute; left:0; top:0;'>
+
+        </view>  
+        <view class='group_content_right4_item' style='position:absolute; left:0; bottom:0;'>
+
+        </view>
+        <view class='group_content_right4_item' style='position:absolute; right:0; top:0;'>
+
+        </view>
+        <view class='group_content_right4_item' style='position:absolute; right:0; bottom:0;'>
+
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 招商课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#热门课程</text>
+      </view>
+      <view class='group_title_right'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content' style='width:332px;margin-top:16px;'>
+      <view class='group_content_left' style='width:103px; height:103px;position:relative;padding:0;'>
+        <image style='position:absolute;width: 106px;height: 126px; border-radius:5px;' src='{{community[0].images[0]}}'></image>
+        <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community[0].title}}</text>
+        <text style='position:absolute;left:8px; top:40px;' class='group_futitle'>{{community[0].content}}</text>
+      </view>
+      <view class='group_content_right' style='position:relative; width:208px; height:130px;'>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; left:0; top:0;'>
+
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; left:0; bottom:0;'>
+
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; right:0; top:0;'>
+
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; right:0; bottom:0;'>
+
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

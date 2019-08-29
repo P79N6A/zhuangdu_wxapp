@@ -1,0 +1,51 @@
+<div id="member_form" class="mui-popover mui-popover-left">
+    <div class="mui-popover-header">报名信息<a href="#member_form" class="mui-pull-right mui-popover-close"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-card mui-one mui-card-line">
+                    <div class="mui-card-content">
+                        <div class="mui-card-content-inner">
+                            <p style="font-size:14px;margin-bottom:0;">姓名：<span class="mui-text-gray">{$records['realname']}</span></p>
+                            <p style="font-size:14px;margin-bottom:0;">手机：<span class="mui-text-gray">{$records['mobile']}</span></p>
+                            {loop $forms[0] $form}
+                            {if $form['fieldstype']!=''}
+                                <p style="font-size:14px;margin-bottom:0;">{$form['title']}：<span class="mui-text-gray">
+                                {if $form['fieldstype']=='gender'}
+                                    {php echo $formdata_common['gender']==0 ? '保密' :( $formdata_common['gender']==1?'男':'女')}
+                                {elseif $form['fieldstype']=='age'}
+                                    {$formdata_common['age']} 岁
+                                {elseif $form['fieldstype']=='birthyear'}
+                                     {php echo $formdata_common['birthyear'].'年'.$formdata_common['birthmonth'].'月'.$formdata_common['birthday'].'日'}
+                                {elseif $form['fieldstype']=='resideprovince'}
+                                    {$formdata_common['resideprovince']}{$formdata_common['residecity']}{$formdata_common['residedist']}
+                                {else}
+                                    {$formdata_common[$form['fieldstype']]}
+                                {/if}
+                                </span></p>
+                            {else}
+                                {php $formdata = model_records::getSingleFormData($id, $form['id']);}
+                                <p style="font-size:14px;margin-bottom:0;">{$form['title']}：
+                                {if $form['displaytype']==5 && $formdata['data']!=''}
+                                    <img src="{php echo tomedia($formdata['data']);}" height="100" style="display:-webkit-box">
+                                {elseif $form['displaytype']==6 && $formdata['data']!=''}
+                                    <br>
+                                    {php $pics = explode(',', $formdata['data']);}
+                                    {loop $pics $v}
+                                    <img src="{php echo tomedia($v);}" height="30%" width="100" style="margin:0 5px 5px 0;display:inline-block">
+                                    {/loop}
+                                {elseif $form['displaytype']==7}
+                                    <span class="mui-text-gray">{php echo str_replace(',', '-', $formdata['data'])}</span>
+                                {else}
+                                    <span class="mui-text-gray">{php echo str_replace(',', ' ', $formdata['data'])}</span>
+                                {/if}</p>
+                            {/if}
+                            {/loop}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

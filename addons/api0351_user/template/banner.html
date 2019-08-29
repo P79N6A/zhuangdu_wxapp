@@ -1,0 +1,35 @@
+{template 'common/header'}
+<div class="clearfix">
+	<div class="we7-padding-bottom clearfix">
+				<div class="pull-right">
+			<a href="{php echo $this->createWebUrl('Banner', array('action' => 'add'));}" class="btn btn-primary we7-padding-horizontal">添加幻灯</a>
+		</div>
+			</div>
+	<table class="table we7-table table-hover">
+		<thead class="navbar-inner">
+		<tr>
+        	<th class="text-center">幻灯ID</th>
+			<th class="text-center">幻灯名称</th>
+            <th class="text-center">幻灯排序</th>
+			<th class="text-right">管理操作</th>
+		</tr>
+		</thead>
+        {loop $cardr $index $item}
+        <tbody>
+            <tr>
+            	<td class="text-center">{$item['bid']}</td>
+                <td class="text-center">{$item['title']}</td>
+                <td class="text-center">{$item['sort']}</td>
+                <td>
+                <div class="link-group">
+                	<a href="{php echo $this->createWebUrl('Banner', array('action' => 'edit','bid' => $item['bid']));}">编辑</a>
+                    <a href="{php echo $this->createWebUrl('Banner', array('action' => 'del','bid' => $item['bid']));}">删除</a>
+                </div>
+                </td>
+            </tr>
+        </tbody>
+        {/loop}
+	</table>
+    {$pager}
+</div>
+{template 'common/footer'}

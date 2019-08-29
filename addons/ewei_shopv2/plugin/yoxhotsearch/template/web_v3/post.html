@@ -1,0 +1,86 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">热搜编辑</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>热搜编辑</div>
+        <div class="form-group">
+            <label class="col-lg control-label">热搜词</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxhotsearch.edit'}
+                <input type="text" name="keyword" class="form-control" value="{$result['data']['keyword']}" placeholder="填写热搜词。会在搜索框显示" />
+                {/if}
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-lg control-label">图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxhotsearch.edit'}
+                {php echo tpl_form_field_image2('image', $result['data']['image'])}
+                {/if}
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxhotsearch.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">热门</label>
+            <div class="col-sm-9 col-xs-12">
+                <span style="text-align: right;" class="is_advanced">
+                        <label class="notice-default">
+                            <input type="hidden" name="is_hot" value="{php echo intval($result['data']['is_hot'])}" />
+                            <input class="js-switch small checkone" data-type="tpl-advanced" data-tag="yoxhotsearch"  type="checkbox" value="{php echo intval($result['data']['is_hot'])}" {if !empty($result['data']['is_hot'])}checked{/if}/>
+                        </label>
+                        <label style="display: none;">
+                            <img src="../addons/ewei_shopv2/static/images/loading.gif" width="20" alt=""  onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'" />
+                        </label>
+                    </span>
+                    <span class="help-block">热搜词分未热门和非热门</span>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-lg control-label">前台显示状态</label>
+            <div class="col-sm-9 col-xs-12">
+                <span style="text-align: right;" class="is_advanced">
+                        <label class="notice-default">
+                            <input type="hidden" name="status" value="{php echo intval($result['data']['status'])}" />
+                            <input class="js-switch small checkone" data-type="tpl-advanced" data-tag="yoxhotsearch"  type="checkbox" value="{php echo intval($result['status'])}" {if !empty($result['data']['status'])}checked{/if}/>
+                        </label>
+                        <label style="display: none;">
+                            <img src="../addons/ewei_shopv2/static/images/loading.gif" width="20" alt=""  onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'" />
+                        </label>
+                    </span>
+                    <span class="help-block">不显示则关闭</span>
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                {ifp 'result.edit'}
+                <input type="submit" value="提交" class="btn btn-primary" />
+                {/if}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

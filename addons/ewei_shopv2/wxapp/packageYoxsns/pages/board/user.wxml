@@ -1,0 +1,54 @@
+<view class='container' style='position: absolute; left: 0;top: 0;width: 100%; height: 100%; box-sizing: border-box; display: block;'>
+  <view class='background'>
+    <image class='background_image' src='./images/userbg.png'></image>
+    <image class='avatar' wx:if="{{userList.avatar}}" src='{{userList.avatar}}'></image>
+  </view>
+  <view class='userInfo' style='margin-bottom:24px;'>
+    <view class='nickname' wx:if="{{userList.nickname}}">
+      <text>{{userList.nickname}}</text>
+    </view>
+    <view class='user-text'>
+      <i class='icon icon-we'></i>
+      <text>这个家伙什么也没留下~~</text>
+    </view>
+    <view style='color:	#6495ED;position:absolute;left:146px;top:50px;' bindtap='addfriend'>添加该好友</view>
+  </view>
+  <view class='user-history' wx:if="{{boardsList}}">
+    <view class='line'>
+      <view class='list-inner'>TA的版块</view>
+    </view>
+    <view class='boards'>
+      <block wx:for="{{boardsList}}">
+        <view class='board-item'>
+          <image class='board_image' wx:if="{{item.logo}}">{{item.logo}}</image>
+          <image class='border' wx:else style="width: 2.5rem; height:2.5em;"></image>
+          <text class='board_text' wx:if="{{item.title}}">{{item.title}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='user-history' wx:if="{{postsList}}">
+    <view class='line'>
+      <view class='list-inner'>TA的话题</view>
+    </view>
+    <view class='list-group'>
+      <block wx:for="{{postsList}}">
+        <view class='list-item'>
+          <view class='list-image'>
+            <image wx:if="{{item.thumb}}">{{item.thumb}}</image>
+            <image class='border' wx:else style="width: 2.5rem; height:2.5em;"></image>
+          </view>
+          <view class='list-text'>
+            <view class='list-title' wx:if="{{item.title}}">
+              <text>{{item.title}}</text>
+            </view>
+            <view class='list-fu' wx:if="{{item.boardtitle || item.views}}">
+              <text wx:if="{{item.boardtitle}}">{{item.boardtitle}}</text> |
+              <text wx:if="{{item.views}}">阅读 {{item.views}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

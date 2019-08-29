@@ -1,0 +1,595 @@
+<style type="text/css">
+.mui-table-view.mui-form-btn{padding:0!important;margin:0!important;}
+.mui-table-view.mui-form-btn,.mui-table-view.mui-form-btn .mui-table-view-cell{border-radius:0!important;}
+.mui-table-view.mui-form-btn .mui-table-view-cell{float:left; width:23.111%; margin-right:1.5%;padding:3px 0!important; margin-bottom:3px;}
+.mui-table-view.mui-form-btn:nth-child(5) .mui-table-view-cell{width:47.666%;}
+.mui-table-view.mui-form-btn .mui-table-view-cell:after{height:0!important;}
+.mui-table-view.mui-form-btn .mui-table-view-cell a{margin:0!important;border-radius:5px!important;color:#333;line-height:2; font-size:12px;border: #d7d7d7 dashed 1px;}
+.mui-table-view.mui-form-btn .mui-table-view-cell a.mui-active{color:#008fe0; background: none;}
+.mui-table-view.mui-form-btn .mui-table-view-cell a.mui-active:after{border: 1px solid #008fe0;}
+.mui-input-row{background-color:#fff!important;}
+.group-list .mui-input-row {cursor:move;}
+.group-list .mui-input-row label:first-child{width:100%;}
+.group-list .mui-input-row .mui-label{width:100%; padding-left:145px;margin-left:-105px;}
+.group-list .mui-input-row .mui-ext-icon,.group-child .mui-input-row .mui-ext-icon{position:absolute;top:0;z-index:10;width:40px;height:40px;line-height:41.5px;text-align:center;color:#ccc;font-size:18px;}
+.group-list .mui-input-row .mui-icon-remove,.group-child .mui-input-row .mui-icon-remove{left:0;}
+.group-list .mui-input-row .mui-icon-drag, .group-list .mui-input-row .mui-icon-plus{right:0;}
+.group-list .mui-input-row.mui-help .mui-help-info{width:105px;}
+.group-list .mui-input-row.mui-help .mui-help-info{text-align:right;}
+.group-list .mui-input-row.mui-help .mui-help-info .mui-badge{font-size:14px;margin-top:2px;margin-right:65px;border:0;color:#ccc}
+.group-list .mui-input-row.mui-help .mui-help-info input[type=checkbox]{width:25px;height:25px;right:40px;}
+.group-list .mui-input-row.mui-help .mui-help-info input[type=checkbox]:before{font-size:25px;}
+.group-child .mui-input-row input{padding-left:35px;}
+.group-list .form_item.sortable-ghost,.group-list .spec_item_item.sortable-ghost{opacity:0;}
+.group-list .form_item.sortable-drag,.group-list .spec_item_item.sortable-drag{opacity:0.8;background:rgba(0,0,0,.05)}
+.group-list .form_item.sortable-drag.sortable-fallback,.group-list .spec_item_item.sortable-drag.sortable-fallback{background:#fff;}
+</style>
+<div id="act_spec" class="mui-popover mui-popover-left">
+	<div class="mui-popover-header">费用设置
+		<a class="mui-pull-right mui-popover-close js-popover-close" data-popover="act_spec" style="display:none"><me class="mui-icon mui-icon-closeempty"></me></a>
+	</div>
+	<div class="mui-popover-content">
+		<div class="mui-scroll-wrapper-ext">
+			<div class="mui-scroll-ext">
+            	<h5 class="mui-content-padded"></h5>
+            	<div id="limitnum" class="mui-input-group">
+                	<h5 class="mui-content-padded"></h5>
+                    <div class="mui-input-row mui-after-no">
+                        <label>限购：</label>
+                        <input name="activity[limitnum]" type="number" value="{php echo $activity['limitnum']>0?$activity['limitnum']:''}" placeholder="不填写无限制" />
+                    </div>
+                </div>
+				<h5 class="mui-content-padded"></h5>                
+                <div id="specs" class="mui-input-group group-list">
+                    <ul class="mui-table-view mui-afterbefore-no" style="margin-top:0;">
+                        <li class="mui-table-view-cell mui-media">
+                            <a class="mui-navigate-right js-spec-edit" data-id="default">
+                                <p style="padding-left:6px;margin-right:35px;font-size:14px;color:#6e6e6e">默认价格</p>
+                                <span class="mui-badge mui-badge-inverted mui-rmb">{php echo $activity['aprice']?$activity['aprice']:'0.00'}</span>
+                            </a>
+                            <input name="activity[gnum]" type="hidden" value="{$activity['gnum']}" />
+                            <input name="activity[aprice]" type="hidden" value="{$activity['aprice']}" />
+                            <input name="activity[marketprice]" type="hidden" value="{$activity['marketprice']}" />
+                        </li>
+                    </ul>
+                    <h5 class="mui-content-padded"></h5>
+                    {if count($activitySpec[0])<=1}
+                    {loop $activitySpec[0] $spec}
+                    {template 'activity/spec'}
+                    {/loop}
+                    {else}
+                    <div class="js-specs">
+                    	<h5 class="mui-content-padded">PC端已设置组合规格，建议前往PC端修改</h5>
+                        <input name="isSpecs" type="hidden" value="1" />
+                    </div>           
+                    {/if}
+                </div>
+                <div class="mui-text-primary" style="background:#fff;overflow:hidden">
+                    <div class="mui-content-padded mui-text-center js-add-spec">{if count($activitySpec[0])<=1}设置规格{else}重置规格{/if}</div>
+                </div>
+				<div class="mui-content-padded">
+                	<input type="hidden" id="hasoption" value="{php echo $activity['hasoption']?$activity['hasoption']:0}" name="activity[hasoption]" />
+                    <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-save" data-type="spec">完成</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="spec_edit" class="mui-popover mui-popover-left mui-popover-sub">
+	<div class="mui-popover-header">规格编辑<a href="javascript:;" class="mui-pull-right mui-popover-close js-popover-sub-close" data-popover="spec_edit"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            	<div class="mui-input-group js-item">
+                    <div class="mui-input-row mui-after-no">
+                    	<label>名称：</label>
+                        <input name="spectitle" type="text" value="" placeholder="" />
+                    </div>
+                </div>
+                <h5 class="mui-content-padded"></h5>
+                <div class="mui-input-group js-item-option" style="display:none;">
+					<div class="mui-input-row">
+						<label>数量：</label>
+						<input name="" type="number" value="{$activity['gnum']}" placeholder="不填写无限制" class="js-spec-val" />
+					</div>
+					<div class="mui-input-row">
+						<label>票价：</label>
+						<input name="" type="number" value="{$activity['aprice']}"  placeholder="免费请填0，报名后不可更改" class="js-spec-val" />
+					</div>
+					<div class="mui-input-row"{if !$_W['plugin']['card']['config']['card_enable']} style="display:none"{/if}>
+						<label>年卡价：</label>
+						<input name="" type="number" value="{$activity['marketprice']}" placeholder="不填写无年卡价" class="js-spec-val" />
+					</div>
+				</div>
+                <div class="mui-content-padded" style="padding-bottom:10px;">
+                	<input name="" type="hidden" class="js-itemid" value="" />
+                    <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-save" data-type="specEdit">完成</button>
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+<div id="map_selector" class="mui-popover mui-popover-action mui-popover-bottom">
+	<ul class="mui-table-view">
+        <li class="mui-table-view-cell js-map" data-type="map">
+            <a href="javascript:;" class="mui-text-primary">设置场地</a>
+        </li>
+        <li class="mui-table-view-cell js-map" data-type="online">
+            <a href="javascript:;" class="mui-text-primary">线上活动</a>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell js-popover-close" data-popover="map_selector">
+            <a href="javascript:;" class="mui-text-gray">取消</a>
+        </li>
+    </ul>
+</div>
+<div id="act_form" class="mui-popover mui-popover-action mui-popover-bottom mui-popover-sub">
+	<div class="mui-popover-content" style="min-height:220px; padding-right:0;">
+    	<p></p>
+    	<p>常用报名项</p>
+        <ul class="mui-table-view mui-form-btn js-add-form" data-type="sys">
+            <li class="mui-table-view-cell" data-type="gender"><a href="javascript:;">性别</a></li>
+            <li class="mui-table-view-cell" data-type="age"><a href="javascript:;">年龄</a></li>
+            <li class="mui-table-view-cell" data-type="birthyear"><a href="javascript:;">生日</a></li>
+            <li class="mui-table-view-cell" data-type="idcard"><a href="javascript:;">证件</a></li>
+            <li class="mui-table-view-cell" data-type="education"><a href="javascript:;">学历</a></li>
+            <li class="mui-table-view-cell" data-type="company"><a href="javascript:;">公司</a></li>
+            <li class="mui-table-view-cell" data-type="position"><a href="javascript:;">职位</a></li>
+            <li class="mui-table-view-cell" data-type="occupation"><a href="javascript:;">职业</a></li>
+            <li class="mui-table-view-cell" data-type="email"><a href="javascript:;">邮箱</a></li>
+            <li class="mui-table-view-cell" data-type="resideprovince"><a href="javascript:;">城市</a></li>
+        </ul>
+        <p>自定义项</p>
+        <ul class="mui-table-view mui-form-btn js-add-form" data-type="diy">
+            <li class="mui-table-view-cell" data-type="3"><a href="javascript:;">+单行文本</a></li>
+            <li class="mui-table-view-cell" data-type="4"><a href="javascript:;">+数字文本</a></li>
+            <li class="mui-table-view-cell" data-type="0"><a href="javascript:;">+单选类型</a></li>
+            <li class="mui-table-view-cell" data-type="1"><a href="javascript:;">+多选类型</a></li>
+            <li class="mui-table-view-cell" data-type="2"><a href="javascript:;">+下拉选框</a></li>
+            <li class="mui-table-view-cell" data-type="7"><a href="javascript:;">+日期类型</a></li>
+            <li class="mui-table-view-cell" data-type="5"><a href="javascript:;">+单图上传</a></li>
+            <li class="mui-table-view-cell" data-type="6"><a href="javascript:;">+多图上传</a></li>
+        </ul>
+    </div>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell js-popover-sub-close" data-popover="act_form">
+            <a href="javascript:;" class="mui-text-gray">取消</a>
+        </li>
+    </ul>
+</div>
+<div id="act_setting" class="mui-popover mui-popover-left" >
+	<div class="mui-popover-header">活动设置<a href="javascript:;" class="mui-pull-right mui-popover-close js-popover-close" data-popover="act_setting"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+	<div class="mui-popover-content">
+        <div class="mui-scroll-wrapper-ext">
+            <div class="mui-scroll-ext">
+                <div class="mui-content-padded">
+                    <p class="mui-pl5">设置用户报名时填写的表单</p>
+                </div>
+                <div id="forms" class="mui-input-group group-list">
+                    <div class="mui-input-row">
+                        <label class="js-form-edit" data-id="realname">{php echo empty($sysform['realname']['title'])?'姓名':$sysform['realname']['title']}</label>
+                        <input name="activity[form][realname][title]" value="{php echo empty($sysform['realname']['title'])?'姓名':$sysform['realname']['title']}" type="hidden" placeholder="请输入姓名标题">
+                        <input name="activity[form][realname][need]" value="1" type="hidden">
+                    </div>
+                    <div class="mui-input-row">
+                        <label class="js-form-edit" data-id="mobile">{php echo empty($sysform['mobile']['title'])?'手机':$sysform['mobile']['title']}</label>
+                        <input name="activity[form][mobile][title]" value="{php echo empty($sysform['mobile']['title'])?'手机':$sysform['mobile']['title']}" type="hidden" placeholder="请输入手机标题">
+                        <input name="activity[form][mobile][need]" value="1" type="hidden">
+                    </div>
+                    {if count($sysform)>2}{php $sys_form = array_slice($sysform, 2);}
+                    {loop $sys_form $k $form}
+                    {php $form['id']=$k;$form['essential']=$form['need'];$form['fieldstype']=$k;}
+                    {php include fx_template('activity/form');}
+                    {/loop}{/if}
+                    {loop $activityForm[0] $form}
+                    <?php 
+                        switch ($form['displaytype'])
+                        {
+                            case '0': $form['placeholder'] = '输入单选标题'; break;
+                            case '1': $form['placeholder'] = '输入多选标题'; break;
+                            case '2': $form['placeholder'] = '输入下拉选框标题';break;
+                            case '3': $form['placeholder'] = '输入单行文本标题';break;
+                            case '4': $form['placeholder'] = '输入数字文本标题';break;
+                            case '5': $form['placeholder'] = '输入单图上传标题';break;
+                            case '6': $form['placeholder'] = '输入多图上传标题';break;
+                            case '7': $form['placeholder'] = '输入日期标题';break;
+                            default: $form['placeholder'] = '输入'.$form['title'].'标题';
+                        }
+                    ?>
+                    {template 'activity/form'}
+                    {/loop}
+                </div>
+                <div class="mui-text-primary" style="background:#fff;overflow:hidden">
+                    <div class="mui-content-padded mui-text-center js-popover-sub" data-popover='act_form'>+添加自定义填写</div>
+                </div>
+                <div class="mui-content-padded" style="padding-bottom:10px;">
+                    <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-save" data-type="form">完成</button>
+                    <p class="mui-text-gray" style="padding-top:5px; text-align:center">注："姓名"和"手机"只可自定义名称；点击每个表单中间空白处可编辑；长按表单右侧"拖动符"拖动排序</p>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<div id="form_edit" class="mui-popover mui-popover-left mui-popover-sub">
+	<div class="mui-popover-header">报名项编辑<a href="javascript:;" class="mui-pull-right mui-popover-close js-popover-sub-close" data-popover="form_edit"><me class="mui-icon mui-icon-closeempty"></me></a></div>
+    <div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            	<div class="mui-input-group">
+                    <div class="mui-input-row">
+                        <input name="formtitle" value="" type="text" placeholder="">
+                    </div>
+                </div>
+            	<div class="mui-input-group group-child js-child" style="display:none;"></div>
+                <div class="mui-content-padded" style="padding-bottom:10px;">
+                    <button type="button" class="mui-btn mui-btn-orange mui-btn-block js-save" data-type="formEdit">完成</button>
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+{if $_W['_config']['agreement']}
+<div id="agreement" class="mui-popover mui-agreement-info">
+	<div class="mui-popover-header">活动发布协议</div>
+	<div class="mui-popover-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+            	<div class="mui-content-padded">{php echo htmlspecialchars_decode($_W['_config']['proagreement'])}</div>
+            </div>
+        </div>
+    </div>
+    <div class="mui-content-padded">
+        <button type="button" class="mui-btn mui-btn-success mui-btn-block js-readagreement">已阅读并同意</button>
+    </div>
+</div>
+{/if}
+<script>
+var formId,
+	fomrData = $('#forms').html(), 
+	fomrNeed = $('#forms .js-needFill'), 
+	specId,
+	priceData = $('#price').html(),
+	pricePreset = $('#price .js-spec-val');
+require(['{FX_BASE}js/app/Sortable'], function (){
+	var Sortable = new sortableFactory();
+	Sortable.create(forms, {
+		group: "forms",
+		animation: 150,
+		draggable: '.form_item',
+		handle: '.mui-icon-drag',
+		direction: 'Y',
+		delay:100,
+		onUpdate: function (evt){},
+		onStart:function(evt){},
+		onEnd: function(evt){}
+	});
+	$('.spec_item_items').each(function(key){
+		Sortable.create(eval($(this).attr("id")), {
+			group: $(this).attr("id"),
+			animation: 150,
+			draggable: '.spec_item_item',
+			handle: '.mui-icon-drag',
+			direction: 'Y',
+			delay:100,
+			onUpdate: function (evt){},
+			onStart:function(evt){},
+			onEnd: function(evt){}
+		});
+	});
+	document.addEventListener('touchmove', function (e) {
+	   e.returnValue = true;
+	}, false);
+	//$(document.body).delegate('#forms .mui-icon-drag','touchstart', function(e) {e.preventDefault();});
+});
+//规格编辑触发
+$("#specs").delegate('.js-spec-edit','tap',function(e) {
+	specId = $(this).data('id');
+	var itemid = $(this).data('itemid'),
+		spec_title = $('input[name="spec_title['+specId+']"]').val(),
+		placeholder = $('input[name="spec_title['+specId+']"]').attr('placeholder');	
+	if (!$(this).next().hasClass('spec_id')){
+		$('.js-spec-val').eq(0).val($(this).next().val()>0?$(this).next().val():'');
+		$('.js-spec-val').eq(1).val($(this).next().next().val()>0?$(this).next().next().val():'');
+		$('.js-spec-val').eq(2).val($(this).next().next().next().val()>0?$(this).next().next().next().val():'');
+		if (specId!='default'){
+			spec_title = $(this).prev().prev().prev().val();
+			placeholder = $(this).prev().prev().prev().attr('placeholder');
+			$('#spec_edit').find('.js-item').show();
+		}else{
+			$('#spec_edit').find('.js-item').hide();
+		}
+		$('#spec_edit').find('.js-item-option').show().addClass('option');
+	}else{
+		$('#spec_edit').find('.js-item').show();
+		$('#spec_edit').find('.js-item-option').hide().removeClass('option');
+	}
+	
+	$('#spec_edit').find('.js-itemid').val(itemid);
+	$('#spec_edit').find('input[name="spectitle"]').val(spec_title);
+	$('#spec_edit').find('input[name="spectitle"]').attr('placeholder',placeholder);
+	
+	$('#spec_edit').css('display','block')[0].offsetWidth;
+	$('#spec_edit').addClass('mui-active');
+	$('body').append('<div class="mui-backdrop mui-active mui-backdrop-sub"></div>');
+});
+//设置spec_item
+$(".js-add-spec").on('tap',function(e) {
+	if ($('.spec_item').length){
+		util.tips('已有规格');
+		return false;
+	}
+	if ($('.js-specs').length){
+		util.confirm('确认重置规格，是否确认？', ' ', function(e) {
+			if (e.index == 1) {
+				addSpec();
+			}
+		});
+		return false;
+	}
+	util.alert('设置后，默认价格不再生效', ' ', function() {
+		addSpec();
+	});
+	
+});
+//添加spec_item
+function addSpec(){
+	util.loading();
+	$.ajax({
+		type: 'POST',
+		url: "{php echo app_url('activity/option/spec')}",
+		data: {title:'',placeholder:'(比如: 门票类型)'},
+		success:function(data){
+			util.loading().close();
+			$('#specs').append(data);
+			$('#hasoption').val(1);
+			//加载拖动排序
+			var Sortable = new sortableFactory();
+			$('.spec_item_items').each(function(key){
+				Sortable.create(eval($(this).attr("id")), {
+					group: $(this).attr("id"),
+					animation: 150,
+					draggable: '.spec_item_item',
+					handle: '.mui-icon-drag',
+					direction: 'Y',
+					delay:100,
+					onUpdate: function (evt){},
+					onStart:function(evt){},
+					onEnd: function(evt){}
+				});
+			});
+		}
+	});
+}
+//添加spec_item_item
+function addSpecItem(specid){
+	var placeholder; 
+	var url = "{php echo app_url('activity/option/specitem')}" + "&specid=" + specid;
+	var len = $('#spec_item_'+specid).find('.spec_item_item').length;
+	placeholder  = '输入选项'+(len+1);
+	util.loading();
+	$.ajax({
+		"url": url,
+		data: {placeholder:placeholder},
+		success:function(data){
+			util.loading().close();
+			$('#spec_item_'+specid).append(data);
+		}
+	});
+}
+$('#specs').delegate('.js-specshow', 'click', function(e) {
+	var val = $(this).is(':checked')?"1":"0";
+	$(this).next().val(val);
+});
+<!--表单控制开始-->
+if ($('#forms .form_item').length > 0){
+	$('.js-setting').find("span.mui-badge").text('已设置');
+}else{
+	$('.js-setting').find("span.mui-badge").text('');
+}
+//表单编辑触发
+$("#forms").delegate('.js-form-edit','tap',function(e) {
+	formId = $(this).data('id');
+	var form_title = $('input[name="form_title['+formId+']"]').val();
+	var placeholder = $('input[name="form_title['+formId+']"]').attr('placeholder');
+	if (formId=='realname'|| formId=='mobile'){
+		form = 'input[name="activity[form]['+formId+'][title]"]';
+		form_title = $(form).val();
+		placeholder = $(form).attr('placeholder');
+	}
+	if ($('#form_item_' + formId).length>0){
+		$('#form_edit').find('.js-child').html($('#form_item_' + formId).html()).show();
+		if ($('#add-formitem').length==0)
+		$('#form_edit').find('.js-child').after('<div class="mui-text-primary" id="add-formitem" style="background:#fff;overflow:hidden"><div class="mui-content-padded mui-text-center" onclick="addFormItem(\''+formId+'\')">+添加</div></div>');
+	}else{
+		$('#form_edit').find('.js-child').html('').hide();
+		$('#form_edit').find('#add-formitem').remove();
+	}
+	$('#form_edit').find('input[name="formtitle"]').val(form_title);
+	$('#form_edit').find('input[name="formtitle"]').attr('placeholder',placeholder);
+	
+	$('#form_edit').css('display','block')[0].offsetWidth;
+	$('#form_edit').addClass('mui-active');
+	$('body').append('<div class="mui-backdrop mui-active mui-backdrop-sub"></div>');
+});
+//必填
+$('#forms').delegate('.js-needFill', 'click', function(e) {
+	var need = $(this).is(':checked')?"1":"0";
+	$(this).siblings('input').val(need);
+});
+//添加form_item
+$(".js-add-form li").on('tap',function(e) {
+	var type = $(this).parent().data('type');
+	var form_type = $(this).data('type');
+	var form_title = $(this).text();
+	$('#act_form').removeClass('mui-active').fadeOut();
+	$('body').find('.mui-backdrop-sub').remove();
+	if (type == 'sys' && $("#forms").html().indexOf(form_type)!=-1){
+		util.tips('常用选项不可重复添加');
+		return false;
+	}
+	util.loading();
+	$.ajax({
+		type: 'POST',
+		url: "{php echo app_url('activity/option/form')}",
+		data: {type:type, form_type:form_type, title:form_title},
+		success:function(data){
+			util.loading().close();
+			$('#forms').append(data);
+			if (type == 'diy'){
+				$('#forms .form_item:last').find('.js-form-edit').trigger('tap')
+			}
+		}
+	});
+});
+//添加form_item_item
+function addFormItem(formid){
+	var placeholder; 
+	var url = "{php echo app_url('activity/option/formitem')}" + "&formid=" + formid;
+	var len = $('#form_edit').find('.js-child').find('.form_item_item').length;
+	placeholder  = '输入选项'+(len+1);
+	util.loading();
+	$.ajax({
+		"url": url,
+		data: {placeholder:placeholder},
+		success:function(data){
+			util.loading().close();
+			$('#form_edit').find('.js-child').append(data);
+		}
+	});
+}
+<!--表单控制结束-->
+
+<!--保存数据-->
+$('.js-save').on('click', function(e) {
+	var type = $(this).data('type');
+	if (type == 'form'){//保存所有form数据
+		fomrData = $('#forms').html();
+		fomrNeed = $('#forms').find('.js-needFill');
+		if ($('#forms .form_item').length > 0){
+			$('.js-setting').find("span.mui-badge").text('已设置');
+		}else{
+			$('.js-setting').find("span.mui-badge").text('');
+		}
+		$("#act_setting").css('transition','');
+		mui("#act_setting").popover('toggle');
+	}else if(type == 'formEdit'){//表单编辑保存
+		var form = 'input[name="form_title['+formId+']"]';
+		var form_title = $('#form_edit').find('input[name="formtitle"]').val();
+		var placeholder = $('#form_edit').find('input[name="formtitle"]').attr('placeholder');
+		if (formId=='realname'|| formId=='mobile'){
+			form = 'input[name="activity[form]['+formId+'][title]"]';
+		}
+		$(form).val($.trim(form_title));
+		$(form).siblings('.js-form-edit').text($.trim(form_title)!=''?$.trim(form_title):placeholder);
+		if ($('#form_item_' + formId).length>0){
+			$('#form_item_' + formId).html('');
+			$("#form_edit .js-child .form_item_item").each(function(key){
+				var form_item_title = $.trim($(this).find('input[name="form_item_title_'+formId+'[]"]').val());
+				var form_item_item = $(this).clone().find('input[name="form_item_title_'+formId+'[]"]').attr("value", form_item_title).parents('.form_item_item');
+				$('#form_item_' + formId).append(form_item_item);
+			});
+			$('#form_edit').find('.js-child').html('').hide();
+		}
+		$('#form_edit').removeClass('mui-active').fadeOut();
+		$('body').find('.mui-backdrop-sub').remove();
+	}else if(type == 'specEdit'){//规格编辑保存		
+		if (specId=='default'){
+			$('input[name="activity[gnum]"]').prev().find('.mui-rmb').text($('.js-spec-val').eq(1).val()?$('.js-spec-val').eq(1).val():'0.00');
+			$('input[name="activity[gnum]"]').val($('.js-spec-val').eq(0).val());
+			$('input[name="activity[aprice]"]').val($('.js-spec-val').eq(1).val());
+			$('input[name="activity[marketprice]"]').val($('.js-spec-val').eq(2).val());
+		}else{
+			var spec = 'input[name="spec_title['+specId+']"]',
+				spec_title = $('#spec_edit').find('input[name="spectitle"]').val(),
+				placeholder = $('#spec_edit').find('input[name="spectitle"]').attr('placeholder'),
+				itemID = '#spec_item_item_'+$('.js-itemid').val();
+			if (!$('#spec_edit .js-item-option').hasClass('option')){
+				$(spec).val($.trim(spec_title));
+				$(spec).siblings('.js-spec-edit').text($.trim(spec_title)!=''?$.trim(spec_title):placeholder);
+			}else{	
+				spec = 'input[name="spec_item_title_'+specId+'[]"]';
+				$(itemID).find(spec).val($.trim(spec_title));
+				$(itemID).find('.js-spec-edit').text($.trim(spec_title)!=''?$.trim(spec_title):placeholder);
+				$(itemID).find('.js-spec-edit').next().val($('.js-spec-val').eq(0).val());
+				$(itemID).find('.js-spec-edit').next().next().val($('.js-spec-val').eq(1).val());
+				$(itemID).find('.js-spec-edit').next().next().next().val($('.js-spec-val').eq(2).val());
+			}			
+		}
+		$('#spec_edit').removeClass('mui-active').fadeOut();
+		$('body').find('.mui-backdrop-sub').remove();
+	}else if(type == 'spec'){
+		priceData = $('#price').html();
+		pricePreset = $('#price').find('.js-spec-val');
+		pricePreset.each(function(key){
+			var type = $(this).data('type');
+			$('.js-spec-val').eq(key).val($(this).val());
+			$('input[name="activity['+type+']"]').val($(this).val());
+		});
+		if ($('input[name="activity[isSpecs]"]').val() != 1){
+			var result;
+			if ($('#specs .spec_item').length){
+				var minprice,maxprice,p;
+				$('.spec_item_item').each(function(key){
+					p = $(this).find('.js-spec-edit').next().next().val();
+					maxprice = maxprice > p ? maxprice : p;
+					minprice = minprice < p && p ? minprice : p;
+				});
+				result = minprice < maxprice ? (minprice>0?minprice:'0.00') + ' ~ ' + maxprice : (maxprice>0?maxprice:'0.00');
+				$('.js-price').find("span.mui-badge").text(result).addClass('mui-rmb');
+			}else{
+				result = $('input[name="activity[aprice]"]').val()!='' ? $('input[name="activity[aprice]"]').val() : '0.00';
+				$('.js-price').find("span.mui-badge").text(result).addClass('mui-rmb');
+			}
+		}
+		$("#act_spec").css('transition','');
+		mui("#act_spec").popover('toggle');
+	}
+});
+<!--保存数据结束-->
+$(".js-popover-close").on("click",function(e) {
+	var popover = "#"+$(this).data("popover");
+	if (popover=='#act_setting'){
+		if (fomrData!=''){
+			$('#forms').html(fomrData);
+			fomrNeed.each(function(key){
+				if ($(this).is(':checked')){
+					$('#forms .js-needFill').eq(key).attr("checked", true);
+				}else{
+					$('#forms .js-needFill').eq(key).attr("checked", false);
+				}
+			});
+		}
+	}else if(popover=='#act_spec'){
+		$('#price').html(priceData);
+		pricePreset.each(function(key){
+			if ($(this).val()!=''){
+				$('.js-spec-val').eq(key).val($(this).val());
+				$('input[name="activity['+$(this).data('type')+']"]').val($(this).val());
+			}
+		});
+	}
+});
+//删除item
+$('body').delegate('.js-remove', 'tap', function(e) {
+	$(this).parents('.'+$(this).data('type')+'_item').remove();
+	if ($(this).data('type')=='spec'){
+		$('#hasoption').val(0);
+	}
+});
+//删除item_item
+function removeItem(obj){
+	var itemClass = '.'+$(obj).data('type')+'_item_item';
+	var titleClass = '.'+$(obj).data('type')+'_item_title';
+	var siblings = $(obj).parents(itemClass).siblings(itemClass);
+	$(obj).parents(itemClass).remove();
+	siblings.each(function(key){
+		$(this).find(titleClass).attr('placeholder','输入选项'+(key+1));
+	});
+}
+//发布协议
+$(".js-readagreement").on('tap',function(e) {
+	$("input[name='agreement']").prop("checked", true);
+	mui('#agreement').popover('toggle');
+});
+</script>

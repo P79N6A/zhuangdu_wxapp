@@ -1,0 +1,25 @@
+<template name="topic_Template">
+  <block wx:for="{{topicList}}" wx:for-item="item">
+    <view class='topic_cell'>
+      <view class='topic_cell_left'>
+        <view class='image'>
+          <view class='line' style='display:inline;'></view>
+          <!-- <block wx:for="{{item.images}}" wx:if="{{item.images}}"wx:for-item="types"> -->
+            <image wx:if="{{item.images}}" class='baseimg' src='{{item.images[0]}}'></image>
+            <image class='baseimg' wx:else src='' style='background:#fd2c6b;'></image>
+          <!-- </block> -->
+        </view>
+        <view style='float:left;'>
+          <view class='title'>
+            <text wx:if="{{item.title}}">{{item.title}}</text>
+          </view>
+          <!-- <view class='readnumber'>
+            <text style='margin-right:8px;'>{{item.discussnumber}}讨论</text>
+            <text>{{item.readnumber}}阅读</text>
+          </view> -->
+        </view>
+      </view>
+     </view> 
+  </block>
+  <view style='width:100%;height:50px;'></view>
+</template>

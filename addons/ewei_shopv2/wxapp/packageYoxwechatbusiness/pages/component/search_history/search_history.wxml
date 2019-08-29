@@ -1,0 +1,34 @@
+<import src="./heart_feel_Template/heart_feel_Template.wxml" />
+<import src="./product_Template/product_Template.wxml" />
+<import src="./component_Template/component_Template.wxml" />
+<view class='container'>
+  <view class='searchBox'>
+    <view class='search'>
+      <image src="../images/search.png"></image>
+      <input type='text' focus='{{true}}' bindinput='searchvalue' placeholder-style='font-size:20rpx;color:#a6a6a6;' placeholder='妆度水母面膜'></input>
+       <view class='searchText' bindtap='search'>搜索</view>
+    </view>
+  </view>
+  <view class="top-tab">
+    <view class="top-tab-item {{currentTopItem==idx ? 'active' : ''}}" wx:for="{{topTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchTab">
+      {{item}}
+    </view>
+  </view>
+  <swiper class="swiper" current="{{currentTopItem}}" bindchange="bindChange" duration="300" style="height:{{winHeight}}rpx">
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData">
+        <template is="heart_feel_Template" data="{{...item,heartfeelList}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData" style='background:#fff; height:100%;'>
+        <template is="product_Template" data="{{...item,historysearchList,hotsearchList}}" />
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view class="scrollView" scroll-y="true" bindscrolltolower="loadMoreData" style='background:#fff; height:100%;'>
+        <template is="component_Template" data="{{...item,historysearchList,hotsearchList}}" />
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,80 @@
+<import src="./index_template/index_template.wxml" />
+<import src="./cate_template/cate_template.wxml" />
+<template name="factory_Template">
+  <view class='container'>
+    <view class="customSwiper">
+      <view class='searchBox'>
+        <image src='./images/search.png'></image>
+        <text>搜品牌、工厂、加盟</text>
+      </view>
+      <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+        <block wx:for="{{sliderList}}">
+          <swiper-item>
+            <image src="{{item.imageSource}}" style='background:#fd2c6b;width:100%;height:100%;'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="tab">
+        <block wx:for="{{sliderList}}" wx:key="key">
+          <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+          <view wx:else class="tab-item"></view>
+        </block>
+      </view>
+    </view>
+    <view class='group2'>
+      <block wx:for="{{groupList}}">
+        <view class='group2_cell'>
+          <view class='image'>
+            <image src='{{item.imgUrl}}'></image>
+          </view>
+          <view class='text'>
+            <text>{{item.text}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="nav-top-tab">
+      <view class="top-tab-item {{navTopItem==idx ? 'active' : ''}}" wx:for="{{navTabItems}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchnavTab2" data-id='{{item.id}}'>
+        {{item.name}}
+      </view>
+    </view>
+    <swiper class="swiper" current="{{navTopItem}}" bindchange="bindnavChange" duration="300" style="height:{{winHeight+2000}}rpx" data-id='{{item.id}}'>
+      <swiper-item>
+        <template is="index_template" data="{{...item,tab,tabTxt,pushList,groupList,group4List,item,navTopItem,navTabItems,winHeight,group5commendList,group5commendList2,gc_list,placeList,flag,showflag}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+      <swiper-item>
+        <template is="cate_template" data="{{cate_list,...item,item}}" />
+      </swiper-item>
+    </swiper>
+    <!-- 产地列表 -->
+    <view class="place {{showflag?'show_place':'hide_place'}}">
+      <block wx:for="{{placeList}}">
+        <text>{{item.origin_place}}</text>
+      </block>
+    </view>
+  </view>
+</template>

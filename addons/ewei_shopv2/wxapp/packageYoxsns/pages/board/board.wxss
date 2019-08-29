@@ -1,0 +1,218 @@
+.play{
+  width: 100%;
+  height: 68px;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  left: 0;
+  top:0;
+  background-image: url(https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2059509092,3543842011&fm=11&gp=0.jpg);
+  background-position:0% 24%;
+  z-index: 99;
+}
+.avatar{
+  width:50px;
+  height:50px;
+  border:2px solid #ccc;
+  float:left;
+  margin-left:14rpx;
+  margin-top:18rpx;
+}
+.baseimg{
+  /* display: block; */
+  width: 100%;
+  height: 100%;
+}
+.img{
+  min-height: 20px;
+  float: left;
+  height:0px;
+}
+.title{
+  float: left;
+  font-size:36rpx;
+  color: #fff;
+  margin-top:24rpx;
+  margin-left:20rpx;
+}
+.subheading{
+  font-size:30rpx;
+  margin-top:8rpx;
+}
+.subheading text{
+  float: left;
+}
+.subheading>text{
+  margin-right: 8rpx;
+}
+.attention{
+  float:right;
+  width:70px;
+  height:28px;
+  background:#f5f8f6;
+  line-height:28px;
+  text-align:center;
+  font-size:14px;
+  border-radius:6px;
+  margin-top:46rpx;
+  margin-right:28rpx;
+}
+.attentioned{
+  float:right;
+  width:70px;
+  height:28px;
+  background:#f5f8f6;
+  line-height:28px;
+  text-align:center;
+  font-size:14px;
+  border-radius:6px;
+  margin-top:46rpx;
+  margin-right:28rpx;
+}
+.attentioned image{
+  width: 16px;
+  height: 16px;
+}
+.attentioned text{
+
+}
+.tab-h{
+    height: 80rpx;
+    width: 100%; 
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 80rpx;
+    background: #fff; 
+    font-size: 15px; 
+    white-space: nowrap;
+    position: fixed;
+    /* top: 69px;  */
+    top:0;
+    left: 0; 
+    z-index: 99;
+}
+.tab-item{
+  margin:0 78rpx;
+  display: inline-block;
+}
+.tab-item.active{
+  color: #f18909;
+  position: relative;
+}
+.tab-item.active:after{ 
+  content: "";
+  display: block;
+  height: 8rpx;
+  width: 108px;
+  background: #f18909;
+  position: absolute; 
+  bottom: 0;
+  left: -34px;
+  border-radius: 16rpx;
+}
+.tab-content{
+  /* margin-top: 200rpx; */
+  margin-top: 19rpx;
+}
+.playItem{
+  background: #fff;
+  width: 100%;
+  /* height: 166px; */
+  /* margin-top:19rpx; */
+  /* padding-top:30rpx; */
+  padding-left:40rpx;
+  margin-bottom: -18px;
+}
+.user-avatar{
+  width: 38px;
+  height: 38px;
+  float: left;
+  margin-top:11px;
+}
+.user-avatar image{
+  border-radius:21px;
+}
+.username{
+  float: left;
+  font-size: 16px;
+  margin-left:44rpx;
+  margin-top:12px;
+  width: 280px;
+}
+.time{
+  font-size:12px;
+  width:78px;
+  margin-left:126rpx;
+  color:#8f8f8f;
+  margin-top:62rpx;
+}
+.playItem-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin-left:128rpx;
+  margin-right:35rpx;
+  margin-top:2px;
+  margin-bottom: 2px;
+}
+.content{
+  font-size: 18px;
+  margin-top:42rpx;
+  margin-bottom:62rpx;
+  display: -webkit-box;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  word-wrap: break-word;  
+  white-space: normal !important; 
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  margin-right:34rpx;
+}
+.down-icons{
+  height:66rpx;
+  border-top:2px solid #f0f0f0;
+  /* float:left; */
+  width:100%;
+  margin-left:-39rpx;
+  padding-top:26rpx;
+}
+.down-icons text{
+  /* float: left; */
+}
+.down-icons image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.commit{
+  float: left;
+  width: 120px;
+  margin-left:48rpx;
+}
+.praise{
+  float: left;
+  width: 72px;
+}
+.appeal{
+  float: left;
+  width: 48px;
+}
+.scoll-h{
+  height: 100%;
+}
+.maright{
+  margin-right:72rpx;
+}
+/* 发布按钮 */
+.primaryBtn{
+  width: 58px;
+  height: 58px;
+  border-radius: 29px;
+  background: #0290be;
+  position: fixed;
+  left: 280px;
+  top: 458px; 
+}
+.primaryBtn image{
+ width:32px;
+ height:32px;
+ margin-left:14px;
+ margin-top:12px;
+}

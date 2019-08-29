@@ -1,0 +1,136 @@
+.logo {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    display: block;
+    font-size: 30rpx;
+    padding-top: 10px;
+}
+
+page {
+    background: #f5f5f5;
+}
+
+.top {
+    background: #fff;
+    width: 100%;
+    padding-bottom: 3%;
+}
+
+.list {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.left {
+    display: block;
+    float: left;
+    width: 20%;
+    line-height: 40px;
+    font-size: 26rpx;
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+.pay_button {
+    float: left;
+    width: 75%;
+    border: inherit!important;
+    text-align: left;
+    box-shadow: inherit;
+    background: #fff;
+    padding: 0;
+    border-radius: inherit;
+    font-size: 24rpx;
+    color: #999;
+    line-height: 40px;
+    height: 40px;
+}
+
+.pay_button:after {
+    border: inherit!important;
+}
+
+.jp {
+    width: 100%;
+    height: auto;
+    background: #fff;
+}
+
+.num {
+    float: left;
+    width: 26.1%;
+    text-align: center;
+    line-height: 50px;
+    border: solid 1px #eee;
+    border-top: none;
+    border-right: none;
+    font-size: 45rpx;
+    color: #000;
+    height: 50px;
+}
+
+.num1 {
+    float: right;
+    width: 20%;
+    background: #39b448;
+    text-align: center;
+    color: #fff;
+    font-size: 24rpx;
+    height: 7.4rem;
+}
+
+.delete {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 15px auto;
+}
+
+.wx {
+    width: 55px;
+    height: 42px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30%;
+}
+
+.num1 text {
+    display: block;
+    font-size: 30rpx;
+    line-height: 2rem;
+}
+
+.num2 {
+    width: 20%;
+    float: right;
+    border-left: solid 1px #eee;
+}
+
+@media (max-width:320px) {
+    .num {
+        width: 26%!important;
+    }
+
+    .num1 {
+        height: 9.6rem!important;
+    }
+
+    .wx {
+        margin-top: 68%!important;
+        width: 40px;
+        height: 30px;
+    }
+
+    .num1 text {
+        font-size: 32rpx;
+    }
+}

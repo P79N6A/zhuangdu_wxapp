@@ -1,0 +1,123 @@
+{template 'common/header'}
+
+<style type="text/css">
+.newDing{ width:100%; display:flex; height:70px; border:1px #EEE solid; margin-bottom:10px; overflow:hidden}
+.we7-padding-bottom .pull-left{ flex:1; height:70px; border-right:1px #EEE solid; padding-top:10px; background:#FAFAFA}
+.we7-padding-bottom .pull-right{ flex:1; height:70px;  padding-top:10px;}
+.newDing text{flex:1; display:block; text-align:center; color:#FF6E00; font-weight:bold; font-size:18px;}
+.newDing strong{flex:1; display:block; text-align:center; color:#666; font-weight:400}
+</style>
+
+
+
+     
+    
+<div class="clearfix">
+
+ <div class="clearfix" style="padding:0 30px;">
+    <ul class="we7-page-tab">
+        <li><a href="./index.php?c=site&a=entry&action=news&do=Shop&m=api0351_user">最新入驻</a></li>
+        <li class="active"><a href="./index.php?c=site&a=entry&action=applys&do=Shop&m=api0351_user">最新申请</a></li>
+    </ul>
+    
+     </div>
+    
+
+	<table class="table we7-table table-hover">
+		<thead class="navbar-inner">
+		<tr>
+        	<th class="text-center" >状态</th>
+			<th class="text-center" >店铺名称</th>
+            <th class="text-center" >申请人</th>
+            <th class="text-center" >支付租金</th>
+            <th class="text-center">申请时间</th>
+			<th class="text-center" >管理操作</th>
+		</tr>
+		</thead>
+        {loop $cardr $index $item}
+        <tbody>
+            <tr>
+            	<td class="text-center">
+                {if $item['display'] == 0}
+                	<font color="#999">待审</font>
+                {else if $item['display'] == 2}
+                	<font color="#009900">拒签</font>
+                {/if}
+                </td>
+                <td class="text-center">
+                	{$item['dtitle']}
+                </td>
+                <td class="text-center">
+                	{$item['nickname']}
+                </td>
+
+                <td class="text-center" style="color:#CC0000">
+                    {if $item['pay'] == 0}
+                        {$item['dmoney']} <font color="#999">[未支付]</font>
+                    {else if $item['pay'] == 1}
+                        {$item['dmoney']} <font color="#009900">[已支付]</font>
+                    {/if}
+                </td>
+                <td class="text-center" style="color:#666">
+                    {php echo date('m/d H:i',$item['ctime']);}
+                </td>
+                <td>
+                <div class="link-group">
+                    <a href="{php echo $this->createWebUrl('Shop', array('action' => 'look','did' => $item['did']));}">查改</a>
+                    <a href="{php echo $this->createWebUrl('Shop', array('action' => 'display','did' => $item['did'],'display' => 1));}" style="color:#FF0004">通过</a>
+                    <a class="noid_ed" style="color:#009933; cursor:pointer" data-toggle="modal" data-target="#myModal" noid="{$item['did']}">拒签</a>
+                    <a href="{php echo $this->createWebUrl('Shop', array('action' => 'del','did' => $item['did']));}" class="del">删除</a>
+                </div>
+                </td>
+            </tr>
+        </tbody>
+        {/loop}
+	</table>
+    {$pager}
+
+   
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">补充说明拒签理由</h4>
+            </div>
+            <form action="{php echo $this->createWebUrl('Shop',array('action'=>'displas','display' => 2));}" method="post" class="form-horizontal ajaxfrom we7-form" role="form" id="form-user">
+            <input name="did" type="text" value="" hidden="true" />
+            <div class="modal-body">
+            	<textarea name="noliyou" placeholder="这里说明拒绝理由" style="width:100%; border:1px #F1F1F1 solid; padding:10px;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+$(function(){
+	$('.noid_ed').click(function(){
+		var noid = $(this).attr('noid');
+		//alert(noid);
+		$.get("{php echo $this->createWebUrl('Shop')}&action=dispno&did=" + noid,function(result){
+			var data=$.parseJSON(result);
+			if(data.noliyou == 0){
+				$("textarea[name='noliyou']").val('');
+			}else{
+				$("textarea[name='noliyou']").val(data.noliyou);
+			}
+			$("input[name='did']").val(data.did);
+		});
+	})
+});
+
+</script>
+
+{template 'common/footer'}

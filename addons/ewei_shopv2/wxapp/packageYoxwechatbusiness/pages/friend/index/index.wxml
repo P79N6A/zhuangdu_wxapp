@@ -1,0 +1,18 @@
+<view class='container'>
+  <block wx:for="{{friendList}}">
+    <view class='friend_item' data-id='{{item.id}}' bindtap='delete_item'>
+      <view class='frient_avatar'>
+        <image wx:if="{{item.frient_avatar}}" src='{{item.frient_avatar}}'></image>
+      </view>
+      <view class='frient_nickname'>
+        <text wx:if="{{item.frient_nickname}}">{{item.frient_nickname}}</text>
+        <view wx:if="{{item.remark_name}}" style='color: #c2c2c2;margin-top:8px;'>
+          <view style='display:inline;overflow:hidden;width:100px;white-space:nowrap;text-overflow:ellipsis;'><text>{{item.remark_name}}</text></view>  <text data-uid='{{item.uid}}' data-remark_name='{{item.remark_name}}' style='color:#36c993;font-size:12px;margin-left:80px;' catchtap='revise'>修改</text>
+        </view>
+      </view>
+      <view class='add_time_format' wx:if="{{item.add_time_format}}">
+        <text>{{item.add_time_format}}</text>
+      </view>
+    </view>
+  </block>
+</view>

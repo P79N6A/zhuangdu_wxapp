@@ -1,0 +1,621 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.css" />
+<style>
+    .clockpicker{width: 50%;  float: left;}
+    .week1,.week2,.week3,.week4,.week5,.week6,.week7{display: none;}
+    #model{  display: none;}
+</style>
+<div id="model">
+    <div class="input-group cube">
+        {php echo tpl_form_field_clock('start');}
+        {php echo tpl_form_field_clock('end');}
+        <span class="input-group-btn" onclick="cube.add(this)">
+            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+        </span>
+        <span class="input-group-btn" onclick="cube.del(this)">
+            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+        </span>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            门店项目>编辑
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form id="sign-form" class="form-horizontal" role="form" method="post" action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="name" id="name" value="{$list['name']}">
+                    <input type="hidden" name="id" value="{$list['id']}">
+                    <input type="hidden" name="content">
+                    <span class="help-block">工作时间段最多添加四组</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">星期</label>
+                <div class="col-sm-8">
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week1" value="1" {if $list['content'][1]['status']==1}checked{/if}>周一
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week2" value="2" {if $list['content'][2]['status']==1}checked{/if}>周二
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week3" value="3" {if $list['content'][3]['status']==1}checked{/if}>周三
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week4" value="4" {if $list['content'][4]['status']==1}checked{/if}>周四
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week5" value="5" {if $list['content'][5]['status']==1}checked{/if}>周五
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week6" value="6" {if $list['content'][6]['status']==1}checked{/if}>周六
+                    </label>
+                    <label class="radio inline">
+                        <input type="checkbox" class="ui-radio" name="week" id="week7" value="7" {if $list['content'][7]['status']==1}checked{/if}>周日
+                    </label>
+                </div>
+            </div>
+            <div class="form-group week1">
+                <label for="name" class="col-sm-2 control-label">周一</label>
+                <div class="col-sm-8">
+                    {if $list['content'][1]['time1start'] && $list['content'][1]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][1]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][1]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][1]['time2start'] && $list['content'][1]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][1]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][1]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][1]['time3start'] && $list['content'][1]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][1]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][1]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][1]['time4start'] && $list['content'][1]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][1]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][1]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][1]['time1start'] && !$list['content'][1]['time1end'] && !$list['content'][1]['time2start'] && !$list['content'][1]['time2end'] && !$list['content'][1]['time3start'] && !$list['content'][1]['time3end'] && !$list['content'][1]['time4start'] && !$list['content'][1]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week2">
+                <label for="name" class="col-sm-2 control-label">周二</label>
+                <div class="col-sm-8">
+                    {if $list['content'][2]['time1start'] && $list['content'][2]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][2]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][2]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][2]['time2start'] && $list['content'][2]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][2]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][2]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][2]['time3start'] && $list['content'][2]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][2]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][2]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][2]['time4start'] && $list['content'][2]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][2]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][2]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][2]['time1start'] && !$list['content'][2]['time1end'] && !$list['content'][2]['time2start'] && !$list['content'][2]['time2end'] && !$list['content'][2]['time3start'] && !$list['content'][2]['time3end'] && !$list['content'][2]['time4start'] && !$list['content'][2]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week3">
+                <label for="name" class="col-sm-2 control-label">周三</label>
+                <div class="col-sm-8">
+                    {if $list['content'][3]['time1start'] && $list['content'][3]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][3]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][3]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][3]['time2start'] && $list['content'][3]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][3]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][3]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][3]['time3start'] && $list['content'][3]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][3]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][3]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][3]['time4start'] && $list['content'][3]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][3]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][3]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][3]['time1start'] && !$list['content'][3]['time1end'] && !$list['content'][3]['time2start'] && !$list['content'][3]['time2end'] && !$list['content'][3]['time3start'] && !$list['content'][3]['time3end'] && !$list['content'][3]['time4start'] && !$list['content'][3]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week4">
+                <label for="name" class="col-sm-2 control-label">周四</label>
+                <div class="col-sm-8">
+                    {if $list['content'][4]['time1start'] && $list['content'][4]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][4]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][4]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][4]['time2start'] && $list['content'][4]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][4]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][4]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][4]['time3start'] && $list['content'][4]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][4]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][4]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][4]['time4start'] && $list['content'][4]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][4]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][4]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][4]['time1start'] && !$list['content'][4]['time1end'] && !$list['content'][4]['time2start'] && !$list['content'][4]['time2end'] && !$list['content'][4]['time3start'] && !$list['content'][4]['time3end'] && !$list['content'][4]['time4start'] && !$list['content'][4]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week5">
+                <label for="name" class="col-sm-2 control-label">周五</label>
+                <div class="col-sm-8">
+                    {if $list['content'][5]['time1start'] && $list['content'][5]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][5]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][5]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][5]['time2start'] && $list['content'][5]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][5]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][5]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][5]['time3start'] && $list['content'][5]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][5]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][5]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][5]['time4start'] && $list['content'][5]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][5]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][5]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][5]['time1start'] && !$list['content'][5]['time1end'] && !$list['content'][5]['time2start'] && !$list['content'][5]['time2end'] && !$list['content'][5]['time3start'] && !$list['content'][5]['time3end'] && !$list['content'][5]['time4start'] && !$list['content'][5]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week6">
+                <label for="name" class="col-sm-2 control-label">周六</label>
+                <div class="col-sm-8">
+                    {if $list['content'][6]['time1start'] && $list['content'][6]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][6]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][6]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][6]['time2start'] && $list['content'][6]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][6]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][6]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][6]['time3start'] && $list['content'][6]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][6]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][6]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][6]['time4start'] && $list['content'][6]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][6]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][6]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][6]['time1start'] && !$list['content'][6]['time1end'] && !$list['content'][6]['time2start'] && !$list['content'][6]['time2end'] && !$list['content'][6]['time3start'] && !$list['content'][6]['time3end'] && !$list['content'][6]['time4start'] && !$list['content'][6]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group week7">
+                <label for="name" class="col-sm-2 control-label">周日</label>
+                <div class="col-sm-8">
+                    {if $list['content'][7]['time1start'] && $list['content'][7]['time1end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][7]['time1start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][7]['time1end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][7]['time2start'] && $list['content'][7]['time2end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][7]['time2start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][7]['time2end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][7]['time3start'] && $list['content'][7]['time3end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][7]['time3start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][7]['time3end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if $list['content'][7]['time4start'] && $list['content'][7]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start',$list['content'][7]['time4start']);}
+                        {php echo tpl_form_field_clock('end',$list['content'][7]['time4end']);}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                    {if !$list['content'][7]['time1start'] && !$list['content'][7]['time1end'] && !$list['content'][7]['time2start'] && !$list['content'][7]['time2end'] && !$list['content'][7]['time3start'] && !$list['content'][7]['time3end'] && !$list['content'][7]['time4start'] && !$list['content'][7]['time4end']}
+                    <div class="input-group cube">
+                        {php echo tpl_form_field_clock('start');}
+                        {php echo tpl_form_field_clock('end');}
+                        <span class="input-group-btn" onclick="cube.add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="cube.del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <script>
+                var cube={
+                    add:function(objc){
+                        if($(objc).parent().siblings('.cube').length<3){
+                            $(objc).parent().after($("#model").html());
+                        }
+                    },
+                    del:function(objc){
+                        if($(objc).parent().siblings('.cube').length>0){
+                            $(objc).parent().remove();
+                        }
+                    }
+                }
+            </script>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-8">
+                    {if $list['status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" name="submit" class="btn btn-default" value="提交">
+                    <a class="btn btn-default" href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'])}">返回</a>
+                    <input id="res" name="res" type="reset" style="display:none;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function  choose(){
+        $("input[name='week']").each(function(){
+            var id=$(this).attr("id");
+            if($(this).is(":checked")){
+                $("."+id).show();
+            }else{
+                $("."+id).hide();
+            }
+        })
+    }
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js","../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.js"],function(){
+        $(function(){
+            choose();
+            $("input[name='week']").change(function(){
+                choose();
+            });
+            $("input[name='submit']").click(function(){
+                getjson();
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            if($("input[name='id']").val()==""){
+                                $("input[name='res']").click();
+                                $("body").find(".img-responsive.img-thumbnail").attr("src","");
+                            }
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        });
+        /**
+         * 收集数据
+         */
+        function getjson(){
+            var content=[];
+            $("input[name='week']").each(function(){
+                var id=$(this).attr("id");
+                var data={weeknum:$(this).val(),time1start:'',time1end:'',time2start:'',time2end:'',time3start:"",time3end:'',time4start:'',time4end:''};
+                if($(this).is(":checked")){
+                    data.status=1;
+                    $("."+id).find(".cube").each(function(){
+                        var index=$(this).index()+1;
+                        var start=$(this).find("input[name='start']").val();
+                        var end=$(this).find("input[name='end']").val();
+                        data['time'+index+'start']=start;
+                        data['time'+index+'end']=end;
+                    });
+                }else{
+                   data.status=-1;
+                }
+                content.push(data);
+            });
+            if(content.length>0){
+                $("input[name='content']").val(JSON.stringify(content));
+            }
+        }
+    })
+</script>
+{template 'common/footer'}

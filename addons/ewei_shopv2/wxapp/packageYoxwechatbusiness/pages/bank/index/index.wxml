@@ -1,0 +1,5 @@
+<view class='container'>
+  <view class='tips' wx:if="{{bankList=='' || bankList==[]}}">
+    银行卡列表为空
+  </view>
+</view>

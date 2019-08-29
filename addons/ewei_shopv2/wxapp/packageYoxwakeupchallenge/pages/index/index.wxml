@@ -1,0 +1,19 @@
+<view class='container'>
+  <block wx:for="{{activityList}}">
+    <view class='activity_cell' data-id='{{item.id}}'>
+      <view class='image'>
+        <image wx:if="{{item.image}}" src='{{item.image}}'></image>
+        <image wx:else src='' style='background:#fd2c6b;'></image>
+      </view>
+      <view class='nickname'>
+        <text>{{item.nickname}}</text>
+      </view>
+      <view class='time'>
+        <text>{{item.begin_time_format}}</text> <text>{{item.end_time_format}}</text>
+      </view>
+      <view class='name'>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </block>
+</view>

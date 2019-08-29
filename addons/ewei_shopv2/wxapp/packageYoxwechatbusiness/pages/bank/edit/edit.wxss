@@ -1,0 +1,9 @@
+/* packageYoxbank/pages/edit/edit.wxss */
+input{
+  border: 1px solid #ccc;
+}
+button{
+  width: 200px;
+  height: 100px;
+  background: #000;
+}

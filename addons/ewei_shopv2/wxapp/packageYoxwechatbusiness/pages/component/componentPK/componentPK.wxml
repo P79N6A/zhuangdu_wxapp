@@ -1,0 +1,35 @@
+<!-- 妆品pk -->
+<view class='title' style='color:#f0497b; margin:16px 10px; font-size:54rpx;'>
+  <text>妆品PK</text>
+</view>
+<view class='componentPK'>
+  <view class='table'>
+    <view class='table-header'>
+      <view class='th' style='width:0; font-size:28rpx; border-left:0;'>
+        <text class='th-title'></text>
+      </view>
+      <view class='th' style='width:373rpx; font-size:28rpx;'>
+        <text class='th-title'>{{name0}}</text>
+      </view>
+      <view class='th' style='width:373rpx; font-size:28rpx;'>
+        <text class='th-title'>{{name1}}</text>
+      </view>
+    </view>
+     <view class='table-main'>
+    <view class='table-main1'>
+      <block wx:for="{{componentList0}}">
+        <view class='td' data-id='{{id0}}'>
+          <text>{{item.cn_name}}</text>
+        </view>
+      </block>
+    </view>
+    <view class='table-main2'>
+      <block wx:for="{{componentList1}}">
+        <view class='td' data-id='{{id1}}'>
+          <text>{{item.cn_name}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+</view>

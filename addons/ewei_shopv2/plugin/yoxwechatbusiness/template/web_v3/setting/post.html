@@ -1,0 +1,166 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>微商设置</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">请选择配置项目</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="name" readonly="readonly">
+                <option value="">请选择..</option>
+                {if $result['data']['name']=='CERTIFICATE' || $_GPC['name']=='CERTIFICATE'  }<option selected value="CERTIFICATE">授权证书</option>{/if}
+				{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'  }<option selected value="UPGRADE">升级设置</option>{/if}
+                {if $result['data']['name']=='INVITE' || $_GPC['name']=='INVITE'  }<option selected value="INVITE">邀请设置</option>{/if}
+                {if $result['data']['name']=='level_rule' || $_GPC['name']=='level_rule'  }<option selected value="level_rule">等级规则</option>{/if}
+                {if $result['data']['name']=='contract' || $_GPC['name']=='contract'  }<option selected value="contract">合约内容</option>{/if}
+                </select>
+            </div>
+        </div>
+        {if $result['data']['name']=='INVITE' || $_GPC['name']=='INVITE'}
+        <div class="form-group UPGRADE" style="height:200px;{if $result['data']['name']=='INVITE' || $_GPC['name']=='INVITE'  }display:block;{else}display:none{/if}" >
+            <label class="col-lg control-label">邀请设置</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="value[setting][invite]">
+                    <option {if $result['data']['value']['setting']['invite']=='DOWN_AND_EQUAL'}selected{/if} value="DOWN_AND_EQUAL">可以邀请下级和平级</option>
+
+                    <option {if $result['data']['value']['setting']['invite']=='JUST_DOWN'}selected{/if} value="JUST_DOWN">只能邀请平级</option>
+
+                </select>
+            </div>
+
+        </div>
+        {/if}
+		{if $result['data']['name']=='CERTIFICATE' || $_GPC['name']=='CERTIFICATE'}
+        <div class="form-group CERTIFICATE" style="height:200px;{if $result['data']['name']=='CERTIFICATE' || $_GPC['name']=='CERTIFICATE'  }display:block;{else}display:none{/if}" >
+            <label class="col-lg control-label">选择图片</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('value', $result['data']['value'])}
+            </div>
+        </div>
+		{/if}
+		{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'}
+		<div class="form-group UPGRADE" style="height:200px;{if $result['data']['name']=='UPGRADE' || $_GPC['name']=='UPGRADE'  }display:block;{else}display:none{/if}" >
+            <label class="col-lg control-label">升级设置</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="value[setting][type]">
+				<option {if $result['data']['value']['setting']['type']==''}selected{/if} value="UPGRADE_BY_PACKAGE">请选择升级方式(不选默认根据购买套餐升级!)..</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_INVITED'}selected{/if} value="UPGRADE_BY_INVITED">通过"邀请人数达标"升级</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_PACKAGE'}selected{/if} value="UPGRADE_BY_PACKAGE">通过购买"系统指定套餐"升级</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_PAY_PRICE'}selected{/if} value="UPGRADE_BY_PAY_PRICE">通过购买达到"系统指定金额"升级</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_PACKAGE_INVITED'}selected{/if} value="UPGRADE_BY_PACKAGE_INVITED">通过购买"系统指定套餐"且"邀请人数达标"升级</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_PAYPRICE_WITH_GOODS'}selected{/if} value="UPGRADE_BY_PAYPRICE_WITH_GOODS">通过购买"会员指定的商品"达到"系统指定金额"升级</option>
+				<option {if $result['data']['value']['setting']['type']=='UPGRADE_BY_PAYPRICE_WITH_GOODS_WITH_INVITED'}selected{/if} value="UPGRADE_BY_PAYPRICE_WITH_GOODS_WITH_INVITED">通过购买"会员指定的商品"达到"系统指定金额"且"邀请人数达标"升级</option>
+				</select>
+            </div>
+			<!--<div class="col-sm-9 col-xs-12 upgrade_by_invited_data" style="{if $result['data']['value']['setting']['type']=='UPGRADE_BY_INVITED'||$result['data']['value']['setting']['type']=='UPGRADE_BY_PACKAGE_INVITED' }display:none;{else}display:none{/if}">
+			<input type="text" name="value[setting][level_1_number]" class="form-control" value="{$result['data']['value']['setting']['level_1_number']}" placeholder="升级到等级1需要邀请多少人" />人升到1等级
+			<input type="text" name="value[setting][level_2_number]" class="form-control" value="{$result['data']['value']['setting']['level_2_number']}" placeholder="升级到等级2需要邀请多少人" />人升到2等级
+			<input type="text" name="value[setting][level_3_number]" class="form-control" value="{$result['data']['value']['setting']['level_3_number']}" placeholder="升级到等级3需要邀请多少人" />人升到3等级
+			<input type="text" name="value[setting][level_4_number]" class="form-control" value="{$result['data']['value']['setting']['level_4_number']}" placeholder="升级到等级4需要邀请多少人" />人升到4等级
+			<input type="text" name="value[setting][level_5_number]" class="form-control" value="{$result['data']['value']['setting']['level_5_number']}" placeholder="升级到等级5需要邀请多少人" />人升到5等级
+			<input type="text" name="value[setting][level_6_number]" class="form-control" value="{$result['data']['value']['setting']['level_6_number']}" placeholder="升级到等级6需要邀请多少人" />人升到6等级
+			<input type="text" name="value[setting][level_7_number]" class="form-control" value="{$result['data']['value']['setting']['level_7_number']}" placeholder="升级到等级7需要邀请多少人" />人升到7等级
+			</div>-->
+        </div>
+		{/if}
+		{if $result['data']['name']=='TEST' || $_GPC['name']=='TEST'}
+        <div class="form-group" style="{if $result['data']['name']=='TEST' || $_GPC['name']=='TEST'  }display:block;{else}display:none{/if}">
+            <label class="col-lg control-label">配置值</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="name" class="form-control" value="{$result['data']['name']}" placeholder="等级名称" />
+            </div>
+        </div>
+		{/if}
+
+        {if $result['data']['name']=='level_rule' || $_GPC['name']=='level_rule'}
+            <div class="form-group" style="{if $result['data']['name']=='level_rule' || $_GPC['name']=='level_rule'  }display:block;{else}display:none{/if}">
+            <label class="col-lg control-label">配置值</label>
+                <div class="col-sm-9 col-xs-12">
+                     {php echo tpl_ueditor('value',$result['data']['value']);}
+                </div>
+            </div>
+        {/if}
+        {if $result['data']['name']=='contract'}
+            <div class="form-group">
+            <label class="col-lg control-label">代理合约</label>
+                <div class="col-sm-9 col-xs-12">
+                     {php echo tpl_ueditor('agent',$result['data']['value']['agent']);}
+                </div>
+            </div>
+
+             <div class="form-group">
+            <label class="col-lg control-label">普通用户合约</label>
+                <div class="col-sm-9 col-xs-12">
+                     {php echo tpl_ueditor('user',$result['data']['value']['user']);}
+                </div>
+            </div>
+        {/if}
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                {ifp 'result.edit'}
+                <input type="submit" value="提交" class="btn btn-primary" />
+                {/if}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $("select[name='name']").on("change").click(function () {
+            var name = $(this).val();
+			console.log(name);
+            if(name=='CERTIFICATE'){
+                $(".CERTIFICATE").css("display","block")
+				$(".UPGRADE").css("display","none")
+            }else if(name=='UPGRADE'){
+                $(".UPGRADE").css("display","block")
+				$(".CERTIFICATE").css("display","none")
+			}else{
+            	$(".CERTIFICATE").css("display","none")
+				$(".UPGRADE").css("display","none")
+            }
+        });
+        $("select[name='value[setting][type]']").on("change").click(function () {
+        	var setting_type=$(this).val();
+        	console.log(setting_type);
+			//通过购买套餐升级
+        	if(setting_type=='UPGRADE_BY_PACKAGE'){
+               // $(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过邀请升级
+        	if(setting_type=='UPGRADE_BY_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","block")
+            }
+			//通过邀请和购买套餐升级
+			if(setting_type=='UPGRADE_BY_PACKAGE_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","block")
+			}
+			//通过购买达到系统指定金额升
+			if(setting_type=='UPGRADE_BY_PAY_PRICE'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过购买会员指定的商品达到系统指定金额升级
+			if(setting_type=='UPGRADE_BY_PAYPRICE_WITH_GOODS'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+			//通过购买"会员指定的商品"达到"系统指定金额"且"邀请人数达标"升级
+			if(setting_type=='UPGRADE_BY_PAYPRICE_WITH_GOODS_WITH_INVITED'){
+                //$(".upgrade_by_invited_data").css("display","none")
+			}
+        });
+});
+</script>
+{template '_footer'}

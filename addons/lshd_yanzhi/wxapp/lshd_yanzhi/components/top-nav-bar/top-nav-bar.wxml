@@ -1,0 +1,17 @@
+<view class="top-nav-bar" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;background:{{backgroundStyle}};box-shadow:{{line?'0 2rpx 2rpx rgba(236, 236, 236, 0.5)':''}};">
+    <view class="top-nav-bar-top" style="height:{{statusBarHeight*2}}rpx;width:100vw"></view>
+    <view class="top-nav-bar-bottom" style="height:88rpx;width:100vw">
+        <view bindtap="goBack" class="option-item">
+            <button bindtap="goback" class="btn">
+                <image mode="aspectFill" src="../../images/back_white_simple.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+        <view bindtap="goHome" class="option-item">
+            <button bindtap="goback" class="btn">
+                <image mode="aspectFill" src="../../images/home_white_200.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+        <view style="font-size:35rpx;color:000;line-height:54rpx;margin-left: 40rpx;font-weight: 600;">{{title}}</view>
+    </view>
+</view>
+<view class="top-empty" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;"></view>

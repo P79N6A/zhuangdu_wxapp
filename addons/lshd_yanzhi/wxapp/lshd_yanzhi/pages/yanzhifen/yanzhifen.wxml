@@ -1,0 +1,111 @@
+<top-nav-bar backgroundStyle="rgba(132,0,255,0.98)" title="颜值测试"></top-nav-bar>
+<view class="container">
+    <view class="page" wx:if="{{fen}}">
+        <image class="backgroundImage" src="../../images/yanzhifenbg.png"></image>
+        <view class="facecontainer">
+            <image class="face" src="{{imgpath}}" style="width:{{width}};height:{{width}}"></image>
+        </view>
+        <image class="tag" src="{{datainfo[0].beautyimg}}"></image>
+        <view class="fen">
+            <view class="yanzhifen">{{fen}}</view>
+        </view>
+        <image class="tiezhi" src="../../images/tiezhi.png"></image>
+    </view>
+    <view class="box {{blur}}" hidden="{{process_hidden}}" style="animation-duration: 0.5s;">
+        <view class="img">
+            <view class="gradient rowup" hidden="{{no_result_hidden}}"></view>
+            <image class="fillet" src="../../images/ic-yuan.png"></image>
+            <image class="defaultimage" mode="aspectFill" src="{{uploadimg}}"></image>
+        </view>
+        <view class="text" hidden="{{no_result_hidden}}">
+ 颜值评分中...
+</view>
+        <view class="subtext">
+ 由{{appinfo.banquan}}提供技术支持
+</view>
+        <block wx:if="{{no_result_hidden}}">
+            <image class="nothing" src="../../images/zanwu.png"></image>
+            <view class="text">
+ 暂无结果...
+</view>
+            <view bindtap="take_photo" class="main-form" reportSubmit="true">
+                <image class="main-btn" src="../../images/takephoto.png"></image>
+            </view>
+        </block>
+    </view>
+</view>
+<view class="column center center2 space-b" style="position:absolute;left:5%;top:840rpx;width:90%;height:110rpx;z-index:99" wx:if="{{fen}}">
+    <view class="row space-b center2 field-background" style="transform:scale(1.0)">
+        <view class="center2 field-column-left">
+            <view class="field-title">用户：</view>
+            <view class="field-context">{{datainfo[0].nickname}}</view>
+        </view>
+        <view class="field-midline"></view>
+        <view class="center2 field-column-right">
+            <view class="field-title">年龄：</view>
+            <view class="field-context">{{datainfo[0].age}}</view>
+        </view>
+    </view>
+    <view class="row space-b center2 field-background" style="transform:scale(1.0)">
+        <view class="center2 field-column-left">
+            <view class="field-title">表情：</view>
+            <view class="field-context">{{datainfo[0].expression}}</view>
+        </view>
+        <view class="field-midline"></view>
+        <view class="center2 field-column-right">
+            <view class="field-title">性别：</view>
+            <view class="field-context">{{datainfo[0].sex}}</view>
+        </view>
+    </view>
+</view>
+<view class="mainView" wx:if="{{fen}}">
+    <image class="downImg" src="../../images/page_down.png"></image>
+    <view class="text1">{{text1}}</view>
+    <view class="text2">{{text2}}</view>
+    <image class="shareBtn" src="../../images/btn_share_image.png"></image>
+    <button class="shareBtn" openType="share" style="opacity:0;">隐藏的分享按钮</button>
+    <view bindtap="gohaibao" class="saveBtnForm">
+        <image class="saveBtn" src="../../images/btn_save_image.png"></image>
+    </view>
+    <view bindtap="take_photo" class="gameBtn">重新测试</view>
+    <view bindtap="take_photo" class="bottomText">重新测试一次,可能更美哦</view>
+</view>
+<view bindconfirm="modal_pact" class="center center2 modal" hidden="{{modalFlag}}">
+    <view bindtap="modal_pact" class="musk"></view>
+    <view class="show-form">
+        <view class="show-content">
+            <image class="modal-bg" src="../../images/modalbg.jpg"></image>
+            <view class="modal-text">
+                <scroll-view scrollY style="height:440rpx;">
+                    <view class="view_help_text" style="font-weight:bold;">个人信息</view>
+                    <view class="view_help_text" style="font-size: 24rpx;">注：（为了便于理解，以下简称“我方”）依据本协议为用户（以下简称“您”）</view>
+                    <view class="view_help_text">我方不会收集你的个人信息,在使用我们程序的过程中，我们不会记录你的IP地址、浏览器类型、引用地址以及其它技术数据。用户上传的图片会暂存在网站服务器上，对用户上传的图片及本站新产生的图片我们会作定期删除，考虑服务器的负载及空间有限，本站对用户上传的图片不下载、不浏览、不拷贝。本站会担起一个网站的责任，保护用户的隐私。</view>
+                    <view class="view_help_text" style="font-weight:bold;">信息安全的措施</view>
+                    <view class="view_help_text" style="font-size: 24rpx;">注：（为了便于理解，以下简称“我方”）依据本协议为用户（以下简称“您”）</view>
+                    <view class="view_help_text">我们使用各种安全技术和程序，以防信息的丢失、不当使用、未经授权阅览或披露。例如，在某些服务中，我们将利用加密技术（例如SSL）来保护您提供的个人信息。但请您理解，由于技术的限制以及可能存在的各种恶意手段，在互联网行业，即便竭尽所能加强安全措施，也不可能始终保证信息百分之百的安全。您需要了解，您接入我们的服务所用的系统和通讯网络，有可能因我们可控范围外的因素而出现问题。</view>
+                </scroll-view>
+            </view>
+            <view class="row center2 space-a" style="position: absolute;bottom:0px;left:0px; width:100%;height:130rpx;">
+                <view bind:tap="onTapMillionsShareView_save" class="center center2" style="position: relative;background: #00E1BD;box-shadow: 0 4rpx 0 0 rgba(0,0,0,0.34);border-radius: 100rpx;width:240rpx;height:76rpx">
+                    <view class="center center2" style="position: absolute;left:0px;top:0px;width:100%;height:100%;font-size: 32rpx;color: #FFFFFF;text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.50);">
+ 立即发送
+</view>
+                </view>
+            </view>
+            <view bindtap="modal_pact" class="center center2" style="position: absolute;right: 8rpx; top:8rpx; width:80rpx;height:80rpx">
+                <image src="../../images/icon_close.png" style="width:30rpx;height:30rpx"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view style="opacity:0;z-index:0;position:absolute;" wx:if="{{canvas}}">
+    <canvas canvasId="mycanvas" style="width: 375px;height: 540px;opacity:0;z-index:0;position:absolute;"></canvas>
+</view>
+<view class="loadmain" hidden="{{onshow}}">
+    <view class="load">
+        <view class=" loading ">
+            <image src="../../images/loading.png "></image>
+            <text>处理中...</text>
+        </view>
+    </view>
+</view>

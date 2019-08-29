@@ -1,0 +1,93 @@
+.commit_cell{
+  width: 100%;
+  min-height:260px;
+  margin-bottom: 10px; 
+}
+.img{
+  min-height: 20px;
+  float: left;
+  height:0px;
+}
+.commit_cell .commit_cell_first{
+  height: 54px;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left{
+  float: left;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left .image{
+  width: 34px;
+  height: 34px;
+  float: left;
+  margin-left:18px;
+  margin-top:18px;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left .image image{
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left .main .nickname{
+  font-size: 28rpx;
+  color: #fd2c6b;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left .main{
+  float: left;
+  margin-top:20px;
+  margin-left:10px;
+}
+.commit_cell .commit_cell_first .commit_cell_first_left .main .time{
+  font-size: 18rpx;
+  margin-top: 2px;
+}
+.commit_cell .commit_cell_first .commit_cell_first_right{
+  float: right;
+  width: 28px;
+  height: 13px;
+  border: 1px solid #909090;
+  border-radius: 5px;
+  line-height: 13px;
+  text-align: center;
+  color:  #909090;
+  margin-right:22px;
+  margin-top:20px;
+  font-size:16rpx;
+}
+.commit_cell .commit_cell_second{
+  font-size: 28rpx;
+  padding-left:16px;
+  margin-top:16px;
+  margin-bottom:12px;
+}
+.commit_cell .commit_cell_second .futitle{
+  color: #fd2c6b;
+}
+.commit_cell .commit_cell_second .content1{
+
+}
+.commit_cell .commit_cell_third{
+  padding-left:16px;
+}
+.commit_cell .commit_cell_third image{
+  width: 340px;
+  height: 205px;
+  border-radius: 5px;
+  
+}
+.commit_cell .commit_cell_forth{
+  height: 38px;
+  line-height: 38px;
+}
+.commit_cell .commit_cell_forth .commit_cell_forth_cell{
+  float: left;
+  margin: 0 36px;
+  font-size: 24rpx;
+  color: #b5b5b5;
+}
+.commit_cell .commit_cell_forth .commit_cell_forth_cell image{
+  width: 20px;
+  height: 16px;
+  margin-right:6px;
+}
+.commit_cell .commit_cell_forth .commit_cell_forth_cell text{
+
+}

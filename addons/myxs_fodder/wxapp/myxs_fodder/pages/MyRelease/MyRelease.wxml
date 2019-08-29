@@ -1,0 +1,66 @@
+<view class="werow DiyNav">
+    <view class="Navicon wecolumn" style="padding-left:5px;color:#000;">
+        <view class="wxf1"></view>
+        <i-icon bindtap="ReturnNew" size="20" style="line-height:4px;" type="fanhui"></i-icon>
+        <view class="wxf1"></view>
+    </view>
+    <view class="wxf1 NavText">内容管理</view>
+    <view class="Navicon"></view>
+</view>
+<scroll-view class="menulistStyle top" scrollLeft="{{menuleft}}" scrollWithAnimation="true" scrollX="true" style=" white-space: nowrap; display: flex">
+    <view bindtap="scrollSelect" class="menus {{menubl==x.class_id?'sbb':'wbb'}}" id="{{x.class_id}}" wx:for="{{menulist}}" wx:for-item="x" wx:key="*this">{{x.class_name}}</view>
+    <view class="xian"></view>
+</scroll-view>
+<view class="Cent" id="Cent">
+    <view bindtouchcancel="handletouchcancel" bindtouchend="handletouchend" bindtouchmove="handletouchmove" bindtouchstart="handletouchstart" class="container" wx:if="{{dataNull===1}}">
+        <view class="werow DataList" wx:for="{{dataList}}" wx:for-index="i" wx:for-item="x" wx:key="*this">
+            <view class="TextUserImg" style="width:64px">
+                <image src="{{x.member_head_portrait}}" style="width:42px;height:42px;border-radius:42px;"></image>
+            </view>
+            <view class=" wxf1 pr10">
+                <view class="werow">
+                    <view class="wxf1 UserName">{{x.member_name}}</view>
+                    <view bindtap="adminShow" class="adminShowBtnSty werow" data-index="{{i}}" id="{{x.content_id}}" wx:if="{{isAdmin}}">
+                        <view style="color:#000">状态：</view>{{x.admintooger==1?'显示':'隐藏'}}</view>
+                </view>
+                <text bindtap="TextCopi" class="ArticleStyle {{x.textShow==1?'ellipsis':'unellipsis'}}" data-index="{{i}}">{{x.text}}</text>
+                <view bindtap="DataTextTooger" class="DataTextShow" data-l="{{i}}" wx:if="{{x.textTypeL}}">{{x.ShowBtn}}</view>
+                <view class="TextimgList clearfix">
+                    <block wx:if="{{x.type=='img'}}">
+                        <block wx:if="{{x.content_siz===1}}">
+                            <image bindtap="previewImage" data-index="{{i}}" data-src="{{imgs}}" mode="widthFix" src="{{imgs}}" style="width:180px" wx:for="{{x.content}}" wx:for-item="imgs" wx:key="i*this"></image>
+                        </block>
+                        <block wx:if="{{x.content_siz>=2}}">
+                            <view class="photo" style="width:{{photoWidth}}px;height:{{photoWidth}}px" wx:for="{{x.content}}" wx:for-item="imgs" wx:key="i*this">
+                                <image bindtap="previewImage" data-index="{{i}}" data-src="{{imgs}}" src="{{imgs}}" style="width:{{photoWidth}}px;height:{{photoWidth}}px"></image>
+                            </view>
+                        </block>
+                    </block>
+                    <block wx:if="{{x.type=='video'}}">
+                        <view class="photo" wx:if="{{x.isplay}}">
+                            <video autoplay="{{x.isplay?true:false}}" bindplay="clickPlay" id="Myplay{{i}}" src="{{x.content[0]}}" style="width:300px;height:225px"></video>
+                        </view>
+                        <view bindtap="plays" class="photo" data-index="{{i}}" wx:if="{{!x.isplay}}">
+                            <view style="width:300px;height:225px;background-color:#6e6e6e"></view>
+                            <image class="payStyle" src="../../images/pay.png" style="top:{{(225-50)/2}}px"></image>
+                        </view>
+                    </block>
+                </view>
+                <view class="werow" style="margin-top:5px;">
+                    <view class="wxf1 werow">
+                        <view class="ArticleDate">{{x.create_time}}</view>
+                        <view bindtap="adminDelete" class="adminDletSty" data-index="{{i}}" id="{{x.content_id}}" wx:if="{{isAdmin}}">删除</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-loadmore" wx:if="{{dataNull===2}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{dataNull===0}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+    <view style="height:65px;"></view>
+</view>

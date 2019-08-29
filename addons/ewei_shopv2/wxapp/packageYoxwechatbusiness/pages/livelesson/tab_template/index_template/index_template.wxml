@@ -1,0 +1,162 @@
+<import src="/utils/wxParse/wxParse.wxml" />
+<template name="index_Template">
+  <!-- 官方精选 -->
+  <view class='group bgfff margin14' style='height:228px;'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#官方精选</text>
+      </view>
+      <view class='group_title_right'>
+        <text>查看全部 ></text>
+      </view>
+    </view>
+    <view class='group_content'>
+      <swiper class="swiper-block" previous-margin="90rpx" next-margin="90rpx" current="0" bindchange="swiperChange">
+        <block wx:for="{{imagesList}}" wx:index="{{index}}">
+          <swiper-item class="swiper-item">
+            <image mode="aspectFill" src="{{item}}" class="slide-image {{swiperIndex == index ? 'active2' : ''}}" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <!-- 品牌讲堂、VIP会员、精品小课、大师课、免费专区、课程优惠劵 -->
+  <view>
+    <scroll-view class='group2 bgfff margin14' scroll-x="true" style="white-space:nowrap;">
+      <view>
+        <block wx:for="{{catearticle}}">
+          <view class='group2_cell'>
+            <view class='group2_image'>
+              <image style='background-color:#fd2c6b;'></image>
+            </view>
+            <view style='white-space:nowrap;text-overflow:ellipsis;'>
+              <text>{{item.category_name}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 热门课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#热门课程</text>
+      </view>
+      <view class='group_title_right' data-bid='11' catchtap='tocommunity_more'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content'>
+      <view class='group_content_left' style='position:relative;'>
+        <image style='position:absolute;width: 136px;height: 126px; border-radius:5px; padding:5px 4px;' wx:if="{{community1[0].images[0]}}" src='{{community1[0].images[0]}}'></image>
+        <image style='position:absolute;width: 136px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+        <text style='position:absolute;left:18px; top:24px;width:120px;' class='group_title'>{{community1[0].title}}</text>
+        <template is="wxParse" data="{{article1:wxParseData.nodes}}" />
+      </view>
+      <view class='group_content_right' style='margin-top:14px;'>
+        <view class='group_content_right_top' style='position:relative;'>
+          <image style='position:absolute;width:149.61px;height:64px; border-radius:5px; margin-top:10px;' wx:if="{{community1[1].images[0]}}" src='{{community1[1].images[0]}}'></image>
+          <image style='position:absolute;width: 136px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:18px; top:8px;width:120px;' class='group_title'>{{community1[1].title}}</text>
+          <template is="wxParse" data="{{article1:wxParseData.nodes}}" />
+        </view>
+        <view class='group_content_right_down' style='position:relative;'>
+          <image style='position:absolute;width:149.61px;height:64px; border-radius:5px; margin-top:10px;' wx:if="{{community1[2].images[0]}}" src='{{community1[2].images[0]}}'></image>
+          <image style='position:absolute;width: 136px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:18px; top:4px;width:120px;' class='group_title'>{{community1[2].title}}</text>
+          <!-- <text style='position:absolute;left:18px; top:50px;font-size:16px;' class='group_furtitle'>{{community[2].content}}</text> -->
+          <template is="wxParse" data="{{article1:wxParseData.nodes}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- banner -->
+  <view class='banner margin14'>
+    <image src='' style='background:#fd2c6b;'></image>
+  </view>
+  <!-- 产品课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title' style='margin-bottom:10px;'>
+      <view class='group_title_left'>
+        <text>#产品课程</text>
+      </view>
+      <view class='group_title_right' data-bid='12' catchtap='tocommunity_more'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content' style='width:326px;margin-left:2px;'>
+      <view class='group_content_left' style='width:84px; height:84px; position:relative;'>
+        <image style='position:absolute;width: 98px;height: 126px; border-radius:5px; padding:5px 4px;' wx:if="{{community2[0].images[0]}}" src='{{community2[0].images[0]}}'></image>
+        <image style='position:absolute;width: 98px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+        <text class='group_title' style='position:absolute;left:18px; top:28px;font-size:19px;width:120px;'>{{community2[0].title}}</text>
+        <template is="wxParse" data="{{article2:wxParseData.nodes}}" />
+      </view>
+      <view class='group_content_left' style='width:84px; height:84px; margin-left:14px; position:relative;'>
+        <image style='position:absolute;width: 98px;height: 126px; border-radius:5px; padding:5px 4px;margin-left:3px;' wx:if="{{community2[1].images[0]}}" src='{{community2[1].images[0]}}'></image>
+        <image style='position:absolute;width: 98px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+        <text class='group_title' style='width:120px;position:absolute;left:30px; top:28px;font-size:19px;'>{{community2[1].title}}</text>
+        <template is="wxParse" data="{{article2:wxParseData.nodes}}" />
+      </view>
+      <view class='group_content_right4' style='margin-top:22px;margin-right:-16px;'>
+        <view class='group_content_right4_item' style='position:absolute; left:0; top:0;'>
+          <image style='width: 50px;height: 50px; border-radius:5px;' wx:if="{{community2[0].images[0]}}" src='{{community2[0].images[0]}}'></image>
+          <image style='width: 50px;height: 50px; background:#fd2d6b;border-radius:5px;' wx:else></image>
+        </view>
+        <view class='group_content_right4_item' style='position:absolute;left:0; bottom:0;'>
+          <image style='width: 50px;height: 50px; border-radius:5px;' wx:if="{{community2[1].images[0]}}" src='{{community2[1].images[0]}}'></image>
+          <image style='width: 50px;height: 50px; background:#fd2d6b;border-radius:5px;' wx:else></image>
+        </view>
+        <view class='group_content_right4_item' style='position:absolute; right:0; top:0;'>
+          <image style='width: 50px;height: 50px; border-radius:5px;' wx:if="{{community2[2].images[0]}}" src='{{community2[2].images[0]}}'></image>
+          <image style='width: 50px;height: 50px; background:#fd2d6b;border-radius:5px;' wx:else></image>
+        </view>
+        <view class='group_content_right4_item' style='position:absolute;right:0;bottom:0;'>
+          <image style='width: 50px;height: 50px; border-radius:5px;' wx:if="{{community2[3].images[0]}}" src='{{community2[3].images[0]}}'></image>
+          <image style='width: 50px;height: 50px; background:#fd2d6b;border-radius:5px;' wx:else></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 招商课程 -->
+  <view class='group bgfff margin14'>
+    <view class='group_title'>
+      <view class='group_title_left'>
+        <text>#招商课程</text>
+      </view>
+      <view class='group_title_right' data-bid='13' catchtap='tocommunity_more'>
+        <text>更多 ></text>
+      </view>
+    </view>
+    <view class='group_content group_class_content' style='width:332px;margin-top:16px;'>
+      <view class='group_content_left' style='width:103px; height:103px;position:relative;padding:0;'>
+        <image style='position:absolute;width: 106px;height: 126px; border-radius:5px;' wx:if="{{community3[0].images[0]}}" src='{{community3[0].images[0]}}'></image>
+        <image style='position:absolute;width: 106px;height: 126px; border-radius:5px; padding:5px 4px;background:#fd2d6b;' wx:else></image>
+        <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community3[0].title}}</text>
+        <template is="wxParse" data="{{article3:wxParseData.nodes}}" />
+      </view>
+      <view class='group_content_right' style='position:relative; width:208px; height:130px;'>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; left:0; top:0;'>
+          <image style='width: 100px;height: 50px; border-radius:5px;' wx:if="{{community3[1].images[0]}}" src='{{community3[1].images[0]}}'></image>
+          <image style='width: 100px;height: 50px; border-radius:5px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community3[1].title}}</text>
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; left:0; bottom:0;'>
+          <image style='width: 100px;height: 50px; border-radius:5px;' wx:if="{{community3[2].images[0]}}" src='{{community3[2].images[0]}}'></image>
+          <image style='width: 100px;height: 50px; border-radius:5px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community3[2].title}}</text>
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; right:0; top:0;'>
+          <image style='width: 100px;height: 50px; border-radius:5px;' wx:if="{{community3[3].images[0]}}" src='{{community3[3].images[0]}}'></image>
+          <image style='width: 100px;height: 50px; border-radius:5px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community3[3].title}}</text>
+        </view>
+        <view class='group_content_right4_item' style='width:100px; position:absolute; right:0; bottom:0;'>
+          <image style='width: 100px;height: 50px; border-radius:5px;' wx:if="{{community3[4].images[0]}}" src='{{community3[4].images[0]}}'></image>
+          <image style='width: 100px;height: 50px; border-radius:5px;background:#fd2d6b;' wx:else></image>
+          <text style='position:absolute;left:8px; top:12px;' class='group_title'>{{community3[4].title}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

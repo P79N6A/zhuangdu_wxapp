@@ -1,0 +1,58 @@
+<view class="now_level">
+    <view class="round">
+        <text>市代</text>
+        <text>当前级别</text>
+    </view>
+
+</view>
+
+<view class="next_level">
+    <view class="next_level_title">
+        <view>距离下个等级 - <text class="level">省代</text></view><button  bindtap='upgrade'>立即升级</button>
+    </view>
+    <view class="yeji">
+            <view class="yeji_title">业绩：</view>
+            <view class="yeji_jindutiao"><progress percent="40" stroke-width="12" border-radius="20" activeColor="#fd2c6b" backgroundColor="#fce0e9"/></view>
+            <view>还需3390元</view>
+    </view>
+    <view class="yeji">
+            <view class="yeji_title">团队：</view>
+            <view class="yeji_jindutiao"><progress percent="80" stroke-width="12"  border-radius="20" activeColor="#fd2c6b" backgroundColor="#fce0e9"/></view>
+            <view>还需30人</view>
+    </view>
+</view>
+
+<view class="rule">
+    <view class="rule_title">规则</view>
+    <view class="title"><view class="title_round"></view> 升到下个级别需要业绩与团队同时达到升级要求</view>
+    <view class="title"><view class="title_round"></view> 等级要求：</view>
+    <view class="yeji_row">
+         <view><text>市代业绩590元</text><text>团队成员50人</text></view>
+         <view><text>市代业绩5190元</text><text>团队成员50人</text></view>
+         <view><text>市代业绩59230元</text><text>团队成员50人</text></view>
+         <view><text>市代业绩590元</text><text>团队成员50人</text></view>
+         <view><text>市代业绩59.122222230元</text><text>团队成员50人</text></view>
+    </view>
+    <view class="title"><view class="title_round"></view> 升级所需业绩可累计，也可一次性打款</view>
+
+</view>
+<view class="dinghuo">
+    <navigator url="/pages/index/index" hover-class="none"><button>订货升级</button></navigator>
+</view>
+
+
+ <view  bindtap="closeShadow" class="shadow" wx:if="{{can_upgrade>0 || upgrade>0}}"></view>
+  <view class="result_block"  wx:if="{{can_upgrade==1}}">
+      <image  class="success_img" src="../../../image/my_upgrade/success.png" alt=""></image>
+      <text>已满足升级条件</text>
+      <button class="result_button" bindtap="upgradeRightNow">立即升级</button>
+  </view>
+  <view class="result_block"   wx:if="{{can_upgrade==2}}">
+      <image  class="warning_img" src="../../../image/my_upgrade/warning.png" alt=""></image>
+      <text>未满足升级条件</text>
+    <navigator url="/pages/index/index" hover-class="none"><button class="result_button">订货升级</button></navigator>
+  </view>
+
+    <view class="upgrade_res" wx:if="{{upgrade}}">
+        您已升级为董事级别
+    </view>

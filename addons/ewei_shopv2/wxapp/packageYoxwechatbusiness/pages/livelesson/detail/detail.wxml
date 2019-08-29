@@ -1,0 +1,31 @@
+<view class='classdetail'>
+  <view class='image'>
+    <image class="baseimg" src="https://zdu.igdlrj.com/attachment/{{detail.thumb}}"></image>
+  </view>
+  <view class='content bgfff'>
+    <view class='title'>
+      <text>{{detail.name}}</text>
+    </view>
+    <view class='time'>
+      <text>开课时间：{{detail.update_time}}</text>
+    </view>
+    <view class='hot'>
+      <text>人气：{{detail.is_hot}}</text>
+    </view>
+    <text class='free'>免费</text>
+  </view>
+  <view class='descript bgfff'>
+    <view class='descript-title'>
+      <image src='./images/classes.png'></image>
+      <text>课程简介</text>
+    </view>
+    <view class='descripttext'>
+      <text>{{detail.descript}}</text>
+    </view>
+  </view>
+</view>
+<view class='comeinBtn' bindtap='comein'>
+  <image class='sequre' src='./images/sequre.png'></image>
+  <image class='play' style='z-index:1;' src='./images/play.png'></image>
+  <text>进入课堂</text>
+</view>

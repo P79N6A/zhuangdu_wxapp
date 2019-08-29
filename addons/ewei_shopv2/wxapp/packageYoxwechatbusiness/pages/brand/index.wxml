@@ -1,0 +1,17 @@
+<view class="classify">
+<!--分类导航栏-->
+  <scroll-view class='left-navbar' scroll-y="true">
+    <view wx:for="{{merch_user}}" class="nav_left_items {{curNav == index? 'active' : ''}}" bindtap="left" data-merchname='{{item.merchname}}' data-index="{{index}}" data-id='{{item.id}}'>{{item.merchname}}
+    </view>
+    <!-- <view class="nav_left_items active">妆度</view> -->
+</scroll-view>
+<scroll-view id="right" scroll-y="true" scroll-top="{{scrollTop}}">
+<!--会员展示-->
+<view class="goods-list">
+  <view wx:for='{{list}}' class="goods" bindtap="ToSearchResult" data-id="{{item.id}}">
+    <image class="img" wx:if='{{item.thumb}}' src="{{item.thumb}}"></image>
+    <text wx:if='{{item.title}}'>{{item.title}}</text>
+  </view>
+</view>
+</scroll-view>
+</view>

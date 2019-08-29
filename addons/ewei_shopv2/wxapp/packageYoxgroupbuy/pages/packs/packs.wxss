@@ -1,0 +1,113 @@
+page{
+  background: #fff;
+}
+.packs_cell{
+  width: 322px;
+  margin-top:20px;
+  margin-bottom:16px;
+}
+.packs_cell .packs_cell_left{
+  width:70%;
+  line-height:26px;
+  height:76px;
+  text-align:center;
+  float:left;
+  margin-top:18px;
+}
+.packs_cell .packs_cell_left .title{
+  font-size: 26px;
+  font-weight: bold;
+  margin-top:8px;
+}
+.packs_cell .packs_cell_left .futitle{
+  font-size: 11px;
+  color: #fd2c6b;
+}
+.packs_cell .packs_cell_right{
+  width: 30%;
+  background: #fd2c6b;
+  height: 94px;
+  float:right;
+}
+.packs_cell .packs_cell_right image{
+  width: 18px;
+  height: 18px;
+  margin-left:38px;
+  margin-top:14px;
+}
+.coupon_cell{
+  width: 322px;
+  height: 82px;
+  margin-bottom: 16px;
+}
+.down{
+  clear:both;
+  zoom: 1;
+}
+.coupon_cell .image{
+  width: 94px;
+  float: left;
+  height: 76px;
+  position: relative;
+  margin-left:8px;
+}
+.coupon_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+.coupon_cell .top{
+  position: absolute;
+  width: 94px;
+  height: 18px;
+  line-height: 18px;
+  color: #fff;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  font-size: 12px;
+}
+.coupon_cell:nth-child(1) .top{
+  background: #fd2c6b;
+}
+.coupon_cell:nth-child(2) .top{
+  background: #ff7ba2;
+}
+.coupon_cell:nth-child(3) .top{
+  background: #f8c3d3;
+}
+.coupon_cell .content{
+  float: right;
+  width:210px;
+}
+.coupon_cell .content .title{
+  font-size: 14px;
+}
+.coupon_cell .content .descript{
+  font-size: 11px;
+  margin-top:4px;
+}
+.coupon_cell .price{
+  width: 120px;
+  font-size: 12px;
+  color: #fd2c6b;
+  margin-top: 8px;
+}
+.coupon_cell .price .one_price{
+  float:left;
+  margin-right:14px;
+}
+.b-shadow {
+  box-shadow:0.1px 0.1px 0.1px 1.8px #f0f0f0;
+}
+.container{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  box-sizing:border-box;
+  margin-bottom:30rpx;
+}
+.active{
+  transform: rotate(180deg);
+}

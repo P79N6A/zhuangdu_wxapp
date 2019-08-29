@@ -1,0 +1,33 @@
+<template name="my_template">
+  <view class='my_nav'>
+    <view class="nav_cell {{currentnavItem2==idx ? 'nav_active' : ''}}" wx:for="{{mynav}}" wx:for-index="idx" data-idx="{{idx}}" bindtap="switchnavTab2">
+      {{item}}
+    </view>
+  </view>
+  <view class='my_list'>
+    <block wx:for="{{myList}}">
+      <view style='width:322px;height:100px;'>
+        <view class='my_cell'>
+          <view class='my_cell_left'>
+            <view class='content'>
+              {{item.content}}
+            </view>
+            <view class='day'>
+              还有
+              <text>{{item.day}}</text>天过期
+            </view>
+          </view>
+          <view class='my_cell_right'>
+            <view class='price'>
+              ￥
+              <text style='font-size:26px;'>{{item.coupon_price}}</text>
+            </view>
+            <view class='use'>
+              立即使用
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>

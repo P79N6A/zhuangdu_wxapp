@@ -1,0 +1,24 @@
+<template name="judge_template">
+  <view class='commit_list'>
+      <block wx:for="{{commit_list}}">
+        <view class='commit_cell'>
+          <view class='avatar'>
+            <image src='{{item.avatar}}'></image>
+          </view>
+          <view class='commit_right'>
+            <view class='name'>
+              {{item.nickname}}
+              <text>{{item.add_time_format}}</text>
+            </view>
+            <view class='like'>
+              <text></text>
+              <image src='./images/like.png'></image>
+            </view>
+            <view class='content'>
+              {{item.comment}}
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+</template>

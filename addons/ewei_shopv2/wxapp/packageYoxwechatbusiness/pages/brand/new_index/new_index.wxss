@@ -1,0 +1,39 @@
+@import "./brand_Template/brand_Template.wxss";
+@import "./factory_Template/factory_Template.wxss";
+@import "./join_Template/join_Template.wxss";
+.top-tab{
+  height: 80rpx;
+  width: 100%; 
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 80rpx;
+  background: #fff; 
+  font-size: 15px; 
+  white-space: nowrap;
+  border-bottom: 1px solid #f1f1f1;
+}
+.top-tab-item{
+  margin:0 40px;
+  display: inline-block;
+}
+.top-tab-item.active{
+  position: relative;
+  color: #fd2c6b;
+}
+.top-tab-item.active::after{ 
+  content: "";
+  display: block;
+  height: 8rpx;
+  width: 48px;
+  background: #fd2c6b;
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  border-radius: 16rpx;
+}
+.show_place{
+  display: block;
+}
+.hide_place{
+  display: none;
+}

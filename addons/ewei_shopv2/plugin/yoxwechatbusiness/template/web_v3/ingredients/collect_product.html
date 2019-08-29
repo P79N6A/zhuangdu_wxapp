@@ -1,0 +1,23 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">微商-成分社-化妆品 </span>
+</div>
+<div class="page-content">
+	<div class="page-toolbar m-b-sm m-t-sm">
+<form action="./index.php" method="get" class="form-validate" role="form" novalidate="novalidate">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxwechatbusiness.ingredients.collect_product">
+		<div class="col-sm-6">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="必须输入关键词，如：精华液"> 
+				<span class="input-group-btn"><input class="btn btn-primary" type="submit" value="采集(cosdna)"> </span>
+				</div>
+				采集较慢，请耐心等待！
+		</div>
+	</div>
+</form>
+</div>
+{template '_footer'}

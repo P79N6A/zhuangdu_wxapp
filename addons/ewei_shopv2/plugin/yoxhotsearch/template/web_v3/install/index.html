@@ -1,0 +1,19 @@
+{template '_header'}
+
+<div class="page-header">
+    <span class="text-primary">安装</span>
+</div>
+<div class="page-content">
+<form class="form-horizontal form-validate" role="form" method="post" novalidate="novalidate">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">安装</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+            	{if $result['data']['is_install']=='0'}<a class="js-clip" title='点击安装' href="{php echo webUrl('yoxhotsearch.install.install',array(),1)}">安装或重新安装</a>{/if}
+            	{if $result['data']['is_install']=='1'}{$result['message']}{/if}
+            </p>
+        </div>
+    </div>
+</form>
+</div>
+{template '_footer'}

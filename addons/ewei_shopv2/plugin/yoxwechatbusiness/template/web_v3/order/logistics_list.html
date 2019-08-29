@@ -1,0 +1,98 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">微商-打印发货单 </span>
+</div>
+<div class="page-content">
+<!-- 列表 -->
+{if count($result['data']['list'])>0}
+	<table class="table table-hover table-responsive" id="table">
+	<thead>
+			<tr>
+				<th style="text-align: center;font-size:28px;" colspan="6">发货单</th>
+			</tr>
+			</thead>
+			<tr>
+				<td>收货单位:</td>
+				<td>{$info['address']['realname']}</td>
+				<td>收货地址:</td>
+				<td colspan="3">{$info['address']['province']} {$info['address']['city']} {$info['address']['area']} {$info['address']['address']}</<td>
+			</tr>
+			<tr>
+				<td>电话:</td>
+				<td>{$info['address']['mobile']}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			tr>
+				<td>发货日期:</td>
+				<td>{$info['sendtime_format']}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>订单ID</th>
+				<th>品名</th>
+				<th>规格</th>
+				<th>数量</th>
+				<th>备注</th>
+				<th>时间</th>
+			</tr>
+		<tbody>
+		{loop $result['data']['list'] $info}
+			<tr>
+				<td>{$info['orderid']}</td>
+				<td>{$info['goods_title']}</td>
+				<td>{$info['optionname']}</td>
+				<td>{$info['total']}</td>
+				<td>{$info['remark']}</td>
+				<td>{$info['add_time_format']}</td>
+			</tr>
+		{/loop}
+		<tr>
+			<td colspan="6"></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+			<td></td>
+				<td colspan="5">
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂无数据!
+		</div>
+	</div>
+{/if}
+<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			<span class="print">打印</span>
+		</div>
+	</div>
+</form>
+</div>
+<script>
+
+//调用
+$(document).ready(function(){
+        $(".print").click(function(){
+        	var tableToPrint= document.getElementById("table");//要打印的表格
+            var newWin= window.open(""); //打开新的窗口
+                newWin.document.write(tableToPrint.outerHTML);//将表格添加进新的窗口
+                newWin.document.close(); //在IE浏览器中必须加这一句
+                newWin.focus(); //在IE浏览器中必须加这一句
+                newWin.print(); //打印
+                newWin.close(); //关闭窗口
+        });
+});
+</script>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

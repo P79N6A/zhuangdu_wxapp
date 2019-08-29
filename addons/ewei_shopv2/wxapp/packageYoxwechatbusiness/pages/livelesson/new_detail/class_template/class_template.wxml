@@ -1,0 +1,28 @@
+<template name="class_template">
+  <block wx:for="{{classList}}">
+    <view class='class_cell' bindtap='toclass' data-id='{{item.id}}' data-name='{{item.name}}'>
+      <view class='image'>
+        <image src='./image/play.png'></image>
+      </view>
+      <view class='class_content'>
+        <view class='title'>
+          {{item.name}}
+        </view>
+        <view class='down'>
+          <view class='class_times'>
+            <text>{{item.add_time}}</text>次学习
+          </view>
+          <view class='test'>
+            试听
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class='bgfff' style='width:100%;height:60px;  padding-top: 10px;'>
+    <view class='class_price'>
+      特价
+      <text>￥49</text>
+    </view>
+  </view>
+</template>

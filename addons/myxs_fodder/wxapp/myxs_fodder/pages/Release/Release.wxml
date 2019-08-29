@@ -1,0 +1,73 @@
+<view class="wxf1">
+    <view class="werow DiyNav">
+        <view class="Navicon wecolumn" style="padding-left:5px;color:#000;">
+            <view class="wxf1"></view>
+            <i-icon bindtap="NextF" size="20" style="line-height:4px;" type="fanhui"></i-icon>
+            <view class="wxf1"></view>
+        </view>
+        <view class="wxf1 NavText"></view>
+        <view class="Navicon"></view>
+    </view>
+    <view class="werow ReleaseBtnGroup">
+        <view bindtap="NextF" class="ml20 ReleaseBtn">取消</view>
+        <view class="wxf1"></view>
+        <view bindtap="Release" class="mr20 ReleaseBtn" style="color:  rgb(26, 173, 25);">发布</view>
+    </view>
+    <view class="ReleaseCent">
+        <form bindsubmit="Release">
+            <view class="pdlr10">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <textarea bindblur="TextData" class="weui-textarea" placeholder="这一刻想法...." style="height: 5.8em"></textarea>
+                    </view>
+                </view>
+                <view class="TextOn">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader" style="height:{{gifH}}px">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files" id="uploaderFiles">
+                                    <view bindtap="previewImage" class="weui-uploader__file" id="{{item}}" wx:if="{{fileType=='img'}}" wx:for="{{files}}" wx:key="*this">
+                                        <image class="weui-uploader__img" mode="aspectFill" src="{{item}}"></image>
+                                    </view>
+                                    <video src="{{yulanvideo}}" style="height:{{videoh}}px;width:{{videoW}}px" wx:if="{{fileType=='video'}}"></video>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{addbl}}">
+                                    <view bindtap="chooseImage" class="weui-uploader__input"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_access h35">
+                        <view class="">
+                            <view style="display: inline-block; vertical-align: middle">
+                                <i-icon class="ReleIconSty" size="20" type="icon04"></i-icon>
+                            </view>
+                        </view>
+                        <view class="wxf1 ml10">
+                            <picker bindchange="bindAccountChange" range="{{accounts}}" value="{{accountIndex}}">
+                                <view class="">{{accounts[accountIndex]}}</view>
+                            </picker>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </view>
+                    <view class="weui-cell weui-cell_switch " style="height:43px;">
+                        <view>
+                            <i-icon class="ReleIconSty" size="20" type="suoding"></i-icon>
+                        </view>
+                        <view class="weui-cell__bd ml10">是否显示</view>
+                        <view class="wxf2 tipStyle"></view>
+                        <view class="weui-cell__ft">
+                            <switch checked bindchange="ShowBl"></switch>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </form>
+    </view>
+</view>
+<view class="actf" style="position: flex" wx:if="{{advshow==1}}">
+    <view bindtap="Closeadvert" class="GGHide">关闭</view>
+    <ad unitId="{{advCode}}"></ad>
+</view>

@@ -1,0 +1,91 @@
+<view class="top-nav-bar" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;background:{{background}};    box-shadow:{{line?'0 2rpx 2rpx rgba(236, 236, 236, 0.5)':''}};">
+    <view class="top-nav-bar-top" style="height:{{statusBarHeight*2}}rpx;width:100vw"></view>
+    <view class="top-nav-bar-bottom" style="height:88rpx;width:100vw">
+        <view bindtap="goBack" class="option-item">
+            <button bindtap="goback" class="btn">
+                <image mode="aspectFill" src="../../images/back_white_simple.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+        <view bindtap="goHome" class="option-item">
+            <button bindtap="goback" class="btn">
+                <image mode="aspectFill" src="../../images/home_white_200.png" style="height:90%;width:90%"></image>
+            </button>
+        </view>
+        <view style="font-size:35rpx;color:000;line-height:54rpx;margin-left: 40rpx;font-weight: 600;">夫妻相测试</view>
+    </view>
+</view>
+<view class="top-empty" style="height:{{statusBarHeight*2+88}}rpx;width:100vw;"></view>
+<view class="test-content" wx:if="{{ontest}}">
+    <image class="mainbg" src="../../images/loversbg.jpg"></image>
+    <view class="title">
+    你和TA有夫妻相吗
+
+    <view class="info-desc">已有<b style=" font-size: 16px; color: #fc0;">154651</b>人正在测夫妻相</view>
+    </view>
+    <view class="avatar_wrap">
+        <view bindtap="uploadimg" class="avatar_l" data-types="1">
+            <image class="avatar" src="{{A}}"></image>
+            <icon color="#00c6c2" size="20" type="success" wx:if="{{Ayanzhi}}"></icon>
+        </view>
+        <view bindtap="uploadimg" class="avatar_r" data-types="2">
+            <image class="avatar" src="{{B}}"></image>
+            <icon color="#00c6c2" size="20" type="success" wx:if="{{Byanzhi}}"></icon>
+        </view>
+    </view>
+    <view class="makesure">
+        <button bindtap="gos">立即测试</button>
+    </view>
+    <view class="ad-container" wx:if="{{adid}}">
+        <ad unitId="{{adid}}"></ad>
+    </view>
+    <view class="group">
+        <view class="tab-content">
+            <view class="more">更多好玩</view>
+            <scroll-view class="models" scrollWithAnimation="true" scrollX="true">
+                <form bindsubmit="tomodel" data-inurl="{{item.inurl}}" data-types="{{item.types}}" reportSubmit="true" wx:for="{{menu[0]}}" wx:key="index">
+                    <button class="icon-content" formType="submit">
+                        <view class="icon">
+                            <image src="{{item.image}}"></image>
+                            <text>{{item.title}}</text>
+                        </view>
+                    </button>
+                </form>
+            </scroll-view>
+        </view>
+    </view>
+</view>
+<view class="result-content" wx:else>
+    <view class="main_box">
+        <view class="index-container">
+            <view class="index">我和
+        <b style="color: #a57d59;">TA</b> 的夫妻相指数
+        <b style=" font-size:60rpx; color: #ff458c;">{{similarity}}</b>
+            </view>
+        </view>
+        <image class="cover1" src="{{A}}"></image>
+        <image class="cover2" src="{{B}}"></image>
+        <view class="yanzhiA"></view>
+        <view class="logo">
+            <image class="logoimg" src="../../images/520.png"></image>
+        </view>
+        <view class="takephoto">
+            <image bindtap="saveimg" src="../../images/down.jpg"></image>
+            <view bindtap="goOn" class="take_photo">
+                <text>继续测试</text>
+            </view>
+        </view>
+    </view>
+    <view class="main_box2"></view>
+    <view class="main_box3"></view>
+</view>
+<view catchtouchmove="move" class="loadmain" hidden="{{onshow}}">
+    <view class="load">
+        <view class=" loading">
+            <image src="../../images/loading.png "></image>
+            <text>处理中...</text>
+        </view>
+    </view>
+</view>
+<view style="opacity:0;z-index:0;position:absolute;top:0;left:750rpx" wx:if="{{canvas}}">
+    <canvas canvasId="mycanvas" style="width: 750px;height: 938px;opacity:0;z-index:0;position:absolute;top:0;left:750px"></canvas>
+</view>

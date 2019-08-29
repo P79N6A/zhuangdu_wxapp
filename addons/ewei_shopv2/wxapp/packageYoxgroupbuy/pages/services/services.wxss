@@ -1,0 +1,72 @@
+.now_time{
+  font-size: 12px;
+  color: #b0b0b0;
+  width: 100%;
+  text-align: center;
+  height: 16px;
+  line-height: 16px;
+}
+.services_tips{
+  padding-top:10px;
+}
+.services_tips1{
+  background:#fff;
+  position:relative;
+  border-radius:12px;
+  min-width:98px;
+  min-height:42px;
+  width:174px;
+  margin-top:20px;
+  margin-left:20px;
+  padding:0 24px;
+  padding-top:14px;
+  padding-bottom:14px;
+}
+.services_tips1::after{
+   position: absolute;
+   content: "";
+   width: 0;
+   height: 0;
+   right: 97%;
+   top: -4px;
+   border-top: 10px solid transparent;
+   border-right: 12px solid #fff;
+   border-bottom: 14px solid transparent;
+   transform: rotate(20deg);
+   z-index: -1;
+}
+.services_tips1 .services_tips1_title{
+  font-size: 16px;
+}
+.services_tips1  .services_tips1_to{
+  font-size: 16px;
+  color: #fd2d6b;
+}
+.commitBox{
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+}
+.commitBox .commit{
+  width:280px;
+  height:36px;
+  float:left;
+  background:#eee;
+  border-radius:5px;
+  margin-left:16px;
+  margin-top:7px;
+}
+.commitBox .commit input{
+  margin-top: 4px;
+  margin-left: 4px;
+}
+.commitBox .send{
+  font-size:16px;
+  color:#fd2d6b;
+  float:right;
+  margin-right:26px;
+}

@@ -1,0 +1,57 @@
+{template 'common/header'}
+<style>
+  .mui-media-body span{ font-size:18px;line-height:1.8;}
+  .mui-media-body p{ color:#666666;}
+  .mui-table-view{margin-bottom:18px;}
+  .mui-table-view-cell{ padding: 11px 12px;}
+  .mui-table-view-cell .mui-ext-icon p{ font-size:15px; margin-top:1.5px;}
+  .mui-card.mui-one{box-shadow:none; margin:0!important;}
+  .mui-card.mui-one, .mui-card.mui-one .mui-card-header{ font-size:13px; line-height:3.8;color:#FFF;background:#ff9933;}
+  .mui-card.mui-one .mui-card-header{padding-left:15px; overflow:hidden;}
+  .mui-card.mui-one .mui-card-header .help{ color:#fff; font-size:18px;line-height: 2.6;width:50px;text-align:right; display:block;}
+  .mui-card.mui-one .mui-card-content:after{ height:0;}
+  .mui-card.mui-one .mui-card-content-inner{min-height:100px;padding: 0 15px;}
+  .mui-card.mui-one .mui-card-content-inner span{ font-size:72px; line-height:1}
+  .mui-card.mui-one+.mui-table-view:before{ height:0!important;}
+</style>
+    <div class="mui-content">        
+        <div class="mui-card mui-one">
+            <div class="mui-card-header">
+            	<span class="mui-pull-left">可提现金额(元)</span>
+            	<span class="mui-pull-right help js-popover" data-popover='income'><i class="mui-ext-icon mui-icon-bangzhu"></i></span>
+            </div>
+            <div class="mui-card-content">
+            	<div class="mui-card-content-inner">
+            		<span>{if $merchant['no_money']}{php echo number_format($merchant['no_money'],2);}{else}0.00{/if}</span>
+                </div>
+            </div>
+        </div>
+        
+        <ul class="mui-table-view" style="margin-top:0">
+        	<li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{php echo app_url('member/merch/cash')}">
+                <span class="mui-ext-icon mui-icon-tixian mui-text-yellow"><p class="mui-pl20">&nbsp;去提现</p></span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{php echo app_url('member/merch/confirm')}">
+                <span class="mui-ext-icon mui-icon-daiqueren mui-text-currency"><p class="mui-pl20">&nbsp;待确认</p></span>
+                <span class="mui-badge mui-badge-inverted mui-rmb">{if $merchant['w_money']}{php echo number_format($merchant['no_hexiao'],2);}{else}0.00{/if}</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{php echo app_url('member/merch/cash_list')}">
+                <span class="mui-ext-icon mui-icon-myue mui-text-primary"><p class="mui-pl20">&nbsp;已提现</p></span>
+                <span class="mui-badge mui-badge-inverted mui-rmb">{if $merchant['y_money']}{php echo number_format($merchant['y_money']+$merchant['w_money'],2);}{else}0.00{/if}</span></a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" style="margin-bottom:35px;">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="{php echo app_url('member/merch/income_list')}">
+                <span class="mui-ext-icon mui-icon-mingxi mui-text-yellow"><p class="mui-pl20">&nbsp;明细</p></span></a>
+            </li>
+        </ul>
+       
+        {template 'footer'}
+    </div>
+    {template 'member/help'}
+</body>
+</html>

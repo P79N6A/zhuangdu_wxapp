@@ -1,0 +1,269 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.css" />
+<style>
+    .pai2{display: none;}
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            门店项目>编辑
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form id="sign-form" class="form-horizontal" role="form" method="post" action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}" name="submit" style="padding: 20px 0;">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">店员姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="name" id="name" value="{$list['name']}">
+                    <input type="hidden" name="id" value="{$list['id']}">
+                    <input type="hidden" name="service">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">头像（100*100）</label>
+                <div class="col-sm-8">
+                    {php echo tpl_form_field_image('simg',$list['simg']);}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">门店选择</label>
+                <div class="col-sm-8">
+                    <select class="selectpicker show-tick form-control bs-select-hidden" data-live-search="true" name="cid" style="width: 50%;">
+                        <option value="0" hassubinfo="true">请选择门店</option>
+                        {loop $class $index $vo}
+                        <option value="{$vo['id']}" {if $vo['id']==$list['cid']}selected{/if}>{$vo['name']}</option>
+                        {/loop}
+                    </select>
+                    <span class="help-block">未开启多店面时，无需选择</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">职称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="task" value="{$list['task']}">
+                </div>
+            </div>
+            <div class="form-group teacher">
+                <label  class="col-sm-2 control-label">服务项目</label>
+                <div class="col-sm-8">
+                    {if $list['service']}
+                    {loop $list['service'] $index $item}
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" name="list" value="{$item['name']}" data-id="{$item['id']}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default link" type="button" data-toggle="modal" data-target="#sort_link">选择项目</button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/loop}
+                    {else}
+                    <div class="input-group" style="margin-bottom: 10px;">
+                        <input type="text" class="form-control" name="list" value="">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default link" type="button" data-toggle="modal" data-target="#sort_link">选择项目</button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_add(this)">
+                            <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                        </span>
+                        <span class="input-group-btn" onclick="parameter.parameter_del(this)">
+                            <button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button>
+                        </span>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <script>
+                var parameter={
+                    parameter_add:function(objc){
+                        $(objc).parent().after('<div class="input-group" style="margin-bottom: 10px;"> ' +
+                                '<input type="text" class="form-control" name="list" value=""> '+
+                                '<span class="input-group-btn">' +
+                                '<button class="btn btn-default link" type="button" data-toggle="modal" data-target="#sort_link">选择项目</button>' +
+                                '</span>'+
+                                '<span class="input-group-btn" onclick="parameter.parameter_add(this)"> ' +
+                                '<button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button> ' +
+                                '</span> ' +
+                                '<span class="input-group-btn" onclick="parameter.parameter_del(this)"> ' +
+                                '<button class="btn btn-danger" type="button"><i class="fa fa-remove"></i></button> ' +
+                                '</span> ' +
+                                '</div>')
+                    },
+                    parameter_del:function(objc){
+                        if($(objc).parent().siblings().length>0){
+                            $(objc).parent().remove();
+                        }
+                    }
+                }
+            </script>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">个人签名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="tag" value="{$list['tag']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">个人简介</label>
+                <div class="col-sm-8">
+                    <textarea type="text" class="form-control"  name="content" rows="10">{$list['content']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排班单双周</label>
+                <div class="col-sm-8">
+                    {if $list['pai_status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="pai_status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="pai_status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排班表<span class="pai2">（单周）</span></label>
+                <div class="col-sm-8">
+                    <select class="selectpicker show-tick form-control bs-select-hidden" data-live-search="true" name="pai1" style="width: 50%;">
+                        <option value="0" hassubinfo="true">请选择排班表</option>
+                        {loop $pai_list $index $vo}
+                        <option value="{$vo['id']}" {if $vo['id']==$list['pai1']}selected{/if}>{$vo['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group pai2">
+                <label class="col-sm-2 control-label">排班表（双周）</label>
+                <div class="col-sm-8">
+                    <select class="selectpicker show-tick form-control bs-select-hidden" data-live-search="true" name="pai2" style="width: 50%;">
+                        <option value="0" hassubinfo="true">请选择排班表</option>
+                        {loop $pai_list $index $vo}
+                        <option value="{$vo['id']}" {if $vo['id']==$list['pai2']}selected{/if}>{$vo['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-8">
+                    {if $list['status']==1}
+                    <input type="checkbox" checked class="js-switch" value="1" name="status">
+                    {else}
+                    <input type="checkbox" class="js-switch" name="status" value="1">
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排序</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  name="sort" value="{$list['sort']}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="button" name="submit" class="btn btn-default" value="提交">
+                    <a class="btn btn-default" href="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'])}">返回</a>
+                    <input id="res" name="res" type="reset" style="display:none;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="sort_link"><div class="modal-dialog">
+    <style>
+        #sort_link .modal-body {padding: 10px 15px;}
+        #sort_link .tab-pane {margin-top: 5px; min-height: 400px; max-height: 400px; overflow-y: auto;}
+        #sort_tab{margin-bottom: 10px;}
+    </style>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">服务项目</h4>
+        </div>
+        <div class="modal-body">
+            <iframe width="100%" height="395" frameborder="no" border="0" scrolling="no" allowtransparency="yes" src="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'service')}"></iframe>
+        </div>
+        <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" id="sort_close" type="button">关闭</button>
+        </div>
+        <script>
+            var sort_objc='';
+            $(function(){
+                $(".sort_customize").on('click','.sort_link',function(){
+                    var id=$(this).attr("data-id");
+                    if(id==2){
+                        $("#sort_link").find("#sort_tab li").eq(1).hide();
+                    }else{
+                        $("#sort_link").find("#sort_tab li").eq(1).show();
+                    }
+                    sort_objc=this;
+                });
+                $("#sort_link").find('#sort_tab a').click(function(e) {
+                    $('#tab').val($(this).attr('href'));
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+            });
+        </script>
+    </div>
+</div></div>
+<script>
+    function choose(){
+        if($("input[name='pai_status']").is(":checked")){
+            $(".pai2").show();
+        }else{
+            $(".pai2").hide();
+        }
+    }
+    var objc="";
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js","../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.js"],function(){
+        $(function(){
+            choose();
+            $("body").on("click",'.link',function(){
+                objc=this;
+            });
+            $("input[name='pai_status']").change(function(){
+                choose();
+            });
+            $("input[name='submit']").click(function(){
+                getjson();
+                var data=$(".form-horizontal").serialize();
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'savemodel','version_id'=>$_GPC['version_id'])}",
+                    data:data,
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            if($("input[name='id']").val()==""){
+                                $("input[name='res']").click();
+                                $("body").find(".img-responsive.img-thumbnail").attr("src","");
+                            }
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+        })
+    })
+    function getjson(){
+        var teacher=[];
+        $(".teacher").find("input[name='list']").each(function(){
+            var id=$(this).attr("data-id");
+            var name=$(this).val();
+            if(id!="" && name!=""){
+                var data={id:id,name:name};
+                teacher.push(data);
+            }
+        });
+        if(teacher.length>0){
+            $("input[name='service']").val(JSON.stringify(teacher));
+        }
+    }
+</script>
+{template 'common/footer'}

@@ -1,0 +1,72 @@
+<view class='container'>
+
+  <!-- 搜索成分 -->
+  <view class='searchBox'>
+    <!-- 选择 -->
+    <view class='select_box'>
+      <view class='select' catchtap='selectTap'>
+        <selsect prop-array='{{selectArray}}' bind:myget='gettype'></selsect>
+      </view>
+    </view>
+    <view class='search'>
+      <image catchtap='tosearch_history' src='./images/search.png'></image>
+      <input placeholder-class="place-holder" bindconfirm="search" value="{{searchValue}}" bindinput="find" class="search-input" placeholder="搜妆品、成分" />
+      <view class='searchText' bindtap='search'>搜索</view>
+    </view>
+  </view>
+  <view style='padding-top:90rpx;'>
+    <view class='container'>
+      <view hidden="{{componenthidden}}">
+        <!-- 妆品列表 -->
+        <block wx:for="{{component}}">
+          <view class='card  b-shadow' bindtap='toggleBtn' data-id="{{item.id}}" data-add_time_format='{{item.add_time_format}}' data-name='{{item.name}}' data-ischecked="{{item.ischecked}}" data-thumb='{{item.thumb}}'>
+            <view class='nearCard-fl'>
+              <view class='image' wx:if="{{item.thumb}}" style='width:200rpx;height:176rpx;'>
+                <image style='border-raduis:1px;' src='https://zdu.igdlrj.com/attachment/{{item.thumb}}'></image>
+              </view>
+              <view class='image' wx:if="{{item.thumb=='' || item.thumb=='undefined' || item.thumb==null}}" style='width:200rpx;height:176rpx;'>
+                <image style='border-raduis:1px;background:#fd2c6b;' src='https://zdu.igdlrj.com/attachment/images/2/2018/12/KPl3CKzvZl40vdB8Gl0vKT3S0PLdg0.jpg'></image>
+              </view>
+            </view>
+            <view class='nearCard-fr'>
+              <view style=' width: 164px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>
+                <text class='component-title'>{{item.name}}</text>
+              </view>
+              <view style='margin-top:4px'>生产日期：
+                <text class='component-time'>{{item.add_time_format}}</text>
+              </view>
+              <!-- <view style='margin-top:6px'>作用：
+          <text class='component-userful'>{{item.userful}}</text>
+        </view> -->
+              <view class='compare' catchtap='checkboxChange0' data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}">
+                <checkbox-group bindchange="checkboxChange" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}" data-ischecked="{{item.ischecked}}">
+                  <label class="checkbox">
+                    <checkbox value='{{item.name}},{{item.id}}' checked="{{item.ischecked}}" />
+                  </label>
+                </checkbox-group>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view hidden='{{ingredienthidden}}'>
+        <!-- 含有该成分的妆品列表 -->
+        <block wx:for="{{ingredients}}">
+          <view class='card b-shadow' bindtap='toggleBtn' data-add_time_format='{{item.add_time_format}}' data-name='{{item.cn_name}}'>
+            <view class='nearCard-fr'>
+              <!-- <view class='nearCard-fl'>
+              <image src='https://zdu.igdlrj.com/attachment/{{item.thumb}}'></image>
+            </view> -->
+              <view>
+                <text class='component-title'>{{item.cn_name}}</text>
+              </view>
+              <view style='margin-top:4px'>生产日期：
+                <text class='component-time'>{{item.add_time_format}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+<view class="qrcode">
+    <image class="img" src="../../../image/invite_qrcode/img.png" alt=""></image>
+    <image bindtap="saveQrcode" class="button" src="../../../image/invite_qrcode/button.png" alt=""></image>
+</view>

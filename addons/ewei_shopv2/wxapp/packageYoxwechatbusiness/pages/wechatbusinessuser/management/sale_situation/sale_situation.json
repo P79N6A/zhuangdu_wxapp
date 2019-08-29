@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "line-chart": "./line-chart/line-chart",
+    "date-picker": "../../date-picker/date-picker"
+  },
+  "navigationBarTitleText": "销售概况"
+}

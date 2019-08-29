@@ -1,0 +1,165 @@
+.commission_tips {
+  font-size: 48rpx;
+  color: #ccc;
+  margin-left: 138px;
+  margin-top: 238px;
+}
+
+.bgfff {
+  background: #fff;
+}
+
+.dateline {
+  width: 100%;
+  height: 40px;
+  padding-top:12px;
+}
+
+.dateline .dateline_time {
+  width: 100px;
+  height: 20px;
+  font-size:18px;
+  margin-left:142px;
+}
+
+.dateline .dateline_time text{
+  margin-right:4px;
+}
+
+.dateline .dateline_time image {
+  width: 13px;
+  height: 8px;
+}
+
+.charts {
+  width: 100%;
+  height: 254px;
+  margin-bottom:14px;
+}
+
+.charts .charts_mount {
+  width: 100px;
+  height: 42px;
+  font-size: 16px;
+  color: #fd3d6b;
+  float: left;
+  margin-left:18px;
+}
+
+.charts .charts_mount text {
+  font-size: 10px;
+  display: block;
+}
+
+.charts .dan {
+  width: 24px;
+  color: #fd3d6b;
+  height: 32px;
+  font-size: 16px;
+  float: right;
+  text-align: center;
+  margin-right:18px;
+}
+
+.charts .dan text {
+  font-size: 10px;
+}
+
+.level {
+  width: 100%;
+  height: 48px;
+}
+
+.level .level_name, .level .amount {
+  width: 50%;
+  height: 48px;
+  text-align: center;
+  line-height: 20px;
+  float: left;
+}
+
+.level .level_name .name, .level .amount .amount_money {
+  color: #fd3d6b;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.level  .type {
+  font-size: 12px;
+}
+
+.pergformance {
+  width: 100%;
+  height: auto;
+}
+
+.pergformance .pergformance_titleBox {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+
+.pergformance .pergformance_titleBox .pergformance_title,
+.pergformance .pergformance_titleBox .date_item {
+  float: left;
+  margin-left: 28px;
+}
+.pergformance .pergformance_titleBox .date_item{
+  font-size: 10px;
+}
+.pergformance .pergformance_titleBox .date_item .right1{
+  width: 12px;
+  height: 12px;
+  border: 1px solid #fd3d6b;
+  border-radius: 12px;
+  color: #fff;
+  line-height: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+.date_active{
+  background: #fd3d6b;
+}
+.date_default{
+ background: transparent;
+}
+.performance_list_title{
+  width: 420px;
+  height: 26px;
+}
+.performance_list_title .performance_list_title_item{
+  float: left;
+  font-size: 14px;
+  margin-left:27px;
+  margin-right:52px;
+}
+.performance_list{
+  padding-left:0px;
+  padding-top:18px;
+}
+.performance_list .performance_cell{
+  width: 308px;
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #c5c5c5;
+  font-size: 6px;
+  padding-left:24px;
+}
+.performance_list .performance_cell .performance_cell_number{
+  font-size: 12px !important;
+}
+.performance_list .performance_cell .performance_cell_number,.performance_list .performance_cell .performance_cell_type,
+.performance_list .performance_cell .performance_cell_record{
+  float: left;
+  font-size: 14px;
+  margin-right: 24px;
+}
+.performance_list .performance_cell .performance_cell_type{
+  margin-right:46px !important;
+}
+.performance_list .performance_cell .performance_cell_record{
+  color: #188316;
+}
+canvas{
+  margin-left:-194px;
+}

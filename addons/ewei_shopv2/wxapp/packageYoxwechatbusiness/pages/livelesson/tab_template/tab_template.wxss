@@ -1,0 +1,73 @@
+@import "index_template/index_template.wxss";
+@import "class_template/class_template.wxss";
+/* @import "../../../packageYoxsns/pages/sns/main_template/main_template.wxss"; */
+.community-content{
+  width: 100%;
+  height: 104px;
+  /* border-radius: 10px; */
+  background: #fff;
+  /* margin-left:66rpx; */
+  margin-bottom:20rpx;
+}
+.community-content image{
+  display: block;
+  width:80px;
+  height: 80px;
+  border-radius:6px;
+  float: left;
+  margin-left:40rpx;
+  margin-top:25rpx; 
+}
+.community-text{
+  float:right;
+  width:164px;
+  margin-right:32rpx;
+  margin-top:30rpx;
+}
+.community-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+.content-or-join{
+  font-size: 12px;
+  font-weight: bold;
+}
+.time{
+  color:#ccc;
+  font-size:12px;
+  margin-top:16rpx;
+  display:block;
+}
+.tab-h{
+  height: 80rpx;
+  width: 100%; 
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 80rpx;
+  background: #fff; 
+  font-size: 13px; 
+  white-space: nowrap;
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  z-index: 99;
+}
+.tab-item{
+  margin:0 54rpx;
+  display: inline-block;
+}
+.tab-item.active{
+  color: #fd2c6b;
+  position: relative;
+}
+.tab-item.active:after{ 
+  content: "";
+  display: block;
+  height: 4rpx;
+  width: 68rpx;
+  background: #fd2c6b;
+  position: absolute; 
+  bottom: 0;
+  left: -2rpx;
+  border-radius: 16rpx;
+}

@@ -1,0 +1,74 @@
+<import src="../../../../pages/tabBar_template/tabBar.wxml" />
+<view class='container'>
+  <view class="customSwiper">
+    <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab' style='margin-bottom:10px;'>
+      <block wx:for="{{sliderList}}">
+        <swiper-item>
+          <image style='width:100%;height:100%;' src="{{item.imageSource}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="tab">
+      <block wx:for="{{sliderList}}" wx:key="key">
+        <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+        <view wx:else class="tab-item"></view>
+      </block>
+    </view>
+  </view>
+  <view class='search_view'>
+    <view class='search bgfff' bindtap='tosearch'>
+      <image src='../images/search.png'></image>
+      <text>点击搜索妆品、成分</text>
+    </view>
+  </view>
+  <view class='nav bgfff'>
+    <block wx:for="{{navList}}">
+      <view class='nav-cell' data-searchValue='{{item.text}}' bindtap='searchchange'>
+        <view class='nav-icon'>
+          <image class='baseimg' src='{{item.imgUrl}}'></image>
+        </view>
+        <text>{{item.text}}</text>
+      </view>
+    </block>
+  </view>
+  <view class='comment'>
+    <view class='titleBox bgfff'>
+      <text>精选点评</text>
+    </view>
+    <view class='comment-main'>
+      <block wx:for="{{commentsList}}">
+        <view class='comment-cell bgfff'>
+          <view class='comment-message'>
+            <view class='comment-image' wx:if="{{item.product_thumb}}">
+              <image class='baseimg' src='https://zdu.igdlrj.com/attachment/{{item.product_thumb}}'></image>
+            </view>
+            <view class='comment-image' wx:else>
+              <image class='baseimg' src='https://zdu.igdlrj.com/attachment/images/2/2018/12/fzAhifSzzamRaBsA1s1zzLAfhHEaD4.jpg'></image>
+            </view>
+            <view class='comment-text'>
+              <view class='comment-title' wx:if="{{item.product_name}}">
+                <text>{{item.product_name}}</text>
+              </view>
+              <view class='comment-title' wx:else>
+                <text>LANCOME (兰蔻) 清柔卸妆乳</text>
+              </view>
+              <view class='comment-desc'>
+                <text>{{item.comment}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='comment-user'>
+            <view class='user'>
+              <image class='avatar' src="{{item.avatar}}"></image>
+              <view class='user-main'>
+                <text>{{item.nickname}}</text>
+              </view>
+            </view>
+            <text class='comment-number'>{{item.add_time_format}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

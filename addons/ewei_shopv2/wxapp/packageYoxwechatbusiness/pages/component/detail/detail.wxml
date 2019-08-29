@@ -1,0 +1,126 @@
+<view class='table'>
+  <view class='tr bg-w' style='font-size:28rpx;'>
+    <view class='th'>
+      <text class='th-title'>
+              成分
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              中文名称
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              特性
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              刺激性
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              安全度
+          </text>
+    </view>
+  </view>
+  <block wx:for="{{ingredient}}">
+    <view class='tr bg-g' wx:if="{{index%2==0}}">
+      <view class='td' style='color:#d6c8ea;'>
+        <text wx:if="{{item.en_name}}">{{item.en_name}}</text>
+        <text wx:else>Water</text>
+      </view>
+      <view class='td' style='color:#fd4d82;'>
+        <text wx:if="{{item.cn_name}}">{{item.cn_name}}</text>
+        <text wx:else>水</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.general_characteristics}}">{{item.general_characteristics}}</text>
+        <text wx:else>溶剂</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.stimulate}}">{{item.stimulate}}</text>
+        <text wx:else>0</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.safety}}">{{item.safety}}</text>
+        <text wx:else>0</text>
+      </view>
+    </view>
+    <view class='tr' wx:else>
+      <view class='td' style='color:#d6c8ea; overflow:hidden;' >
+        <text wx:if="{{item.en_name}}">{{item.en_name}}</text>
+        <text wx:else>Water</text>
+      </view>
+      <view class='td' style='color:#fd4d82;'>
+        <text wx:if="{{item.cn_name}}">{{item.cn_name}}</text>
+        <text wx:else>水</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.general_characteristics}}">{{item.general_characteristics}}</text>
+        <text wx:else>溶剂</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.stimulate}}">{{item.stimulate}}</text>
+        <text wx:else>0</text>
+      </view>
+      <view class='td'>
+        <text wx:if="{{item.safety}}">{{item.safety}}</text>
+        <text wx:else>0</text>
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 含有成分的妆品 -->
+<!-- <scroll-view scroll-x="true" class='same-ingredient' style='margin-top:40px;'> -->
+<view class='table' style='margin-top:40px;'>
+  <view class='tr bg-w' style='font-size:28rpx;'>
+    <view class='th'>
+      <text class='th-title'>
+              含有成分的妆品：
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              
+          </text>
+    </view>
+    <view class='th'>
+      <text class='th-title'>
+              
+          </text>
+    </view>
+  </view>
+  <block wx:for="{{component}}">
+    <view class='tr bg-g' wx:if="{{index%2==0}}" bindtap='linkTap' data-id='{{item.id}}' data-url='{{item.url}}'>
+      <view class='td' style='height:46px; width:24%;'>
+        <image style='width:51%; height:100%;' wx:if="{{item.thumb}}" src="https://zdu.igdlrj.com/attachment/{{item.thumb}}"></image>
+        <image style='width:51%; height:100%;' wx:else src='https://zdu.igdlrj.com/attachment/images/2/2018/12/fzAhifSzzamRaBsA1s1zzLAfhHEaD4.jpg'></image>
+      </view>
+      <view class='td' style='color:#fd4d82; width:56%;'>
+        <text style='border:0;' wx:if="{{item.name}}">{{item.name}}</text>
+        <text style='border:0;' wx:else>化妆品名称</text>
+      </view>
+      <view class='td'>
+        <text style='border:0;' wx:if="{{item.add_time}}">{{item.add_time}}</text>
+        <text style='border:0;' wx:else>time</text>
+      </view>
+    </view>
+    <view class='tr' wx:else bindtap='linkTap' data-id='{{item.id}}' data-url='{{item.url}}'>
+      <view class='td' style='height:46px; width:24%;'>
+        <image style='width:51%; height:100%;' wx:if="{{item.thumb}}" src="https://zdu.igdlrj.com/attachment/{{item.thumb}}"></image>
+        <image style='width:51%; height:100%;' wx:else src='https://zdu.igdlrj.com/attachment/images/2/2018/12/fzAhifSzzamRaBsA1s1zzLAfhHEaD4.jpg'></image>
+      </view>
+      <view class='td' style='color:#fd4d82;width:56%;'>
+        <text style='border:0;' wx:if="{{item.name}}">{{item.name}}</text>
+        <text style='border:0;' wx:else>化妆品名称</text>
+      </view>
+      <view class='td'>
+        <text style='border:0;' wx:if="{{item.add_time}}">{{item.add_time}}</text>
+        <text style='border:0;' wx:else>time</text>
+      </view>
+    </view>
+  </block>
+</view>

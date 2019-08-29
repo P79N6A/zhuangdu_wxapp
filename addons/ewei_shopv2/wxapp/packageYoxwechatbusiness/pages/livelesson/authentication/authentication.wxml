@@ -1,0 +1,26 @@
+<view class='container'>
+  <view class='tip1'>
+    <view class='tip1_cell' wx:for="{{tip1List}}">
+      <view class='image'>
+        <image src='{{item.imgUrl}}'></image>
+      </view>
+      <view class='title'>
+        {{item.title}}
+      </view>
+    </view>
+  </view>
+  <view class='certify'>
+    <view class='certify_title'>
+      认证步骤
+    </view>
+    <view class='certify_cell' wx:for="{{certifyList}}">
+      <view class='cicular' style='width:8px;height:8px;background:#fd2d6b;border-radius:8px;float:left;margin-top:6px;margin-right:6px;'></view>
+      <view class='title' style=''>
+        {{item}}
+      </view>
+    </view>
+  </view>
+  <view class='button'>
+    前往认证
+  </view>
+</view>

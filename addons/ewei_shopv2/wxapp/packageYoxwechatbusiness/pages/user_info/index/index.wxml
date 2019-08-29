@@ -1,0 +1,49 @@
+<view class="title">
+    请完整填写您的信息
+</view>
+<view class='form'>
+    <view class="input">
+        <view>姓名:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+    <view class="input">
+        <view>手机:</view>
+        <view><input class="input-text"  type="text" /></view>
+    </view>
+    <view class="input">
+        <view>微信:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+        <view class="input">
+        <view>QQ:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+        <view class="input">
+        <view>身份证号:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+        <view class="input">
+        <view>所在地区:</view>
+        <view class="section">
+              <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+                <input class="input-text" type="text" value="{{region[0]}}-{{region[1]}}-{{region[2]}}"/>
+              </picker>
+        </view>
+    </view>
+        <view class="input">
+        <view>详细地址:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+        <view class="input">
+        <view>申请级别:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+            <view class="input">
+        <view>推荐代理:</view>
+        <view><input class="input-text" type="text" /></view>
+    </view>
+
+</view>
+<view class="button">
+    <button type="default">确认并提交</button>
+</view>

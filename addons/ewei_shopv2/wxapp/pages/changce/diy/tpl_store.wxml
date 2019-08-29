@@ -1,0 +1,37 @@
+<view class="fui-list-group" style="background: {{diyitem.style.background}};margin-top: {{diyitem.style.margintop}}rpx">
+    <block wx:for="{{diyitem.data}}" wx:for-item="childitem">
+        <view>
+            <navigator url="/pages/changce/store/store?id={{childitem.storeid}}">
+                <view class="fui-list">
+                    <view class="fui-list-media" wx:if="{{childitem.thumb}}">
+                        <image class="round" src="{{childitem.thumb}}"></image>
+                    </view>
+                    <view class="fui-list-inner">
+                        <view class="title row" style="color: #333333;">
+                            <view class="row-text">{{childitem.name}}</view>
+                            <view class="row-remark" wx:if="{{childitem.disname}}">
+                                <i class="icox icox-dingwei1" style="color:{{diyitem.style.rangecolor}};"></i> {{childitem.disname}}
+          </view>
+                        </view>
+                        <view class="subtitle" style="color: #666666;">{{childitem.desc}}</view>
+                    </view>
+                    <view class="fui-remark"></view>
+                </view>
+            </navigator>
+        </view>
+        <view class="fui-picturew_" wx:if="{{childitem.goods&&childitem.goods.length>0}}">
+            <scroll-view class="fui-tab-scroll" scrollX="true" style="overflow-x:scroll;height:auto">
+                <view class="item" style="padding:0 10rpx;width:280rpx;height:auto;position:relative;" wx:for="{{childitem.goods}}" wx:for-index="gindex" wx:for-item="gitem">
+                    <navigator url="/pages/goods/detail/index?id={{gitem.goodsid}}&storeid={{childitem.storeid}}">
+                        <view class="image" style="position:relative">
+                            <image src="{{gitem.imgurl}}" style="width:100%;height:220rpx"></image>
+                            <view class="title" style="height:40rpx;font-size:26rpx;color:#fff;position:absolute;display:block;width:100%;background:#000;bottom:0;left:0;opacity:0.4;line-height:40rpx;text-indent:10rpx;">{{gitem.title}}</view>
+                        </view>
+                        <view class="text" style="font-size:26rpx;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:1;overflow: hidden;">{{gitem.text}}
+        </view>
+                    </navigator>
+                </view>
+            </scroll-view>
+        </view>
+    </block>
+</view>

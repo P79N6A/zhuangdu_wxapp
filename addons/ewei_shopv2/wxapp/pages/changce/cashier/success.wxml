@@ -1,0 +1,34 @@
+<loading wx:if="{{!show}}">加载中...</loading>
+<view class="page" wx:if="{{show}}">
+    <view class="fui-content">
+        <view class="fui-list-group notop" style="background: #f2f5f7;">
+            <view class="fui-list">
+                <view class="fui-list-media">
+                    <image src="{{member.avatar}}"></image>
+                </view>
+                <view class="fui-list-inner">
+                    <view class="title">{{member.nickname}}</view>
+                    <view class="subtitle">{{log.title}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="code_box">
+            <view class="p">{{log.money}}</view>
+            <view class="cav_code">消费名称：{{log.goodstitle}}</view>
+            <view class="cav_code">支付时间：{{log.time}}</view>
+            <view class="cav_code">交易单号：{{log.out_trade_no}}</view>
+            <view class="cav_code" wx:if="{{log.randommoney&&log.randommoney>0}}">随机立减：￥{{log.randommoney}}</view>
+            <view class="cav_code" wx:if="{{log.enough&&log.enough>0}}">满额立减：-￥{{log.enough}}</view>
+            <view class="cav_code" wx:if="{{log.deduction&&log.deduction>0}}">抵扣：-￥{{log.deduction}}</view>
+            <view class="cav_code" wx:if="{{log.discountmoney&&log.discountmoney>0}}">固定折扣：-￥{{log.discountmoney}}</view>
+            <view class="cav_code" wx:if="{{log.couponpay&&log.couponpay>0}}">优惠券减免：-￥{{log.couponpay}}</view>
+            <view class="cav_code" wx:if="{{log.present_credit1&&log.present_credit1>0}}">赠送：+￥{{log.present_credit1}}</view>
+            <view style="padding:10%;font-size:50rpx;color:#39b448">您已成功支付！</view>
+        </view>
+        <view class="fui-navbar">
+            <navigator openType="reLaunch" url="/pages/index/index">
+                <view class="nav-item btn" style="background:#39b448">返回首页</view>
+            </navigator>
+        </view>
+    </view>
+</view>

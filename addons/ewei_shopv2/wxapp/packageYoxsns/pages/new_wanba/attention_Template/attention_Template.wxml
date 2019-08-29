@@ -1,0 +1,73 @@
+<template name="attention_Template">
+  <view class='customSwiper'>
+    <swiper class='banner' autoplay='{{true}}' circular="{{true}}" interval='5000' duration='300' bindchange='switchTab'>
+      <block wx:for="{{sliderList}}">
+        <swiper-item>
+          <image src="{{item.imageSource}}" style='background:#fd2c6b;width:100%;height:100%;'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="tab">
+      <block wx:for="{{sliderList}}" wx:key="key">
+        <view wx:if="{{item.selected}}" class='tab-item selected'></view>
+        <view wx:else class="tab-item"></view>
+      </block>
+    </view>
+  </view>
+  <!-- group2 -->
+  <view class='group2'>
+    <scroll-view scroll-x="true" class="scroll-view_x bgfff" style="white-space:nowrap;">
+      <view>
+        <block wx:for="{{attentiongroup2List}}">
+          <view class='group2_cell' data-id='{{item.id}}' bindtap='toscheme'>
+            <view class='image'>
+              <image src='{{item.logo}}'></image>
+            </view>
+            <view class='title'>
+              <text>{{item.title}}</text>
+            </view>
+            <view class='attentioned' wx:if="{{item.followcount!=='0'}}" catchtap='getfollow'  data-id='{{item.id}}'>
+              <text>已关注</text>
+            </view>
+            <view class='attention' wx:else catchtap='getfollow'  data-id='{{item.id}}'>
+              <text>关注</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view>
+        <block wx:for="{{attentiongroup2List3}}">
+          <view class='group2_cell'>
+            <view class='image'>
+              <image src='{{item.logo}}'></image>
+            </view>
+            <view class='title'>
+              <text>{{item.title}}</text>
+            </view>
+            <view class='attentioned' wx:if="{{item.followcount!=='0'}}" catchtap='getfollow'>
+              <text>已关注</text>
+            </view>
+            <view class='attention' wx:else catchtap='getfollow'>
+              <text>关注</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- group3 -->
+  <view class='group3'>
+     <scroll-view scroll-x="true" class="group3_scroll-view_x bgfff" style="height:122px;white-space:nowrap;">
+        <block wx:for='{{group3List}}'>
+          <view class='group3_cell'>
+            <view class='title'>
+              <text>{{item.title}}</text>
+            </view>
+            <view class='Engtitle'>
+              <text>{{item.Engtitle}}</text>
+            </view>
+          </view>
+        </block>
+     </scroll-view>
+  </view>
+</template>

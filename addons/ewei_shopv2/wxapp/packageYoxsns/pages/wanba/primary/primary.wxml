@@ -1,0 +1,29 @@
+<scroll-view class="box" scroll-y="true">
+
+<form bindsubmit="formSubmit">
+    <view class='title'>
+      <textarea class="title_textarea"placeholder="请输入您的标题" bindinput='titleSubmit' placeholder-style="font-size:13pt;"  name="title"/>
+    </view>
+    <view class="shuru"> 
+        <textarea class="shuru1"placeholder="请输入您的内容" bindinput='commentSubmit' placeholder-style="font-size:13pt;"  name="content"/>
+    </view>
+    <view class="img-box">
+    <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+        <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+        <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg">删除</view>
+    </view>
+    <view class="upload-img-btn" bindtap="chooseImg" wx:if="{{imgs.length<2}}">
+      <image src='../images/upload.png'></image>
+    </view>
+</view>
+
+    
+     
+
+
+
+    <button class="buttona" form-type="submit">发表</button>
+    
+</form>
+
+</scroll-view>

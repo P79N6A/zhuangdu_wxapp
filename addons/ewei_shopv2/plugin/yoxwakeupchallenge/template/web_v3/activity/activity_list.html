@@ -1,0 +1,120 @@
+{template '_header'}
+<div class="page-header">
+	当前位置：<span class="text-primary">早起挑战-活动列表 </span>
+</div>
+<div class="page-content">
+<form action="./index.php" method="get" class="form-horizontal" role="form">
+	<input type="hidden" name="c" value="site">
+	<input type="hidden" name="a" value="entry">
+	<input type="hidden" name="m" value="ewei_shopv2">
+	<input type="hidden" name="do" value="web">
+	<input type="hidden" name="r" value="yoxwakeupchallenge.activity">
+	<div class="page-toolbar m-b-sm m-t-sm">
+		<div class="col-sm-6 pull-right">
+			<div class="input-group">
+				<input type="text" class=" form-control" name='name' value="{$_GPC['name']}" placeholder="请输入关键词"> <span class="input-group-btn">
+				<button class="btn btn-primary" type="submit"> 搜索</button> </span>
+			</div>
+		</div>
+	</div>
+</form>
+
+<!-- 列表 -->
+{if count($result['data']['list'])>0}
+	<div class="page-table-header">
+		<input type="checkbox">
+		<div class="btn-group ">
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwakeupchallenge/activity/status',array('status'=>1))}">
+				<i class='icow icow-qiyong'></i> 开启
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwakeupchallenge/activity/status',array('status'=>0))}">
+				<i class='icow icow-jinyong'></i> 关闭
+			</button>
+			<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxwakeupchallenge/activity/delete')}">
+				<i class='icow icow-shanchu1'></i> 删除
+			</button>
+		</div>
+	</div>
+	<table class="table table-hover table-responsive">
+		<thead>
+			<tr>
+				<th style="width:25px;"></th>
+				<!--<th style="width:100px;">排序</th>-->
+				<th>活动名称</th>
+				<th>发起人</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
+				<th>参与人</th>
+				<th>签到列表</th>
+				<th style="width: 150px;">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+	{if $result['data']['list']}
+			{loop $result['data']['list'] $info}
+			<tr>
+				<td>
+					<input type='checkbox' value="{$info['id']}" />
+				</td>
+				<!--<td>
+					{ifp 'yoxwakeupchallenge.edit'}
+						<a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('yoxwakeupchallenge/activity/displayorder',array('id'=>$info['id']))}">{$info['displayorder']}</a> 
+					{else} 
+						{$info['displayorder']} 
+					{/if}
+				</td>-->
+				<td>{$info['name']}</td>
+				<td>{$info['nickname']}</td>
+				<td>{$info['begin_time_format']}</td>
+				<td>{$info['end_time_format']}</td>
+				<td><a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwakeupchallenge/activity/activity_user_list',array('activity_id'=>$info['id']))}">参与人</a></td>
+				<td><a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwakeupchallenge/activity/activity_checkin_list',array('activity_id'=>$info['id']))}">签到列表</a></td>
+				<td>
+					<a class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwakeupchallenge/activity/edit',array('id'=>$info['id']))}">
+						<span data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑">
+                            <i class="icow icow-bianji2"></i>
+                        </span>
+					</a>
+					<a data-toggle="ajaxRemove" class='btn btn-default btn-sm btn-op btn-operation' href="{php echo webUrl('yoxwakeupchallenge/activity/delete',array('id'=>$info['id']))}" data-confirm="确认要删除?">
+						<span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                               <i class='icow icow-shanchu1'></i>
+                          </span>
+					</a>
+				</td>
+			</tr>
+			{/loop}
+	{/if}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<input type="checkbox">
+				</td>
+				<td colspan="3">
+					<div class="btn-group ">
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwakeupchallenge/activity/status',array('status'=>1))}">
+							<i class='icow icow-qiyong'></i> 开启
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('yoxwakeupchallenge/activity/status',array('status'=>0))}">
+							<i class='icow icow-jinyong'></i> 关闭
+						</button>
+						<button class="btn btn-default btn-sm btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除?" data-href="{php echo webUrl('yoxwakeupchallenge/activity/delete')}">
+							<i class='icow icow-shanchu1'></i> 删除
+						</button>
+					</div>
+				</td>
+				<td colspan="5" class="text-right">	{$result['data']['pager']} </td>
+			</tr>
+		</tfoot>
+	</table>
+
+{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+		暂无数据!
+		</div>
+	</div>
+{/if}
+</form>
+</div>
+{template '_footer'}

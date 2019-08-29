@@ -1,0 +1,181 @@
+.background{
+  width: 100%;
+  position: relative;
+  height: auto;
+}
+.background_image{
+  display: block;
+  width: 100%;
+  height:118px;
+}
+.avatar{
+  background: #fff;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 3rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -2rem;
+  bottom: -2rem;
+  border: 2px solid #fafafa;
+  padding: .05rem;
+}
+.userInfo{
+  position: relative;
+  top: 2.5rem;
+  text-align: center;
+}
+.nickname{
+  color: #000;
+  font-size: 1rem;
+}
+.user-text{
+  font-size: .75rem;
+  color: #666;
+  padding: .5rem;
+}
+.icon-we:before {
+    content: "\e678";
+}
+.user-history{
+  position: relative;
+  top: 3rem;
+}
+.line{
+  font-size: .75rem;
+  color: #999;
+  text-align: center;
+}
+.line::before{
+  content: " ";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #d5d5d5;
+}
+.list-inner{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex: 1;
+  margin: auto;
+  display: inline;
+  background: #fafafa;
+  padding: 0 .2rem;
+}
+.boards{
+  position: relative;
+  padding: .5rem;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+.board-item{
+  width: 18%;
+  height: 4rem;
+  text-align: center;
+  float: left;
+  margin-right: .2rem;
+  margin-bottom: .2rem;
+}
+.board-item image{
+  border: 1px solid #c0c0c0;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom:12px;
+}
+.board-item text{
+  text-align: center;
+  font-size: .7rem;
+  color: #666;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+.list-group{
+  background-color: #fff;
+  position: relative;
+  margin-top: .5rem;
+}
+.list-item{
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.4rem 0.6rem;
+  -moz-transition-duration: 300ms;
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+}
+.list-image{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  -webkit-box-lines: single;
+  -moz-box-lines: single;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin-right: .5rem;
+  color: #aaa;
+  position: relative;
+}
+.list-image image{
+  border: 1px solid #c0c0c0;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.list-text{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: block;
+}
+.list-title{
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  height: 1rem;
+  line-height: 1rem;
+}
+.list-title text{
+  font-size: 0.85rem;
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.list-fu{
+  position: relative;
+  font-size: 0.65rem;
+  color: #666;
+}

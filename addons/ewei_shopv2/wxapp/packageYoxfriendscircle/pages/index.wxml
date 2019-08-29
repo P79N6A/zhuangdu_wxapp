@@ -1,0 +1,121 @@
+<loading wx:if="{{!show}}">加载中...</loading>
+<scroll-view class="container" scroll-y="true" wx:if="{{show}}">
+  <!-- 右上角相机 -->
+  <view class="camera">
+    <image class="baseimg" src='../images/cameractive.png' bindtap='showEditPage'></image>
+  </view>
+  <!-- 背景图 -->
+  <swiper  wx:if="{{banner_info}}"  class='background' >
+    <block wx:for="{{banner_info}}">
+      <swiper-item>
+        <image src="https://zdu.igdlrj.com/attachment/{{item}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view wx:else class='background'>
+    <image class='baseimg' src='../images/banner.jpg'></image>
+  </view>
+  <!-- 用户名、头像 -->
+  <view class="avatar">
+    <open-data type="userAvatarUrl"></open-data>
+    <!-- <image class="baseimg" src="{{userInfo['avatarUrl']}}" mode="scaleToFill"></image> -->
+  </view>
+  <view class='nickname'>
+    <open-data type="userNickName"></open-data>
+    <!-- <text>{{userInfo['nickName']}}</text> -->
+  </view>
+  <!-- <view class='lie'></view> -->
+  <!-- 内容 -->
+  <view style='background:#fff;'>
+    <block wx:for="{{friendscricle}}" wx:key="{{index}}" wx:for-index="{{idx}}">
+      <view class='main' data-id='{{item.id}}'>
+        <!-- 用户头像 -->
+        <view class='head'>
+          <!-- <image class='baseimg' wx:if="{{item.avatar}}" src="{{item.avatar}}"></image> -->
+          <image class='baseimg' wx:if="{{item.avatar}}" src="{{item.avatar}}" style='background:#fd2c6b; width:50px;height:50px;'></image>
+          <image class='baseimg' wx:else src='/packageYoxfriendscircle/images/avatar.jpg' style='background:#fd2c6b; width:50px;height:50px;'></image>
+        </view>
+        <!-- 用户昵称 -->
+        <view class='username'>
+          <text class='wz' wx:if="{{item.name}}">妆度{{item.name}}</text>
+          <text class='wz' wx:else>妆度</text>
+        </view>
+        <view class='usercontent' style='padding-left:60px; padding-right:12px;'>
+          <text class='desc' wx:if="{{item.description}}">{{item.description}}</text>
+        </view>
+        <view class='images-wrapper' wx:if="{{item.thumbs}}">
+          <block wx:for="{{item.thumbs}}" wx:for-item="types">
+            <view class='images'>
+              <image catchtap='previewImg' data-index='{{index}}' class='images-image' wx:if="{{types}}" src='https://zdu.igdlrj.com/attachment/{{types}}'></image>
+              <image catchtap='previewImg' data-index='{{index}}' class='images-image' wx:else style='background-color:#fd2c6b;'></image>
+            </view>
+          </block>
+        </view>
+        <!-- 上传的图片 -->
+        <image class='content-img'></image>
+        <!-- 地址 -->
+        <!-- <text class='address'>
+            地址
+        </text> -->
+        <!-- 时间 -->
+        <text class='time' wx:if="{{item.add_time_format}}">
+            {{item.add_time_format}}
+        </text>
+        <!-- 一键复制 -->
+        <view class='co_copy' bindtap='bindcopy' data-description='{{item.description}}'>
+          一键复制
+        </view>
+        <!-- 一键保存 -->
+        <view class='co_save' bindtap='bindsave' data-thumbs='{{item.thumbs}}'>
+          一键保存
+        </view>
+        <view>
+        </view>
+        <!-- 图标 -->
+        <view class='commit-icon' catchtap="{{stopBtn?'iconsShow':'iconsHide'}}" data-id='{{item.id}}'>
+          <image class='baseimg' src="../images/commit.png"></image>
+        </view>
+        <!--显示点赞-->
+        <block wx:if="{{item.attitude.list}}">
+          <view class="like-box">
+            <block wx:for="{{item.attitude.list}}" wx:for-item="attitudes" wx:if="{{item.attitude.list.nickname!= 'null'}}">
+              <view style="float:left;">
+                <view class="like-content" wx:if="{{attitudes}}" data-attitudes='{{attitudes}}'>
+                  <image class="baseimg" src="../images/favour.png" mode="aspectFit"></image>
+                </view>
+                <text class="like-text">{{attitudes.nickname}}</text>
+              </view>
+            </block>
+          </view>
+        </block>
+        <!--显示评论-->
+        <!--如果朋友圈下的评论不等于空 则显示当前朋友圈的评论-->
+        <!-- <block wx:if="{{resultData[k].pinglun != 'null'}}"> -->
+        <block wx:if="{{item.comment.list}}">
+          <view class="discuss-box" scroll-y>
+            <!--循环评论-->
+            <!-- <block wx:for="{{resultData[k].pinglun}}" wx:for-index="kk"> -->
+            <block wx:for="{{item.comment.list}}" wx:for-item="comment">
+              <view class="discusses" bindtap='comment_delete' data-id='{{comment.id}}' data-comment='{{item.comment}}'>
+                <text class="discuss-nickname">{{comment.nickname}}：</text>
+                <text class='discuss-content'>{{comment.comment}}</text>
+              </view>
+            </block>
+          </view>
+        </block>
+        <!--点赞评论标签-->
+        <view class="icons {{commitUser_id==item.id?'show':'hide' || like_flag?'hide':'' || comment_flag?'hide':''}}" style="top:{{cz_top}}px;right:{{cz_right}}rpx;" data-id='{{item.id}}' hidden="{{!like_flag || !comment_flag}}" animation="{{animationData}}">
+          <text class="like" data-id='{{item.id}}' data-attitudes='{{item.attitude}}' data-is_like='{{item.attitude.is_like}}' catchtap="bindLike">{{item.attitude.is_like==1?'取消':'点赞'}}</text>
+          <text class="discuss" data-id='{{item.id}}' data-index='{{index}}' catchtap='click_comment'>评论</text>
+        </view>
+        <!-- 评论框 -->
+        <view class="section {{flag?'show':'hide'}}" data-id='{{item.id}}'>
+          <view class='textareaBox'>
+            <input placeholder='评论' bindblur='textarea_bingblur' bindinput='commentSubmit' cursor-spacing="10" placeholder-class="discuss-textarea" focus='{{focus}}' auto-height data-id='{{item.id}}'></input>
+          </view>
+          <button data-id='{{item.id}}' class="commitBtn {{btnflag?'active':''}}" bindtap='formsubmit' style='padding:0;'>评论</button>
+        </view>
+      </view>
+    </block>
+  </view>
+</scroll-view>

@@ -1,0 +1,395 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.css" />
+<link rel="stylesheet" type="text/css" href="../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.css" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            订单
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a>订单</a></li>
+            <li role="presentation"><a href="{url 'site/entry/Group',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}">团购订单</a></li>
+            <li role="presentation"><a href="{url 'site/entry/Group',array('m'=>$_GPC['m'],'op'=>'index2','version_id'=>$_GPC['version_id'])}">团购个人订单</a></li>
+            <li role="presentation"><a href="{url 'site/entry/Store_order',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}">预约</a></li>
+            <li role="presentation"><a href="{url 'site/entry/Prize_order',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}">中奖记录</a></li>
+        </ul>
+        <div class="ibox-content">
+            <form action="{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}" id="searchform" method="post">
+                <div class="row" style="padding: 0 15px;">
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="订单号" name="out_trade_no" value="{$out_trade_no}">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="用户id" name="openid" value="{$openid}">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="手机号" name="content" value="{$content}">
+                    </div>
+                    <div class="col-sm-3">
+                        <select data-placeholder="请选择状态" class="chosen-select" name="use" id="use">
+                            <option value="0" hassubinfo="true">请选择状态</option>
+                            <option value="-1" hassubinfo="true" {if $use==-1}selected{/if}>未使用</option>
+                            <option value="1" hassubinfo="true" {if $use==1}selected{/if}>已使用</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="margin-top:5px;">
+                        <select data-placeholder="请选择订单支付方式" class="chosen-select" name="pay_type" id="pay_type">
+                            <option value="0" hassubinfo="true">请选择订单支付方式</option>
+                            <option value="2" hassubinfo="true" {if $pay_type==2}selected{/if}>余额支付</option>
+                            <option value="1" hassubinfo="true" {if $pay_type==1}selected{/if}>微信支付</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="margin-top:5px;">
+                        <select class="selectpicker show-tick form-control bs-select-hidden" data-live-search="true" name="store_id" style="width: 50%;">
+                            <option value="0" hassubinfo="true">请选择门店</option>
+                            {loop $store $index $vo}
+                            <option value="{$vo['id']}" {if $vo['id']==$store_id}selected{/if}>{$vo['name']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="margin-top:5px;">
+                        {php echo tpl_form_field_daterange('times',$times);}
+                    </div>
+                    <div class="col-sm-3" style="margin-top:5px;">
+                        <button type="submit" class="btn btn-default " style="margin-right:5px;">查询</button>
+                        <a class="btn btn-primary export">导出Excel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <form action="" method="post" class="form-horizontal form">
+            <input type="hidden" name="token" value="{$_W['token']}">
+            <div class="table-responsive panel-body">
+                <table class="table-striped table-bordered table-hover dataTables-example table">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th>项目信息</th>
+                        <th>订单信息</th>
+                        <th>用户信息</th>
+                        <th>状态</th>
+                        <th style="text-align:right;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $list $index $item}
+                    <tr data-pei="{$item['pei']}">
+                        <td><div class="type-parent">
+                            服务项目：{$item['service']}<br/>
+                            {if $item['kind']}种类：{$item['kind']}<br/>{/if}
+                            数量：{$item['total']}<br/>
+                            {if $item['service_type']}
+                            服务方式:{if $item['service_type']==1}上门服务{else}到店服务{/if}<br/>
+                            {/if}
+                            {if $item['store']}
+                            门店：{$item['store_name']}<br/>
+                            {/if}
+                            {if $item['member']}
+                            店员：{$item['member_name']}<br/>
+                            {/if}
+                            {if $item['flash']==1}类型：限时抢购{/if}
+                        </div></td>
+                        <td><div class="type-parent">
+                            订单号：{$item['out_trade_no']}<br/>
+                            微信订单号：{$item['wx_out_trade_no']}<br/>
+                            订单支付方式：{$item['pay_name']}<br/>
+                            应付款：{$item['amount']}<br/>
+                            实付款：{$item['o_amount']}<br/>
+                            {if $item['discount']}会员折扣：{$item['discount']}折<br/>{/if}
+                            {if $item['coupon_price']}优惠：{$item['coupon_price']}元<br/>{/if}
+                            余额支付：{$item['canpay']}元<br/>
+                            微信支付：{$item['wxpay']}元<br/>
+                            {if $item['score']}获得积分：{$item['score']}<br/>{/if}
+                            添加时间：{$item['createtime']}<br/>
+                            {if $item['one_openid']}
+                            一级推荐人：{$item['one_openid']}<br/>
+                            一级佣金:{$item['one_amount']}元<br/>
+                            {/if}
+                            {if $item['two_openid']}
+                            二级推荐人：{$item['two_openid']}<br/>
+                            二级佣金:{$item['two_amount']}元<br/>
+                            {/if}
+                            {if $item['three_openid']}
+                            三级推荐人：{$item['three_openid']}<br/>
+                            三级佣金:{$item['three_amount']}元<br/>
+                            {/if}
+                            核销记录:<br/>
+                            {loop $item['he_log'] $index2 $item2}
+                            {$item2['time']}<br/>
+                            {/loop}
+                        </div></td>
+                        <td><div class="type-parent">
+                            昵称：{$item['nick']}<br/>
+                            用户id：{$item['openid']}<br/>
+                            姓名：{$item['userinfo']['name']}<br/>
+                            手机号：{$item['userinfo']['mobile']}<br/>
+                            地址：{$item['userinfo']['address']}<br/>
+                            日期：{$item['plan_date']}<br/>
+                            {if $item['content']}备注：{$item['content']}<br/>{/if}
+                        </div></td>
+                        <td><div class="type-parent" style="width: 100px;height: 32px;">
+                            {if $item['status']==1}
+                            {if $item['use']==1}
+                            <a class="btn   btn-xs btn-rounded btn-success">已使用</a>
+                            {else}
+                            <a class="btn   btn-xs btn-rounded btn-success" data-min="{$item['is_use']}" data-max="{$item['can_use']}">未使用(<span class="is_use">{$item['is_use']}</span>/{$item['can_use']})</a>
+                            {/if}
+                            {elseif $item['status']==2}
+                            {if $item['refund_status']==1}
+                            <a class="btn   btn-xs btn-rounded btn-success">已退款</a>
+                            {else}
+                            <a class="btn   btn-xs btn-rounded btn-success">未退款</a>
+                            {/if}
+                            {elseif $item['status']==-1}
+                            <a class="btn   btn-xs btn-rounded btn-success">未支付</a>
+                            {/if}
+                        </div></td>
+                        <td style="text-align:right;">
+                            {if $item['status']==1}
+                            <a class="btn btn-primary btn-xs link" data-toggle="modal" data-target="#selectUrl" data-use="{$item['can_use']}" data-id="{$item['id']}"><i class="fa fa-edit"></i>修改核销次数</a>
+                            {if $item['use']==-1}
+                            <a class="btn btn-primary btn-xs edit" data-id="{$item['id']}"><i class="fa fa-edit"></i>使用</a>
+                            <a class="btn btn-primary btn-xs tui" data-id="{$item['id']}" data-toggle="modal" data-target="#tuibox"><i class="fa fa-edit"></i>退款</a>
+                            {/if}
+                            {elseif $item['status']==2}
+                            {if $item['refund_status']==-1}
+                            <a class="btn btn-primary btn-xs tui" data-id="{$item['id']}" data-toggle="modal" data-target="#tuibox"><i class="fa fa-edit"></i>退款</a>
+                            {/if}
+                            {elseif $item['status']==-1}
+                            <a class="btn btn-primary btn-xs jianyan" data-id="{$item['id']}"><i class="fa fa-edit"></i>检验</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                <div style="text-align: right;">
+                    {$pager}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="selectUrl"><div class="modal-dialog">
+    <style>
+        #selectUrl .modal-body {padding: 10px 15px;}
+        #selectUrl .tab-pane {margin-top: 5px; min-height: 400px; max-height: 400px; overflow-y: auto;}
+        #selectUrlTab{margin-bottom: 10px;}
+    </style>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">修改核销次数</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">核销次数</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  name="time" id="time" placeholder="请输入核销次数">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-primary" id="select-btn" type="button">确定</button>
+            <button data-dismiss="modal" class="btn btn-default" id="select-close" type="button">关闭</button>
+        </div>
+        <script>
+            var obj='';
+            $(function(){
+                $("#selectUrl").find('#selectUrlTab a').click(function(e) {
+                    $('#tab').val($(this).attr('href'));
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+                $("#sut_shop").find("nav").click(function(){
+                    $(obj).parent().prev().val($(this).attr("data-href"));
+                });
+            });
+        </script>
+    </div>
+</div></div>
+<div class="modal fade" id="tuibox"><div class="modal-dialog">
+    <style>
+        #selectUrl .modal-body {padding: 10px 15px;}
+        #selectUrl .tab-pane {margin-top: 5px; min-height: 400px; max-height: 400px; overflow-y: auto;}
+        #selectUrlTab{margin-bottom: 10px;}
+    </style>
+    <div class="modal-content">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">退款</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">退款金额</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  name="tui_amount" id="tui_amount" placeholder="（选填，不填则退全款）">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-primary" id="tui-btn" type="button">确定</button>
+            <button data-dismiss="modal" class="btn btn-default" id="tui-close" type="button">关闭</button>
+        </div>
+    </div>
+</div></div>
+<script>
+    require(["../addons/{php echo $_GPC['m']}/resource/swal/dist/sweetalert2.min.js","../addons/{php echo $_GPC['m']}/resource/bootstrap-select/bootstrap-select.min.js"],function(){
+        var objc="";
+        $(function(){
+            $(".link").click(function(){
+                objc=this;
+            });
+            //订单状态
+            $("body").on("click",'.edit',function(){
+                var that=this;
+                objc=this;
+                var id=$(this).attr("data-id");
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'statuschange','version_id'=>$_GPC['version_id'])}",
+                    data:{id:id},
+                    dataType:'json',
+                    success:function(res){
+                        if(res.status==1){
+                            var is_use=$(that).parent().prev().find("a").attr("data-min");
+                            var can_use=$(that).parent().prev().find("a").attr("data-max");
+                            if(parseInt(is_use)+1==parseInt(can_use)){
+                                $(that).parent().prev().find("a").html('已使用');
+                                $(that).remove();
+                            }else{
+                                $(that).parent().prev().find("a").attr("data-min",parseInt(is_use)+1);
+                                $(that).parent().prev().find(".is_use").html(parseInt(is_use)+1);
+                            }
+                            swal('操作成功!', '操作成功!', 'success');
+                        }else{
+                            swal('操作失败!', '操作失败!', 'error');
+                        }
+                    }
+                })
+            });
+            //删除
+            $(".delete").click(function(){
+                var that=$(this);
+                var id=$(this).attr('data-id');
+                swal({
+                    title: '确定删除吗?',
+                    text: "确定删除吗?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type:"post",
+                            url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'delete','version_id'=>$_GPC['version_id'])}",
+                            data:{id:id},
+                            dataType:'json',
+                            success:function(res){
+                                if(res.status==1){
+                                    swal('操作成功!', '操作成功!', 'success');
+                                    that.parent().parent().remove();
+                                }else{
+                                    swal('操作失败!', '操作失败!', 'error');
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+            $("#select-btn").click(function(){
+                var id=$(objc).attr("data-id");
+                var use=$(objc).attr("data-use");
+                var content=$("input[name='time']").val();
+                if(content!="" && parseInt(content)<use && !isNaN(content)){
+                    $("#select-close").click();
+                    $.ajax({
+                        type:"post",
+                        url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'timeschange','version_id'=>$_GPC['version_id'])}",
+                        data:{id:id,time:content},
+                        dataType:'json',
+                        success:function(res){
+                            if(res.status==1){
+                                $(objc).parent().prev().find("a").html('未使用(<span class="is_use">'+content+'</span>/'+use+')');
+                                $(objc).parent().prev().find("a").attr("data-min",content);
+                                $(objc).parent().prev().find("a").attr("data-max",use);
+                                $(objc).parent().find(".edit").remove();
+                                $(objc).after('<a class="btn btn-primary btn-xs edit" data-id="'+id+'"><i class="fa fa-edit"></i>使用</a>');
+                                swal('操作成功!', '操作成功!', 'success');
+                            }else{
+                                swal('操作失败!', '操作失败!', 'error');
+                            }
+                        }
+                    })
+                }else{
+                    swal('操作失败!', '请输入正确的核销次数!', 'error');
+                }
+            });
+            $(".export").click(function(){
+                var param=$("#searchform").serialize();
+                location.href="{url 'site/entry/export',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}"+'&'+param;
+            });
+            $(".tui").click(function(){
+                objc=this;
+            });
+            $("#tui-btn").click(function(){
+                var id=$(objc).attr("data-id");
+                var amount=$("#tui_amount").val();
+                console.log(amount);
+                swal({
+                    title: '确定退款吗?',
+                    text: "确定退款吗?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消'
+                }).then(function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type:"post",
+                            url:"{url 'site/entry/OrderRefund',array('m'=>$_GPC['m'],'version_id'=>$_GPC['version_id'])}",
+                            data:{id:id,amount:amount},
+                            dataType:'json',
+                            success:function(res){
+                                console.log(res);
+                                if(res.status==1){
+                                    swal('操作成功!','', 'success');
+                                    $(objc).parent().prev().find("a").html("已退款");
+                                    $(objc).remove();
+                                }else{
+                                    swal('操作失败!',res.msg, 'error');
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+            //检验
+            $("body").on("click",'.jianyan',function(){
+                var that=this;
+                var id=$(this).attr("data-id");
+                $.ajax({
+                    type:"post",
+                    url:"{url 'site/entry/'.$_GPC['do'],array('m'=>$_GPC['m'],'op'=>'yan','version_id'=>$_GPC['version_id'])}",
+                    data:{id:id},
+                    dataType:'json',
+                    success:function(res){
+                        swal('操作成功!',res.msg, 'success');
+                    }
+                })
+            });
+        })
+    })
+</script>
+{template 'common/footer'}

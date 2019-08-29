@@ -1,0 +1,10 @@
+<view class='container'>
+  <input placeholder='请输入发送文字' class='text_input' bindinput='text_input'></input>
+  <view class='send' bindtap='send'>
+    发送
+  </view>
+
+<button class="{{luStatu?'btTouch':'bt'}}"  bind:touchstart="touchStart" bind:touchend="touchEnd"  type='primary'>    <text wx:if="{{luStatu}}">松开结束</text> <text wx:else>按住说话 </text>     
+</button>
+</view>
+

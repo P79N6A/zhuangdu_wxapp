@@ -1,0 +1,78 @@
+{template 'common/header'}
+<style type="text/css">
+.we7-form .control-label, form .control-label {
+    text-align: right;
+}
+.col-lg-offset-1 {
+    margin-left: 0; text-align:right
+}
+.date {
+    padding: 0px 12px;
+}
+</style>
+<div class="clearfix">
+	<form action="{php echo $this->createWebUrl('Banner',array('action'=>'edit'));}" method="post" class="form-horizontal ajaxfrom we7-form" role="form" id="form-user">
+    	<input name="bid" value="{$ed_ac['bid']}" type="hidden">
+         <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">幻灯排序</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="sort" name="sort" class="form-control" value="{$ed_ac[sort]}">
+				<div style="color: red !important;">&#x6B64;&#x6E90;&#x7801;&#x7531;&#xFF1A;&#x5F00;&#x5427;&#x6E90;&#x7801;&#x793E;&#x533A;www.5kym.cn&#x53D1;&#x5E03;</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">幻灯名称</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="title" name="title" class="form-control" value="{$ed_ac[title]}" type="text">
+				<div style="color: red !important;">&#x6B64;&#x6E90;&#x7801;&#x7531;&#xFF1A;&#x5F00;&#x5427;&#x6E90;&#x7801;&#x793E;&#x533A;www.5kym.cn&#x53D1;&#x5E03;</div>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">幻灯图片</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+                {php echo tpl_form_field_image('icon',$ed_ac['icon']);}
+			</div>
+		</div>
+        
+       <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">幻灯链接</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="banner_url" name="banner_url" class="form-control" value="{$ed_ac[url]}" type="text">
+                <span class="help-block">连接至快报内容地址"../newsView/newsView?id=1",必须为小程序内部连接 </span>
+			</div>
+		</div>
+        
+        
+                <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">小程序跳转</label>
+            <div class="col-sm-8">
+                <select class="we7-select" name="appstatr" style="width:150px;">
+                    <option value="0" {if $ed_ac[appstatr] == 0} selected="selected" {/if}>关闭跳转</option>
+                    <option value="1" {if $ed_ac[appstatr] == 1} selected="selected" {/if}>开启跳转</option>
+                </select>
+                <span class="help-block">开启跳转后，上面的幻灯链接设置将失效（开启后请填写对应同主体小程序的APPID）</span>
+            </div>
+        </div>
+        
+        
+                <div class="form-group">
+            <label class="col-sm-2 control-label">小程序APPID</label>
+            <div class="col-sm-9">
+                <input type="text" name="appid" class="form-control" value="{$ed_ac[appid]}">
+                <span class="help-block">必须为同一公众号下的小程序</span>
+            </div>
+        </div>
+        
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-1 col-xs-12 col-sm-10 col-md-10 col-lg-11">
+				<input class="btn btn-primary span3" name="submit" value="提交保存" type="submit">
+				<input name="token" value="{$_W['token']}" type="hidden">
+			</div>
+		</div>
+        
+        
+	</form>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "品牌馆",
+  "usingComponents": {
+    "mp-swipe-card": "components/mp-swipe-card/index",
+    "card-item": "brand_Template/components/card-item/index",
+    "card-item1": "factory_Template/components/card-item/index",
+    "card-item2": "join_Template/components/card-item/index"
+  }
+}

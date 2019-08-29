@@ -1,0 +1,97 @@
+<!-- <view class='searchBox'>
+  <view class='search'>
+    <image src='./images/search.png'></image>
+    <input placeholder-class="place-holder" class="search-input" placeholder="搜心得、妆品、成分" />
+  </view>
+</view> -->
+<import src="./main_template/main_template.wxml" />
+<template name="community-Template">
+  <view>
+    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+      <view class="tab-item {{currentnavtab==0?'active':''}}" data-current="0" bindtap="swichNav1" style='padding-left:12px;'>推荐</view>
+      <view class="tab-item {{currentnavtab==1?'active':''}}" data-current="1" bindtap="swichNav1">变美心得</view>
+      <view class="tab-item {{currentnavtab==2?'active':''}}" data-current="2" bindtap="swichNav1">话题圈</view>
+      <view class="tab-item {{currentnavtab==3?'active':''}}" data-current="3" bindtap="swichNav1">问答</view>
+    </scroll-view>
+    <swiper class="tab-content" current="{{currentnavtab}}" data-index="{{index}}" duration="300" bindchange="switchnavTab" style="height:{{winHeight}}rpx">
+      <swiper-item wx:for-item="index" data-index="{{index}}">
+        <scroll-view scroll-y="true" class="scoll-h">
+          <template is="main_template" data="{{scrollLeft,currentnavtab,winHeight,community,...item,item}}">
+            <!-- <block wx:for="{{community}}">
+              <view class='community-content' bindtap='onDetail' data-id='{{item.id}}' data-content='{{item.content}}'>
+                <image wx:if="{{item.images}}" src="{{item.images}}"></image>
+                <image wx:else src='https://i02picsos.sogoucdn.com/386cdcd87c7a0daf'></image>
+                <view class='community-text'>
+                  <view class='community-title'>
+                    <text wx:if="{{item.title}}">{{item.title}}</text>
+                  </view>
+                  <text class='content-or-join' wx:if="{{item.goodcount && item.postcount}}">{{item.goodcount}}篇LIKE | {{item.postcount}}人转发</text>
+                  <text class='time' wx:if="{{item.createtime}}">{{item.createtime}}</text>
+                </view>
+              </view>
+            </block> -->
+          </template>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item wx:for-item="index" data-index="{{index}}">
+        <scroll-view scroll-y="true" class="scoll-h">
+          <template is="main_template" data="{{scrollLeft,currentnavtab,winHeight,community,...item,item}}">
+            <!-- <block wx:for="{{community}}">
+              <view class='community-content' bindtap='onDetail' data-id='{{item.id}}' data-content='{{item.content}}'>
+                <image wx:if="{{item.images}}" src="{{item.images}}"></image>
+                <image wx:else src='https://i02picsos.sogoucdn.com/386cdcd87c7a0daf'></image>
+                <view class='community-text'>
+                  <view class='community-title'>
+                    <text wx:if="{{item.title}}">{{item.title}}</text>
+                  </view>
+                  <text class='content-or-join' wx:if="{{item.goodcount && item.postcount}}">{{item.goodcount}}篇LIKE | {{item.postcount}}人转发</text>
+                  <text class='time' wx:if="{{item.createtime}}">{{item.createtime}}</text>
+                </view>
+              </view>
+            </block> -->
+          </template>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item wx:for-item="index" data-index="{{index}}">
+        <scroll-view scroll-y="true" class="scoll-h">
+          <template is="main_template" data="{{scrollLeft,currentnavtab,winHeight,community,...item,item}}">
+            <!-- <block wx:for="{{community}}">
+              <view class='community-content' bindtap='onDetail' data-id='{{item.id}}' data-content='{{item.content}}'>
+                <image wx:if="{{item.images}}" src="{{item.images}}"></image>
+                <image wx:else src='https://i02picsos.sogoucdn.com/386cdcd87c7a0daf'></image>
+                <view class='community-text'>
+                  <view class='community-title'>
+                    <text wx:if="{{item.title}}">{{item.title}}</text>
+                  </view>
+                  <text class='content-or-join' wx:if="{{item.goodcount && item.postcount}}">{{item.goodcount}}篇LIKE | {{item.postcount}}人转发</text>
+                  <text class='time' wx:if="{{item.createtime}}">{{item.createtime}}</text>
+                </view>
+              </view>
+            </block> -->
+          </template>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item wx:for-item="index" data-index="{{index}}">
+        <scroll-view scroll-y="true" class="scoll-h">
+          <template is="main_template" data="{{scrollLeft,currentnavtab,winHeight,community,...item,item}}">
+            <!-- <block wx:for="{{community}}">
+              <view class='community-content' bindtap='onDetail' data-id='{{item.id}}' data-content='{{item.content}}'>
+                <image wx:if="{{item.images}}" src="{{item.images}}"></image>
+                <image wx:else src='https://i02picsos.sogoucdn.com/386cdcd87c7a0daf'></image>
+                <view class='community-text'>
+                  <view class='community-title'>
+                    <text wx:if="{{item.title}}">{{item.title}}</text>
+                  </view>
+                  <text class='content-or-join' wx:if="{{item.goodcount && item.postcount}}">{{item.goodcount}}篇LIKE | {{item.postcount}}人转发</text>
+                  <text class='time' wx:if="{{item.createtime}}">{{item.createtime}}</text>
+                </view>
+              </view>
+            </block> -->
+          </template>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+</template>
+<template is="community-Template" data="{{scrollLeft,currentTab,winHeight,community,...item}}" />
+<template is="main_tempalte" data="{{community,...item,item}}" />

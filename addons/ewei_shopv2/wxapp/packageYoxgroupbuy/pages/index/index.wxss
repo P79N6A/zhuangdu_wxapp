@@ -1,0 +1,141 @@
+page{
+  background: #fff;
+}
+.customSwiper {
+  height: 420rpx;
+  position: relative;
+}
+.customSwiper swiper{
+  height: 100%;
+}
+.tab{
+  height: 7orpx;
+  position: absolute;
+  bottom: 6px;
+  display:flex;
+  width: 100%;
+  text-align: center;
+  justify-content:center;
+  align-items: center;
+}
+.tab .tab-item{ 
+  background-color: #ccc;
+  height: 24rpx;
+  width: 24rpx;
+  line-height: 50rpx;
+  font-size:12rpx;
+  color:#fff;
+  border-radius: 12rpx;
+  margin-right:10px;
+}
+.tab .tab-item.selected{ 
+  background-color: #fd2c6b;
+}
+.big_coupon{
+  width: 322px;
+  height: 94px;
+  box-shadow:0.1px 0.1px 0.1px 1.8px #f0f0f0;
+  margin-left:24px;
+  margin-top:20px;
+  margin-bottom:16px;
+}
+.big_coupon .big_coupon_left{
+  width:70%;
+  line-height:26px;
+  height:94px;
+  text-align:center;
+  float:left;
+  margin-top:24px;
+}
+.big_coupon .big_coupon_left .title{
+  font-size: 30px;
+  font-weight: bold;
+}
+.big_coupon .big_coupon_left .futitle{
+  font-size: 11px;
+  color: #fd2c6b;
+}
+.big_coupon .big_coupon_right{
+  width: 30%;
+  background: #fd2c6b;
+  height: 94px;
+  float:right;
+}
+.coupon_list{
+  padding-left: 24px;
+  width: 100%;
+}
+.coupon_cell{
+  width: 322px;
+  height: 82px;
+  box-shadow:0.1px 0.1px 0.1px 1.8px #f0f0f0;
+  margin-bottom: 16px;
+  padding-top:12px;
+}
+.coupon_cell .image{
+  width: 94px;
+  float: left;
+  height: 76px;
+  position: relative;
+  margin-left:8px;
+}
+.coupon_cell .image image{
+  width: 100%;
+  height: 100%;
+}
+.coupon_cell .top{
+  position: absolute;
+  width: 94px;
+  height: 18px;
+  line-height: 18px;
+  color: #fff;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  font-size: 12px;
+}
+.coupon_cell:nth-child(1) .top{
+  background: #fd2c6b;
+}
+.coupon_cell:nth-child(2) .top{
+  background: #ff7ba2;
+}
+.coupon_cell:nth-child(3) .top{
+  background: #f8c3d3;
+}
+.coupon_cell .content{
+  float: right;
+  width:210px;
+}
+.coupon_cell .content .title{
+  font-size: 14px;
+}
+.coupon_cell .content .descript{
+  font-size: 11px;
+  margin-top:4px;
+}
+.coupon_cell .price{
+  width: 120px;
+  font-size: 12px;
+  color: #fd2c6b;
+  margin-top: 8px;
+}
+.coupon_cell .price .one_price{
+  float:left;
+  margin-right:14px;
+}
+.services{
+  width: 50px;
+  height: 50px;
+  background: #fd2d6b;
+  border-radius: 50px;
+  position: fixed;
+  left:300px;
+  top: 494px;
+}
+.services image{
+  width: 36px;
+  height: 36px;
+  margin-left: 7px;
+  margin-top: 5px;
+}

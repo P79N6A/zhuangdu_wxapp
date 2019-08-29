@@ -1,0 +1,90 @@
+<import src="../../../pages/tabBar_template/tabBar.wxml" />
+<view class='container'>
+  <view class='userInfo'>
+    <view class='userLeft'>
+      <view class='avatar'>
+        <image wx:if="{{wechatbusinessList.avatar}}" src='{{wechatbusinessList.avatar}}'></image>
+        <view wx:else style='display:block; overflow:hidden; height:160rpx; width:160rpx; border-radius:160rpx; margin-left:16px; margin-top:16px;'>
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+      </view>
+      <view class='nicknameBox'>
+        <text wx:if="{{wechatbusinessList.nickname}}" class="name">{{wechatbusinessList.nickname}}</text>
+        <open-data wx:else type="userNickName"></open-data>
+        <view class='level'>{{wechatbusinessList.level_name}}</view>
+        <view class='credit'>余额：
+          <text>0.00</text>
+        </view>
+        <view class='credit'>积分
+          <text>0.00</text>
+        </view>
+      </view>
+    </view>
+    <navigator url='/pages/member/membercard/index?hasmembercard=false' class='userRight'>
+      <image class='baseimg' src="/static/images/header-style2.png"></image>
+    </navigator>
+  </view>
+  <view class='menu-group marginbottom bgfff'>
+    <navigator class='menu-item' url='../personal_means/personal_means'>
+      <image class='icox' style='width:22px;height:20px;' src='./images/means.png'></image>
+      <text>个人资料</text>
+    </navigator>
+    <navigator class='menu-item'>
+      <i class="icox icox-haoping1"></i>
+      <text>我的积分</text>
+    </navigator>
+    <navigator class='menu-item'>
+      <i class="icox icox-like"></i>
+      <text>兑换记录</text>
+    </navigator>
+  </view>
+  <navigator class='cell-group marginbottom bgfff' url="/pages/order/index">
+    <view class='cell'>
+      <view class='cell-icon'>
+        <text class='icox icox-shop'></text>
+      </view>
+      <view class='cell-text'>我的订单</view>
+      <view class='cell-remark'>查看</view>
+      <view class='right-icon'>
+        <image class='baseimg' src="./images/right.png"></image>
+      </view>
+    </view>
+  </navigator>
+  <view class='group marginbottom bgfff'>
+    <block wx:for="{{iconList}}" wx:for-index="{{index}}">
+      <view class='icon-col' bindtap='navigate' data-id='{{item.id}}' data-index='{{index}}'>
+        <view class='icon'>
+          <image src='{{item.imageUrl}}'></image>
+        </view>
+        <view class='text'>{{item.text}}</view>
+      </view>
+    </block>
+  </view>
+  <view class='icon2-group marginbottom bgfff'>
+    <block wx:for="{{icon2List}}">
+      <navigator class='icon-col' style='width:25%;' bindtap='navigate2' url='{{item.pagepath}}'>
+        <view class='icon'>
+          <image src="{{item.imageUrl}}"></image>
+        </view>
+        <view class='text'>{{item.text}}</view>
+      </navigator>
+    </block>
+  </view>
+  <view class='picture bgfff' style="margin-bottom: 10px;">
+    <view class='picture-main'>
+      <image mode='widthFix' src='https://zdu.igdlrj.com/attachment/images/2/2019/01/sEXZKketEhB9mtOo9DP8B9KKMb9zX9.png'></image>
+    </view>
+  </view>
+
+  <view class='picture bgfff' bindtap='tocertificate'>
+    <view class='picture-main' style='line-height:35px;text-align:center;'>
+      <view style='font-size:14px;width:274px;height:32px;background:#fd2d6b;border:2px solid #000;border-radius:35px;'>
+        我的证书
+      </view>
+    </view>
+  </view>
+  <view class='copyright2-group' style='color:#cecece;'>
+    <view class='copyright_cover'>唯讯科技</view>
+  </view>
+</view>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

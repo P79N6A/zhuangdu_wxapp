@@ -1,0 +1,150 @@
+<view class='container'>
+  <view class='date bgfff'>
+    <view class='date_title'>
+      日期范围
+    </view>
+    <view class="date_item {{currentTab==index ? 'date_active' : 'date_default'}}" wx:for="{{dateList}}" data-index='{{index}}' bindtap='navbarTap'>
+      {{item}}
+    </view>
+    <view class='dateline'>
+      <text catchtap='showDatepicker1' hidden='{{dateflag1}}'>选择时间</text>
+      <text catchtap='showDatepicker1' data-date1='{{date1}}' wx:if="{{!datePickerIsShow1}}">{{date1}}</text>
+      <text style='color:#888; font-size:10px;'>到</text>
+      <text catchtap='showDatepicker2' hidden='{{dateflag2}}'>选择时间</text>
+      <text catchtap='showDatepicker2' data-date2='{{date2}}' wx:if="{{!datePickerIsShow2}}">{{date2}}</text>
+    </view>
+  </view>
+  <view class='line' style="width:100%;height:12px;background:#fd2d6b;margin-top:-8px;"></view>
+  <view class='sale_conetent'>
+    <view class='canvasbox bgfff'>
+      <view class='sale_title'>
+        销售概览
+      </view>
+      <!-- <canvas canvas-id='canvas2' style=''></canvas> -->
+      <view class='circular' style='text-align:center;margin-left:80px;width:196px;height:196px;background:#fd2d6b;border-radius:196px;'></view>
+      <view class='sale_all'>
+        <text style='display:block;font-size:38px;margin-left:27px;'>{{overview.order_total}}</text>
+        <text>交易总额（元）</text>
+      </view>
+      <view class='single_conversion_rate'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px; margin-right:6px;'></text>
+        <text>下单转化率</text>
+        <view class='count'>
+          <text style='margin-left:10px;'>{{overview.order_conversion_rate}}</text>%
+        </view>
+      </view>
+    </view>
+    <!-- 客单数、客户数 -->
+    <view class='customer_rate bgfff mar10' style='height:60px;'>
+      <view class='c_price floatleft' style='margin-left:24px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px; margin-right:6px;'></text>
+        <text>客单价（元）</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.customer_unit_price}}</text>
+        </view>
+      </view>
+      <!-- <view class='c_number'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;'></text>
+        <text>客户数（人）</text>
+        <view class='count'>
+          <text>0</text>
+        </view>
+      </view> -->
+    </view>
+    <!-- 下单数 -->
+    <view class='s_rate bgfff mar10' style='height:60px;'>
+      <view class='s_number floatleft' style='margin-left:24px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px; margin-right:6px;'></text>
+        <text>下单人数（人）</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.total_user}}</text>
+        </view>
+      </view>
+      <view class='s_book floatleft' style='margin-left:64px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px; margin-right:6px;'></text>
+        <text>下单订单数</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.order_total}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 下单金额、转化率 -->
+    <view class='s_amount bgfff mar10' style='height:60px;'>
+      <view class='s_number floatleft' style='margin-left:24px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>下单金额（元）</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.order_pay_num}}</text>
+        </view>
+      </view>
+      <view class='s_number floatleft' style='margin-left:64px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>下单转化率</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.order_conversion_rate}}</text>%
+        </view>
+      </view>
+    </view>
+    <!-- 付款人数、付款订单数、付款订单数、下单-付款转化率 -->
+    <view class='par_amount bgfff mar10' style='height:140px;'>
+      <view class='floatleft p_count'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>付款人数（人）</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.total_pay_user}}</text>
+        </view>
+      </view>
+      <view class='floatleft p_count'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>付款订单数</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.total_pay_price}}</text>
+        </view>
+      </view>
+      <view class='floatleft p_count'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>付款订单数</text>
+        <view class='count'>
+          <text class='mar8'>{{overview.total_pay_price}}</text>
+        </view>
+      </view>
+      <view class='floatleft p_count' style='margin-left:56px;margin-right:0px;'>
+        <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+        <text>下单-付款转化率</text>
+        <view class='count'>
+          <text class='mar8'>0</text>%
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 折线图 -->
+  <view class='cutline bgfff mar10'>
+    <view class='cutline_title'>
+      <text style='display:inline-block;width:6px;height:6px;background:#fd2d6b;border-radius:6px;margin-right:6px;'></text>
+      <text>一周交易趋势</text>
+    </view>
+    <view>
+      <line-chart id="line-chart" canvasData="{{lineCanvasData}}" />
+    </view>
+    <view class='order_amount'>
+      <view class='amount'>
+        0
+      </view>
+      <view class='title'>
+        <text style='display:inline-block;width:6px;height:6px;background:#000;border-radius:6px;margin-right:6px;'></text>
+        <text>下单金额</text>
+      </view>
+    </view>
+    <view class='order_amount'>
+      <view class='amount'>
+        0
+      </view>
+      <view class='title'>
+        <text style='display:inline-block;width:6px;height:6px;background:#000;border-radius:6px;margin-right:6px;'></text>
+        <text>付款金额</text>
+      </view>
+    </view>
+  </view>
+</view>
+<date-picker id="date-picker1" value="{{datePickerValue1}}" isShow="{{datePickerIsShow1}}" bindsureclick="datePickerOnSureClick1" bindcancelclick="datePickerOnCancelClick" />
+<date-picker id="date-picker2" value="{{datePickerValue2}}" isShow="{{datePickerIsShow2}}" bindsureclick="datePickerOnSureClick2" bindcancelclick="datePickerOnCancelClick" />

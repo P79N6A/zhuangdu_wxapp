@@ -1,0 +1,79 @@
+page {
+    background: #f7f7f7;
+}
+
+.nav {
+    padding: 30rpx;
+    display: flex;
+    justify-content: center;
+    color: #999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background: #fff;
+    box-sizing: border-box;
+    border-bottom: #ddd 2rpx solid;
+}
+
+.nav>view {
+    border: #e53770 2rpx solid;
+    width: 180rpx;
+    height: 60rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav>view:nth-child(1) {
+    border-radius: 60rpx 0 0 60rpx;
+}
+
+.nav>view:nth-child(3) {
+    border-radius: 0 60rpx 60rpx 0;
+}
+
+.nav_block {
+    height: 124rpx;
+}
+
+.page .item {
+    background: #fff;
+    padding: 20rpx;
+    display: flex;
+    color: #999;
+}
+
+.page .item+.item {
+    border-top: #ddd 2rpx solid;
+}
+
+.page .item>image {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 100%;
+}
+
+.page .item .item_r {
+    margin-left: 20rpx;
+    width: 590rpx;
+}
+
+.page .item .item_r>view:nth-child(1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.page .item .item_r .item_b {
+    display: flex;
+    margin-top: 10rpx;
+}
+
+.page .item .item_r .item_b>view {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

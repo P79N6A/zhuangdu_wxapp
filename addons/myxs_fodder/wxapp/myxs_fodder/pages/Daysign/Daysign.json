@@ -1,0 +1,7 @@
+{
+    "disableScroll": true,
+    "navigationBarTitleText": "日签",
+    "usingComponents": {
+        "i-icon": "../../dist/icon/index"
+    }
+}

@@ -1,0 +1,33 @@
+<import src="../../usertab_template/usertab_template.wxml" />
+<view class='container'>
+  <view class="nav bgfff">
+    <view class="{{currentnavTab==index?'nav_active':'nav_default'}}" data-index='{{index}}' wx:for="{{navList}}" bindtap='navbarTap'>
+      <text>{{item}}</text>
+    </view>
+    <view class='line' style='position:absolute; left:180px;top:16px;width:1px;height:32px;background:#f5f5f5;'></view>
+  </view>
+  <!-- 客户状态 -->
+  <view class='optionBox' style='height:{{show?(selectData.length>5?240:selectData.length*28):0}}px;'>
+    <text class='option' style='height:28px;' wx:for="{{selectData}}" wx:key='this' data-index='{{index}}' catchtap='optionTap'>{{item}}</text>
+  </view>
+  <!-- 全部 -->
+  <view class='optionBox' style='height:{{show2?(selectData.length>5?240:selectData.length*28):0}}px;'>
+    <text class='option' style='height:28px;' wx:for="{{selectData2}}" wx:key='this' data-index='{{index}}' catchtap='optionTap2'>{{item}}</text>
+  </view>
+  <view class='tips' wx:if="{{mydownleveluserList==[] || mydownleveluserList==''}}">
+    当前还没有客户
+  </view>
+  <view wx:else>
+    <block wx:for="{{mydownleveluserList}}">
+      <view class='inviteuser_cell' bindtap='detailchange' data-uid='{{item.uid}}'>
+        <view class='avatar'>
+          <image class='baseimg' src="{{item.avatar}}"></image>
+        </view>
+        <view class='nickname'>
+          <text>{{item.nickname}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<template is="usertab_template" data="{{tablist,item,...item,currentTab}}" />

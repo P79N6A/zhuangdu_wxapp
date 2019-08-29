@@ -1,0 +1,114 @@
+{template '_header'}
+<div class='page-header'>
+    当前位置：<span class="text-primary">微商-成分社-编辑成分</span>
+</div>
+<div class="page-content">
+    <form id="setform"  action="" method="post" class="form-horizontal form-validate">
+        <div class='form-group-title'>添加成分</div>
+        <!--<div class="form-group">
+            <label class="col-lg control-label">排序</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <input type="text" name="displayorder" class="form-control" value="{$result['data']['displayorder']}" placeholder="排序" />
+                <span class="help-block">排序</span>
+                {/if}
+            </div>
+        </div>-->
+        <!--<div class="form-group">
+            <label class="col-lg control-label">等级</label>
+            <div class="col-sm-9 col-xs-12">
+                {ifp 'yoxwechatbusiness.edit'}
+                <select name="level">
+                <option value="1">等级一</option>
+                <option value="2">等级二</option>
+                <option value="3">等级三</option>
+                <option value="4">等级四</option>
+                <option value="5">等级五</option>
+                <option value="6">等级六</option>
+                <option value="7">等级七</option>
+                </select>
+                {/if}
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="col-lg control-label">ID</label>
+            <div class="col-sm-9 col-xs-12">
+                {$result['data']['id']}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">成分英文名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="en_name" class="form-control" value="{$result['data']['en_name']}" placeholder="英文名称|如:Aqua" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">成分中文名称</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="cn_name" class="form-control" value="{$result['data']['cn_name']}" placeholder="中文名称|如:水" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">概略特性</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="general_characteristics" class="form-control" value="{$result['data']['general_characteristics']}" placeholder="概略特性|如:溶剂" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">粉刺</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="acne">
+                <option {if $result['data']['acne']==0}selected{/if} value="0">0(忽略不计)</option>
+                <option {if $result['data']['acne']==1}selected{/if} value="1">1级(低)</option>
+                <option {if $result['data']['acne']==2}selected{/if} value="2">2级(低)</option>
+                <option {if $result['data']['acne']==3}selected{/if} value="3">3级(中)</option>
+                <option {if $result['data']['acne']==4}selected{/if} value="4">4级(中)</option>
+                <option {if $result['data']['acne']==5}selected{/if} value="5">5级(中)</option>
+                <option {if $result['data']['acne']==6}selected{/if} value="6">6级(高)</option>
+                <option {if $result['data']['acne']==7}selected{/if} value="7">7级(高)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">刺激</label>
+            <div class="col-sm-9 col-xs-12">
+                <select name="stimulate">
+                <option {if $result['data']['stimulate']==0}selected{/if} value="0">0(忽略不计)</option>
+                <option {if $result['data']['stimulate']==1}selected{/if} value="1">1级(低)</option>
+                <option {if $result['data']['stimulate']==2}selected{/if} value="2">2级(低)</option>
+                <option {if $result['data']['stimulate']==3}selected{/if} value="3">3级(中)</option>
+                <option {if $result['data']['stimulate']==4}selected{/if} value="4">4级(中)</option>
+                <option {if $result['data']['stimulate']==5}selected{/if} value="5">5级(中)</option>
+                <option {if $result['data']['stimulate']==6}selected{/if} value="6">6级(高)</option>
+                <option {if $result['data']['stimulate']==7}selected{/if} value="7">7级(高)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">安心度</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="safety" class="form-control" value="{$result['data']['safety']}" placeholder="安心度|如 :1~3" />
+            </div>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <input type="submit" value="提交" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+        $(".js-switch").not(".checkhi").click(function () {
+            var next = $(this).next();
+            if(next.hasClass('checked')){
+                $(this).val("1").prev().val("1");
+            }else{
+                $(this).val("0").prev().val("0");
+            }
+        });
+});
+</script>
+{template '_footer'}

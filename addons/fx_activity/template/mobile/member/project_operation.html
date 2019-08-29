@@ -1,0 +1,117 @@
+{template 'common/header'}
+<style>
+.mui-card.mui-one{box-shadow:none}
+.mui-media-body span{ font-size:18px;line-height:1.8;}
+.mui-media-body p{ color:#666666;}
+
+.mui-table-view-cell{ padding: 11px 12px;}
+.mui-table-view-cell .mui-ext-icon p{ font-size:15px; margin-top:1.5px;}
+.mui-card-link.mui-text-gray p{color:#828282!important}
+.mui-card-media .mui-table-view:after{ height:1px!important;}
+
+.mui-table-view.mui-grid-view{ background-color:none;}
+.mui-table-view.mui-grid-view .mui-table-view-cell{ border:none;background-color:#fff;padding:15px 15px; position:relative;margin-right:0px;}
+.mui-table-view.mui-grid-view .mui-table-view-cell:after{content: ""; position:absolute; right:0; left:auto; top:50%;border-right:0.5px solid #e0e0e0; height:60%;-webkit-transform: translateY(-50%) scaleX(0.5); transform: translateY(-50%) scaleX(0.5);}
+.mui-table-view.mui-grid-view .mui-table-view-cell>a:not(.mui-btn){ margin: -11px -14px;}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{color:#777777;line-height:1.1;margin-top:6px;}
+.mui-table-view.mui-grid-view span.mui-ext-icon{ position:relative; width:30px; height:25px; margin:0 auto;display:inline-block;}
+.mui-table-view.mui-grid-view span.mui-ext-icon:before{left:50%;transform: translate(-50%,-50%);-webkit-transform: translate(-50%,-50%);font-size:24px;}
+.mui-table-view.mui-grid-view span.mui-ext-icon.mui-icon-qianbao:before{font-size:18px;}
+.mui-table-view.mui-grid-view .mui-badge{ position:absolute;}
+.mui-table-view.mui-grid-view .mui-table-view-cell:nth-child(3):after{border:none;}
+.mui-table-view.mui-grid-view:nth-child(4) .mui-table-view-cell{padding:20px 15px;}
+.mui-table-view.mui-grid-view:nth-child(4) .mui-table-view-cell .mui-media-body{margin-top:0}
+</style>
+    <div class="mui-content">
+        <div class="mui-card mui-one" style="margin-top:0;">
+            <div class="mui-card-footer mui-small" style="text-align:center;padding: 12px 20px;">
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>1))}"><p>{$activity['trueread']}</p>浏览</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>2))}"><p>{$activity['trueshare']}</p>分享</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>3))}"><p>{$joinnum}</p>报名</a>
+                <a class="mui-card-link mui-text-gray" href="{php echo app_url('records/records/list',array('index'=>4))}"><p>{$favonum}</p>收藏</a>
+            </div>
+        </div>
+        
+        <ul class="mui-table-view mui-grid-view mui-afterbefore-no mui-text-gray" style="margin:0; padding:0;">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="{php echo app_url('member/project/post', array('activityid'=>$activityid))}" class="mui-text-gray">
+                <span class="mui-ext-icon mui-icon-iconbaoming"></span>
+                <div class="mui-media-body">活动编辑</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="{php echo app_url('order/order/display', array('activityid'=>$activityid))}">
+                <span class="mui-ext-icon mui-icon-renyuanguanli"></span>
+                <div class="mui-media-body">报名管理</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="javascript:util.tips('即将上线', 2000);">
+                <span class="mui-ext-icon mui-icon-yaoqing"></span>
+                <div class="mui-media-body">邀请海报</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="{php echo app_url('activity/url2qr/display',array('activityid'=>$activityid))}">
+                <span class="mui-ext-icon mui-icon-erweima"></span>
+                <div class="mui-media-body">签到码</div></a>
+            </li>
+        </ul>
+
+        <div class="mui-content-padded"><p>快捷操作</p></div>
+        
+        <ul class="mui-table-view mui-grid-view mui-afterbefore-no mui-text-gray"style="padding:0;">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="{php echo app_url('activity/detail/display', array('actype'=>'member', 'activityid'=>$activityid))}"><div class="mui-media-body">查看详情</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="javascript:;" class="js-copy"><div class="mui-media-body">复制一个</div></a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="javascript:;" class="mui-text-gray">
+                <div class="mui-switch mui-switch-blue mui-switch-mini{php echo $activity['show']==1?' mui-active':''}" style="right:inherit">
+                    <div class="mui-switch-handle"></div>
+                    <input type="hidden" name="dc" value=""  class="js-dc"/>
+                </div>
+                <div class="mui-media-body" style="text-align:right">开启</div></a>
+            </li>
+        </ul>
+        {template 'footer'}
+    </div>
+    {template 'member/setting'}
+</body>
+<script type="text/javascript">
+$(function(){
+	var aid = {$activityid};
+	//开关
+	$('.mui-switch').on('tap',function(e){
+		var show = 0;
+		if ($(this).hasClass("mui-active")){
+			show = 1;
+		}else{
+			show = 0;
+		}
+		$.getJSON("{php echo app_url('member/project/operation')}", {id:aid, show:show, type:'setShow'}, function(data) {
+			util.tips(data.message, 2000);
+		});
+		//console.log("你启动了开关");
+	});
+	//复制活动
+	$(".js-copy").click(function(e){
+		e.stopPropagation();
+		var _self = self;
+		util.confirm('是否确定发布一个相同的活动？', ' ', function(e) {
+			if (e.index == 1) {
+				util.loading()
+				$.post("{php echo app_url('member/project/operation')}", {id:aid, type:'copy'}, function(data) {
+					util.loading().close();
+					if(!data.errno){
+						util.tips(data.message, 3000);
+						setTimeout(function() {history.back()}, 2000);
+					}else{
+						util.tips(data.message);	
+					}
+				}, 'json');
+			}
+		});
+	});
+});
+</script>
+</html>

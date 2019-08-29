@@ -1,0 +1,4 @@
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? 0=60; 1=61; 2=62; 3=63; 4=64; 5=65; 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::pay_price_totalSELECT order_goods.orderid FROM `ims_ewei_shop_order_goods` order_goods WHERE uid=:uid AND goodsid in(60,61,62,63,64,65) 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? 0=137; 1=138; 2=139; 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::pay_price_totalSELECT SUM(price) FROM `ims_ewei_shop_order` `order` WHERE `order`.uniacid=:uniacid AND `order`.openid=:openid AND `order`.id in(137,138,139) 

@@ -1,0 +1,68 @@
+{template 'common/header'}
+<style>
+    .myrow{
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+<ul class="nav nav-tabs">
+    <li class="active"><a class="btn-lg" href="">会员列表</a></li>
+</ul>
+<div class="main">
+    <div class="main">
+        <div class="category">
+            <div class="panel panel-default">
+                <div class="panel-heading myrow" style="line-height: 36px;">
+                    会员列表(<span style="color: #FF0000">可在本页面管理所有会员数据</span>)
+                    <div style="flex: 1"></div>
+                    <div style="width: 230px;">
+                        <div class="input-group">
+                            <input type="text" id="searchmess" class="form-control" placeholder="请输入昵称" aria-describedby="basic-addon2">
+                            <span style="cursor:pointer;" class="input-group-addon" id="search">搜索</span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="100">ID</th>
+                            <th width="90">头像</th>
+                            <th width="180">昵称</th>
+                            <th width="200">用户分组</th>
+                            <th width="200">注册时间</th>
+                            <th width="240" style="text-align: center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $memberList $index $row}
+                        <tr>
+                            <td>{$row['member_id']}</td>
+                            <td><img style="height: 40px;width: 40px" src="{$row['member_head_portrait']}"></td>
+                            <td>{$row['member_name']}</td>
+                            <td>{$row['grouping_id']}</td>
+                            <td>{$row['create_time']}</td>
+                            <td width="240" style="text-align: center">
+                                <a href="{php echo $this->createWebUrl('memberPost', array('op' => 'update','id'=>$row['member_id']))}" class="btn btn-primary btn-sm" style="padding: 4px 8px;"> 编辑</a>
+                                <a href="{php echo $this->createWebUrl('memberPost', array('op' => 'delete','id'=>$row['member_id']))}" class="btn btn-danger btn-sm" style="padding: 4px 8px;"> 删除</a>
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                    {$pager}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#search').click(function () {
+        let searchmess=$('#searchmess').val();
+        window.location.href="{php echo $this->createWebUrl('member',array('op'=>'search'))}&searchmess="+searchmess;
+    })
+</script>
+{template 'common/footer'}

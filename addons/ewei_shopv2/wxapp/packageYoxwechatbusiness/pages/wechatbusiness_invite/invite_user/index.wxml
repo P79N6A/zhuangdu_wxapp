@@ -1,0 +1,56 @@
+<view class='header'>
+    <view class="little_title">邀请用户数量</view>
+    <view class="count">
+
+        <block wx:for="{{invite_list}}">
+          <view class="type">
+              <view class="type_num">
+                  {{item.count}}
+              </view>
+              <view class="type_name">
+                  {{item.level_name}}
+              </view>
+          </view>
+        </block>
+
+    </view>
+   <view class="time">
+        <view class="prev"  bindtap="prev"> {{prev}} </view>
+        <view class="month">{{now_month}}</view>
+        <view class="prev"  bindtap="next"> {{next}} </view>
+    </view>
+    <navigator url="../invite_rule/index" hover-class="none"><button class="rule">邀请规则</button></navigator>
+
+</view>
+
+
+  <view class="list">
+<!--       <view  data-id="0"  class="item {{choose_id==0 ? 'choose' : ''}}" bindtap="choose">
+          <view class="list_type_name">普通用户</view>
+          <view>仅可老用户或系统发送邀请注册成为用户</view>
+      </view> -->
+      <block wx:for="{{level_list}}">
+           <view  data-id="{{item.id}}" class="item {{choose_id==item.id ? 'choose' : ''}}" bindtap="choose">
+              <view class="list_type_name">授权{{item.name}}</view>
+              <view>首单必须一次性下单金额大于等于<text class="price">590</text></view>
+          </view>
+      </block>
+
+  </view>
+
+  <view class="bottom" wx:if="{{choose_id}}">
+      <view><image src="../../../image/agent/invite.png" alt=""></image></view>
+      <view bindtap="invite">邀请用户</view>
+  </view>
+
+  <view  bindtap="closeInvite" wx:if="{{share}}" class="shadow"></view>
+  <view class="share_block"  wx:if="{{share}}">
+      <view><image class="share_img" src="../../../image/agent/invite_img.png" alt=""></image></view>
+      <view class="share_button">
+         <button  bindtap="goToShare" type="default">分享二维码</button>
+        <button  open-type="share" type="default">分享链接</button>
+      </view>
+  </view>
+
+
+

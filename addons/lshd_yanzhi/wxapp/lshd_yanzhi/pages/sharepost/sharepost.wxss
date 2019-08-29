@@ -1,0 +1,127 @@
+.share-container {
+    background-color: #f6f6f6;
+    position: relative;
+    height: 100%;
+}
+
+.share-container .canvas-backed-image {
+    width: 750rpx;
+    height: 1125rpx;
+    display: block;
+}
+
+.share-container .mask_layer {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    background-color: rgba(0,0,0,.8);
+    width: 100%;
+}
+
+.share-container .mask_layer .mask-content {
+    background-color: #000;
+    width: 241rpx;
+    height: 241rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-container .mask_layer .mask-content .mask-image-loading {
+    width: 129rpx;
+    height: 129rpx;
+    display: block;
+    animation: b 5s linear infinite;
+}
+
+.share-container .mask_layer .mask-content .mask-image-done {
+    width: 160rpx;
+    height: 160rpx;
+    display: block;
+}
+
+.share-container .mask_layer .mask-content .mask-text {
+    display: block;
+    width: 210rpx;
+    text-align: center;
+    color: #fff;
+    font-size: 22rpx;
+    line-height: 30rpx;
+    vertical-align: middle;
+}
+
+.share-container .mask_layer .mask-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 152rpx;
+    width: 232rpx;
+    height: 80rpx;
+}
+
+.share-container .mask_layer .mask-button:active {
+    opacity: .6;
+}
+
+.share-container .saving-image {
+    position: fixed;
+    left: 100%;
+    top: 0;
+    width: 1776rpx;
+    height: 2625rpx;
+}
+
+.share-container .tipsText {
+    width: 100%;
+    line-height: 36rpx;
+    color: #666;
+    font-size: 24rpx;
+    vertical-align: middle;
+    text-align: center;
+    height: 36rpx;
+    display: block;
+    bottom: 160rpx;
+    position: absolute;
+}
+
+.share-container .btns-container {
+    width: 100%;
+    height: 72rpx;
+    bottom: 48rpx;
+    left: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.share-container .btns-container .right-btn {
+    position: absolute;
+    right: 76rpx;
+    top: 0;
+    width: 108rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.share-container .btns-container .right-btn:active {
+    opacity: .6;
+}
+
+.share-container .btns-container .right-btn .op-text {
+    margin-top: 8rpx;
+    font-size: 24rpx;
+    color: #666;
+    width: 100%;
+    height: 32rpx;
+    vertical-align: middle;
+    text-align: center;
+    display: block;
+}

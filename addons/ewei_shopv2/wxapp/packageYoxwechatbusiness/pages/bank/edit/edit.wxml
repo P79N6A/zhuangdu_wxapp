@@ -1,0 +1,10 @@
+<view class='container'>
+  <form bindsubmit="formSubmit">
+    <input class='input_name' bindinput='getinput_name'></input>
+    <input class='card' bindinput='getcard'></input>
+    <input class='input_backname' bindinput='getinput_backname'></input>
+    <input class='input_subbranch' bindinput='getsubbranch'></input>
+    <button form-type="submit"></button>
+  </form>
+
+</view>

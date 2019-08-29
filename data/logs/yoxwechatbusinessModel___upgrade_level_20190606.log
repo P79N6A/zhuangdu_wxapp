@@ -1,0 +1,10 @@
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:BEGIN
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:1 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:2 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:3 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:4 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:pay_price_total :0.05
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_levelSELECT goods_id FROM `ims_ewei_shop_yoxwechatbusiness_user_upgrade_goods` user_upgrade_goods WHERE uniacid=2 AND uid =104 ORDER BY goods_id ASC 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_levelSELECT * FROM `ims_ewei_shop_yoxwechatbusiness_level` WHERE uniacid=:uniacid AND growth_value_money <= :pay_price_total ORDER BY growth_value_money DESC 0.05
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:5 
+[2019-06-06 15:29:47] trace  /addons/ewei_shopv2/payment/wechat/notify.php? yoxwechatbusinessModel::_upgrade_level:END

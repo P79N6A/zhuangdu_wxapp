@@ -1,0 +1,167 @@
+{template 'common/header'}
+<style type="text/css">
+.mui-table-view .mui-media-object{ max-width:115px!important;width:115px!important; height:85px;background-size:auto 100%!important;border-radius: 4px;}
+.mui-card.mui-one{box-shadow: none;}
+.mui-card.mui-one .mui-card-content-inner{ padding:10px;}
+.mui-card.mui-two:first-child{ margin-top:0px;}
+.mui-card.mui-two .mui-card-header{ position:relative;}
+.mui-card.mui-one .mui-card-header:after{ position:absolute;left:10px;right:10px;bottom:0;height:1px;background-color:#D9D9D9!important;content:"";-webkit-transform:scaleY(0.5);transform:scaleY(0.5);}
+.mui-card.mui-two .mui-card-header,.mui-card.mui-one .mui-card-footer{ background:none;}
+.mui-card.mui-two .mui-card-header img:first-child{ width: 28px!important;height: 28px!important;border-radius:100px;}
+.mui-card.mui-two .mui-card-header .mui-media-body{ min-height:28px; max-height:28px; font-size:13px; line-height:2.3!important;overflow:hidden;margin-left:0;}
+.mui-card.mui-two .mui-card-header .mui-media-body>span{ overflow:hidden; position:relative;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge{ right:0; padding:5px 10px; padding-bottom:3px;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge-orange{ background:#fff!important; color:#ff6f02!important;}
+.mui-card.mui-two .mui-card-header .mui-media-body i.mui-badge-orange:after{content: " ";width: 200%;height: 200%;position: absolute;top: 0;left: 0;border: 1px solid #ff6f02;box-sizing: border-box;border-radius: 100px;-webkit-transform: scale(0.5);transform: scale(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+.list-content{min-height:45%;}
+#prolist .mui-table-view .mui-navigate-right:after{right:6px;}
+</style>
+{template 'common/nav'}
+<div class="mui-content mui-project" id="prolist">
+    <div class="mui-scroll-wrapper-ext">
+    <div class="mui-scroll-ext">
+        <div class="list-content"></div>
+    </div>
+    </div>
+</div>
+<script type="text/html" id="actlist">
+<a href="{php echo app_url('member/project/operation')}&activityid={{d.id}}">
+<div class="mui-card mui-one mui-two">
+	<div class="mui-card-header mui-card-media" style="padding:0;">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell"><p class="mui-navigate-right mui-ellipsis" style="margin:-3px;padding-right:65px;">{{d.title}}</p>{{d.showsmsg}}</li>
+		</ul>
+	</div>
+	<div class="mui-card-content">
+		<div class="mui-card-content-inner">
+          <p class="mui-small" style="margin-bottom:2px;"><span class="mui-text-gray">{{d.starttime}}开始</span> {{d.statusmsg}}</p>
+          <p class="mui-small">{{d.tpl_gnum}}<span class="mui-pull-right mui-text-gray">{{d.tpl_status}}</span></p>
+		</div>
+	</div>
+</div></a>
+</script>
+<script>
+mui('#segmentedControl').on('tap', 'a',function() {
+	console.log(this.getAttribute('href'));
+	location.href = this.getAttribute('href');
+})
+//上拉加载活动列表
+$(function(){
+    var pageStart = 0,pageEnd = 0,totalpage=0,thispage = 1,thispages = 10;
+    $('#prolist .mui-scroll-ext').dropload({
+        scrollArea : $('#prolist .mui-scroll-wrapper-ext'),
+		threshold : 50,
+        loadDownFn : function(me){
+            $.ajax({
+                type: 'GET',
+                url: "{php echo app_url('member/project/ajax')}&page="+thispage+"&psize="+thispages,
+                dataType: 'json',
+                success: function(data){
+					var stime = new Date(),result='';
+					totalpage = data.tpage;
+					if (thispage > totalpage || data.tpage == 0){
+						me.lock();// 锁定
+						me.noData();// 无数据
+					}
+					if (data.tpage == 0){
+						result = '<div class="no-orders-at-all">'
+							+'<div class="head-block">'
+							+'    <div class="blank-icon mui-ext-icon mui-icon-mhuodong"></div>'
+							+'    <p class="hint mui-text-gray">暂无活动信息</p>'
+							+'    <p class="recommend-hint"></p>'
+							+'</div></div>';
+						$('.mui-scroll-ext').html('');
+						$('.mui-scroll-ext').append(result);
+						me.resetload();
+						return false;
+					}
+                    for(var i = 0; i < data.list.length; i++){
+						joinstime = new Date(data.list[i].joinstime.replace("-", "/").replace("-", "/"));
+						joinetime = new Date(data.list[i].joinetime.replace("-", "/").replace("-", "/"));
+						starttime = new Date(data.list[i].starttime.replace("-", "/").replace("-", "/"));
+						endtime   = new Date(data.list[i].endtime.replace("-", "/").replace("-", "/"));
+						
+						var joinnum   = parseInt(data.list[i].joinnum),
+							gnum     = parseInt(data.list[i].gnum),
+							trueread  = parseInt(data.list[i].falsedata.read)+parseInt(data.list[i].trueread),
+							aprice    = data.list[i].aprice,
+							minaprice = data.list[i].minaprice,
+							merchant  = data.list[i].merchant,
+							show    = parseInt(data.list[i].show),
+							review  = parseInt(data.list[i].review);
+							
+						switch(show){
+							case 0:data.list[i].showsmsg = '<span class="mui-badge mui-badge-inverted mui-pull-right">未启用</span>';break;
+							case 1:data.list[i].showsmsg = '<span class="mui-badge mui-badge-inverted mui-pull-right mui-text-yellow">已启用</span>';break;
+							default:;
+						}
+						switch(review){
+							case 0:data.list[i].statusmsg = '<span class="mui-text-yellow">待审核</span>';break;
+							case 1:data.list[i].statusmsg = '<span class="mui-text-success">已审核</span>';break;
+							case 2:data.list[i].statusmsg = '<span class="mui-text-rmb">未通过</span>';break;
+							default:;
+						}
+						
+						data.list[i].joinetime = joinetime.format('MM月dd日 hh:mm');
+						data.list[i].starttime = starttime.format('MM月dd日 hh:mm');//+'~'+endtime.format('MM月dd日 hh:mm')
+						 
+						if (stime > endtime){
+							data.list[i].tpl_status = '活动结束';
+						}else{
+							if (joinnum >= gnum && gnum > 0){
+								data.list[i].tpl_status = '名额已满';
+							}else{
+								data.list[i].tpl_status = joinstime > stime ? '还未开始' : (stime>joinetime ? '报名截止': '报名中');
+							}						
+						}
+						
+						data.list[i].tpl_gnum = '<span class="mui-text-orange">'+joinnum+'</span><span class="mui-text-gray">/'+(gnum>0 ? gnum : '名额不限') + '</span>';
+						
+						if (data.list[i].merchant.storename==null) data.list[i].merchant.storename = '';
+						
+						var gettpl = document.getElementById('actlist').innerHTML;
+						laytpl(gettpl).render(data.list[i], function(html){
+							$('#prolist').find('.list-content').append(html);
+						});
+							
+                    }
+					$('.list-content').append(result);
+					thispage++;
+					// 每次数据加载完，必须重置
+					me.resetload();
+                },
+                error: function(xhr, type){
+                    // alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+        }
+    });
+});
+
+
+//格式化日期
+Date.prototype.format = function(format) {
+    var o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S": this.getMilliseconds()
+    }
+    if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+        }
+    }
+    return format;
+}
+</script>
+</body>
+</html>

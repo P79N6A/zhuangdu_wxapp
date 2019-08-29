@@ -1,0 +1,81 @@
+<!-- <view class='commission_tips' wx:if="{{commissionList==[] || commissionList==''}}">
+  暂无数据
+</view> -->
+<view class='container'>
+  <view class='dateline bgfff'>
+    <view class='dateline_time'>
+      <text catchtap='showDatepicker1' hidden='{{dateflag1}}'>选择时间</text>
+      <text catchtap='showDatepicker1' data-date1='{{date1}}' wx:if="{{!datePickerIsShow1}}">{{date1}}</text>
+      <image src='../image/triangle.png'></image>
+    </view>
+  </view>
+  <view class='charts bgfff'>
+    <view class='charts_mount'>
+      {{pay_price_total}}
+      <text>当前完成业绩（元）</text>
+    </view>
+    <!-- <view class='dan'>
+      3
+      <text>（单）</text>
+    </view> -->
+    <line-chart id="line-chart" canvasData="{{lineCanvasData}}" />
+  </view>
+  <view class='level bgfff'>
+    <view class='level_name'>
+      <view class='name'>
+        {{commission.level_name}}
+      </view>
+      <view class='type'>
+        当前级别
+      </view>
+    </view>
+    <view class='amount'>
+      <view class='amount_money'>
+        {{pay_price_total}}元
+      </view>
+      <view class='type'>
+        业绩考核
+      </view>
+    </view>
+  </view>
+  <view class='pergformance'>
+    <!-- <view class='pergformance_titleBox'>
+      <view class='pergformance_title'>
+        业绩明细
+      </view>
+      <view class="date_item" wx:for="{{showList}}" data-index='{{index}}' bindtap='navbarTap'>
+        <view class="right1 {{currentTab==index ? 'date_active' : 'date_default'}}" style='display:inline-block;'>
+          √
+        </view>
+        {{item}}
+      </view>
+    </view> -->
+    <view class='performance_list bgfff'>
+      <view class='performance_list_title'>
+        <view class='performance_list_title_item'>
+          订单编号
+        </view>
+        <view class='performance_list_title_item'>
+          类型
+        </view>
+        <view class='performance_list_title_item'>
+          业绩记录
+        </view>
+      </view>
+      <block wx:for="{{commissionList}}">
+        <view class='performance_cell'>
+          <view class='performance_cell_number'>
+            {{item.number}}
+          </view>
+          <view class='performance_cell_type'>
+            {{item.type}}
+          </view>
+          <view class='performance_cell_record'>
+            {{item.performance}}
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<date-picker id="date-picker1" value="{{datePickerValue1}}" isShow="{{datePickerIsShow1}}" bindsureclick="datePickerOnSureClick1" bindcancelclick="datePickerOnCancelClick" />

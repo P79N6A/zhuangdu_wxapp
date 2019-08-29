@@ -1,0 +1,839 @@
+{template '_header'}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .phone-head{
+        height: 44px;
+        background: #fff;
+        position: relative;
+    }
+    .phone-head::before{
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 126px;
+        height: 8px;
+        width: 8px;
+        background: #ddd;
+        border-radius: 8px;
+    }
+    .phone-head::after{
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 142px;
+        height: 8px;
+        width: 50px;
+        background: #ddd;
+        border-radius: 8px;
+    }
+    .phone_foot{
+        height: 24px;
+        width: 60px;
+        margin: 18px auto 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .add{
+        width: 50px;
+        height: 50px;
+        border: 1px solid #000;
+        font-size: 46px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 28px;
+    }
+    .text-item{
+        width: 600px;
+        height: 144px;
+        border: 2px solid #ccc;
+        padding-left: 32px;
+        float: left;
+        margin-bottom: 10px;
+    }
+    .inputBox{
+        margin-right: 550px;
+        margin-top: 160px;
+    }
+    .text_input{
+        z-index: 11; 
+        color: #fff; 
+        /* min-width: 50px;  */
+        min-height: 30px; 
+        font-size: 18px; 
+        background-color: transparent;
+        position: absolute;
+        /* max-width: 110px; */
+        max-height: 100px;
+        /* height: 128px; */
+        left: 0; 
+        top: 0;
+    }
+    .inputBox input{
+        /*height: 50px;*/
+    }
+    .text_input0{
+        /* cursor: pointer; */
+    }
+    .text_input::-webkit-input-placeholder{
+        color: #fff;
+    }
+    .text_input::-moz-placeholder{
+        color: #fff;
+    }
+    .text_input::-ms-input-placeholder{
+        color: #fff;
+    }
+    .form-control{
+        width: 110%;
+    }
+    .text-item .form-group {
+    margin-right: -15px;
+    margin-left: -15px;
+    float: left;
+    width: 140px;
+    }
+</style>
+<div class='page-header'>
+    <!-- <input type="text" name="" class="text_input" required="required" val="点击编辑文字" placeholder="" style="z-index: 10; border:1px #ccc solid;"/> -->
+    当前位置：<span class="text-primary">自定义模板</span>
+</div>
+<div class="page-content">
+<div class="box" style="width: 330px; height: 600px; border: 2px solid #ccc; position: relative; left: 210px; top: 50px; float: left; margin-bottom: 100px;">
+    <div class="phone-head"></div>
+    <canvas id="m_canvas" width="326" height="500" style="border: 1px solid #f00; position:absolute; left: 0; top: 40px;">Your browser does not support the canvas element.</canvas>
+    <div class="father" style="position:relative; left:1px; top:0; width:324px; height: 496px;">
+        <!-- <div class="son" style="position: absolute; left: 0; top: 0; z-index: 10; width: 110px; height: 128px;"> -->
+            <!-- <textarea class="" value="" placeholder="" placeholder-style="" placeholder-class="textarea-placeholder" 
+                disabled="false" maxlength="140" auto-focus="false" focus="false" auto-height="" 
+                bindinput="" bindfocus="" bindblur="" bindconfirm="" bindlinechange="%{15}">
+                
+            </textarea> -->
+        <!-- </div> -->
+    </div>
+    <div class="phone_foot"></div>
+</div>
+<div class="inputBox" style="float:right; width: 100px;">
+    <input id="title" style="border:1px solid #000; width:224px; height:40px; margin-bottom: 11px;font-size: 20px;" name="title" type="text" placeholder="请输入模板名称" value="">
+<form id="form"  action="" method="post" class="form-horizontal form-validate">
+    <div class="form-group">
+            <label class="col-lg control-label">多图</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_multi_image('images', $result['data']['images'])}
+            </div>
+			<!-- <div class="col-sm-9 col-xs-12">
+			图片X坐标:<input type="text" name="imageX" class="form-control imageX" value="{$result['data']['imageX']}" placeholder="" />
+			图片Y坐标:</div>
+			<div class="col-sm-9 col-xs-12">
+			<input type="text" name="imageY" class="form-control imageY" value="{$result['data']['imageY']}" placeholder="" />
+			</div> -->
+        </div>
+        <div class="add">
+            +
+        </div>
+        <div class="mainBox" style="width:540%;">
+
+        </div>
+    <!-- <div class="text-item">
+        <div class="form-group">
+            <label class="col-lg control-label">X坐标</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="X" class="form-control inputX" value="{$result['data']['X']}" placeholder="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg control-label">Y坐标</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="Y" class="form-control inputY" value="{$result['data']['Y']}" placeholder="" />
+            </div>
+        </div>
+        <div class="form-group">
+                <label class="col-lg control-label">内容</label>
+                <div class="col-sm-9 col-xs-12">
+                    <input type="text" name="val" class="form-control text_val" value="" />
+                </div>
+        </div>
+    </div> -->
+	<div class="form-group">
+            <label class="col-lg control-label"></label>
+            <div class="col-sm-9">
+                <!-- <input type="submit" value="提交" class="btn btn-primary" /> -->
+                <input type="button" value="提交" id="btn-submit" style="background:red; color:#fff; margin-top: 20px;">
+            </div>
+        </div>
+</form>
+</div>
+自定义模板页面
+</div>
+<!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+<script>
+    if(jQuery)(function($){$.minicolors={defaults:{animationSpeed:50,animationEasing:'swing',change:null,changeDelay:0,control:'hue',defaultValue:'',hide:null,hideSpeed:100,inline:false,letterCase:'lowercase',opacity:false,position:'bottom left',show:null,showSpeed:100,theme:'default'}};$.extend($.fn,{minicolors:function(method,data){switch(method){case 'destroy':$(this).each(function(){destroy($(this));});return $(this);case 'hide':hide();return $(this);case 'opacity':if(data===undefined){return $(this).attr('data-opacity');}else{$(this).each(function(){updateFromInput($(this).attr('data-opacity',data));});}
+return $(this);case 'rgbObject':return rgbObject($(this),method==='rgbaObject');case 'rgbString':case 'rgbaString':return rgbString($(this),method==='rgbaString');case 'settings':if(data===undefined){return $(this).data('minicolors-settings');}else{$(this).each(function(){var settings=$(this).data('minicolors-settings')||{};destroy($(this));$(this).minicolors($.extend(true,settings,data));});}
+return $(this);case 'show':show($(this).eq(0));return $(this);case 'value':if(data===undefined){return $(this).val();}else{$(this).each(function(){updateFromInput($(this).val(data));});}
+return $(this);default:if(method!=='create')data=method;$(this).each(function(){init($(this),data);});return $(this);}}});function init(input,settings){var minicolors=$('<div class="minicolors" />'),defaults=$.minicolors.defaults;if(input.data('minicolors-initialized'))return;settings=$.extend(true,{},defaults,settings);minicolors.addClass('minicolors-theme-'+settings.theme).toggleClass('minicolors-with-opacity',settings.opacity);if(settings.position!==undefined){$.each(settings.position.split(' '),function(){minicolors.addClass('minicolors-position-'+this);});}
+input.addClass('minicolors-input').data('minicolors-initialized',false).data('minicolors-settings',settings).prop('size',7).wrap(minicolors).after('<div class="minicolors-panel minicolors-slider-'+settings.control+'">'+
+'<div class="minicolors-slider">'+
+'<div class="minicolors-picker"></div>'+
+'</div>'+
+'<div class="minicolors-opacity-slider">'+
+'<div class="minicolors-picker"></div>'+
+'</div>'+
+'<div class="minicolors-grid">'+
+'<div class="minicolors-grid-inner"></div>'+
+'<div class="minicolors-picker"><div></div></div>'+
+'</div>'+
+'</div>');if(!settings.inline){input.after('<span class="minicolors-swatch"><span class="minicolors-swatch-color"></span></span>');input.next('.minicolors-swatch').on('click',function(event){event.preventDefault();input.focus();});}
+input.parent().find('.minicolors-panel').on('selectstart',function(){return false;}).end();if(settings.inline)input.parent().addClass('minicolors-inline');updateFromInput(input,false);input.data('minicolors-initialized',true);}
+function destroy(input){var minicolors=input.parent();input.removeData('minicolors-initialized').removeData('minicolors-settings').removeProp('size').removeClass('minicolors-input');minicolors.before(input).remove();}
+function show(input){var minicolors=input.parent(),panel=minicolors.find('.minicolors-panel'),settings=input.data('minicolors-settings');if(!input.data('minicolors-initialized')||input.prop('disabled')||minicolors.hasClass('minicolors-inline')||minicolors.hasClass('minicolors-focus'))return;hide();minicolors.addClass('minicolors-focus');panel.stop(true,true).fadeIn(settings.showSpeed,function(){if(settings.show)settings.show.call(input.get(0));});}
+function hide(){$('.minicolors-input').each(function(){var input=$(this),settings=input.data('minicolors-settings'),minicolors=input.parent();if(settings.inline)return;minicolors.find('.minicolors-panel').fadeOut(settings.hideSpeed,function(){if(minicolors.hasClass('minicolors-focus')){if(settings.hide)settings.hide.call(input.get(0));}
+minicolors.removeClass('minicolors-focus');});});}
+function move(target,event,animate){var input=target.parents('.minicolors').find('.minicolors-input'),settings=input.data('minicolors-settings'),picker=target.find('[class$=-picker]'),offsetX=target.offset().left,offsetY=target.offset().top,x=Math.round(event.pageX-offsetX),y=Math.round(event.pageY-offsetY),duration=animate?settings.animationSpeed:0,wx,wy,r,phi;if(event.originalEvent.changedTouches){x=event.originalEvent.changedTouches[0].pageX-offsetX;y=event.originalEvent.changedTouches[0].pageY-offsetY;}
+if(x<0)x=0;if(y<0)y=0;if(x>target.width())x=target.width();if(y>target.height())y=target.height();if(target.parent().is('.minicolors-slider-wheel')&&picker.parent().is('.minicolors-grid')){wx=75-x;wy=75-y;r=Math.sqrt(wx*wx+wy*wy);phi=Math.atan2(wy,wx);if(phi<0)phi+=Math.PI*2;if(r>75){r=75;x=75-(75*Math.cos(phi));y=75-(75*Math.sin(phi));}
+x=Math.round(x);y=Math.round(y);}
+if(target.is('.minicolors-grid')){picker.stop(true).animate({top:y+'px',left:x+'px'},duration,settings.animationEasing,function(){updateFromControl(input,target);});}else{picker.stop(true).animate({top:y+'px'},duration,settings.animationEasing,function(){updateFromControl(input,target);});}}
+function updateFromControl(input,target){function getCoords(picker,container){var left,top;if(!picker.length||!container)return null;left=picker.offset().left;top=picker.offset().top;return{x:left-container.offset().left+(picker.outerWidth()/2),y:top-container.offset().top+(picker.outerHeight()/2)};}
+var hue,saturation,brightness,x,y,r,phi,hex=input.val(),opacity=input.attr('data-opacity'),minicolors=input.parent(),settings=input.data('minicolors-settings'),swatch=minicolors.find('.minicolors-swatch'),grid=minicolors.find('.minicolors-grid'),slider=minicolors.find('.minicolors-slider'),opacitySlider=minicolors.find('.minicolors-opacity-slider'),gridPicker=grid.find('[class$=-picker]'),sliderPicker=slider.find('[class$=-picker]'),opacityPicker=opacitySlider.find('[class$=-picker]'),gridPos=getCoords(gridPicker,grid),sliderPos=getCoords(sliderPicker,slider),opacityPos=getCoords(opacityPicker,opacitySlider);if(target.is('.minicolors-grid, .minicolors-slider')){switch(settings.control){case 'wheel':x=(grid.width()/2)-gridPos.x;y=(grid.height()/2)-gridPos.y;r=Math.sqrt(x*x+y*y);phi=Math.atan2(y,x);if(phi<0)phi+=Math.PI*2;if(r>75){r=75;gridPos.x=69-(75*Math.cos(phi));gridPos.y=69-(75*Math.sin(phi));}
+saturation=keepWithin(r/0.75,0,100);hue=keepWithin(phi*180/Math.PI,0,360);brightness=keepWithin(100-Math.floor(sliderPos.y*(100/slider.height())),0,100);hex=hsb2hex({h:hue,s:saturation,b:brightness});slider.css('backgroundColor',hsb2hex({h:hue,s:saturation,b:100}));break;case 'saturation':hue=keepWithin(parseInt(gridPos.x*(360/grid.width()),10),0,360);saturation=keepWithin(100-Math.floor(sliderPos.y*(100/slider.height())),0,100);brightness=keepWithin(100-Math.floor(gridPos.y*(100/grid.height())),0,100);hex=hsb2hex({h:hue,s:saturation,b:brightness});slider.css('backgroundColor',hsb2hex({h:hue,s:100,b:brightness}));minicolors.find('.minicolors-grid-inner').css('opacity',saturation/100);break;case 'brightness':hue=keepWithin(parseInt(gridPos.x*(360/grid.width()),10),0,360);saturation=keepWithin(100-Math.floor(gridPos.y*(100/grid.height())),0,100);brightness=keepWithin(100-Math.floor(sliderPos.y*(100/slider.height())),0,100);hex=hsb2hex({h:hue,s:saturation,b:brightness});slider.css('backgroundColor',hsb2hex({h:hue,s:saturation,b:100}));minicolors.find('.minicolors-grid-inner').css('opacity',1-(brightness/100));break;default:hue=keepWithin(360-parseInt(sliderPos.y*(360/slider.height()),10),0,360);saturation=keepWithin(Math.floor(gridPos.x*(100/grid.width())),0,100);brightness=keepWithin(100-Math.floor(gridPos.y*(100/grid.height())),0,100);hex=hsb2hex({h:hue,s:saturation,b:brightness});grid.css('backgroundColor',hsb2hex({h:hue,s:100,b:100}));break;}
+input.val(convertCase(hex,settings.letterCase));}
+if(target.is('.minicolors-opacity-slider')){if(settings.opacity){opacity=parseFloat(1-(opacityPos.y/opacitySlider.height())).toFixed(2);}else{opacity=1;}
+if(settings.opacity)input.attr('data-opacity',opacity);}
+swatch.find('SPAN').css({backgroundColor:hex,opacity:opacity});doChange(input,hex,opacity);}
+function updateFromInput(input,preserveInputValue){var hex,hsb,opacity,x,y,r,phi,minicolors=input.parent(),settings=input.data('minicolors-settings'),swatch=minicolors.find('.minicolors-swatch'),grid=minicolors.find('.minicolors-grid'),slider=minicolors.find('.minicolors-slider'),opacitySlider=minicolors.find('.minicolors-opacity-slider'),gridPicker=grid.find('[class$=-picker]'),sliderPicker=slider.find('[class$=-picker]'),opacityPicker=opacitySlider.find('[class$=-picker]');hex=convertCase(parseHex(input.val(),true),settings.letterCase);if(!hex){hex=convertCase(parseHex(settings.defaultValue,true),settings.letterCase);}
+hsb=hex2hsb(hex);if(!preserveInputValue)input.val(hex);if(settings.opacity){opacity=input.attr('data-opacity')===''?1:keepWithin(parseFloat(input.attr('data-opacity')).toFixed(2),0,1);if(isNaN(opacity))opacity=1;input.attr('data-opacity',opacity);swatch.find('SPAN').css('opacity',opacity);y=keepWithin(opacitySlider.height()-(opacitySlider.height()*opacity),0,opacitySlider.height());opacityPicker.css('top',y+'px');}
+swatch.find('SPAN').css('backgroundColor',hex);switch(settings.control){case 'wheel':r=keepWithin(Math.ceil(hsb.s*0.75),0,grid.height()/2);phi=hsb.h*Math.PI/180;x=keepWithin(75-Math.cos(phi)*r,0,grid.width());y=keepWithin(75-Math.sin(phi)*r,0,grid.height());gridPicker.css({top:y+'px',left:x+'px'});y=150-(hsb.b/(100/grid.height()));if(hex==='')y=0;sliderPicker.css('top',y+'px');slider.css('backgroundColor',hsb2hex({h:hsb.h,s:hsb.s,b:100}));break;case 'saturation':x=keepWithin((5*hsb.h)/12,0,150);y=keepWithin(grid.height()-Math.ceil(hsb.b/(100/grid.height())),0,grid.height());gridPicker.css({top:y+'px',left:x+'px'});y=keepWithin(slider.height()-(hsb.s*(slider.height()/100)),0,slider.height());sliderPicker.css('top',y+'px');slider.css('backgroundColor',hsb2hex({h:hsb.h,s:100,b:hsb.b}));minicolors.find('.minicolors-grid-inner').css('opacity',hsb.s/100);break;case 'brightness':x=keepWithin((5*hsb.h)/12,0,150);y=keepWithin(grid.height()-Math.ceil(hsb.s/(100/grid.height())),0,grid.height());gridPicker.css({top:y+'px',left:x+'px'});y=keepWithin(slider.height()-(hsb.b*(slider.height()/100)),0,slider.height());sliderPicker.css('top',y+'px');slider.css('backgroundColor',hsb2hex({h:hsb.h,s:hsb.s,b:100}));minicolors.find('.minicolors-grid-inner').css('opacity',1-(hsb.b/100));break;default:x=keepWithin(Math.ceil(hsb.s/(100/grid.width())),0,grid.width());y=keepWithin(grid.height()-Math.ceil(hsb.b/(100/grid.height())),0,grid.height());gridPicker.css({top:y+'px',left:x+'px'});y=keepWithin(slider.height()-(hsb.h/(360/slider.height())),0,slider.height());sliderPicker.css('top',y+'px');grid.css('backgroundColor',hsb2hex({h:hsb.h,s:100,b:100}));break;}
+if(input.data('minicolors-initialized')){doChange(input,hex,opacity);}}
+function doChange(input,hex,opacity){var settings=input.data('minicolors-settings'),lastChange=input.data('minicolors-lastChange');if(!lastChange||lastChange.hex!==hex||lastChange.opacity!==opacity){input.data('minicolors-lastChange',{hex:hex,opacity:opacity});if(settings.change){if(settings.changeDelay){clearTimeout(input.data('minicolors-changeTimeout'));input.data('minicolors-changeTimeout',setTimeout(function(){settings.change.call(input.get(0),hex,opacity);},settings.changeDelay));}else{settings.change.call(input.get(0),hex,opacity);}}
+input.trigger('change').trigger('input');}}
+function rgbObject(input){var hex=parseHex($(input).val(),true),rgb=hex2rgb(hex),opacity=$(input).attr('data-opacity');if(!rgb)return null;if(opacity!==undefined)$.extend(rgb,{a:parseFloat(opacity)});return rgb;}
+function rgbString(input,alpha){var hex=parseHex($(input).val(),true),rgb=hex2rgb(hex),opacity=$(input).attr('data-opacity');if(!rgb)return null;if(opacity===undefined)opacity=1;if(alpha){return 'rgba('+rgb.r+', '+rgb.g+', '+rgb.b+', '+parseFloat(opacity)+')';}else{return 'rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')';}}
+function convertCase(string,letterCase){return letterCase==='uppercase'?string.toUpperCase():string.toLowerCase();}
+function parseHex(string,expand){string=string.replace(/[^A-F0-9]/ig,'');if(string.length!==3&&string.length!==6)return '';if(string.length===3&&expand){string=string[0]+string[0]+string[1]+string[1]+string[2]+string[2];}
+return '#'+string;}
+function keepWithin(value,min,max){if(value<min)value=min;if(value>max)value=max;return value;}
+function hsb2rgb(hsb){var rgb={};var h=Math.round(hsb.h);var s=Math.round(hsb.s*255/100);var v=Math.round(hsb.b*255/100);if(s===0){rgb.r=rgb.g=rgb.b=v;}else{var t1=v;var t2=(255-s)*v/255;var t3=(t1-t2)*(h%60)/60;if(h===360)h=0;if(h<60){rgb.r=t1;rgb.b=t2;rgb.g=t2+t3;}
+else if(h<120){rgb.g=t1;rgb.b=t2;rgb.r=t1-t3;}
+else if(h<180){rgb.g=t1;rgb.r=t2;rgb.b=t2+t3;}
+else if(h<240){rgb.b=t1;rgb.r=t2;rgb.g=t1-t3;}
+else if(h<300){rgb.b=t1;rgb.g=t2;rgb.r=t2+t3;}
+else if(h<360){rgb.r=t1;rgb.g=t2;rgb.b=t1-t3;}
+else{rgb.r=0;rgb.g=0;rgb.b=0;}}
+return{r:Math.round(rgb.r),g:Math.round(rgb.g),b:Math.round(rgb.b)};}
+function rgb2hex(rgb){var hex=[rgb.r.toString(16),rgb.g.toString(16),rgb.b.toString(16)];$.each(hex,function(nr,val){if(val.length===1)hex[nr]='0'+val;});return '#'+hex.join('');}
+function hsb2hex(hsb){return rgb2hex(hsb2rgb(hsb));}
+function hex2hsb(hex){var hsb=rgb2hsb(hex2rgb(hex));if(hsb.s===0)hsb.h=360;return hsb;}
+function rgb2hsb(rgb){var hsb={h:0,s:0,b:0};var min=Math.min(rgb.r,rgb.g,rgb.b);var max=Math.max(rgb.r,rgb.g,rgb.b);var delta=max-min;hsb.b=max;hsb.s=max!==0?255*delta/max:0;if(hsb.s!==0){if(rgb.r===max){hsb.h=(rgb.g-rgb.b)/delta;}else if(rgb.g===max){hsb.h=2+(rgb.b-rgb.r)/delta;}else{hsb.h=4+(rgb.r-rgb.g)/delta;}}else{hsb.h=-1;}
+hsb.h*=60;if(hsb.h<0){hsb.h+=360;}
+hsb.s*=100/255;hsb.b*=100/255;return hsb;}
+function hex2rgb(hex){hex=parseInt(((hex.indexOf('#')>-1)?hex.substring(1):hex),16);return{r:hex>>16,g:(hex&0x00FF00)>>8,b:(hex&0x0000FF)};}
+$(document).on('mousedown.minicolors touchstart.minicolors',function(event){if(!$(event.target).parents().add(event.target).hasClass('minicolors')){hide();}}).on('mousedown.minicolors touchstart.minicolors','.minicolors-grid, .minicolors-slider, .minicolors-opacity-slider',function(event){var target=$(this);event.preventDefault();$(document).data('minicolors-target',target);move(target,event,true);}).on('mousemove.minicolors touchmove.minicolors',function(event){var target=$(document).data('minicolors-target');if(target)move(target,event);}).on('mouseup.minicolors touchend.minicolors',function(){$(this).removeData('minicolors-target');}).on('mousedown.minicolors touchstart.minicolors','.minicolors-swatch',function(event){var input=$(this).parent().find('.minicolors-input');event.preventDefault();show(input);}).on('focus.minicolors','.minicolors-input',function(){var input=$(this);if(!input.data('minicolors-initialized'))return;show(input);}).on('blur.minicolors','.minicolors-input',function(){var input=$(this),settings=input.data('minicolors-settings');if(!input.data('minicolors-initialized'))return;input.val(parseHex(input.val(),true));if(input.val()==='')input.val(parseHex(settings.defaultValue,true));input.val(convertCase(input.val(),settings.letterCase));}).on('keydown.minicolors','.minicolors-input',function(event){var input=$(this);if(!input.data('minicolors-initialized'))return;switch(event.keyCode){case 9:hide();break;case 13:case 27:hide();input.blur();break;}}).on('keyup.minicolors','.minicolors-input',function(){var input=$(this);if(!input.data('minicolors-initialized'))return;updateFromInput(input,true);}).on('paste.minicolors','.minicolors-input',function(){var input=$(this);if(!input.data('minicolors-initialized'))return;setTimeout(function(){updateFromInput(input,true);},1);});})(jQuery);
+</script>
+<style>
+.minicolors{position:relative}.minicolors-swatch{position:absolute;vertical-align:middle;background:url(http://www.jq22.com/demo/jQuery-minicolors20160615/jquery.minicolors.png) -80px 0;border:solid 1px #ccc;cursor:text;padding:0;margin:0;display:inline-block}.minicolors-swatch-color{position:absolute;top:0;left:0;right:0;bottom:0}.minicolors input[type=hidden]+.minicolors-swatch{width:28px;position:static;cursor:pointer}.minicolors-panel{position:absolute;width:173px;height:152px;background:#fff;border:solid 1px #ccc;box-shadow:0 0 20px rgba(0,0,0,.2);z-index:99999;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;display:none}.minicolors-panel.minicolors-visible{display:block}.minicolors-position-top .minicolors-panel{top:-154px}.minicolors-position-right .minicolors-panel{right:0}.minicolors-position-bottom .minicolors-panel{top:auto}.minicolors-position-left .minicolors-panel{left:0}.minicolors-with-opacity .minicolors-panel{width:194px}.minicolors .minicolors-grid{position:absolute;top:1px;left:1px;width:150px;height:150px;background:url(http://www.jq22.com/demo/jQuery-minicolors20160615/jquery.minicolors.png) -120px 0;cursor:crosshair}.minicolors .minicolors-grid-inner{position:absolute;top:0;left:0;width:150px;height:150px;background:0 0}.minicolors-slider-saturation .minicolors-grid{background-position:-420px 0}.minicolors-slider-saturation .minicolors-grid-inner{background:url(http://www.jq22.com/demo/jQuery-minicolors20160615/jquery.minicolors.png) -270px 0}.minicolors-slider-brightness .minicolors-grid{background-position:-570px 0}.minicolors-slider-brightness .minicolors-grid-inner{background:#000}.minicolors-slider-wheel .minicolors-grid{background-position:-720px 0}.minicolors-slider,.minicolors-opacity-slider{position:absolute;top:1px;left:152px;width:20px;height:150px;background:#fff url(http://www.jq22.com/demo/jQuery-minicolors20160615/jquery.minicolors.png) 0 0;cursor:row-resize}.minicolors-slider-saturation .minicolors-slider{background-position:-60px 0}.minicolors-slider-brightness .minicolors-slider{background-position:-20px 0}.minicolors-slider-wheel .minicolors-slider{background-position:-20px 0}.minicolors-opacity-slider{left:173px;background-position:-40px 0;display:none}.minicolors-with-opacity .minicolors-opacity-slider{display:block}.minicolors-grid .minicolors-picker{position:absolute;top:70px;left:70px;width:12px;height:12px;border:solid 1px #000;border-radius:10px;margin-top:-6px;margin-left:-6px;background:0 0}.minicolors-grid .minicolors-picker>div{position:absolute;top:0;left:0;width:8px;height:8px;border-radius:8px;border:solid 2px #fff;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}.minicolors-picker{position:absolute;top:0;left:0;width:18px;height:2px;background:#fff;border:solid 1px #000;margin-top:-2px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}.minicolors-inline{display:inline-block}.minicolors-inline .minicolors-input{display:none!important}.minicolors-inline .minicolors-panel{position:relative;top:auto;left:auto;box-shadow:none;z-index:auto;display:inline-block}.minicolors-theme-default .minicolors-swatch{top:5px;left:5px;width:18px;height:18px}.minicolors-theme-default.minicolors-position-right .minicolors-swatch{left:auto;right:5px}.minicolors-theme-default.minicolors{width:auto;display:inline-block}.minicolors-theme-default .minicolors-input{height:20px;width:auto;display:inline-block;padding-left:26px}.minicolors-theme-default.minicolors-position-right .minicolors-input{padding-right:26px;padding-left:inherit}.minicolors-theme-bootstrap .minicolors-swatch{top:3px;left:3px;width:28px;height:28px;border-radius:3px}.minicolors-theme-bootstrap.minicolors-position-right .minicolors-swatch{left:auto;right:3px}.minicolors-theme-bootstrap .minicolors-input{padding-left:44px}.minicolors-theme-bootstrap.minicolors-position-right .minicolors-input{padding-right:44px;padding-left:12px}
+</style>
+<script>
+				//拖拽原理：相对距离不变
+                var oBox=document.getElementsByClassName("box")[0];
+                var oSon=document.getElementsByClassName("son")[0];
+                var oInputX=document.getElementsByClassName("inputX")[0];
+                var oInputY=document.getElementsByClassName("inputY")[0];
+				var disx=0;
+                var disy=0;
+                $("body").on("click",".btn-primary",function(){ 
+                 //console.info($(".multi-item img").attr("src"));
+                 var canvas = document.getElementById('m_canvas');
+                 var ctx = canvas.getContext('2d');
+                 var image = new Image();
+                 image.src = $(".multi-item img").attr("src");
+                 image.onload=function(){
+                ctx.drawImage(image,0,0,326,500);   //坐标
+                // $(".imageX").val("0%")
+                // $(".imageY").val("0%")
+                var imagedata = ctx.getImageData(0,0,50,50);
+                //console.log(imagedata)
+                for (i=0; i<imgData.width*imgData.height*4;i+=4){  
+                        imgData.data[i+0]=255;  
+                        imgData.data[i+1]=0;  
+                        imgData.data[i+2]=0;  
+                        imgData.data[i+3]=155;  
+                } 
+                ctx.createImageData(imagedata);
+                }
+                })
+                var oFather=document.getElementsByClassName("father")[0];
+                var n=$(".father").children("input").length;    
+                var oAdd=document.getElementsByClassName("add")[0];
+                $(".add").click(function(){
+                    var n=$(".father").children("input").length;
+                    //右生成左
+                    var oInput=document.createElement("div");
+                    // if($("input").hasClass(`text_input${n}`)){
+                    //     return; 
+                    // }
+                    // oInput.type="text";
+                    oInput.className=`text_input text_input${n}`;
+                    // oInput.placeholder="点击编辑文字";
+                    oInput.html="点击编辑文字";
+                    oInput.style.fontSize="18px";
+                    oInput.style.color="#ffffff";
+                    oInput.style.fontWeight="normal";
+                    oInput.style.fontStyle="normal";
+                    oInput.size=oInput.value.length;
+                    // $(this).parent().parent().prev().children(".father").appendChild(oInput);
+                    $(".father").append(oInput);
+                    drag(oInput,oFather);  
+                    // $(this).parent().parent().next().children().children(".add").append(oTextItem)
+                    // console.log($(`.text-item${n} .text_val`))
+                     // 左生成右
+                     $(`.text_input${n}`).click(function(){
+                    var oTextItem=document.createElement("div");
+                    //console.log($(`text-item${n}`))
+                    if($("div").hasClass(`input-item${n}`)){           
+                        //console.log(1)
+                        return;
+                    }
+                    oTextItem.className=`text-item input-item${n}`;
+                    $(oTextItem).append(`<div class=\"form-group"\><label class=\"col-lg control-label"\>X坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"X${n}"\ class=\"form-control inputX"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>Y坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"Y${n}"\ class=\"form-control inputY"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>内容</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"val${n}"\ class=\"form-control text_val"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体大小</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"size${n}"\ class=\"form-control text_size"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>颜色</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"color${n}"\ class=\"form-control text_color"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体粗细</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"weight${n}"\ class=\"form-control text_weight"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体样式</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"style${n}"\ class=\"form-control text_style"\ value="" /></div></div>`)
+                    $(".mainBox").append(oTextItem);
+                    $(`.input-item${n} .text_size`).html($(oInput).css("font-size"));
+                    var hex=hexify($(oInput).css("color"));
+                    console.log(hex)
+                    $(`.input-item${n} .text_color`).html(hex);
+                    $(`.input-item${n} .text_weight`).html($(oInput).css("font-weight"));
+                    $(`.input-item${n} .text_style`).html($(oInput).css("font-style"));
+                    //修改字体大小
+                    $(".mainBox").on('keyup',`.input-item${n} .text_size`,function(e){               
+                    var oText=$(`.input-item${n} .text_size`).html();
+                    console.log(oText);
+                    $(`.text_input${n}`).css("font-size",`${oText}`)
+                    })
+                    //修改字体颜色
+                    // $(".mainBox").on('keyup',`.input-item${n} .text_color`,function(e){               
+                    // var oText=$(`.input-item${n} .text_color`).val();
+                    // console.log(oText);
+                    // $(`.text_input${n}`).css("color",`${oText}`)
+                    // })
+                    $(`.input-item${n} .text_color`).minicolors({
+                        control: $(this).attr('data-control') || 'hue',
+                        defaultValue: $(this).attr('data-defaultValue') || '',
+                        inline: $(this).attr('data-inline') === 'true',
+                        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                        opacity: $(this).attr('data-opacity'),
+                        position: $(this).attr('data-position') || 'bottom left',
+                        change: function(hex, opacity) {
+                            if (!hex)
+                                return;
+                            if (opacity)
+                                hex += ', ' + opacity;
+                            try {
+                                console.log(hex);
+                                var oText=hex;
+                                console.log(oText);
+                                $(`.text_input${n}`).css("color",`${oText}`);
+                                $(`.input-item${n} .text_color`).val(oText);
+                            } catch (e) {
+                            }
+                        },
+                        theme: 'bootstrap'
+                    });
+                    // var oText=$(`.input-item${n} .text_color`).val();
+                    //修改字体粗细
+                    $(".mainBox").on('keyup',`.input-item${n} .text_weight`,function(e){               
+                    var oText=$(`.input-item${n} .text_weight`).val();
+                    console.log(oText);
+                    $(`.text_input${n}`).css("font-weight",`${oText}`)
+                    })
+                    //修改字体样式
+                    $(".mainBox").on('keyup',`.input-item${n} .text_style`,function(e){               
+                    var oText=$(`.input-item${n} .text_style`).val();
+                    console.log(oText);
+                    $(`.text_input${n}`).css("font-style",`${oText}`)
+                    })
+                    //内容数据绑定
+                    $(".mainBox").on('keyup',`.input-item${n} .text_val`,function(e){               
+                    //$(".input-item").css("display","block");
+                    var oText=$(`.input-item${n} .text_val`).val();
+                    console.log(oText);
+                    $(`.text_input${n}`).val(oText)
+                })
+                })
+                // 动获取坐标
+                $(`.text_input${n}`).mousemove(function(){
+                        //console.log($(oInput).css("left"));
+                        //console.log($(oInput).css("top"));
+                        // console.log($(`.input-item${n} .form-group`).html())
+                        $(`.input-item${n} .inputX`).val($(oInput).css("left"));
+                        $(`.input-item${n} .inputY`).val($(oInput).css("top"));
+                    })
+                })
+
+                var textgroupList=[];
+                //console.log($(".text-item").length)
+                $("#btn-submit").click(function(){
+                    //console.log($("#title").val())
+                    $.each($(".text-item"),function(){
+                        var textgroup={};
+                        textgroup[`x1`] = $(this).find(".inputX").val();
+                        textgroup["y1"] = $(this).find(".inputY").val();
+                        textgroup["text"] = $(this).find(".text_val").val();
+                        textgroup["fontsize"] = $(this).find(".text_size").val();
+                        textgroup["color"] = $(this).find(".text_color").val();
+                        textgroup["fontweight"] = $(this).find(".text_weight").val();
+                        textgroup["fontstyle"] = $(this).find(".text_style").val();
+                        textgroupList.push(textgroup);
+                    })
+                console.log(textgroupList)
+                    var oInput=document.createElement("input");
+                      console.log($(".multi-item img").attr("src"))
+                    //  console.log($(oInput).css("left"))
+                    //  console.log($(oInput).css("top"))
+                    //  console.log($(`.text_input${n}`).val())
+                    var json={
+                        background:{
+                            x:0,
+                            y:0,
+                            url:$(".multi-item img").attr("src")
+                    },
+                    textgroupList:textgroupList,
+                }
+                console.log(json)
+                $.ajax({
+                    type: "POST",
+                    url: `https://zdu.igdlrj.com/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=yoxdiy.template_edit&id=${GetUrlParam("id")}`,
+                    data:{
+                        page_value:JSON.stringify(json),
+                        name: $("#title").val()
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        alert("提交成功")
+                        console.log(response)
+                    }
+                });
+                // $.post("https://zdu.igdlrj.com/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=yoxdiy.template_edit&id=1", 
+                // {page_value:json},
+                // function (data,status) {
+                //     alert("Data: " + data + "\nStatus: " + status);
+                // },
+                // 'json',
+                // );
+                })
+                
+//                 setImage(); 
+//                 function setImage(){
+//                 //console.log(1)
+//                 //console.log("set Image");
+//                 var canvas = document.getElementById('m_canvas');
+//                 //console.log(canvas)
+//                 var ctx = canvas.getContext('2d');
+//                 var image = new Image();
+//                 image.src = "https://zdu.igdlrj.com/attachment/images/2/2019/01/U393M335Z6Do6K5XbOzqi63B93qdMi.jpg";
+//                 //console.log(image.src)
+//                 image.onload=function(){
+//                 ctx.drawImage(image,0,0,200,250);   //坐标
+//                 $(".imageX").val("0%")
+//                 $(".imageY").val("0%")
+//                 var imagedata = ctx.getImageData(0,0,50,50);
+//                 //console.log(imagedata)
+//                 for (i=0; i<imgData.width*imgData.height*4;i+=4){  
+//                         imgData.data[i+0]=255;  
+//                         imgData.data[i+1]=0;  
+//                         imgData.data[i+2]=0;  
+//                         imgData.data[i+3]=155;  
+//                 } 
+//                 ctx.createImageData(imagedata);
+//                 }
+//             }
+function drag(obj,box){//第一个参数是被拖拽的元素，第二个参数是拖拽的限制区域；例如上面调用的#box和document
+	obj.onmousedown = function(ev){
+		var ev = ev || event;
+		var dragl = ev.clientX - this.offsetLeft;
+		var dragt = ev.clientY - this.offsetTop;
+		
+		if(obj.setCapture){//设置全局捕获==>取消浏览器默认的文字拖拽（ie8及以下）
+			obj.setCapture();
+			}
+		
+		document.onmousemove = function(ev){
+			var ev =ev || event;
+			var leftArea = ev.clientX - dragl;
+			var topArea = ev.clientY - dragt;
+			var w=null,h=null;
+			if(box == document){
+				w = document.documentElement.clientWidth
+				h = document.documentElement.clientHeight
+				}else{
+					w = box.scrollWidth;
+					h = box.scrollHeight;
+					}
+			
+			if(leftArea < 20){
+				leftArea = 0;
+				}else if(leftArea>w-obj.offsetWidth-20){
+					leftArea = w-obj.offsetWidth;
+					}
+			if(topArea < 20){
+				topArea = 0;
+				}else if(topArea>h-obj.offsetHeight-20){
+					topArea = h -obj.offsetHeight;
+					}
+			
+            obj.style.left =  leftArea + 'px';
+            var Left=Math.round((leftArea/box.offsetWidth)*100)+"%"
+            //console.log(Left)   
+            obj.style.top =  topArea + 'px';
+            var Top=Math.round((topArea/box.offsetHeight)*100)+"%"
+            //console.log(Top)
+            setinputdata(obj);
+			}
+		document.onmouseup = function(){
+			document.onmousemove =null;
+			document.onmouseup = null;
+			if(obj.releaseCapture){//取消全局捕获
+				obj.releaseCapture();
+				}
+			}
+		return false;//取消浏览器默认的文字拖拽 标准浏览器，ie8以上
+        }
+        
+}
+
+function setinputdata(obj){
+    var data_number=$(obj).attr("data_number");
+    // console.log(data_number)
+    $("input[name='X"+data_number+"']").val($(obj).css("left"));
+    //console.log($("input[name='X"+data_number+"]"))
+    //console.log($("input[name='X"+data_number+"]").val())
+    // console.log($(obj).css("left"))
+    console.log($("input[name='X"+data_number+"']").val())
+    $("input[name='Y"+data_number+"']").val($(obj).css("top"));
+    //console.log($(obj).css("top"))
+    $("input[name='val"+data_number+"']").val($(obj).html());
+    $(".mainBox").on('keyup',"input[name='val"+data_number+"']",function(e){               
+                //$(".input-item").css("display","block");
+                    var oText=$("input[name='val"+data_number+"']").val();
+                    console.log(oText);
+                    $(obj).html(oText)
+    })
+    //console.log($(obj).val())
+    $("input[name='size"+data_number+"']").val($(obj).css("font-size"));
+    //修改大小
+    $(".mainBox").on('keyup',"input[name='size"+data_number+"']",function(e){               
+        var oText=$("input[name='size"+data_number+"']").val();
+        console.log(oText);
+        $(obj).css("font-size",`${oText}`)
+    })
+    //console.log($(obj).css("font-size"))
+     $("input[name='color"+data_number+"']").val($(obj).css("color"));
+     $("input[name='color"+data_number+"']").minicolors({
+                        control: $(this).attr('data-control') || 'hue',
+                        defaultValue: $(this).attr('data-defaultValue') || '',
+                        inline: $(this).attr('data-inline') === 'true',
+                        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                        opacity: $(this).attr('data-opacity'),
+                        position: $(this).attr('data-position') || 'bottom left',
+                        change: function(hex, opacity) {
+                            if (!hex)
+                                return;
+                            if (opacity)
+                                hex += ', ' + opacity;
+                            try {
+                                console.log(hex);
+                                var oText=hex;
+                                console.log(oText);
+                                $(obj).css("color",`${oText}`);
+                                $(obj .text_color).val(oText);
+                            } catch (e) {
+                            }
+                        },
+                        theme: 'bootstrap'
+                    });
+    //console.log($(obj).css("color"))
+    $("input[name='weight"+data_number+"']").val($(obj).css("font-weight"));
+    //修改样式
+    $(".mainBox").on('keyup',"input[name='weight"+data_number+"']",function(e){               
+        var oText=$("input[name='weight"+data_number+"']").val();
+        console.log(oText);
+        $(obj).css("font-weight",`${oText}`)
+    })
+    //console.log($(obj).css("font-weight"))
+    $("input[name='style"+data_number+"']").val($(obj).css("font-style"));
+    //修改样式
+    $(".mainBox").on('keyup',"input[name='style"+data_number+"']",function(e){               
+        var oText=$("input[name='style"+data_number+"']").val();
+        console.log(oText);
+        $(obj).css("font-style",`${oText}`)
+    })
+    //console.log($(obj).css("font-style"))
+    // 动获取坐标
+    $(obj).mousemove(function(){
+        //console.log($(oInput).css("left"));
+        //console.log($(oInput).css("top"));
+        // console.log($(`.input-item${n} .form-group`).html())
+    $(obj .inputX).val($(obj).css("left"));
+    $(obj .inputY).val($(obj).css("top"));
+    })
+}
+
+//rgb转为16进制
+function hexify(color) {
+                        var values = color
+                            .replace(/rgba?\(/, '')
+                            .replace(/\)/, '')
+                            .replace(/[\s+]/g, '')
+                            .split(',');
+                        var a = parseFloat(values[3] || 1),
+                            r = Math.floor(a * parseInt(values[0]) + (1 - a) * 255),
+                            g = Math.floor(a * parseInt(values[1]) + (1 - a) * 255),
+                            b = Math.floor(a * parseInt(values[2]) + (1 - a) * 255);
+                        return "#" +
+                            ("0" + r.toString(16)).slice(-2) +
+                            ("0" + g.toString(16)).slice(-2) +
+                            ("0" + b.toString(16)).slice(-2);
+                    }
+
+//paraName 等找参数的名称
+　　function GetUrlParam(paraName) {
+　　　　var url = document.location.toString();
+　　　　var arrObj = url.split("?");
+
+　　　　if (arrObj.length > 1) {
+　　　　　　var arrPara = arrObj[1].split("&");
+　　　　　　var arr;
+
+　　　　　　for (var i = 0; i < arrPara.length; i++) {
+　　　　　　　　arr = arrPara[i].split("=");
+
+　　　　　　　　if (arr != null && arr[0] == paraName) {
+　　　　　　　　　　return arr[1];
+　　　　　　　　}
+　　　　　　}
+　　　　　　return "";
+　　　　}
+　　　　else {
+　　　　　　return "";
+　　　　}
+　　}
+
+//console.log(GetUrlParam("id"));
+				// function drag(obj){
+                //     obj.onmousedown=function(ev){
+				// 	//1.按下就要获取一次鼠标坐标。通过鼠标坐标计算差值
+				// 	var oEvent = ev || event;
+				// 	 disx=$(this).offsetLeft;
+                //      disy=$(this).offsetTop;
+				// 	console.log(disx+';'+disy);
+				// 	document.onmousemove=function(ev){
+				// 		//2.move的过程，不断获取新的坐标，通过差值计算新位置
+				// 		var oEvent = ev || event;
+						
+				// 		var oLeft=oEvent.clientX-disx;
+				// 		var oTop=oEvent.clientY-disy;
+				// 		//限制范围不能超出文档区域
+				// 		if(oLeft<0){
+				// 			oLeft=0;
+				// 		}
+				// 		if(oLeft>oBox.offsetWidth-$(this).offsetWidth){
+				// 			oLeft=oBox.offsetWidth-$(this).offsetWidth
+
+				// 		}
+						
+				// 		if(oTop<0){
+				// 			oTop=0;
+				// 		}
+				// 		if(oTop>oBox.offsetHeight-$(this).offsetHeight){
+				// 			oTop=oBox.offsetHeight-$(this).offsetHeight
+
+                //         }
+                        
+                //         $(this).style.left=oLeft+'px';
+                //         var Left=Math.round((oLeft/oBox.offsetWidth)*100)+"%"
+                //         //console.log(Left)
+                //         oInputX.value=Left;
+                //         $(this).style.top=oTop+'px';
+                //         var Top=Math.round((oTop/oBox.offsetHeight)*100)+"%"
+                //         //console.log(Top)
+                //         oInputY.value=Top
+				// 	}
+				// 	document.onmouseup=function(){
+				// 		//3.鼠标抬起后，不再拖拽
+				// 		this.onmousedown=null;
+				// 		this.onmousemove=null;
+				// 	}
+				// 	//阻止默认事件
+				// 	return false;
+				// }			
+                // }
+
+    //             function drag(obj){
+    //     obj.onmousedown = function(ev){
+    //         ev = ev||window.event;
+
+    //         //鼠标初始xy位置
+    //         var bX = ev.clientX;
+    //         var bY = ev.clientY;
+    //         var divX = this.offsetLeft;
+    //         var divY = this.offsetTop;
+    //         var a = this;
+
+    //         document.onmousemove = function(ev){
+    //             ev = ev || window.event;
+    //             var move_x = ev.clientX - bX + divX;
+    //             var move_y = ev.clientY - bY + divY;
+
+    //             a.style.left =move_x + 'px';
+    //             a.style.top = move_y + 'px';
+    //         };
+    //         document.onmouseup = function(){
+    //             this.onmousemove = null;
+    //         };
+    //     };
+    // }
+    $.ajax({
+        method:"post",
+        url: `https://zdu.igdlrj.com/web/index.php?c=site&a=entry&m=ewei_shopv2&do=web&r=yoxdiy.template_edit&id=${GetUrlParam("id")}&isajax=1`,
+        dataType: "json",
+        success: function (response) {
+            //console.log(response.data.page_value)
+            let list=JSON.parse(response.data.page_value);
+            //console.log(list.background.url)
+            $("#title").val(response.data.name);
+            var canvas = document.getElementById('m_canvas');
+            var ctx = canvas.getContext('2d');
+            var image = new Image();
+                image.src = list.background.url;
+                image.onload=function(){
+                ctx.drawImage(image,list.background.x,list.background.y,326,500);   //坐标
+                }
+            //console.log(list.textgroupList) 
+            for(var i=0;i<list.textgroupList.length;i++){
+                console.log(i)
+                let text_input=$(`<div class="text_input" data_number=${i} placeholder=""></div>`).addClass(`text_input${i}`)
+                //console.log(text_input)
+                text_input.html(list.textgroupList[i].text)
+                text_input.size=text_input.html().length;
+                $(".father").append(text_input)
+                text_input.css("left",list.textgroupList[i].x1)
+                text_input.css("top",list.textgroupList[i].y1)
+                text_input.css("font-size",list.textgroupList[i].fontsize)
+                text_input.css("color",list.textgroupList[i].color)  
+                text_input.css("font-weight",list.textgroupList[i].fontweight)
+                text_input.css("font-style",list.textgroupList[i].fontstyle)
+                var text_inputn=document.getElementsByClassName(`text_input${i}`)[0];
+                //console.log(list.textgroupList[i].x1)
+                // $(`.text_input${i}`).click(function(e){
+                //console.log(text_input.attr("data-number"))
+                //var data_number=text_input.attr("data-number");
+                //console.log(data_number)
+                console.log(text_inputn)
+                // var data_number=$(text_inputn).attr("data_number")
+                // console.log(data_number)
+                var oTextItem=document.createElement("div");
+                    // if($("div").hasClass(`input-item${data_number}`)){
+                    //     return;
+                    // }
+                    oTextItem.className=`text-item input-item${i}`;
+                    $(oTextItem).append(`<div class=\"form-group"\><label class=\"col-lg control-label"\>X坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"X${i}"\ class=\"form-control inputX"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>Y坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"Y${i}"\ class=\"form-control inputY"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>内容</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"val${i}"\ class=\"form-control text_val"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体大小</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"size${i}"\ class=\"form-control text_size"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>颜色</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"color${i}"\ class=\"form-control text_color"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体粗细</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"weight${i}"\ class=\"form-control text_weight"\ value="" /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>字体样式</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"style${i}"\ class=\"form-control text_style"\ value="" /></div></div>`)
+                    $(".mainBox").append(oTextItem);
+                        drag(text_inputn,oFather);
+                    // if(`${data_number}`==$(`text-item input-item${data_number}`).index()){
+                      //$(`.input-item${data_number} .inputX`).val($(text_input).css("left"));
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                     //$(`.input-item${data_number} .inputY`).val($(text_input).css("top"));
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                     //$(`.input-item${data_number} .text_val`).val($(text_input).val());
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                      //$(`.input-item${data_number} .text_size`).val(list.textgroupList[i].fontsize);
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                     //$(`.input-item${data_number} .text_color`).val(list.textgroupList[i].color);
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                    //  $(`.input-item${data_number} .text_weight`).val(list.textgroupList[i].fontweight);
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                    //  $(`.input-item${data_number} .text_style`).val(list.textgroupList[i].fontstyle);
+                    // }
+                    // if(`${i}`==`${data_number}`){
+
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                    // }
+                    // if(`${i}`==`${data_number}`){
+                //修改颜色
+                    // $(".mainBox").on('keyup',`.input-item${data_number} .text_color`,function(e){               
+                    // var oText=$(`.input-item${data_number} .text_color`).val();
+                    // console.log(oText);
+                    // $(`.text_input${data_number}`).css("color",`${oText}`)
+                // }
+                //    if(`${i}`==`${data_number}`){
+
+                //    }
+                //    if(`${i}`==`${data_number}`){
+                //    }
+                //    if(`${i}`==`${data_number}`){
+                //    }
+                    // $(`.input-item${n} .text_val`).keyup(function (e) { 
+                    // var input0=$(`.input-item${n} .text_val`).val();
+                    // console.log(input0)
+                    // $(`text_input${n}`).val(input0)
+                    // }); 
+                    // $(".input-item0 .text_val").keyup(function (e) { 
+                    // var input0=$(".input-item0 .text_val").val();
+                    // console.log(input0)
+                    // $(".text_input0").val(input0)
+                    // });          
+            // })  
+            }
+            // $.each(list,function(index,obj){
+            //     let text_input=$(`<input type="text" name="" class="text_input text_input0" val="" placeholder="" />`)
+            //     text_input.val(`${obj[1].textgroup.text}`)
+            //     $(".father").append(text_input)
+            //     var text_input0=document.getElementsByClassName("text_input0")[0];
+            //     text_input.css("left",`${obj[1].textgroup.x1}`)
+            //     text_input.css("top",`${obj[1].textgroup.y1}`)
+            //     drag(text_input0,oFather)
+            //     text_input.click(function(){
+            //         var oTextItem=document.createElement("div");
+            //         if($("div").hasClass("input-item0")){
+            //             return;
+            //         }
+            //         oTextItem.className=`text-item input-item0`;
+            //         $(oTextItem).append('<div class=\"form-group"\><label class=\"col-lg control-label"\>X坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"X"\ class=\"form-control inputX"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>Y坐标</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"Y"\ class=\"form-control inputY"\ value=\""\ placeholder=\""\ /></div></div><div class=\"form-group"\><label class=\"col-lg control-label"\>内容</label><div class=\"col-sm-9 col-xs-12"\><input type=\"text"\ name=\"val"\ class=\"form-control text_val"\ value=\""\ /></div></div>')
+            //         $(".mainBox").append(oTextItem);
+            //         $(`.input-item0 .inputX`).val(`${obj[1].textgroup.x1}`);
+            //         $(`.input-item0 .inputY`).val(`${obj[1].textgroup.x1}`);
+            //         $(`.input-item0 .text_val`).val(`${obj[1].textgroup.text}`)
+            //         $(".input-item0 .text_val").keyup(function (e) { 
+            //         var input0=$(".input-item0 .text_val").val();
+            //         console.log(input0)
+            //         $(".text_input0").val(input0)
+            //         });          
+            //     })
+            //     var canvas = document.getElementById('m_canvas');
+            //     var ctx = canvas.getContext('2d');
+            //     var image = new Image();
+            //     image.src = obj[0].background.url;
+            //     image.onload=function(){
+            //     ctx.drawImage(image,obj[0].background.x,obj[0].background.y,326,500);   //坐标
+            //     }
+            //     $(".text_input0").mousemove(function(){
+            //             $(".input-item0 .inputX").val($(".text_input0").css("left"));
+            //             $(".input-item0 .inputY").val($(".text_input0").css("top"));
+            //     }) 
+            // })
+        },
+        complete:function(){
+
+        }
+    });
+
+    
+</script>
+{template '_footer'}

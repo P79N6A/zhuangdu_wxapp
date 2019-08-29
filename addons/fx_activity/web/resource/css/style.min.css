@@ -1,0 +1,4 @@
+/*jquery-ui*/
+.ui-sortable .ui-sortable-helper{cursor:move}
+.ui-sortable-placeholder{border:1px dashed #cecece!important;visibility:visible!important;background:#f4f9fe}
+.spec_item_item.ui-sortable-placeholder,.form_item_item.ui-sortable-placeholder{margin: 8px 0;}

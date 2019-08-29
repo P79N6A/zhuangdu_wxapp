@@ -1,0 +1,72 @@
+<import src="/utils/wxParse/wxParse.wxml" />
+<import src="../../../../pages/tabBar_template/tabBar.wxml" />
+<view class='container'>
+  <!-- <view class='play'>
+      <view class='avatar'>
+        <image class='baseimg' src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1790437595,1489998125&fm=26&gp=0.jpg"></image>
+      </view>
+      <view class='title'>
+        <text data-title='{{board_info.title}}' data-id="{{board_info.id}}">{{board_info.title}}</text>
+        <view class='subheading'>
+          <text>话题 4</text>
+          <text>关注 1</text>
+        </view>
+      </view>
+      <view bindtap='attent' class='attention' wx:if="{{attented==false}}">
+        <text>关注</text>
+      </view>
+      <view bindtap='noattent' class='attentioned' wx:if="{{attented}}">
+        <image src='./images/right.png'></image>
+        <text>已关注</text>
+      </view>
+    </view> -->
+  <!-- <view> -->
+  <view style='margin-top:-30px;'>
+    <block wx:for="{{zhongcaoshe}}" wx:for-index="idx">
+      <view class='playItem' data-id='{{item.id}}' data-content='{{item.content}}'>
+        <view bindtap='onDetail' data-id='{{item.id}}'>
+          <view class='user-avatar' catchtap='touser' wx:if="{{item.avatar}}" data-uid='{{item.uid}}' data-id='{{item.id}}'>
+            <image data-uid='{{item.uid}}' data-id='{{item.id}}' src="{{item.avatar}}"></image>
+          </view>
+          <view class='username' wx:if="{{item.nickname}}">
+            <text>{{item.nickname}}</text>
+          </view>
+          <view class='time' wx:if="{{item.createtime}}">
+            <text>{{item.createtime}}</text>
+          </view>
+          <view class='playItem-title' wx:if="{{item.title}}">
+            <text>{{item.title}}</text>
+          </view>
+          <!-- <view class='content'>
+                <view class="wxParse" data-id='{{item.id}}'>
+                    <template is="wxParse" data="{{wxParseData:content}}"/>
+                </view>
+              </view> -->
+          <view style='padding: 20rpx; height:78px; background-color: #fff; margin-left: 80rpx;' wx:if="{{item.images!=[]}}">
+            <block wx:for="{{item.images}}" wx:for-item="types">
+              <view class='img'>
+                <image catchtap='previewImg' data-imglist='{{item.images}}' data-id='{{item.id}}' data-types='{{types}}' data-index="{{index}}" class='baseimg' style='width: 150rpx; height: 150rpx; margin: 10rpx;' src="{{types}}"></image>
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class='down-icons'>
+          <view class='commit maright' bindtap='tocommentlist' data-id='{{item.id}}'>
+            <image src="../images/commit.png"></image>
+            <text>({{item.postcount}})</text>
+          </view>
+          <view class='praise maright' bindtap='onCollectionTap' data-id='{{item.id}}'>
+            <image style='width: 36rpx; height: 36rpx;' src="../images/praise.png"></image>
+            <text>({{item.goodcount}})</text>
+          </view>
+          <text class='appeal'>投诉</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- 发布按钮 -->
+  <view class='primaryBtn' bindtap='toprimary'>
+    <image src='../images/commentwhite.png'></image>
+  </view>
+</view>
+<template is="tabBar_template" data="{{currentTab,items,...item}}" />

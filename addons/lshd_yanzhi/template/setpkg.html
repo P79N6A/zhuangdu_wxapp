@@ -1,0 +1,103 @@
+{template 'common/header'}
+<link href="{THEME_URL}css/jquery.minicolors.css" rel="stylesheet">
+<script src="{THEME_URL}js/jquery.minicolors.js"></script>
+<div class="main">
+    <div class="col-lg-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4>参数设置</h4></div>
+            <div class="panel-body">
+                <form action="" method="post" class="form-horizontal form">
+                    <input type="hidden" name="ids" value="{$seting['id']}" />
+                    <input type="hidden" name="op" value="seting" />
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">小程序广告id</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="adid" value="{$seting['adid']}" />
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">小程序版权</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="banquan" value="{$seting['banquan']}" />
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">小程序名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" value="{$seting['name']}" />
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">小程序LOGO</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('image', $seting['image']);}
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">小程序二维码</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('wecatimg', $seting['wecatimg']);}
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序颜色</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" id="color" name="color" class="form-control demo" data-control="hue" value="{$seting['color']}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">首页背景</label>
+                        <div class="col-sm-8">
+                            {php echo tpl_form_field_image('backimg', $seting['backimg']);}
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label">支付宝赏金吱口令</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="alipay" value="{$seting['alipay']}" />
+                            <div class="help-block"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-2 col-md-2  control-label"></label>
+                        <div class="col-sm-8">
+                            <input name="submit" type="submit" value="提交" class="btn btn-primary">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                $('.demo').each(function() {
+                    $(this).minicolors({
+                        control: $(this).attr('data-control') || 'hue',
+                        defaultValue: $(this).attr('data-defaultValue') || '',
+                        inline: $(this).attr('data-inline') === 'true',
+                        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                        opacity: $(this).attr('data-opacity'),
+                        position: $(this).attr('data-position') || 'bottom left',
+                        change: function(hex, opacity) {
+                            if (!hex) return;
+                            if (opacity) hex += ', ' + opacity;
+                            try {
+                                console.log(hex);
+                            } catch (e) {}
+                        },
+                        theme: 'bootstrap'
+                    });
+
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'common/footer'}

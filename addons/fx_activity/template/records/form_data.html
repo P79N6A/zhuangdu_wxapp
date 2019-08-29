@@ -1,0 +1,84 @@
+<?php 
+$activity = model_activity::getSingleActivity($row['activityid'], '*');
+$activityForm = model_activity::getNumActivityForm($row['activityid']);
+$formdata = model_records::getNumFormData($row['id']);
+$formdata_common = Util::getSingelData('*', 'fx_form_data_common', array('rid'=>$row['id']));
+$formdata_common = empty($formdata_common)?getMember($row['openid']):$formdata_common;
+$sysform  = unserialize($activity['form']);
+$sysform['realname']['show'] = $sysform['realname']['show']=='' || $sysform['realname']['show'] ? 1 :0;
+$sysform['mobile']['show'] = $sysform['mobile']['show']=='' || $sysform['mobile']['show'] ? 1 : 0;
+?>
+<div class="modal fade bs-example-modal-lg{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        	<form class="form-inline bv-form" method="post" action="" id="form-credit" novalidate="novalidate">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-cron table-hover table-bordered">
+                    <tbody>
+                    {if !empty($sysform)}
+                        {loop $sysform $k $v}
+                            {if $v['show']=='' || $v['show']}
+                            	<tr><th width="150">{$v['title']}</th><td>
+                                {if $k=='gender'}
+                                {php echo $formdata_common['gender']==0 ? '保密' :( $formdata_common['gender']==1?'男':'女')}
+                                {elseif $k=='birthyear'}
+                                {php echo $formdata_common['birthyear'].'年'.$formdata_common['birthmonth'].'月'.$formdata_common['birthday'].'日'}
+                                {elseif $k=='resideprovince'}
+                                {$formdata_common['resideprovince']}{$formdata_common['residecity']}{$formdata_common['residedist']}
+                                {else}
+                                {$formdata_common[$k]}
+                                {/if}
+                                </td></tr>
+                            {/if}
+                        {/loop}
+                    {/if}
+                    {loop $activityForm[0] $form}
+                    {if $form['fieldstype']!=''}
+                    	{if $form['fieldstype']=='gender'}
+                            <tr><th width="150">{$form['title']}</th><td>{php echo $formdata_common['gender']==0 ? '保密' :( $formdata_common['gender']==1?'男':'女')}</td></tr>
+                        {elseif $form['fieldstype']=='age'}
+                            <tr><th width="150">{$form['title']}</th><td>{$formdata_common['age']} 岁</td></tr>
+                        {elseif $form['fieldstype']=='birthyear'}
+                             <tr><th width="150">{$form['title']}</th><td>{php echo $formdata_common['birthyear'].'年'.$formdata_common['birthmonth'].'月'.$formdata_common['birthday'].'日'}</td></tr>
+                        {elseif $form['fieldstype']=='resideprovince'}
+                            <tr><th width="150">{$form['title']}</th><td>{$formdata_common['resideprovince']}{$formdata_common['residecity']}{$formdata_common['residedist']}</td></tr>     
+                        {else}
+                            <tr><th width="150">{$form['title']}</th><td>{$formdata_common[$form['fieldstype']]}</td></tr>
+                        {/if}
+                    {/if}
+                    {/loop}
+                    {loop $formdata $k $data}
+                    {php $form = model_activity::getSingleActivityForm($data['formid']);}
+                    {if !empty($form)}
+                    <tr>
+                        <th width="150">{$form['title']}</th>
+                        <td>
+                        {if $form['displaytype']==5 && $data['data']!=''}
+                        <a href="{php echo tomedia($data['data']);}" target="_blank"><img src="{php echo tomedia($data['data']);}" height="100"></a>
+                        {elseif $form['displaytype']==6 && $data['data']!=''}
+                            {php $pics = explode(',',$data['data']);}
+                            {loop $pics $v}
+                            <a href="{php echo tomedia($v);}" target="_blank"><img src="{php echo tomedia($v);}" height="100" style="margin:0 5px 5px 0;"></a>
+                            {/loop}
+                        {elseif $form['displaytype']==7}
+                        {php echo str_replace(',','-',$data['data'])}
+                        {else}
+                        {php echo str_replace(',',' ',$data['data'])}
+                        {/if}</td>
+                    </tr>
+                    {/if}
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer" style="padding: 5px 15px;">				
+				<a class="btn btn-danger js-cancel" aria-hidden="true" data-dismiss="modal">关闭</a>					
+			</div>
+            </form>
+        </div>
+    </div>
+</div>

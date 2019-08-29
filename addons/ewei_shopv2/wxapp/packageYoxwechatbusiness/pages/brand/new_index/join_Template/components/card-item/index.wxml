@@ -1,0 +1,25 @@
+<view class="mp-swipe-card-item">
+  <view class='main-title'>
+    <view style="width:17px; margin-right:10px; height:17px; border-radius:17px; background:#fff;"></view>
+    <text>精选加盟</text>
+  </view>
+  <image class='big-image' src='{{itemData.imgUrl}}' style='background:#fd2c6b;'></image>
+  <view class='content'>
+    <view class='image'>
+      <image src='{{itemData.imgUrl}}'></image>
+    </view>
+    <view class='content_right'>
+      <view class='title'>
+        <text>{{itemData.name}}</text>
+      </view>
+      <view class='explain'>
+        <!-- <text>{{itemData.item.explain}}</text> -->
+        <text>天然 时尚 健康</text>
+      </view>
+    </view>
+  </view>
+</view>  
+  <!-- <view class="mp-swipe-card-item">
+  <view bind:tap="handleTap" class="id-text">{{itemData.id}}</view>
+  <view class="name-text">{{itemData.name}}</view>
+</view> -->

@@ -1,0 +1,37 @@
+<view class='container'>
+  <view class='services_tips' wx:if="{{timerflag}}">
+    <view class='now_time'>
+      ——{{date}}——
+    </view>
+    <view class='services_tips1'>
+      <view class='services_tips1_title'>
+        590大礼包你不来一套？
+      </view>
+      <view class='services_tips1_to'>
+        点我了解>
+      </view>
+    </view>
+    <view class='services_tips1' style='width:100px;'>
+      <view class='services_tips1_title'>
+        会员问题
+      </view>
+      <view class='services_tips1_to'>
+        什么是会员
+      </view>
+      <view class='services_tips1_to'>
+        如何成为会员
+      </view>
+      <view class='services_tips1_to'>
+        会员的福利
+      </view>
+    </view>
+  </view>
+  <view class='commitBox'>
+    <view class='commit'>
+      <input></input>
+    </view>
+    <view class='send'>
+      发送
+    </view>
+  </view>
+</view>

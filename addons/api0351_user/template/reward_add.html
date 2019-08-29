@@ -1,0 +1,64 @@
+{template 'common/header'}
+<style type="text/css">
+.we7-form .control-label, form .control-label {
+    text-align: right;
+}
+.col-lg-offset-1 {
+    margin-left: 0; text-align:right
+}
+.date {
+    padding: 0px 12px;
+}
+</style>
+<div class="clearfix">
+	<form action="{php echo $this->createWebUrl('Reward',array('action'=>'add'));}" method="post" class="form-horizontal ajaxfrom we7-form" role="form" id="form-user">
+
+                <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">礼品图片</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				{php echo tpl_form_field_image('photo',$ed_ac['photo']);}
+			</div>
+		</div>
+        
+        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">名称</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="title" name="title" class="form-control" value="{$ed_ac['title']}" type="text">
+			</div>
+		</div>
+        
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">价格</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="price" name="price" class="form-control" value="{$ed_ac['price']}" type="text">
+			</div>
+		</div>
+        
+        
+        		<div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">热度</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<input id="hotnum" name="hotnum" class="form-control" value="{$ed_ac['hotnum']}" type="text">
+			</div>
+		</div>
+        
+        
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">相关介绍</label>
+			<div class="col-sm-10 col-lg-9 col-xs-12">
+				<textarea id="content" name="content" style="height:80px;" class="form-control">{$ed_ac['content']}</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-1 col-xs-12 col-sm-10 col-md-10 col-lg-11">
+				<input class="btn btn-primary span3" name="submit" value="提交信息" type="submit">
+				<input name="token" value="{$_W['token']}" type="hidden">
+			</div>
+		</div>
+        
+        
+	</form>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,145 @@
+{template '_header'}
+
+<div class="page-header">
+    <span class="text-primary">入口设置</span>
+</div>
+<div class="page-content">
+<form class="form-horizontal form-validate" role="form" method="post" novalidate="novalidate">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">直接链接</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">等级列表</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.level_list',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.level_list',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.level_list',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">等级套餐</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('goods.package',array(),1)}" >
+                    {php echo mobileUrl('goods.package',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('goods.package',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">招募</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.agent.index',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.agent.index',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.agent.index',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+	<div class="form-group">
+        <label class="col-sm-2 control-label">我邀请的人</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.user.my_invite_user',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.user.my_invite_user',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.user.my_invite_user',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">我的下等级</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.user.my_down_level_user',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.user.my_down_level_user',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.user.my_down_level_user',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">我的佣金/利润</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.commission',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.commission',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.commission',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">我的库存</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.user_stock',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.user_stock',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.user_stock',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">成分社-查产品成分</label>
+        <div class="col-sm-9 col-xs-12">
+            <p class='form-control-static'>
+                <a href='javascript:;' class="js-clip" title='点击复制链接' data-url="{php echo mobileUrl('yoxwechatbusiness.ingredients.product',array(),1)}" >
+                    {php echo mobileUrl('yoxwechatbusiness.ingredients.product',array(),1)}
+                </a>
+                <span style="cursor: pointer;" data-toggle="popover" data-trigger="hover" data-html="true"
+                      data-content="<img src='{php echo m('qrcode')->createQrcode(mobileUrl('yoxwechatbusiness.ingredients.product',array(),1))}'
+                      width='130' alt='链接二维码'>" data-placement="auto right">
+                    <i class="glyphicon glyphicon-qrcode"></i>
+                </span>
+            </p>
+        </div>
+    </div>
+</form>
+</div>
+{template '_footer'}

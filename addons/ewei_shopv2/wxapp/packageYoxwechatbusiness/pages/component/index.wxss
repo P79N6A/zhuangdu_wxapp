@@ -1,0 +1,240 @@
+/* pages/myOrder/myOrder.wxss */
+.container{
+  background-color: #fff;
+}
+.nearCard-fl {
+  width: 150px;
+  float: left;
+  margin-top:10px;
+} 
+
+.nearCard-fl .image {
+  width: 200rpx;
+  height: 176rpx;
+  padding: 0 15%;
+}
+
+.nearCard-fl .image image{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; 
+}
+.nearCard-fr {
+  font-size: 27rpx;
+  line-height: 50rpx;
+  width: 320px;
+  margin-left: 21%;
+  margin-top: 34rpx;
+  color: #999;
+  padding-bottom:6px;
+  padding-top:25rpx;
+}
+
+.nearCard-fr text {
+  font-size: 22rpx;
+}
+
+.component-title{
+  font-size: 32rpx !important;
+  font-weight: bold;
+}
+
+.component-time{
+  font-size: 28rpx !important;
+  width:210px;
+  display:block;
+}
+
+.component-userful{
+  font-size: 26rpx !important;
+  color: #f0497b;
+}
+
+.down {
+  background-color: #efefef;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20rpx;
+}
+
+.down view {
+  font-size: 30rpx;
+  color: #999;
+  line-height: 50rpx;
+}
+
+.feedBack {
+  text-align: center;
+  background-color: #eecfbd;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10rpx;
+  padding: 5rpx 0;
+  margin: 10rpx 0 0 0;
+}
+
+.searchBox{
+  background:#fff;
+  width:100%;
+  height:31px;
+  padding-top:16rpx;
+  position: fixed;
+  z-index:99;
+}
+.search{
+    width: 230px;
+    height: 24px;
+    border: 1px solid #989898;
+    border-radius: 20rpx;  
+    box-sizing: border-box;
+    margin-left:156rpx;
+    /* margin-top:16rpx; */
+    position: relative;
+}
+.searchText{
+  position:absolute;
+  left:239px;
+  top:0px;
+  width:44px;
+  color: #fd2c6b;
+  font-size: 34rpx;
+}
+.search image{
+    display: block;
+    width:14px;
+    height:14px;
+    margin-left:125rpx;
+    margin-top:12rpx;
+}
+.search input{
+    margin-left: 60rpx;  
+    /* height: 60rpx;   */
+    border-radius: 5px;
+    position: absolute;
+    left: 106rpx;
+    top: 0;
+    color: #999;
+    font-size: 28rpx;
+    line-height: 60rpx;
+}
+.place-holder {
+    font-size: 28rpx;
+}
+
+
+
+.container {
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/*图片大小自适应*/
+
+image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  display: block;
+}
+
+.card {
+  width: 100%;
+  height:118px;
+  background-color: #fff;
+  /* margin: 20rpx auto 0; */
+  border-radius: 20rpx;
+  margin-top: 10px;
+}
+
+/*清除浮动样式*/
+
+page{
+  background: #fff;
+}
+.clearfix {
+  zoom: 1;
+  clear: both;
+}
+
+.clearfix:after {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  content: " ";
+  visibility: hidden;
+  clear: both;
+}
+
+.ml30 {
+  margin-left: 30rpx;
+}
+
+.b-shadow {
+  box-shadow: 10rpx 10rpx 20rpx #999;
+}
+
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.select_box {
+  width: 60px;
+  height: 0;
+  line-height: 27px;
+  /* text-align: center; */
+  margin-left: 22rpx;
+  font-size: 27rpx;
+  color: rgb(102, 102, 102);
+  text-align: center;
+}
+
+.select {
+  /* border: 1px solid #a4a4a4; */
+  align-items: center;
+  height: 45rpx;
+}
+
+.select_text {
+  
+}
+
+.select_img {
+  width: 48rpx;
+  height: 48rpx;
+  transition: transform 0.3s;
+  position: absolute;
+  left: 100rpx;
+  top: 18rpx;
+}
+
+.select_img_rotate {
+  transform: rotate(180deg);
+}
+
+.option_box {
+  position: absolute;
+  top:65rpx;
+  width:60px;
+  border: 1px solid #a4a4a4;
+  box-sizing: border-box;
+  height: 0;
+  overflow-y: auto;
+  border-top: 0;
+  background: #fff;
+  transition: height 0.3s;
+}
+
+.option {
+  display: block;
+  height: 40rpx;
+}
+.compare{
+  /* width: 20px; */
+  margin-left:218px;
+  margin-top:-34px;
+}
